@@ -1,4 +1,4 @@
-package DeviceIO;
+package deviceio;
 
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;

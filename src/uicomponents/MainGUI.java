@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-import DeviceIO.*;
+import deviceio.*;
 
 public class MainGUI {
     private final JFrame frame;

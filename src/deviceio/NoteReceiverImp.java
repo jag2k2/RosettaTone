@@ -1,4 +1,4 @@
-package DeviceIO;
+package deviceio;
 
 import music.Note;
 

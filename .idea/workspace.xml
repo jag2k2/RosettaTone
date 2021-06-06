@@ -2,25 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48599964-9b78-42df-9119-0f1d75fe50ba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/description.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RosettaTone.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DeviceIO/Instrument.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DeviceIO/InstrumentBrowser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DeviceIO/InstrumentBrowserImp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DeviceIO/InstrumentImp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DeviceIO/NoteReceiverImp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/application/RosettaTone.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/music/Note.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/music/NoteRendererImp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/uicomponents/MainGUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/music/NoteRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/deviceio/NoteReceiverImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/deviceio/NoteReceiverImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/music/Note.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/music/Note.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/music/NoteRendererImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/music/NoteRendererImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uicomponents/MainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uicomponents/MainGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -99,11 +86,27 @@
       <option name="presentableId" value="Default" />
       <updated>1622846348916</updated>
     </task>
+    <task id="LOCAL-00001" summary="Initial Commit">
+      <created>1623004535220</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1623004535220</updated>
+    </task>
+    <task id="LOCAL-00002" summary="renamed deviceio package">
+      <created>1623004879244</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1623004879244</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial Commit" />
+    <MESSAGE value="renamed deviceio package" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed deviceio package" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2360" y="94" key="#Project_Structure" timestamp="1622938711051">
@@ -152,6 +155,10 @@
     </state>
     <state width="1877" height="269" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1622950588420" />
     <state width="1877" height="269" key="GridCell.Tab.0.right/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623004331757" />
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2" timestamp="1623004880985">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623004880985" />
     <state x="2587" y="76" width="585" height="888" key="find.popup" timestamp="1622933246416">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

@@ -6,6 +6,8 @@ import java.awt.*;
 import java.util.List;
 
 import deviceio.*;
+import music.NoteRenderer;
+import music.NoteRendererImp;
 
 public class MainGUI {
     private final JFrame frame;
@@ -23,7 +25,8 @@ public class MainGUI {
         InstrumentBrowser instrumentBrowser = new InstrumentBrowserImp();
         List<MidiDevice> devices = instrumentBrowser.getTransmitterDevices();
         Instrument piano = new InstrumentImp();
-        piano.connect(devices.get(0).getDeviceInfo(), new NoteReceiverImp(textArea));
+        NoteRenderer noteRenderer = new NoteRendererImp(new Canvas(), textArea);
+        piano.connect(devices.get(0).getDeviceInfo(), new NoteReceiverImp(noteRenderer));
 
         frame.setTitle("Rosetta Tone");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

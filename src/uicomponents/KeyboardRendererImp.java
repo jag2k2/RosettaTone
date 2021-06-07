@@ -49,31 +49,39 @@ public class KeyboardRendererImp extends Component implements NoteChangeObserver
             File trebleClefFile = new File("./Images/Treble-clef.jpg");
             File bassClefFile = new File("./Images/Bass-clef.jpg");
             File quarterNoteFile = new File("./Images/Quarter-Note.jpg");
+            File invertedQuarterNoteFile = new File("./Images/Quarter-Note-Invt.jpg");
 
             ResizableImage trebleClefImage = new ResizableImage(ImageIO.read(trebleClefFile));
             ResizableImage bassClefImage = new ResizableImage(ImageIO.read(bassClefFile));
             ResizableImage quarterNoteImage = new ResizableImage(ImageIO.read(quarterNoteFile));
+            ResizableImage invertedQuarterNoteImage = new ResizableImage((ImageIO.read(invertedQuarterNoteFile)));
             trebleClefImage.resize(0.5);
             bassClefImage.resize(0.4);
             quarterNoteImage.resize(0.21);
+            invertedQuarterNoteImage.resize(0.21);
 
             graphics2D.setColor(Color.WHITE);
             graphics2D.fillRect(0,0,750,750);
 
             for (Note note : keyboard.getPressedNotes()){
                 for (NoteAccidental accidental : note.getActiveAccidentals()){
-                    int lineNumber = numberOfLines - NoteRenderer.calcLineNumber(note) - 9;
-                    int noteY = lineNumber * lineSpacing;
-                    System.out.println(noteY);
-                    graphics2D.drawImage(quarterNoteImage.getBufferedImage(), null, leftMargin + 100, noteY-2);
+                    int lineNumber = numberOfLines - NoteRenderer.calcLineNumber(note);
+                    System.out.println(lineNumber);
+                    if ((14 <= lineNumber && lineNumber <= 20) || (31 <= lineNumber && lineNumber <=40)){
+                        int noteY = (lineNumber-9) * lineSpacing;
+                        graphics2D.drawImage(quarterNoteImage.getBufferedImage(), null, leftMargin + 200, noteY-2);
+                    } else {
+                        int noteY = (lineNumber-3) * lineSpacing;
+                        graphics2D.drawImage(invertedQuarterNoteImage.getBufferedImage(), null, leftMargin + 200, noteY);
+                    }
                 }
             }
 
-            graphics2D.drawImage(trebleClefImage.getBufferedImage(), null, leftMargin, trebleYPosition);
-            graphics2D.drawImage(bassClefImage.getBufferedImage(), null, leftMargin, bassYPosition);
-
             graphics2D.setColor(Color.BLACK);
             graphics2D.setStroke(new BasicStroke(lineThickness));
+
+            graphics2D.drawImage(trebleClefImage.getBufferedImage(), null, leftMargin, trebleYPosition);
+            graphics2D.drawImage(bassClefImage.getBufferedImage(), null, leftMargin, bassYPosition);
 
             Integer[] visibleLines = {8,10,12,14,16,24,26,28,30,32};
             for (int i = 0; i < numberOfLines; i++){

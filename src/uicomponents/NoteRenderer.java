@@ -25,6 +25,9 @@ public class NoteRenderer {
         if (octave == 6){
             return 36 + name.getPosition() - 2;
         }
+        if (octave == 7){
+            return 49 + name.getPosition() - 6;
+        }
         return 0;
     }
 }

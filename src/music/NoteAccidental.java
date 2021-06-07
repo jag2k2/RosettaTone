@@ -1,11 +1,11 @@
 package music;
 
 public enum NoteAccidental {
-    Natural, SHARP, FLAT;
+    NATURAL, SHARP, FLAT;
 
     @Override
     public String toString(){
-        if (this == Natural){
+        if (this == NATURAL){
             return "";
         }
         else if(this == SHARP){

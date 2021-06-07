@@ -16,6 +16,7 @@ public class InstrumentBrowserImp implements InstrumentBrowser {
             try {
                 MidiDevice device = MidiSystem.getMidiDevice(info);
                 if (device.getMaxTransmitters() != 0) {
+                    System.out.println(device.getDeviceInfo().getName());
                     transmitterDevices.add(device);
                 }
             } catch (MidiUnavailableException e) {

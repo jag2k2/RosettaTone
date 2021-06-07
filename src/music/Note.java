@@ -2,9 +2,7 @@ package music;
 
 public class Note {
 
-    private static final String[] NOTE_NAMES = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
-
-    private final String name;
+    private final NoteName name;
     private final int key;
     private final int octave;
     private final int velocity;
@@ -13,7 +11,8 @@ public class Note {
         this.key = key;
         this.octave = (key / 12)-1;
         int note = key % 12;
-        this.name = NOTE_NAMES[note];
+        NoteName[] noteNames = NoteName.values();
+        this.name = noteNames[note];
         this.velocity = velocity;
     }
 
@@ -24,6 +23,6 @@ public class Note {
 
     @Override
     public String toString() {
-        return "Note -> " + this.name + this.octave + " key=" + this.key + " velocity =" + this.velocity;
+        return "Note -> " + this.name + this.octave + " key=" + this.key + " velocity=" + this.velocity;
     }
 }

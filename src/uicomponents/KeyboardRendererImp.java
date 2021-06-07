@@ -1,7 +1,8 @@
-package music;
+package uicomponents;
 
 import deviceio.NoteChangeObserver;
 import imageprocessing.ResizableImage;
+import music.Keyboard;
 
 import java.awt.*;
 import javax.swing.*;

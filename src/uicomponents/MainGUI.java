@@ -1,7 +1,6 @@
 package uicomponents;
 
 import javax.sound.midi.MidiDevice;
-import javax.sound.midi.Receiver;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;

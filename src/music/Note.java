@@ -1,5 +1,8 @@
 package music;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Note {
 
     private final NoteName noteName;
@@ -11,6 +14,28 @@ public class Note {
     public Note(NoteName noteName, int octave) {
         this.noteName = noteName;
         this.octave = octave;
+    }
+
+    public NoteName getName(){
+        return noteName;
+    }
+
+    public int getOctave() {
+        return octave;
+    }
+
+    public List<NoteAccidental> getActiveAccidentals() {
+        List<NoteAccidental> accidentals = new ArrayList<>();
+        if (natural){
+            accidentals.add(NoteAccidental.NATURAL);
+        }
+        if (sharp){
+            accidentals.add(NoteAccidental.SHARP);
+        }
+        if (flat){
+            accidentals.add(NoteAccidental.FLAT);
+        }
+        return accidentals;
     }
 
     public void setAccidental(NoteAccidental accidental, boolean activated){

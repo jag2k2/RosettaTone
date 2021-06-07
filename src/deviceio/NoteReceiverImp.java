@@ -1,14 +1,18 @@
 package deviceio;
 
-import music.Note;
-import music.NoteRenderer;
+import music.Keyboard;
+import music.Key;
 import javax.sound.midi.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class NoteReceiverImp implements Receiver {
-    NoteRenderer noteRenderer;
+public class NoteReceiverImp implements NoteReceiver{
+    Keyboard keyboard;
+    List<NoteChangeObserver> noteChangeObservers;
 
-    public NoteReceiverImp(NoteRenderer noteRenderer){
-        this.noteRenderer = noteRenderer;
+    public NoteReceiverImp(Keyboard keyboard){
+        this.keyboard = keyboard;
+        this.noteChangeObservers = new ArrayList<>();
     }
 
     @Override
@@ -16,24 +20,37 @@ public class NoteReceiverImp implements Receiver {
         if(message instanceof ShortMessage) {
             ShortMessage sm = (ShortMessage) message;
             if (sm.getCommand() == ShortMessage.NOTE_ON) {
-                int key = sm.getData1();
+                Key key = new Key(sm.getData1());
                 int velocity = sm.getData2();
                 if (velocity > 0){
-                    System.out.println("NoteOn: " + key + " " + velocity);
+                    keyboard.pressKey(key);
                 }
                 else {
-                    System.out.println("NoteOff: " + key + " " + velocity);
+                    keyboard.releaseKey(key);
                 }
-                //noteRenderer.drawNote(note);
+                notifyNoteChange();
             }
             else if (sm.getCommand() == ShortMessage.NOTE_OFF) {
-                int key = sm.getData1();
+                Key key = new Key(sm.getData1());
                 int velocity = sm.getData2();
                 System.out.println("NoteOff: " + key + " " + velocity);
-                //noteRenderer.drawNote(note);
+                keyboard.releaseKey(key);
+                notifyNoteChange();
             }
         }
     }
     @Override
     public void close() {}
+
+    @Override
+    public void addNoteChangeObserver(NoteChangeObserver noteChangeObserver) {
+        noteChangeObservers.add(noteChangeObserver);
+    }
+
+    @Override
+    public void notifyNoteChange() {
+        for (NoteChangeObserver noteChangeObserver : noteChangeObservers) {
+            noteChangeObserver.update();
+        }
+    }
 }

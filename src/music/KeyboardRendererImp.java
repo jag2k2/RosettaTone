@@ -1,5 +1,6 @@
 package music;
 
+import deviceio.NoteChangeObserver;
 import imageprocessing.ResizableImage;
 
 import java.awt.*;
@@ -9,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.*;
 
-public class NoteRendererImp extends Component implements NoteRenderer{
+public class KeyboardRendererImp extends Component implements NoteChangeObserver {
+    Keyboard keyboard;
     JTextArea textArea;
     int preferredWidth = 750;
     int preferredHeight = 750;
@@ -20,15 +22,17 @@ public class NoteRendererImp extends Component implements NoteRenderer{
     int trebleYPosition = lineSpacing * 3 - 12;
     int bassYPosition = lineSpacing * 12;
     int leftMargin = 100;
-    List<Note> staffNotes = new ArrayList<>();
 
 
-    public NoteRendererImp(JTextArea texArea){
+    public KeyboardRendererImp(Keyboard keyboard, JTextArea texArea){
+        this.keyboard = keyboard;
         this.textArea = texArea;
     }
 
-    public void drawNote(Note note){
-        textArea.append(note + "\n");
+    @Override
+    public void update() {
+        textArea.setText(keyboard.getPressedNotes().toString());
+        repaint();
     }
 
     @Override

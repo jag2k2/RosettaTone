@@ -1,13 +1,13 @@
 package uicomponents;
 
 import javax.sound.midi.MidiDevice;
+import javax.sound.midi.Receiver;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
 import deviceio.*;
-import music.NoteRenderer;
-import music.NoteRendererImp;
+import music.*;
 
 public class MainGUI {
     private final JFrame frame;
@@ -19,12 +19,17 @@ public class MainGUI {
 
         InstrumentBrowser instrumentBrowser = new InstrumentBrowserImp();
         List<MidiDevice> devices = instrumentBrowser.getTransmitterDevices();
+
         Instrument piano = new InstrumentImp();
-        NoteRendererImp noteRenderer = new NoteRendererImp(textArea);
-        piano.connect(devices.get(0).getDeviceInfo(), new NoteReceiverImp(noteRenderer));
+        Keyboard keyboard = new KeyboardImp();
+
+        KeyboardRendererImp keyboardRenderer = new KeyboardRendererImp(keyboard, textArea);
+        NoteReceiver noteReceiver = new NoteReceiverImp(keyboard);
+        noteReceiver.addNoteChangeObserver(keyboardRenderer);
+        piano.connect(devices.get(0).getDeviceInfo(), noteReceiver);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(BorderLayout.CENTER, noteRenderer);
+        mainPanel.add(BorderLayout.CENTER, keyboardRenderer);
         mainPanel.add(BorderLayout.SOUTH, textArea);
 
         frame.setTitle("Rosetta Tone");

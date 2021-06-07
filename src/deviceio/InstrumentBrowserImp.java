@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InstrumentBrowserImp implements InstrumentBrowser {
+
     @Override
     public List<MidiDevice> getTransmitterDevices() {
         ArrayList<MidiDevice> transmitterDevices = new ArrayList<>();

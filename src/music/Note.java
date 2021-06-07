@@ -2,18 +2,35 @@ package music;
 
 public class Note {
 
-    private final NoteName name;
+    private final NoteName noteName;
+    private final NoteAccidental noteAccidental;
     private final int key;
     private final int octave;
-    private final int velocity;
 
-    public Note(int key, int velocity) {
+    public Note(int key) {
         this.key = key;
         this.octave = (key / 12)-1;
-        int note = key % 12;
+
         NoteName[] noteNames = NoteName.values();
-        this.name = noteNames[note];
-        this.velocity = velocity;
+        int octaveIndex = key % 12;
+        if (octaveIndex < 5){
+            noteName = noteNames[octaveIndex / 2];
+            if ((octaveIndex % 2) == 0){
+                noteAccidental = NoteAccidental.Natural;
+            }
+            else{
+                noteAccidental = NoteAccidental.SHARP;
+            }
+        }
+        else{
+            noteName = noteNames[(1 + octaveIndex) / 2];
+            if ((octaveIndex % 2) == 0){
+                noteAccidental = NoteAccidental.SHARP;
+            }
+            else{
+                noteAccidental = NoteAccidental.Natural;
+            }
+        }
     }
 
     @Override
@@ -23,6 +40,6 @@ public class Note {
 
     @Override
     public String toString() {
-        return "Note -> " + this.name + this.octave + " key=" + this.key + " velocity=" + this.velocity;
+        return "Note: " + this.noteName + this.noteAccidental + this.octave + " key=" + this.key;
     }
 }

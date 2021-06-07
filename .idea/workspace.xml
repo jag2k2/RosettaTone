@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48599964-9b78-42df-9119-0f1d75fe50ba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/imageprocessing/ResizableImage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/music/NoteName.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/music/NoteTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/music/Keyboard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/music/NoteAccidental.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RosettaTone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/RosettaTone.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/deviceio/NoteReceiverImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/deviceio/NoteReceiverImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/music/Note.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/music/Note.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/music/NoteName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/music/NoteName.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/music/NoteRendererImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/music/NoteRendererImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/uicomponents/MainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uicomponents/MainGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/music/NoteTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/music/NoteTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,10 +20,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
-        <option value="Enum" />
         <option value="JUnit5 Test Class" />
+        <option value="Enum" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -61,22 +62,9 @@
       <recent name="C:\GitRepos\RosettaTone" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.NoteTest">
+  <component name="RunManager" selected="Application.RosettaTone">
     <configuration name="JumbledImageApplet" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="example.JumbledImageApplet" />
-      <module name="RosettaTone" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LoadImageApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="example.LoadImageApp" />
       <module name="RosettaTone" />
       <extension name="coverage">
         <pattern>
@@ -142,20 +130,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="NoteTest.stringDisplay" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="RosettaTone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="music.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="music" />
+      <option name="MAIN_CLASS_NAME" value="music.NoteTest" />
+      <option name="METHOD_NAME" value="stringDisplay" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.RosettaTone" />
-      <item itemvalue="Application.LoadImageApp" />
       <item itemvalue="Application.JumbledImageApplet" />
       <item itemvalue="Application.SeeThroughImageApplet" />
       <item itemvalue="JUnit.NoteTest" />
+      <item itemvalue="JUnit.NoteTest.stringDisplay" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.NoteTest" />
         <item itemvalue="Application.RosettaTone" />
+        <item itemvalue="JUnit.NoteTest" />
+        <item itemvalue="JUnit.NoteTest.stringDisplay" />
         <item itemvalue="Application.SeeThroughImageApplet" />
         <item itemvalue="Application.JumbledImageApplet" />
-        <item itemvalue="Application.LoadImageApp" />
       </list>
     </recent_temporary>
   </component>
@@ -196,7 +200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623005755924</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Rendering first images on the staff">
+      <created>1623033218809</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1623033218809</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -204,7 +215,8 @@
     <MESSAGE value="renamed deviceio package" />
     <MESSAGE value="Added NoteRenderer interface and implementation" />
     <MESSAGE value="Added images to repository" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added images to repository" />
+    <MESSAGE value="Rendering first images on the staff" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rendering first images on the staff" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2360" y="94" key="#Project_Structure" timestamp="1623030882619">
@@ -239,26 +251,26 @@
     </state>
     <state x="2660" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1622935672604" />
     <state x="2660" y="275" key="FileChooserDialogImpl/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623030972741" />
-    <state width="1877" height="269" key="GridCell.Tab.0.bottom" timestamp="1623032037262">
+    <state width="1877" height="269" key="GridCell.Tab.0.bottom" timestamp="1623039089453">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="269" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1622950588420" />
-    <state width="1877" height="269" key="GridCell.Tab.0.bottom/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623032037262" />
-    <state width="1877" height="269" key="GridCell.Tab.0.center" timestamp="1623032037261">
+    <state width="1877" height="269" key="GridCell.Tab.0.bottom/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623039089453" />
+    <state width="1877" height="269" key="GridCell.Tab.0.center" timestamp="1623039089452">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="269" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1622950588420" />
-    <state width="1877" height="269" key="GridCell.Tab.0.center/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623032037261" />
-    <state width="1877" height="269" key="GridCell.Tab.0.left" timestamp="1623032037261">
+    <state width="1877" height="269" key="GridCell.Tab.0.center/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623039089452" />
+    <state width="1877" height="269" key="GridCell.Tab.0.left" timestamp="1623039089452">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="269" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1622950588420" />
-    <state width="1877" height="269" key="GridCell.Tab.0.left/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623032037261" />
-    <state width="1877" height="269" key="GridCell.Tab.0.right" timestamp="1623032037262">
+    <state width="1877" height="269" key="GridCell.Tab.0.left/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623039089452" />
+    <state width="1877" height="269" key="GridCell.Tab.0.right" timestamp="1623039089453">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="269" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1622950588420" />
-    <state width="1877" height="269" key="GridCell.Tab.0.right/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623032037261" />
+    <state width="1877" height="269" key="GridCell.Tab.0.right/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623039089453" />
     <state x="2698" y="240" key="RollbackChangesDialog" timestamp="1623017578355">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -267,10 +279,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2360" y="94" key="SettingsEditor/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623031452511" />
-    <state x="2472" y="240" key="Vcs.Push.Dialog.v2" timestamp="1623005757560">
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2" timestamp="1623033220711">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2472" y="240" key="Vcs.Push.Dialog.v2/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623005757560" />
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623033220711" />
     <state x="2584" y="411" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1623031506462">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

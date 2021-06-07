@@ -25,9 +25,6 @@ public class NoteRendererImp extends Component implements NoteRenderer{
 
     public NoteRendererImp(JTextArea texArea){
         this.textArea = texArea;
-        for (int i = 0; i < 88; i++){
-
-        }
     }
 
     public void drawNote(Note note){

@@ -18,7 +18,7 @@ public class NoteReceiverImp implements Receiver {
             if (sm.getCommand() == ShortMessage.NOTE_ON) {
                 int key = sm.getData1();
                 int velocity = sm.getData2();
-                Note note = new Note(key, velocity);
+                Note note = new Note(key);
                 noteRenderer.drawNote(note);
             }
         }

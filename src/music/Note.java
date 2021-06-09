@@ -7,9 +7,9 @@ public class Note {
 
     private final NoteName noteName;
     private int octave;
-    boolean natural = false;
-    boolean sharp = false;
-    boolean flat = false;
+    private boolean natural = false;
+    private boolean sharp = false;
+    private boolean flat = false;
 
     public Note(NoteName noteName, int octave) {
         this.noteName = noteName;

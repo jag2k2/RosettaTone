@@ -1,11 +1,12 @@
 package uicomponents;
 
 import javax.sound.midi.MidiDevice;
+import javax.sound.midi.Transmitter;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-import deviceio.*;
+import instrument.*;
 import music.*;
 
 public class MainGUI {
@@ -18,19 +19,19 @@ public class MainGUI {
 
         InstrumentBrowser instrumentBrowser = new InstrumentBrowserImp();
         List<MidiDevice> devices = instrumentBrowser.getTransmitterDevices();
+        //Transmitter piano = instrumentBrowser.getSelectedTransmitter();
+        Transmitter piano = instrumentBrowser.getSimulatedTransmitter(frame);
 
-        Instrument piano = new InstrumentImp();
-        Keyboard keyboard = new KeyboardImp();
+        NoteState noteState = new NoteStateImp();
+        StaffRendererImp staffRenderer = new StaffRendererImp(noteState, textArea);
 
-        KeyboardRendererImp keyboardRenderer = new KeyboardRendererImp(keyboard, textArea);
-        NoteReceiver noteReceiver = new NoteReceiverImp(keyboard);
-        noteReceiver.addNoteChangeObserver(keyboardRenderer);
-        piano.connect(devices.get(0).getDeviceInfo(), noteReceiver);
+        KeyReceiverImp keyReceiver = new KeyReceiverImp(noteState);
+        keyReceiver.addKeyChangeObserver(staffRenderer);
+        piano.setReceiver(keyReceiver);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(BorderLayout.CENTER, keyboardRenderer);
+        mainPanel.add(BorderLayout.CENTER, staffRenderer);
         mainPanel.add(BorderLayout.SOUTH, textArea);
-
         frame.setTitle("Rosetta Tone");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(mainPanel);

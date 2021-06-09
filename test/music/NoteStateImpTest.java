@@ -1,5 +1,6 @@
 package music;
 
+import instrument.Key;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -7,8 +8,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class KeyboardImpTest {
-    Keyboard keyboard = new KeyboardImp();
+class NoteStateImpTest {
+    NoteState noteState = new NoteStateImp();
     Key keyC4 = new Key(60);
     Key keyCSharp4 = new Key(61);
     Key keyGSharp2 = new Key(44);
@@ -30,10 +31,10 @@ class KeyboardImpTest {
 
     @Test
     void changeNoteStates() {
-        keyboard.pressKey(keyC4);
-        keyboard.pressKey(keyCSharp4);
-        keyboard.pressKey(keyGSharp2);
-        keyboard.pressKey(keyDSharp7);
+        noteState.NoteOn(keyC4);
+        noteState.NoteOn(keyCSharp4);
+        noteState.NoteOn(keyGSharp2);
+        noteState.NoteOn(keyDSharp7);
 
         expected.add(noteG2);
         noteG2.setAccidental(NoteAccidental.SHARP, true);
@@ -43,7 +44,7 @@ class KeyboardImpTest {
         expected.add(noteD7);
         noteD7.setAccidental(NoteAccidental.SHARP, true);
 
-        System.out.println(keyboard.getPressedNotes());
-        assertEquals(expected, keyboard.getPressedNotes());
+        System.out.println(noteState.getActiveNotes());
+        assertEquals(expected, noteState.getActiveNotes());
     }
 }

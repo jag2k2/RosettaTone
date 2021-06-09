@@ -1,4 +1,4 @@
-package music;
+package instrument;
 
 import org.junit.jupiter.api.Test;
 

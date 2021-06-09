@@ -1,7 +1,7 @@
-package music;
+package instrument;
 
 public class Key {
-    int midiNumber;
+    private int midiNumber;
 
     public Key(int midiNumber){
         this.midiNumber = midiNumber;

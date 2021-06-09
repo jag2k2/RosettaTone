@@ -1,44 +1,34 @@
 package uicomponents;
 
-import deviceio.NoteChangeObserver;
+import instrument.KeyChangeObserver;
 import imageprocessing.ResizableImage;
 import music.*;
 
 import java.awt.*;
 import javax.swing.*;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import javax.imageio.*;
 
-public class KeyboardRendererImp extends Component implements NoteChangeObserver {
-    Keyboard keyboard;
-    JTextArea textArea;
-    int preferredWidth = 750;
-    int preferredHeight = 750;
-    int numberOfLines = 40;
-    int lineSpacing = 15;
-    int lineThickness = 2;
-    int lineLength = 500;
-    int trebleYPosition = lineSpacing * 6 - 12;
-    int bassYPosition = lineSpacing * 24;
-    int leftMargin = 100;
+public class StaffRendererImp extends Component implements KeyChangeObserver {
+    private final NoteState noteState;
+    private final JTextArea textArea;
 
-
-    public KeyboardRendererImp(Keyboard keyboard, JTextArea texArea){
-        this.keyboard = keyboard;
+    public StaffRendererImp(NoteState noteState, JTextArea texArea){
+        this.noteState = noteState;
         this.textArea = texArea;
     }
 
     @Override
     public void update() {
-        textArea.setText(keyboard.getPressedNotes().toString());
+        textArea.setText(noteState.getActiveNotes().toString());
         repaint();
     }
 
     @Override
     public Dimension getPreferredSize() {
+        int preferredWidth = 750;
+        int preferredHeight = 750;
         return new Dimension(preferredWidth, preferredHeight);
     }
 
@@ -63,10 +53,13 @@ public class KeyboardRendererImp extends Component implements NoteChangeObserver
             graphics2D.setColor(Color.WHITE);
             graphics2D.fillRect(0,0,750,750);
 
-            for (Note note : keyboard.getPressedNotes()){
+            int numberOfLines = 40;
+            int leftMargin = 100;
+            int lineSpacing = 15;
+            for (Note note : noteState.getActiveNotes()){
                 for (NoteAccidental accidental : note.getActiveAccidentals()){
                     int lineNumber = numberOfLines - NoteRenderer.calcLineNumber(note);
-                    System.out.println(lineNumber);
+                    //System.out.println(lineNumber);
                     if ((14 <= lineNumber && lineNumber <= 20) || (31 <= lineNumber && lineNumber <=40)){
                         int noteY = (lineNumber-9) * lineSpacing;
                         graphics2D.drawImage(quarterNoteImage.getBufferedImage(), null, leftMargin + 200, noteY-2);
@@ -78,15 +71,19 @@ public class KeyboardRendererImp extends Component implements NoteChangeObserver
             }
 
             graphics2D.setColor(Color.BLACK);
+            int lineThickness = 2;
             graphics2D.setStroke(new BasicStroke(lineThickness));
 
+            int trebleYPosition = lineSpacing * 6 - 12;
             graphics2D.drawImage(trebleClefImage.getBufferedImage(), null, leftMargin, trebleYPosition);
+            int bassYPosition = lineSpacing * 24;
             graphics2D.drawImage(bassClefImage.getBufferedImage(), null, leftMargin, bassYPosition);
 
             Integer[] visibleLines = {8,10,12,14,16,24,26,28,30,32};
             for (int i = 0; i < numberOfLines; i++){
                 int linePosition = i * lineSpacing;
                 if(Arrays.asList(visibleLines).contains(i)) {
+                    int lineLength = 500;
                     graphics2D.drawLine(leftMargin, linePosition, leftMargin + lineLength, linePosition);
                 }
             }
@@ -94,8 +91,4 @@ public class KeyboardRendererImp extends Component implements NoteChangeObserver
             ex.printStackTrace();
         }
     }
-
-
-
-
 }

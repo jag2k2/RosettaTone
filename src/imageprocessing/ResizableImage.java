@@ -5,7 +5,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class ResizableImage {
-    BufferedImage bufferedImage;
+    private BufferedImage bufferedImage;
 
     public ResizableImage(BufferedImage bufferedImage){
         this.bufferedImage = bufferedImage;

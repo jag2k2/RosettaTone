@@ -1,7 +1,7 @@
 package uicomponents;
 
 import instrument.KeyChangeObserver;
-import imageprocessing.ResizableImage;
+import imageprocessing.StaffImage;
 import music.*;
 
 import java.awt.*;
@@ -36,19 +36,16 @@ public class StaffRendererImp extends Component implements KeyChangeObserver {
     public void paint(Graphics g) {
         Graphics2D graphics2D = (Graphics2D)g;
         try {
-            File trebleClefFile = new File("./Images/Treble-clef.jpg");
-            File bassClefFile = new File("./Images/Bass-clef.jpg");
-            File quarterNoteFile = new File("./Images/Quarter-Note.jpg");
-            File invertedQuarterNoteFile = new File("./Images/Quarter-Note-Invt.jpg");
+            File trebleClefFile = new File("./Images/Treble-clef.png");
+            File bassClefFile = new File("./Images/Bass-clef.png");
+            File quarterNoteFile = new File("./Images/Quarter-Note-Head.png");
 
-            ResizableImage trebleClefImage = new ResizableImage(ImageIO.read(trebleClefFile));
-            ResizableImage bassClefImage = new ResizableImage(ImageIO.read(bassClefFile));
-            ResizableImage quarterNoteImage = new ResizableImage(ImageIO.read(quarterNoteFile));
-            ResizableImage invertedQuarterNoteImage = new ResizableImage((ImageIO.read(invertedQuarterNoteFile)));
+            StaffImage trebleClefImage = new StaffImage(ImageIO.read(trebleClefFile));
+            StaffImage bassClefImage = new StaffImage(ImageIO.read(bassClefFile));
+            StaffImage quarterNoteImage = new StaffImage(ImageIO.read(quarterNoteFile));
             trebleClefImage.resize(0.5);
             bassClefImage.resize(0.4);
-            quarterNoteImage.resize(0.21);
-            invertedQuarterNoteImage.resize(0.21);
+            quarterNoteImage.resize(0.22);
 
             graphics2D.setColor(Color.WHITE);
             graphics2D.fillRect(0,0,750,750);
@@ -56,17 +53,30 @@ public class StaffRendererImp extends Component implements KeyChangeObserver {
             int numberOfLines = 40;
             int leftMargin = 100;
             int lineSpacing = 15;
+            int j = -1;
             for (Note note : noteState.getActiveNotes()){
-                for (NoteAccidental accidental : note.getActiveAccidentals()){
-                    int lineNumber = numberOfLines - NoteRenderer.calcLineNumber(note);
-                    //System.out.println(lineNumber);
-                    if ((14 <= lineNumber && lineNumber <= 20) || (31 <= lineNumber && lineNumber <=40)){
-                        int noteY = (lineNumber-9) * lineSpacing;
-                        graphics2D.drawImage(quarterNoteImage.getBufferedImage(), null, leftMargin + 200, noteY-2);
-                    } else {
-                        int noteY = (lineNumber-3) * lineSpacing;
-                        graphics2D.drawImage(invertedQuarterNoteImage.getBufferedImage(), null, leftMargin + 200, noteY);
+                j++;
+                int lineNumber = numberOfLines - NoteRenderer.calcLineNumber(note);
+                int noteY = (lineNumber - 3) * lineSpacing - 1;
+                int noteX = leftMargin + 200;
+                if (j > 0){
+                    Note previousNote = noteState.getActiveNotes().get(j-1);
+                    if(note.isAdjacent(previousNote)){
+                        int quarterWidth = quarterNoteImage.getBufferedImage().getWidth();
+                        noteX += quarterWidth;
                     }
+                }
+
+                graphics2D.drawImage(quarterNoteImage.getBufferedImage(), null, noteX, noteY);
+
+                if ((14 <= lineNumber && lineNumber <= 20) || (31 <= lineNumber && lineNumber <=40)){
+                    //draw upward staff
+                } else {
+                    //draw downward staff
+                }
+
+                for (NoteAccidental accidental : note.getActiveAccidentals()){
+
                 }
             }
 

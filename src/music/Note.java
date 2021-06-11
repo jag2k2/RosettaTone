@@ -54,6 +54,16 @@ public class Note {
         return (natural || flat || sharp);
     }
 
+    public boolean isAdjacent(Note otherNote) {
+        int notePosition = noteName.getPosition();
+        int otherNotePosition = otherNote.getName().getPosition();
+        int positionDifference = Math.abs(notePosition - otherNotePosition);
+        int octaveDifference = Math.abs(octave - otherNote.octave);
+        boolean sameOctaveAdjacent = (positionDifference == 1)  && (octaveDifference == 0);
+        boolean noteBCAdjacent = (positionDifference == 6) && (octaveDifference == 1);
+        return sameOctaveAdjacent || noteBCAdjacent;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Note){

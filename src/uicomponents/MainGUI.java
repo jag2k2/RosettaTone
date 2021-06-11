@@ -14,6 +14,7 @@ public class MainGUI {
 
     public MainGUI() {
         this.frame = new JFrame();
+        JPanel mainPanel = new JPanel(new BorderLayout());
 
         JTextArea textArea = new JTextArea();
 
@@ -29,7 +30,7 @@ public class MainGUI {
         keyReceiver.addKeyChangeObserver(staffRenderer);
         piano.setReceiver(keyReceiver);
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
+
         mainPanel.add(BorderLayout.CENTER, staffRenderer);
         mainPanel.add(BorderLayout.SOUTH, textArea);
         frame.setTitle("Rosetta Tone");

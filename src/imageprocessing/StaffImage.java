@@ -1,20 +1,28 @@
 package imageprocessing;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.*;
+import java.io.File;
+import java.io.IOException;
 
 public class StaffImage {
     private BufferedImage bufferedImage;
 
-    public StaffImage(BufferedImage bufferedImage){
-        this.bufferedImage = bufferedImage;
+    public StaffImage(File file, double scaleFactor){
+        try {
+            this.bufferedImage = ImageIO.read(file);
+        } catch (IOException exception){
+            exception.printStackTrace();
+        }
+        resize(scaleFactor);
     }
 
     public BufferedImage getBufferedImage(){
         return bufferedImage;
     }
 
-    public void resize(double scaleFactor){
+    protected void resize(double scaleFactor){
         int newWidth = (int) (bufferedImage.getWidth() * scaleFactor);
         int newHeight = (int) (bufferedImage.getHeight() * scaleFactor);
         Image scaledImage = bufferedImage.getScaledInstance(newWidth, newHeight, Image.SCALE_DEFAULT);

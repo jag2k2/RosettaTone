@@ -8,18 +8,17 @@ import java.awt.*;
 import javax.swing.*;
 import java.io.File;
 import java.util.Arrays;
-import javax.imageio.*;
 
 public class StaffRendererImp extends Component implements KeyChangeObserver {
     private static final int numberOfLines = 40;
-    private static final int leftMargin = 100;
     private static final int lineSpacing = 15;
+    private static final int leftMargin = 100;
 
     private final NoteState noteState;
     private final JTextArea textArea;
-    private StaffImage trebleClefImage;
-    private StaffImage bassClefImage;
-    private StaffImage noteImage;
+    private final StaffImage trebleClefImage;
+    private final StaffImage bassClefImage;
+    private final StaffImage noteImage;
 
     public StaffRendererImp(NoteState noteState, JTextArea texArea){
         this.noteState = noteState;
@@ -29,17 +28,9 @@ public class StaffRendererImp extends Component implements KeyChangeObserver {
         File bassClefFile = new File("./Images/Bass-clef.png");
         File noteFile = new File("./Images/Whole-Note.png");
 
-        try {
-            trebleClefImage = new StaffImage(ImageIO.read(trebleClefFile));
-            bassClefImage = new StaffImage(ImageIO.read(bassClefFile));
-            noteImage = new StaffImage(ImageIO.read(noteFile));
-            trebleClefImage.resize(0.5);
-            bassClefImage.resize(0.4);
-            noteImage.resize(0.22);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
+        trebleClefImage = new StaffImage(trebleClefFile, 0.5);
+        bassClefImage = new StaffImage(bassClefFile, 0.4);
+        noteImage = new StaffImage(noteFile, 0.22);
     }
 
     @Override

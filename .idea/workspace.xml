@@ -20,17 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48599964-9b78-42df-9119-0f1d75fe50ba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/music/ActiveNotes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/music/ActiveNotesImp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utility/Maybe.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/music/ActiveNotesImpTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/imageprocessing/StaffImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/imageprocessing/StaffImage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/music/Note.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/music/Note.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/music/NoteState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/music/NoteState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/music/NoteStateImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/music/NoteStateImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/uicomponents/StaffRendererImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uicomponents/StaffRendererImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/music/NoteTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/music/NoteTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -297,7 +289,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623447180702</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Adjacent notes no longer overlap">
+      <created>1623607617511</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1623607617511</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -326,7 +325,8 @@
     <MESSAGE value="staff will now render with inverted notes" />
     <MESSAGE value="Can now simulate piano with computer keyboard" />
     <MESSAGE value="Two adjacent notes no long overlap" />
-    <option name="LAST_COMMIT_MESSAGE" value="Two adjacent notes no long overlap" />
+    <MESSAGE value="Adjacent notes no longer overlap" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjacent notes no longer overlap" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2360" y="94" key="#Project_Structure" timestamp="1623030882619">
@@ -379,35 +379,35 @@
     </state>
     <state x="2660" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623597162241" />
     <state x="2660" y="275" key="FileChooserDialogImpl/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623081015703" />
-    <state width="1877" height="145" key="GridCell.Tab.0.bottom" timestamp="1623607497566">
+    <state width="1877" height="145" key="GridCell.Tab.0.bottom" timestamp="1623607936282">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1461" height="141" key="GridCell.Tab.0.bottom/0.0.1504.963@0.0.1504.963" timestamp="1623103943196" />
-    <state width="1877" height="145" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623607497566" />
+    <state width="1877" height="145" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623607936282" />
     <state width="1877" height="141" key="GridCell.Tab.0.bottom/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1623197127826" />
     <state width="1877" height="144" key="GridCell.Tab.0.bottom/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623283851682" />
     <state width="1877" height="269" key="GridCell.Tab.0.bottom/3840.0.1504.976/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1623080032650" />
-    <state width="1877" height="145" key="GridCell.Tab.0.center" timestamp="1623607497566">
+    <state width="1877" height="145" key="GridCell.Tab.0.center" timestamp="1623607936281">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1461" height="141" key="GridCell.Tab.0.center/0.0.1504.963@0.0.1504.963" timestamp="1623103943194" />
-    <state width="1877" height="145" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623607497566" />
+    <state width="1877" height="145" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623607936281" />
     <state width="1877" height="141" key="GridCell.Tab.0.center/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1623197127825" />
     <state width="1877" height="144" key="GridCell.Tab.0.center/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623283851681" />
     <state width="1877" height="269" key="GridCell.Tab.0.center/3840.0.1504.976/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1623080032650" />
-    <state width="1877" height="145" key="GridCell.Tab.0.left" timestamp="1623607497565">
+    <state width="1877" height="145" key="GridCell.Tab.0.left" timestamp="1623607936281">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1461" height="141" key="GridCell.Tab.0.left/0.0.1504.963@0.0.1504.963" timestamp="1623103943194" />
-    <state width="1877" height="145" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623607497565" />
+    <state width="1877" height="145" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623607936281" />
     <state width="1877" height="141" key="GridCell.Tab.0.left/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1623197127825" />
     <state width="1877" height="144" key="GridCell.Tab.0.left/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623283851681" />
     <state width="1877" height="269" key="GridCell.Tab.0.left/3840.0.1504.976/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1623080032649" />
-    <state width="1877" height="145" key="GridCell.Tab.0.right" timestamp="1623607497566">
+    <state width="1877" height="145" key="GridCell.Tab.0.right" timestamp="1623607936281">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1461" height="141" key="GridCell.Tab.0.right/0.0.1504.963@0.0.1504.963" timestamp="1623103943196" />
-    <state width="1877" height="145" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623607497566" />
+    <state width="1877" height="145" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623607936281" />
     <state width="1877" height="141" key="GridCell.Tab.0.right/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1623197127826" />
     <state width="1877" height="144" key="GridCell.Tab.0.right/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623283851682" />
     <state width="1877" height="269" key="GridCell.Tab.0.right/3840.0.1504.976/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1623080032650" />
@@ -440,10 +440,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="446" key="SwitcherDM/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623446247711" />
-    <state x="2472" y="240" key="Vcs.Push.Dialog.v2" timestamp="1623447182826">
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2" timestamp="1623607619983">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2472" y="240" key="Vcs.Push.Dialog.v2/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623447182826" />
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623607619983" />
     <state x="2472" y="240" key="Vcs.Push.Dialog.v2/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623269309011" />
     <state x="2584" y="411" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1623031506462">
       <screen x="1920" y="0" width="1920" height="1040" />

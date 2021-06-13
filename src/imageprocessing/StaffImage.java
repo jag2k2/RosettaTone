@@ -7,8 +7,7 @@ public class StaffImage {
     private BufferedImage bufferedImage;
 
     public StaffImage(BufferedImage bufferedImage){
-        Image transparentImage = makeWhiteTransparent(bufferedImage);
-        this.bufferedImage = convertImageToBufferedImage(transparentImage, bufferedImage.getWidth(), bufferedImage.getHeight());
+        this.bufferedImage = bufferedImage;
     }
 
     public BufferedImage getBufferedImage(){
@@ -29,19 +28,5 @@ public class StaffImage {
         g2.drawImage(image, 0, 0, null);
         g2.dispose();
         return destinationImage;
-    }
-
-    protected Image makeWhiteTransparent(BufferedImage bufferedImage) {
-        ImageFilter filter = new RGBImageFilter() {
-            @Override
-            public int filterRGB(int x, int y, int rgb) {
-                if ((rgb | 0xFF000000) == 0xFFFFFFFF) {
-                    return 0x00FFFFFF;
-                }
-                return rgb;
-            }
-        };
-        ImageProducer ip = new FilteredImageSource(bufferedImage.getSource(), filter);
-        return Toolkit.getDefaultToolkit().createImage(ip);
     }
 }

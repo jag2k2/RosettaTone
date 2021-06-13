@@ -51,8 +51,8 @@ public class NoteStateImp implements NoteState {
     }
 
     @Override
-    public List<Note> getActiveNotes() {
-        List<Note> pressedNotes = new ArrayList<>();
+    public ActiveNotes getActiveNotes() {
+        ActiveNotes pressedNotes = new ActiveNotesImp();
         for (Note[] notes : Notes){
             for(Note note : notes){
                 if (note.isActive()){
@@ -62,4 +62,6 @@ public class NoteStateImp implements NoteState {
         }
         return pressedNotes;
     }
+
+
 }

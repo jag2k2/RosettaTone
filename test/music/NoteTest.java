@@ -30,7 +30,6 @@ class NoteTest {
         assertNotEquals(noteC4, noteCompare);
 
         noteCompare = new Note(NoteName.C, 4);
-        noteCompare.setAccidental(NoteAccidental.NATURAL, false);
         assertNotEquals(noteC4, noteCompare);
 
         noteCompare = new Note(NoteName.C, 4);

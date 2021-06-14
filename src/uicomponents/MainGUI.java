@@ -20,11 +20,11 @@ public class MainGUI {
 
         InstrumentBrowser instrumentBrowser = new InstrumentBrowserImp();
         List<MidiDevice> devices = instrumentBrowser.getTransmitterDevices();
-        //Transmitter piano = instrumentBrowser.getSelectedTransmitter();
-        Transmitter piano = instrumentBrowser.getSimulatedTransmitter(frame);
+        Transmitter piano = instrumentBrowser.getSelectedTransmitter();
+        //Transmitter piano = instrumentBrowser.getSimulatedTransmitter(frame);
 
         NoteState noteState = new NoteStateImp();
-        StaffRendererImp staffRenderer = new StaffRendererImp(noteState, textArea);
+        GrandStaffRendererImp staffRenderer = new GrandStaffRendererImp(noteState, textArea);
 
         KeyReceiverImp keyReceiver = new KeyReceiverImp(noteState);
         keyReceiver.addKeyChangeObserver(staffRenderer);

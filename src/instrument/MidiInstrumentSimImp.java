@@ -31,6 +31,43 @@ public class MidiInstrumentSimImp implements KeyListener, Transmitter {
 
     protected int mapCharToMidiKey(Character keyChar){
         int key = -1;
+        if (keyChar.equals('Q')){
+            key = 48;
+        }
+        if (keyChar.equals('W')){
+            key = 49;
+        }
+        if (keyChar.equals('E')){
+            key = 50;
+        }
+        if (keyChar.equals('R')){
+            key = 51;
+        }
+        if (keyChar.equals('T')){
+            key = 52;
+        }
+        if (keyChar.equals('Y')){
+            key = 53;
+        }
+        if (keyChar.equals('U')){
+            key = 54;
+        }
+        if (keyChar.equals('I')){
+            key = 55;
+        }
+        if (keyChar.equals('O')){
+            key = 56;
+        }
+        if (keyChar.equals('P')){
+            key = 57;
+        }
+        if (keyChar.equals('{')){
+            key = 58;
+        }
+        if (keyChar.equals('}')){
+            key = 59;
+        }
+
         if (keyChar.equals('q')){
             key = 60;
         }

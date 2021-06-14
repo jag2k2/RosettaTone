@@ -43,4 +43,13 @@ public class ActiveNotesImp implements ActiveNotes {
         }
         return new Maybe<>();
     }
+
+    @Override
+    public String toString() {
+        String stringText = "";
+        for (Note note : activeNotes){
+            stringText = stringText.concat(note.toString());
+        }
+        return stringText;
+    }
 }

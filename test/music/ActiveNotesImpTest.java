@@ -16,11 +16,11 @@ class ActiveNotesImpTest {
 
     @BeforeEach
     void setup(){
-        noteC4 = new Note(NoteName.C, 4);
-        noteD4 = new Note(NoteName.D, 4);
-        noteE4 = new Note(NoteName.E, 4);
-        noteF4 = new Note(NoteName.F, 4);
-        noteA4 = new Note(NoteName.A, 4);
+        noteC4 = new Note(NoteName.C, 4, NoteClef.Treble);
+        noteD4 = new Note(NoteName.D, 4, NoteClef.Treble);
+        noteE4 = new Note(NoteName.E, 4, NoteClef.Treble);
+        noteF4 = new Note(NoteName.F, 4, NoteClef.Treble);
+        noteA4 = new Note(NoteName.A, 4, NoteClef.Treble);
 
         activeNotes = new ActiveNotesImp();
         activeNotes.add(noteC4);

@@ -2,19 +2,20 @@ package music;
 
 import java.util.List;
 import java.util.ArrayList;
-import utility.Maybe;
 
 public class Note {
 
+    private final NoteClef noteClef;
     private final NoteName noteName;
     private int octave;
     private boolean natural = false;
     private boolean sharp = false;
     private boolean flat = false;
 
-    public Note(NoteName noteName, int octave) {
+    public Note(NoteName noteName, int octave, NoteClef noteClef) {
         this.noteName = noteName;
         this.octave = octave;
+        this.noteClef = noteClef;
     }
 
     public NoteName getName(){
@@ -23,6 +24,14 @@ public class Note {
 
     public int getOctave() {
         return octave;
+    }
+
+    public boolean isClef(NoteClef compareClef){
+        return noteClef == compareClef;
+    }
+
+    public int getLineNumber() {
+        return (noteName.getPosition() + (octave * 7) - 5);
     }
 
     public List<NoteAccidental> getActiveAccidentals() {
@@ -60,8 +69,8 @@ public class Note {
         int otherNotePosition = otherNote.getName().getPosition();
         int positionDifference = Math.abs(notePosition - otherNotePosition);
         int octaveDifference = Math.abs(octave - otherNote.octave);
-        boolean sameOctaveAdjacent = (positionDifference == 1)  && (octaveDifference == 0);
-        boolean noteBCAdjacent = (positionDifference == 6) && (octaveDifference == 1);
+        boolean sameOctaveAdjacent = (positionDifference == 1)  && (octaveDifference == 0) && (noteClef == otherNote.noteClef);
+        boolean noteBCAdjacent = (positionDifference == 6) && (octaveDifference == 1) && (noteClef == otherNote.noteClef);
         return sameOctaveAdjacent || noteBCAdjacent;
     }
 
@@ -73,7 +82,8 @@ public class Note {
                     this.octave == noteCompare.octave &&
                     this.natural == noteCompare.natural &&
                     this.sharp == noteCompare.sharp &&
-                    this.flat == noteCompare.flat;
+                    this.flat == noteCompare.flat &&
+                    this.noteClef == noteCompare.noteClef;
         }
         return false;
     }

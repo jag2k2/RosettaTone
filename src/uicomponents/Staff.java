@@ -2,7 +2,7 @@ package uicomponents;
 
 import java.io.File;
 
-public class StaffInfo {
+public class Staff {
 
     private final File clefFile;
     private final double scaleFactor;
@@ -12,8 +12,8 @@ public class StaffInfo {
     private final int topVisibleLine;
     private final int bottomVisibleLine;
 
-    public StaffInfo(File clefFile, double scaleFactor, int clefLineOffset,
-                     int clefFineTuneYOffset, int staffYOffset, int topVisibleLine, int bottomVisibleLine){
+    public Staff(File clefFile, double scaleFactor, int clefLineOffset,
+                 int clefFineTuneYOffset, int staffYOffset, int topVisibleLine, int bottomVisibleLine){
         this.clefFile = clefFile;
         this.scaleFactor = scaleFactor;
         this.clefLineOffset = clefLineOffset;

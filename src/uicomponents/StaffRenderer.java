@@ -13,8 +13,9 @@ public class StaffRenderer {
     private static final int numberOfLines = 52;
     private static final int lineSpacing = 15;
     private static final int leftMargin = 100;
+    private static final int noteXSpacing = 200;
 
-    private final StaffInfo staffInfo;
+    private final Staff staff;
     private final StaffImage staffImage;
 
     private final StaffImage noteImage;
@@ -23,9 +24,9 @@ public class StaffRenderer {
     private final StaffImage flatImage;
 
 
-    public StaffRenderer(StaffInfo staffInfo){
-        this.staffInfo = staffInfo;
-        this.staffImage = new StaffImage(staffInfo.getImageFile(), staffInfo.getScaleFactor());
+    public StaffRenderer(Staff staff){
+        this.staff = staff;
+        this.staffImage = new StaffImage(staff.getImageFile(), staff.getScaleFactor());
 
         File noteFile = new File("./Images/Whole-Note.png");
         File naturalFile = new File("./Images/Natural.png");
@@ -39,13 +40,13 @@ public class StaffRenderer {
     }
 
     public void drawStaff(Graphics2D graphics2D){
-        graphics2D.drawImage(staffImage.getBufferedImage(), null, leftMargin, staffInfo.getClefYOffset(lineSpacing));
+        graphics2D.drawImage(staffImage.getBufferedImage(), null, leftMargin, staff.getClefYOffset(lineSpacing));
 
         configLineDraw(graphics2D);
         int lineLength = 500;
         for (int i = 0; i < numberOfLines; i++){
-            if ((staffInfo.getTopVisibleLine() <= i) && (i <= staffInfo.getBottomVisibleLine()) && ((i % 2) == 0)){
-                int linePosition =  i * lineSpacing + staffInfo.getStaffYOffset();
+            if ((staff.getTopVisibleLine() <= i) && (i <= staff.getBottomVisibleLine()) && ((i % 2) == 0)){
+                int linePosition =  i * lineSpacing + staff.getStaffYOffset();
                 graphics2D.drawLine(leftMargin, linePosition, leftMargin + lineLength, linePosition);
             }
         }
@@ -59,49 +60,59 @@ public class StaffRenderer {
 
     protected void drawNotes(Graphics2D graphics2D, ActiveNotes activeNotes){
         for (Note note : activeNotes){
-            int lineNumber = numberOfLines - note.getLineNumber() - 1;
-            System.out.println(lineNumber);
-            int noteWidth = noteImage.getBufferedImage().getWidth();
-            int noteHeight = noteImage.getBufferedImage().getHeight();
-            int noteY = (lineNumber * lineSpacing) - (noteHeight / 2) + staffInfo.getStaffYOffset();
-            int noteX = leftMargin + 200;
+            drawNote(graphics2D, note, activeNotes);
+            drawAccidentals(graphics2D, note);
+            drawHelperLines(graphics2D, note);
+        }
+    }
 
-            if (activeNotes.isShifted(note)) {
-                noteX += noteWidth;
-            }
-            graphics2D.drawImage(noteImage.getBufferedImage(), null, noteX, noteY);
+    protected void drawNote(Graphics2D graphics2D, Note note, ActiveNotes activeNotes){
+        int lineNumber = numberOfLines - note.getLineNumber() - 1;
+        int noteX = leftMargin + noteXSpacing;
+        int noteHeight = noteImage.getBufferedImage().getHeight();
+        int noteY = (lineNumber * lineSpacing) - (noteHeight / 2) + staff.getStaffYOffset();
 
-            configLineDraw(graphics2D);
-            int topVisibleLine = staffInfo.getTopVisibleLine();
-            int bottomVisibleLine = staffInfo.getBottomVisibleLine();
+        int noteWidth = noteImage.getBufferedImage().getWidth();
+        if (activeNotes.isShifted(note)) {
+            noteX += noteWidth;
+        }
+        graphics2D.drawImage(noteImage.getBufferedImage(), null, noteX, noteY);
+    }
 
-                        if (lineNumber > bottomVisibleLine){
-                System.out.println("Below " + bottomVisibleLine);
-                for (int i = lineNumber; i > bottomVisibleLine; i--){
-                    int helperLineYPos = (lineSpacing * i) + staffInfo.getStaffYOffset();
-                    if ((i % 2) == 0) {
-                        graphics2D.drawLine(noteX - 2, helperLineYPos, noteX + 2 + noteWidth, helperLineYPos);
-                    }
-                }
-            } else if (lineNumber < topVisibleLine){
-                System.out.println("Above " + topVisibleLine);
-                for (int i = lineNumber; i < topVisibleLine; i++){
-                    int helperLineYPos = (lineSpacing * i) + staffInfo.getStaffYOffset();
-                    if ((i % 2) == 0) {
-                        graphics2D.drawLine(noteX - 2, helperLineYPos, noteX + 2 + noteWidth, helperLineYPos);
-                    }
-                }
-            }
 
-            for (NoteAccidental accidental : note.getActiveAccidentals()){
-                if (accidental == NoteAccidental.SHARP){
-                    BufferedImage sharpBufferedImage = sharpImage.getBufferedImage();
-                    int sharpXPos = noteX - (int)(sharpBufferedImage.getWidth() * 1.3);
-                    int sharpYPos = noteY - (sharpBufferedImage.getHeight() / 3);
-                    graphics2D.drawImage(sharpBufferedImage, null, sharpXPos, sharpYPos);
-                }
+    protected void drawAccidentals(Graphics2D graphics2D, Note note) {
+
+        int lineNumber = numberOfLines - note.getLineNumber() - 1;
+        int noteX = leftMargin + noteXSpacing;
+        int noteHeight = noteImage.getBufferedImage().getHeight();
+        int noteY = (lineNumber * lineSpacing) - (noteHeight / 2) + staff.getStaffYOffset();
+        for (NoteAccidental accidental : note.getActiveAccidentals()) {
+            if (accidental == NoteAccidental.SHARP) {
+                BufferedImage sharpBufferedImage = sharpImage.getBufferedImage();
+                int sharpXPos = noteX - (int) (sharpBufferedImage.getWidth() * 1.3);
+                int sharpYPos = noteY - (sharpBufferedImage.getHeight() / 3);
+                graphics2D.drawImage(sharpBufferedImage, null, sharpXPos, sharpYPos);
             }
         }
     }
 
+    protected void drawHelperLines(Graphics2D graphics2D, Note note){
+        int lineNumber = numberOfLines - note.getLineNumber() - 1;
+
+        configLineDraw(graphics2D);
+        for (int i = lineNumber; i > staff.getTopVisibleLine(); i--){
+            drawHelperLine(graphics2D, i);
+        }
+        for (int i = lineNumber; i < staff.getBottomVisibleLine(); i++){
+            drawHelperLine(graphics2D, i);
+        }
+    }
+
+    protected void drawHelperLine(Graphics2D graphics2D, int lineNumber){
+        int noteX = leftMargin + noteXSpacing;
+        int helperLineYPos = (lineSpacing * lineNumber) + staff.getStaffYOffset();
+        if ((lineNumber % 2) == 0) {
+            graphics2D.drawLine(noteX - 2, helperLineYPos, noteX + 2 + noteImage.getBufferedImage().getWidth(), helperLineYPos);
+        }
+    }
 }

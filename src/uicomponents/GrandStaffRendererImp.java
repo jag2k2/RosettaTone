@@ -24,11 +24,11 @@ public class GrandStaffRendererImp extends Component implements KeyChangeObserve
         File trebleClefFile = new File("./Images/Treble-clef.png");
         File bassClefFile = new File("./Images/Bass-clef.png");
 
-        StaffInfo trebleStaffInfo = new StaffInfo(trebleClefFile, 0.5, 15, 3, 0,18, 26);
-        StaffInfo bassStaffInfo = new StaffInfo(bassClefFile, 0.4, 30, 0, 50,30, 38);
+        Staff trebleStaff = new Staff(trebleClefFile, 0.5, 15, 3, 0,18, 26);
+        Staff bassStaff = new Staff(bassClefFile, 0.4, 30, 0, 50,30, 38);
 
-        trebleRenderer = new StaffRenderer(trebleStaffInfo);
-        bassRenderer = new StaffRenderer(bassStaffInfo);
+        trebleRenderer = new StaffRenderer(trebleStaff);
+        bassRenderer = new StaffRenderer(bassStaff);
     }
 
     @Override

@@ -2,9 +2,6 @@ package music;
 
 import instrument.Key;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class NoteStateImp implements NoteState {
     private final int octaves = 9;
     private final int naturalsPerOctave = 7;

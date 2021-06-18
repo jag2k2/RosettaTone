@@ -1,4 +1,4 @@
-package uicomponents;
+package music;
 
 import java.io.File;
 

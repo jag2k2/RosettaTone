@@ -1,7 +1,8 @@
-package uicomponents;
+package uicomponents.renderer;
 
 import instrument.KeyChangeObserver;
 import music.*;
+import music.Staff;
 
 import java.awt.*;
 import javax.swing.*;

@@ -1,9 +1,10 @@
-package uicomponents;
+package uicomponents.renderer;
 
 import imageprocessing.StaffImage;
 import music.ActiveNotes;
 import music.Note;
 import music.NoteAccidental;
+import music.Staff;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -22,7 +23,6 @@ public class StaffRenderer {
     private final StaffImage naturalImage;
     private final StaffImage sharpImage;
     private final StaffImage flatImage;
-
 
     public StaffRenderer(Staff staff){
         this.staff = staff;

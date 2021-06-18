@@ -1,11 +1,25 @@
-package instrument;
+package instrument.simluated;
 
 import javax.sound.midi.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class MidiInstrumentSimImp implements KeyListener, Transmitter {
+public class MidiTransmitterSimImp implements KeyListener, Transmitter {
     private Receiver receiver;
+
+    @Override
+    public void setReceiver(Receiver receiver) {
+        this.receiver = receiver;
+    }
+
+    @Override
+    public Receiver getReceiver() {
+        return receiver;
+    }
+
+    @Override
+    public void close() {
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -31,6 +45,44 @@ public class MidiInstrumentSimImp implements KeyListener, Transmitter {
 
     protected int mapCharToMidiKey(Character keyChar){
         int key = -1;
+
+        if (keyChar.equals('!')){
+            key = 36;
+        }
+        if (keyChar.equals('@')){
+            key = 37;
+        }
+        if (keyChar.equals('#')){
+            key = 38;
+        }
+        if (keyChar.equals('$')){
+            key = 39;
+        }
+        if (keyChar.equals('%')){
+            key = 40;
+        }
+        if (keyChar.equals('^')){
+            key = 41;
+        }
+        if (keyChar.equals('&')){
+            key = 42;
+        }
+        if (keyChar.equals('*')){
+            key = 43;
+        }
+        if (keyChar.equals('(')){
+            key = 44;
+        }
+        if (keyChar.equals(')')){
+            key = 45;
+        }
+        if (keyChar.equals('_')){
+            key = 46;
+        }
+        if (keyChar.equals('+')){
+            key = 47;
+        }
+
         if (keyChar.equals('Q')){
             key = 48;
         }
@@ -104,6 +156,43 @@ public class MidiInstrumentSimImp implements KeyListener, Transmitter {
         if (keyChar.equals(']')){
             key = 71;
         }
+
+        if (keyChar.equals('1')){
+            key = 72;
+        }
+        if (keyChar.equals('2')){
+            key = 73;
+        }
+        if (keyChar.equals('3')){
+            key = 74;
+        }
+        if (keyChar.equals('4')){
+            key = 75;
+        }
+        if (keyChar.equals('5')){
+            key = 76;
+        }
+        if (keyChar.equals('6')){
+            key = 77;
+        }
+        if (keyChar.equals('7')){
+            key = 78;
+        }
+        if (keyChar.equals('8')){
+            key = 79;
+        }
+        if (keyChar.equals('9')){
+            key = 80;
+        }
+        if (keyChar.equals('0')){
+            key = 81;
+        }
+        if (keyChar.equals('-')){
+            key = 82;
+        }
+        if (keyChar.equals('=')){
+            key = 83;
+        }
         return key;
     }
 
@@ -115,20 +204,5 @@ public class MidiInstrumentSimImp implements KeyListener, Transmitter {
         } catch (InvalidMidiDataException ex) {
             ex.printStackTrace();
         }
-    }
-
-    @Override
-    public void setReceiver(Receiver receiver) {
-        this.receiver = receiver;
-    }
-
-    @Override
-    public Receiver getReceiver() {
-        return receiver;
-    }
-
-    @Override
-    public void close() {
-
     }
 }

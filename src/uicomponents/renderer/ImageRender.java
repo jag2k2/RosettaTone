@@ -80,22 +80,22 @@ public class ImageRender {
         graphics2D.setStroke(new BasicStroke(lineThickness));
     }
 
-    protected void drawNotes(ActiveNotes activeNotes, StaffSelection staffSelection){
-        for (Note note : activeNotes){
-            drawNote(note, activeNotes);
+    protected void drawNotes(NoteList noteList, StaffSelection staffSelection){
+        for (Note note : noteList){
+            drawNote(note, noteList);
             drawAccidentals(note);
             drawHelperLines(note, staffSelection);
         }
     }
 
-    protected void drawNote(Note note, ActiveNotes activeNotes){
+    protected void drawNote(Note note, NoteList noteList){
         int lineNumber = CanvasRender.getLineNumber(note);
         int noteX = CanvasRender.getNoteXOffset();
         int noteHeight = noteImage.getBufferedImage().getHeight();
         int noteY = CanvasRender.getLineYOffset(lineNumber) - (noteHeight / 2);
 
         int noteWidth = noteImage.getBufferedImage().getWidth();
-        if (activeNotes.isShifted(note)) {
+        if (noteList.isSandwiched(note)) {
             noteX += noteWidth;
         }
         graphics2D.drawImage(noteImage.getBufferedImage(), null, noteX, noteY);

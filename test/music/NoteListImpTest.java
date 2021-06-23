@@ -6,8 +6,8 @@ import utility.Maybe;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ActiveNotesImpTest {
-    ActiveNotesImp activeNotes;
+class NoteListImpTest {
+    NoteListImp activeNotes;
     Note noteC4;
     Note noteD4;
     Note noteE4;
@@ -22,7 +22,7 @@ class ActiveNotesImpTest {
         noteF4 = new Note(NoteName.F, 4);
         noteA4 = new Note(NoteName.A, 4);
 
-        activeNotes = new ActiveNotesImp();
+        activeNotes = new NoteListImp();
         activeNotes.add(noteC4);
         activeNotes.add(noteD4);
         activeNotes.add(noteE4);
@@ -38,10 +38,10 @@ class ActiveNotesImpTest {
 
     @Test
     void canCheckShifted() {
-        assertFalse(activeNotes.isShifted(noteC4));
-        assertTrue(activeNotes.isShifted(noteD4));
-        assertFalse(activeNotes.isShifted(noteE4));
-        assertTrue(activeNotes.isShifted(noteF4));
-        assertFalse(activeNotes.isShifted(noteA4));
+        assertFalse(activeNotes.isSandwiched(noteC4));
+        assertTrue(activeNotes.isSandwiched(noteD4));
+        assertFalse(activeNotes.isSandwiched(noteE4));
+        assertTrue(activeNotes.isSandwiched(noteF4));
+        assertFalse(activeNotes.isSandwiched(noteA4));
     }
 }

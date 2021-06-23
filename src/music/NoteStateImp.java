@@ -51,8 +51,8 @@ public class NoteStateImp implements NoteState {
     }
 
     @Override
-    public ActiveNotes getActiveNotes() {
-        ActiveNotes pressedNotes = new ActiveNotesImp();
+    public NoteList getActiveNotes() {
+        NoteList pressedNotes = new NoteListImp();
         for (Note[] notes : Notes){
             for(Note note : notes){
                 if (note.isActive()){

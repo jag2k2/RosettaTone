@@ -6,10 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ActiveNotesImp implements ActiveNotes {
+public class NoteListImp implements NoteList {
     private final List<Note> activeNotes;
 
-    public ActiveNotesImp(){
+    public NoteListImp(){
         activeNotes = new ArrayList<>();
     }
 
@@ -24,9 +24,9 @@ public class ActiveNotesImp implements ActiveNotes {
     }
 
     @Override
-    public boolean isShifted(Note note){
+    public boolean isSandwiched(Note note){
         for (Note previousNote : getPrevious(note)){
-            if (note.isAdjacent(previousNote) && !isShifted(previousNote)){
+            if (note.isAdjacent(previousNote) && !isSandwiched(previousNote)){
                 return true;
             }
         }
@@ -51,8 +51,8 @@ public class ActiveNotesImp implements ActiveNotes {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof ActiveNotesImp){
-            ActiveNotesImp toCompare = (ActiveNotesImp) obj;
+        if (obj instanceof NoteListImp){
+            NoteListImp toCompare = (NoteListImp) obj;
             return activeNotes.equals(toCompare.activeNotes);
         }
         return false;

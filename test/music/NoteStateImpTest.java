@@ -3,8 +3,6 @@ package music;
 import instrument.Key;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +16,7 @@ class NoteStateImpTest {
     Note noteC4;
     Note noteG2;
     Note noteD7;
-    ActiveNotesImp expected;
+    NoteListImp expected;
 
     @BeforeEach
     void setup(){
@@ -26,7 +24,7 @@ class NoteStateImpTest {
         noteG2 = new Note(NoteName.G, 2);
         noteD7 = new Note(NoteName.D, 7);
 
-        expected = new ActiveNotesImp();
+        expected = new NoteListImp();
     }
 
     @Test

@@ -18,7 +18,7 @@ class NoteStateImpTest {
     Note noteC4;
     Note noteG2;
     Note noteD7;
-    List<Note> expected;
+    ActiveNotesImp expected;
 
     @BeforeEach
     void setup(){
@@ -26,7 +26,7 @@ class NoteStateImpTest {
         noteG2 = new Note(NoteName.G, 2);
         noteD7 = new Note(NoteName.D, 7);
 
-        expected = new ArrayList<>();
+        expected = new ActiveNotesImp();
     }
 
     @Test

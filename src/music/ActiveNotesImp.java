@@ -46,10 +46,15 @@ public class ActiveNotesImp implements ActiveNotes {
 
     @Override
     public String toString() {
-        String stringText = "";
-        for (Note note : activeNotes){
-            stringText = stringText.concat(note.toString());
+        return activeNotes.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof ActiveNotesImp){
+            ActiveNotesImp toCompare = (ActiveNotesImp) obj;
+            return activeNotes.equals(toCompare.activeNotes);
         }
-        return stringText;
+        return false;
     }
 }

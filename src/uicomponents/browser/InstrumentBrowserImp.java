@@ -7,6 +7,7 @@ import javax.sound.midi.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 
 public class InstrumentBrowserImp implements InstrumentBrowser, ListSelectionListener {
     private final Receiver midiReceiver;
@@ -26,9 +27,15 @@ public class InstrumentBrowserImp implements InstrumentBrowser, ListSelectionLis
         deviceList.addListSelectionListener(this);
         deviceList.setCellRenderer(new InstrumentRenderer(deviceList.getCellRenderer()));
 
+        Dimension listSize = new Dimension(200, 100);
+        deviceList.setPreferredSize(listSize);
+        deviceList.setMaximumSize(listSize);
+        deviceList.setMinimumSize(listSize);
+
         refreshTransmitterDevices();
     }
 
+    @Override
     public JScrollPane getPanel() {
         return listScrollPane;
     }
@@ -56,7 +63,6 @@ public class InstrumentBrowserImp implements InstrumentBrowser, ListSelectionLis
 
     @Override
     public void refreshTransmitterDevices() {
-
         listModel.clear();
         listModel.addElement(new MidiDeviceSimImp(deviceList));
         MidiDevice.Info[] deviceInfo = MidiSystem.getMidiDeviceInfo();

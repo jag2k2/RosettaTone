@@ -1,18 +1,17 @@
 package instrument;
 
 import music.NoteState;
+import notification.StaffChangeNotifier;
 
 import javax.sound.midi.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class KeyReceiverImp implements Receiver, KeyChangeNotifier {
+public class KeyNoteReceiverImp implements Receiver {
     private final NoteState noteState;
-    private final List<KeyChangeObserver> keyChangeObservers;
+    private final StaffChangeNotifier staffChangeNotifier;
 
-    public KeyReceiverImp(NoteState noteState){
+    public KeyNoteReceiverImp(NoteState noteState, StaffChangeNotifier staffChangeNotifier){
         this.noteState = noteState;
-        this.keyChangeObservers = new ArrayList<>();
+        this.staffChangeNotifier = staffChangeNotifier;
     }
 
     @Override
@@ -28,28 +27,19 @@ public class KeyReceiverImp implements Receiver, KeyChangeNotifier {
                 else {
                     noteState.NoteOff(key);
                 }
-                keyNoteChange();
+                staffChangeNotifier.notifyObservers();
             }
             else if (sm.getCommand() == ShortMessage.NOTE_OFF) {
                 Key key = new Key(sm.getData1());
                 int velocity = sm.getData2();
                 noteState.NoteOff(key);
-                keyNoteChange();
+                staffChangeNotifier.notifyObservers();
             }
+        } else if (message instanceof MetaMessage){
+            MetaMessage metaMessage = (MetaMessage) message;
+            System.out.println(message);
         }
     }
     @Override
     public void close() {}
-
-    @Override
-    public void addKeyChangeObserver(KeyChangeObserver keyChangeObserver) {
-        keyChangeObservers.add(keyChangeObserver);
-    }
-
-    @Override
-    public void keyNoteChange() {
-        for (KeyChangeObserver keyChangeObserver : keyChangeObservers) {
-            keyChangeObserver.update();
-        }
-    }
 }

@@ -14,25 +14,25 @@ class NoteTest {
 
     @BeforeEach
     void setup(){
-        noteB3 = new Note(NoteName.B, 3, NoteClef.Treble);
-        noteC4 = new Note(NoteName.C, 4, NoteClef.Treble);
+        noteB3 = new Note(NoteName.B, 3);
+        noteC4 = new Note(NoteName.C, 4);
         noteC4.setAccidental(NoteAccidental.NATURAL, true);
-        noteD4 = new Note(NoteName.D, 4, NoteClef.Treble);
-        noteE4 = new Note(NoteName.E, 4, NoteClef.Treble);
-        noteB4 = new Note(NoteName.B, 4, NoteClef.Treble);
-        noteC5 = new Note(NoteName.C, 5, NoteClef.Treble);
+        noteD4 = new Note(NoteName.D, 4);
+        noteE4 = new Note(NoteName.E, 4);
+        noteB4 = new Note(NoteName.B, 4);
+        noteC5 = new Note(NoteName.C, 5);
     }
 
     @Test
     void equalsChecks(){
-        noteCompare = new Note(NoteName.C, 5, NoteClef.Treble);
+        noteCompare = new Note(NoteName.C, 5);
         noteCompare.setAccidental(NoteAccidental.NATURAL, true);
         assertNotEquals(noteC4, noteCompare);
 
-        noteCompare = new Note(NoteName.C, 4, NoteClef.Treble);
+        noteCompare = new Note(NoteName.C, 4);
         assertNotEquals(noteC4, noteCompare);
 
-        noteCompare = new Note(NoteName.C, 4, NoteClef.Treble);
+        noteCompare = new Note(NoteName.C, 4);
         noteCompare.setAccidental(NoteAccidental.NATURAL, true);
         assertEquals(noteC4, noteCompare);
 

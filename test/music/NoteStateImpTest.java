@@ -22,9 +22,9 @@ class NoteStateImpTest {
 
     @BeforeEach
     void setup(){
-        noteC4 = new Note(NoteName.C, 4, NoteClef.Treble);
-        noteG2 = new Note(NoteName.G, 2, NoteClef.Treble);
-        noteD7 = new Note(NoteName.D, 7, NoteClef.Treble);
+        noteC4 = new Note(NoteName.C, 4);
+        noteG2 = new Note(NoteName.G, 2);
+        noteD7 = new Note(NoteName.D, 7);
 
         expected = new ArrayList<>();
     }
@@ -44,6 +44,6 @@ class NoteStateImpTest {
         expected.add(noteD7);
         noteD7.setAccidental(NoteAccidental.SHARP, true);
 
-        assertEquals(expected, noteState.getActiveNotes(NoteClef.Treble));
+        assertEquals(expected, noteState.getActiveNotes());
     }
 }

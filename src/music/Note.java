@@ -5,29 +5,15 @@ import java.util.ArrayList;
 
 public class Note {
 
-    private final NoteClef noteClef;
     private final NoteName noteName;
-    private int octave;
+    private final int octave;
     private boolean natural = false;
     private boolean sharp = false;
     private boolean flat = false;
 
-    public Note(NoteName noteName, int octave, NoteClef noteClef) {
+    public Note(NoteName noteName, int octave) {
         this.noteName = noteName;
         this.octave = octave;
-        this.noteClef = noteClef;
-    }
-
-    public NoteName getName(){
-        return noteName;
-    }
-
-    public int getOctave() {
-        return octave;
-    }
-
-    public boolean isClef(NoteClef compareClef){
-        return noteClef == compareClef;
     }
 
     public int getLineNumber() {
@@ -66,11 +52,11 @@ public class Note {
 
     public boolean isAdjacent(Note otherNote) {
         int notePosition = noteName.getPosition();
-        int otherNotePosition = otherNote.getName().getPosition();
+        int otherNotePosition = otherNote.noteName.getPosition();
         int positionDifference = Math.abs(notePosition - otherNotePosition);
         int octaveDifference = Math.abs(octave - otherNote.octave);
-        boolean sameOctaveAdjacent = (positionDifference == 1)  && (octaveDifference == 0) && (noteClef == otherNote.noteClef);
-        boolean noteBCAdjacent = (positionDifference == 6) && (octaveDifference == 1) && (noteClef == otherNote.noteClef);
+        boolean sameOctaveAdjacent = (positionDifference == 1)  && (octaveDifference == 0);
+        boolean noteBCAdjacent = (positionDifference == 6) && (octaveDifference == 1);
         return sameOctaveAdjacent || noteBCAdjacent;
     }
 
@@ -82,8 +68,7 @@ public class Note {
                     this.octave == noteCompare.octave &&
                     this.natural == noteCompare.natural &&
                     this.sharp == noteCompare.sharp &&
-                    this.flat == noteCompare.flat &&
-                    this.noteClef == noteCompare.noteClef;
+                    this.flat == noteCompare.flat;
         }
         return false;
     }

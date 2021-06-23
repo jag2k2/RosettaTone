@@ -14,7 +14,7 @@ public class NoteStateImp implements NoteState {
                 NoteClef noteClef = NoteClef.Bass;
                 if (octave > 3)
                     noteClef = NoteClef.Treble;
-                Notes[octave][octaveNote] = new Note(noteNames[octaveNote], octave, noteClef);
+                Notes[octave][octaveNote] = new Note(noteNames[octaveNote], octave);
             }
         }
     }
@@ -51,11 +51,11 @@ public class NoteStateImp implements NoteState {
     }
 
     @Override
-    public ActiveNotes getActiveNotes(NoteClef noteClef) {
+    public ActiveNotes getActiveNotes() {
         ActiveNotes pressedNotes = new ActiveNotesImp();
         for (Note[] notes : Notes){
             for(Note note : notes){
-                if (note.isActive() && note.isClef(noteClef)){
+                if (note.isActive()){
                     pressedNotes.add(note);
                 }
             }

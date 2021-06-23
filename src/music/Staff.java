@@ -8,17 +8,15 @@ public class Staff {
     private final double scaleFactor;
     private final int clefLineOffset;
     private final int clefFineTuneYOffset;
-    private final int staffYOffset;
     private final int topVisibleLine;
     private final int bottomVisibleLine;
 
     public Staff(File clefFile, double scaleFactor, int clefLineOffset,
-                 int clefFineTuneYOffset, int staffYOffset, int topVisibleLine, int bottomVisibleLine){
+                 int clefFineTuneYOffset, int topVisibleLine, int bottomVisibleLine){
         this.clefFile = clefFile;
         this.scaleFactor = scaleFactor;
         this.clefLineOffset = clefLineOffset;
         this.clefFineTuneYOffset = clefFineTuneYOffset;
-        this.staffYOffset = staffYOffset;
         this.topVisibleLine = topVisibleLine;
         this.bottomVisibleLine = bottomVisibleLine;
     }
@@ -32,11 +30,7 @@ public class Staff {
     }
 
     public int getClefYOffset(int lineSpacing){
-        return (lineSpacing * clefLineOffset) + clefFineTuneYOffset + staffYOffset;
-    }
-
-    public int getStaffYOffset() {
-        return staffYOffset;
+        return (lineSpacing * clefLineOffset) + clefFineTuneYOffset;
     }
 
     public int getTopVisibleLine(){

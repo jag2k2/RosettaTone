@@ -1,36 +1,32 @@
 package music;
 
-import java.io.File;
+import imageprocessing.StaffImage;
+import uicomponents.renderer.CanvasRender;
+import java.awt.image.BufferedImage;
 
 public class Staff {
 
-    private final File clefFile;
-    private final double scaleFactor;
+    private final StaffImage staffImage;
     private final int clefLineOffset;
     private final int clefFineTuneYOffset;
     private final int topVisibleLine;
     private final int bottomVisibleLine;
 
-    public Staff(File clefFile, double scaleFactor, int clefLineOffset,
+    public Staff(StaffImage staffImage, int clefLineOffset,
                  int clefFineTuneYOffset, int topVisibleLine, int bottomVisibleLine){
-        this.clefFile = clefFile;
-        this.scaleFactor = scaleFactor;
+        this.staffImage = staffImage;
         this.clefLineOffset = clefLineOffset;
         this.clefFineTuneYOffset = clefFineTuneYOffset;
         this.topVisibleLine = topVisibleLine;
         this.bottomVisibleLine = bottomVisibleLine;
     }
 
-    public File getImageFile() {
-        return clefFile;
+    public BufferedImage getStaffImage(){
+        return staffImage.getBufferedImage();
     }
 
-    public double getScaleFactor(){
-        return scaleFactor;
-    }
-
-    public int getClefYOffset(int lineSpacing){
-        return (lineSpacing * clefLineOffset) + clefFineTuneYOffset;
+    public int getClefYOffset(){
+        return (CanvasRender.getLineSpacing() * clefLineOffset) + clefFineTuneYOffset;
     }
 
     public int getTopVisibleLine(){

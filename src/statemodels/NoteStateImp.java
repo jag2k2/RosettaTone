@@ -2,13 +2,19 @@ package statemodels;
 
 import instrument.Key;
 import music.*;
+import notification.StaffChangeNotifier;
+import notification.StaffChangeObserver;
 
-public class NoteStateImp implements NoteState {
+import java.util.ArrayList;
+
+public class NoteStateImp implements NoteState, StaffChangeNotifier {
     private final int octaves = 9;
     private final int naturalsPerOctave = 7;
     private final Note[][] Notes = new Note[octaves][naturalsPerOctave];
+    private final ArrayList<StaffChangeObserver> staffChangeObservers;
 
     public NoteStateImp(){
+        this.staffChangeObservers = new ArrayList<>();
         NoteName[] noteNames = NoteName.values();
         for (int octave = 0; octave < octaves; octave++){
             for(int octaveNote = 0; octaveNote < naturalsPerOctave; octaveNote++){
@@ -20,11 +26,13 @@ public class NoteStateImp implements NoteState {
     @Override
     public void NoteOn(Key key) {
         changeNoteState(key, true);
+        notifyObservers();
     }
 
     @Override
     public void NoteOff(Key key) {
         changeNoteState(key, false);
+        notifyObservers();
     }
 
     protected void changeNoteState(Key key, boolean active){
@@ -59,5 +67,17 @@ public class NoteStateImp implements NoteState {
             }
         }
         return pressedNotes;
+    }
+
+    @Override
+    public void addObserver(StaffChangeObserver observer) {
+        staffChangeObservers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (StaffChangeObserver staffChangeObserver : staffChangeObservers) {
+            staffChangeObserver.update();
+        }
     }
 }

@@ -21,8 +21,13 @@
   <component name="ChangeListManager">
     <list default="true" id="48599964-9b78-42df-9119-0f1d75fe50ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/uicomponents/rangeselector/NoteRangeRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uicomponents/rangeselector/NoteRangeRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/uicomponents/renderer/RangeRendererImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uicomponents/renderer/RangeRendererImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instrument/KeyNoteReceiverImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/instrument/KeyNoteReceiverImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/notification/RangeChangeNotifierImp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/notification/StaffChangeNotifierImp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/statemodels/NoteRangeModelImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/statemodels/NoteRangeModelImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/statemodels/NoteStateImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/statemodels/NoteStateImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uicomponents/MainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uicomponents/MainGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uicomponents/staffselector/ModeSelectorImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uicomponents/staffselector/ModeSelectorImp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +92,7 @@
       <recent name="C:\GitRepos\RosettaTone" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in RosettaTone">
+  <component name="RunManager" selected="Application.RosettaTone">
     <configuration name="RosettaTone" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="application.RosettaTone" />
       <module name="RosettaTone" />
@@ -178,8 +183,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in RosettaTone" />
         <item itemvalue="Application.RosettaTone" />
+        <item itemvalue="JUnit.All in RosettaTone" />
         <item itemvalue="JUnit.CanvasRenderTest.getLineNumber" />
         <item itemvalue="JUnit.NoteRangeModelImpTest" />
         <item itemvalue="JUnit.NoteRangeModelImpTest.canCheckEquality" />
@@ -370,7 +375,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624744249355</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Implemented update in RangeRendererImp">
+      <created>1624745160261</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1624745160261</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -410,7 +422,8 @@
     <MESSAGE value="Renamed ActiveNotes to NoteList" />
     <MESSAGE value="Added NoteRangeModel and made the text display its own component and observer" />
     <MESSAGE value="Fixed test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed test" />
+    <MESSAGE value="Implemented update in RangeRendererImp" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented update in RangeRendererImp" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2360" y="94" key="#Project_Structure" timestamp="1623030882619">
@@ -460,9 +473,10 @@
     <state x="2577" y="106" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1622934087904" />
     <state x="657" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1623700024657" />
     <state x="2577" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624492197100" />
-    <state x="2610" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1624472041891">
+    <state x="2610" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1624745773251">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
+    <state x="2610" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1624745773251" />
     <state x="2610" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624472041891" />
     <state x="2660" y="275" key="FileChooserDialogImpl" timestamp="1623597162241">
       <screen x="1920" y="0" width="1920" height="1040" />
@@ -542,10 +556,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="446" key="SwitcherDM/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623446247711" />
-    <state x="2472" y="240" key="Vcs.Push.Dialog.v2" timestamp="1624744251227">
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2" timestamp="1624745162673">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2472" y="240" key="Vcs.Push.Dialog.v2/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1624744251227" />
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1624745162673" />
     <state x="552" y="240" key="Vcs.Push.Dialog.v2/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1623700275458" />
     <state x="2472" y="240" key="Vcs.Push.Dialog.v2/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624492245337" />
     <state x="2584" y="411" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1623031506462">

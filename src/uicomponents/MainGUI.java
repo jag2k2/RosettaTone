@@ -2,11 +2,8 @@ package uicomponents;
 
 import javax.swing.*;
 import java.awt.*;
-
 import instrument.*;
 import music.*;
-import notification.RangeChangeNotifierImp;
-import notification.StaffChangeNotifierImp;
 import statemodels.NoteStateImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.RangeSelectorImp;
@@ -28,18 +25,14 @@ public class MainGUI {
         NoteStateImp noteStateImp = new NoteStateImp();
         NoteRangeModelImp noteRangeModelImp = new NoteRangeModelImp(new Note(NoteName.C, 4), new Note(NoteName.B, 4));
 
-        //Notifiers
-        StaffChangeNotifierImp staffChangeNotifierImp = new StaffChangeNotifierImp();
-        RangeChangeNotifierImp rangeChangeNotifierImp = new RangeChangeNotifierImp();
-
         //KeyReceiver
-        KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(noteStateImp, staffChangeNotifierImp);
+        KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(noteStateImp);
 
         //Selectors
         InstrumentBrowserImp instrumentBrowserImp = new InstrumentBrowserImp(keyNoteReceiverImp);
         StaffSelectionImp staffSelectionImp = new StaffSelectionImp(StaffOptions.Grand);
-        ModeSelectorImp modeSelectorImp = new ModeSelectorImp(staffSelectionImp, staffChangeNotifierImp);
-        RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(rangeChangeNotifierImp);
+        ModeSelectorImp modeSelectorImp = new ModeSelectorImp(staffSelectionImp);
+        RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(noteRangeModelImp);
 
         //Renderers
         GrandStaffRendererImp grandStaffRendererImp = new GrandStaffRendererImp(noteStateImp, staffSelectionImp);
@@ -47,9 +40,9 @@ public class MainGUI {
         NoteTextRenderer noteTextRendererImp = new NoteTextRenderer(noteStateImp);
 
         //Add Observers
-        staffChangeNotifierImp.addObserver(grandStaffRendererImp);
-        staffChangeNotifierImp.addObserver(noteTextRendererImp);
-        rangeChangeNotifierImp.addObserver(rangeRendererImp);
+        noteStateImp.addObserver(grandStaffRendererImp);
+        noteStateImp.addObserver(noteTextRendererImp);
+        noteRangeModelImp.addObserver(rangeRendererImp);
 
         //Build Panels
         JPanel configPanel = new JPanel();

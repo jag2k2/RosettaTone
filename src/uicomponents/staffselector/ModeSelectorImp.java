@@ -1,7 +1,6 @@
 package uicomponents.staffselector;
 
 import music.StaffSelection;
-import notification.StaffChangeNotifier;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,12 +8,10 @@ import java.awt.event.ActionListener;
 public class ModeSelectorImp implements ActionListener {
     private final JComboBox<StaffOptions> clefComboBox;
     private final JPanel panel;
-    private final StaffChangeNotifier staffChangeNotifier;
     private final StaffSelection staffSelection;
 
-    public ModeSelectorImp(StaffSelection staffSelection, StaffChangeNotifier staffChangeNotifier){
+    public ModeSelectorImp(StaffSelection staffSelection){
         this.staffSelection = staffSelection;
-        this.staffChangeNotifier = staffChangeNotifier;
         this.clefComboBox = new JComboBox<>(StaffOptions.values());
         this.clefComboBox.addActionListener(this);
         this.panel = new JPanel();
@@ -30,6 +27,5 @@ public class ModeSelectorImp implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         int selectedIndex = clefComboBox.getSelectedIndex();
         staffSelection.setSelection(StaffOptions.values()[selectedIndex]);
-        staffChangeNotifier.notifyObservers();
     }
 }

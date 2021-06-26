@@ -7,11 +7,9 @@ import javax.sound.midi.*;
 
 public class KeyNoteReceiverImp implements Receiver {
     private final NoteState noteState;
-    private final StaffChangeNotifier staffChangeNotifier;
 
-    public KeyNoteReceiverImp(NoteState noteState, StaffChangeNotifier staffChangeNotifier){
+    public KeyNoteReceiverImp(NoteState noteState){
         this.noteState = noteState;
-        this.staffChangeNotifier = staffChangeNotifier;
     }
 
     @Override
@@ -27,13 +25,11 @@ public class KeyNoteReceiverImp implements Receiver {
                 else {
                     noteState.NoteOff(key);
                 }
-                staffChangeNotifier.notifyObservers();
             }
             else if (sm.getCommand() == ShortMessage.NOTE_OFF) {
                 Key key = new Key(sm.getData1());
                 int velocity = sm.getData2();
                 noteState.NoteOff(key);
-                staffChangeNotifier.notifyObservers();
             }
         }
     }

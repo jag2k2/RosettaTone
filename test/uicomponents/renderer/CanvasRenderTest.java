@@ -17,6 +17,6 @@ class CanvasRenderTest {
 
     @Test
     void getLineNumber() {
-        assertEquals(20, CanvasRender.getLineNumber(noteC4));
+        assertEquals(28, CanvasRender.getLineNumber(noteC4));
     }
 }

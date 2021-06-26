@@ -1,6 +1,7 @@
-package music;
+package statemodels;
 
 import instrument.Key;
+import music.*;
 
 public class NoteStateImp implements NoteState {
     private final int octaves = 9;
@@ -11,9 +12,6 @@ public class NoteStateImp implements NoteState {
         NoteName[] noteNames = NoteName.values();
         for (int octave = 0; octave < octaves; octave++){
             for(int octaveNote = 0; octaveNote < naturalsPerOctave; octaveNote++){
-                NoteClef noteClef = NoteClef.Bass;
-                if (octave > 3)
-                    noteClef = NoteClef.Treble;
                 Notes[octave][octaveNote] = new Note(noteNames[octaveNote], octave);
             }
         }

@@ -1,12 +1,16 @@
 package music;
 
+import instrument.Key;
+import utility.Decrementable;
+import utility.Incrementable;
+
 import java.util.List;
 import java.util.ArrayList;
 
-public class Note {
+public class Note implements Comparable<Note>, Incrementable, Decrementable {
 
-    private final NoteName noteName;
-    private final int octave;
+    private NoteName noteName;
+    private int octave;
     private boolean natural = false;
     private boolean sharp = false;
     private boolean flat = false;
@@ -16,8 +20,18 @@ public class Note {
         this.octave = octave;
     }
 
-    public int getLineNumber() {
-        return (noteName.getPosition() + (octave * 7) - 5);
+    public Note(Key key){
+        this.noteName = NoteName.values()[key.getNaturalIndex()];
+        this.octave = key.getOctave();
+    }
+
+    public Note(Note note){
+        this.noteName = note.noteName;
+        this.octave = note.octave;
+    }
+
+    public int getNoteNumber() {
+        return noteName.getPosition() + (octave * 7);
     }
 
     public List<NoteAccidental> getActiveAccidentals() {
@@ -75,16 +89,48 @@ public class Note {
 
     @Override
     public String toString() {
-        String noteString = "";
-        if (natural){
-            noteString += noteName.toString() + octave;
+        String noteString = noteName.toString();
+        if (natural && (sharp || flat)){
+            noteString += "nat";
         }
         if (sharp) {
-            noteString += noteName.toString() + "#" + octave;
+            noteString += "#";
         }
         if (flat) {
-            noteString += noteName.toString() + "b" + octave;
+            noteString += "b";
         }
+        noteString += Integer.toString(octave);
         return noteString;
+    }
+
+    @Override
+    public void increment() {
+        if (noteName.getPosition() >= NoteName.B.getPosition()){
+            octave++;
+            noteName = NoteName.C;
+        }
+        else {
+            noteName = NoteName.values()[noteName.getPosition() + 1];
+        }
+    }
+
+    @Override
+    public void decrement() {
+        if (noteName.getPosition() <= NoteName.C.getPosition()){
+            octave--;
+            noteName = NoteName.B;
+        }
+        else {
+            noteName = NoteName.values()[noteName.getPosition() - 1];
+        }
+    }
+
+    @Override
+    public int compareTo(Note o) {
+        return noteValue() - o.noteValue();
+    }
+
+    protected int noteValue(){
+        return octave * 10 + noteName.getPosition();
     }
 }

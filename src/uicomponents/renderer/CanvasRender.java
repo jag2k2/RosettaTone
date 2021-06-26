@@ -1,11 +1,7 @@
 package uicomponents.renderer;
 
-import imageprocessing.StaffImage;
 import music.Note;
-import music.Staff;
-
 import java.awt.*;
-import java.io.File;
 
 public class CanvasRender {
     private static final int canvasWidth = 750;
@@ -21,7 +17,7 @@ public class CanvasRender {
     }
 
     static public int getLineNumber(Note note){
-        return numberOfLines - note.getLineNumber() - 1;
+        return (numberOfLines - 1) - (note.getNoteNumber() - 5);
     }
 
     static public int getNumberOfLines(){

@@ -3,6 +3,8 @@ package music;
 import instrument.Key;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import statemodels.NoteState;
+import statemodels.NoteStateImp;
 
 import static org.junit.jupiter.api.Assertions.*;
 

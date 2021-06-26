@@ -32,6 +32,8 @@ public class MidiDeviceSimImp implements MidiDevice {
     public void open() throws MidiUnavailableException {
         component.addKeyListener(keyListener);
         component.setFocusable(true);
+        //component.setRequestFocusEnabled(true);
+        //component.requestFocusInWindow();
         open = true;
         System.out.println("Opening Simulated Device");
     }

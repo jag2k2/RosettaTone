@@ -1,6 +1,7 @@
-package music;
+package statemodels;
 
 import instrument.Key;
+import music.NoteList;
 
 public interface NoteState {
     public void NoteOn(Key key);

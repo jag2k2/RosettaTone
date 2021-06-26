@@ -20,14 +20,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48599964-9b78-42df-9119-0f1d75fe50ba" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/notification/RangeChangeNotifier.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/notification/RangeChangeNotifierImp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/notification/RangeChangeObserver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/statemodels/NoteRangeModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/statemodels/NoteRangeModelImp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uicomponents/rangeselector/NoteRangeRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uicomponents/renderer/NoteStateTextRendererImp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uicomponents/renderer/NoteTextRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uicomponents/renderer/RangeRendererImp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utility/Decrementable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utility/Incrementable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/uicomponents/renderer/CanvasRenderTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/uicomponents/renderer/NoteRangeModelImpTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/music/ActiveNotes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/music/NoteList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/music/ActiveNotesImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/music/NoteListImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/music/NoteState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/music/NoteState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/music/NoteStateImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/music/NoteStateImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/uicomponents/renderer/ImageRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uicomponents/renderer/ImageRender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/music/ActiveNotesImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/music/NoteListImpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instrument/KeyNoteReceiverImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/instrument/KeyNoteReceiverImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instrument/simluated/MidiDeviceSimImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/instrument/simluated/MidiDeviceSimImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/music/Note.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/music/Note.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/music/NoteState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/statemodels/NoteState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/music/NoteStateImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/statemodels/NoteStateImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/notification/StaffChangeNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/notification/StaffChangeNotifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/notification/StaffChangeNotifierImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/notification/StaffChangeNotifierImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uicomponents/MainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uicomponents/MainGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uicomponents/rangeselector/RangeSelectorImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uicomponents/rangeselector/RangeSelectorImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uicomponents/renderer/CanvasRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uicomponents/renderer/CanvasRender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uicomponents/renderer/GrandStaffRendererImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uicomponents/renderer/GrandStaffRendererImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uicomponents/renderer/ImageRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uicomponents/renderer/NoteRender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/music/NoteStateImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/music/NoteStateImpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/music/NoteTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/music/NoteTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,8 +59,8 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -69,6 +89,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="uicomponents.renderer" />
       <recent name="music" />
       <recent name="uicomponents" />
     </key>
@@ -92,19 +113,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.RosettaTone">
-    <configuration name="ComboBoxDemo2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="example.ComboBoxDemo2" />
-      <module name="RosettaTone" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="RosettaTone" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="application.RosettaTone" />
       <module name="RosettaTone" />
@@ -131,58 +139,83 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in RosettaTone" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CanvasRenderTest.getLineNumber" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="RosettaTone" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uicomponents.renderer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="uicomponents.renderer" />
+      <option name="MAIN_CLASS_NAME" value="uicomponents.renderer.CanvasRenderTest" />
+      <option name="METHOD_NAME" value="getLineNumber" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NoteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="NoteRangeModelImpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="RosettaTone" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="music.*" />
+          <option name="PATTERN" value="statemodels.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="music" />
-      <option name="MAIN_CLASS_NAME" value="music.NoteTest" />
+      <option name="PACKAGE_NAME" value="uicomponents.renderer" />
+      <option name="MAIN_CLASS_NAME" value="uicomponents.renderer.NoteRangeModelImpTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StaffSelectionImpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="NoteRangeModelImpTest.canCheckEquality" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="RosettaTone" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="music.*" />
+          <option name="PATTERN" value="statemodels.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="music" />
-      <option name="MAIN_CLASS_NAME" value="music.StaffSelectionImpTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="uicomponents.renderer" />
+      <option name="MAIN_CLASS_NAME" value="uicomponents.renderer.NoteRangeModelImpTest" />
+      <option name="METHOD_NAME" value="canCheckEquality" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NoteRangeModelImpTest.testToString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="RosettaTone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="statemodels.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="uicomponents.renderer" />
+      <option name="MAIN_CLASS_NAME" value="uicomponents.renderer.NoteRangeModelImpTest" />
+      <option name="METHOD_NAME" value="testToString" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.NoteRangeModelImpTest.testToString" />
+      <item itemvalue="JUnit.NoteRangeModelImpTest" />
+      <item itemvalue="JUnit.NoteRangeModelImpTest.canCheckEquality" />
       <item itemvalue="Application.RosettaTone" />
-      <item itemvalue="Application.ComboBoxDemo2" />
-      <item itemvalue="JUnit.NoteTest" />
-      <item itemvalue="JUnit.All in RosettaTone" />
-      <item itemvalue="JUnit.StaffSelectionImpTest" />
+      <item itemvalue="JUnit.CanvasRenderTest.getLineNumber" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.RosettaTone" />
-        <item itemvalue="JUnit.StaffSelectionImpTest" />
-        <item itemvalue="JUnit.All in RosettaTone" />
-        <item itemvalue="JUnit.NoteTest" />
-        <item itemvalue="Application.ComboBoxDemo2" />
+        <item itemvalue="JUnit.CanvasRenderTest.getLineNumber" />
+        <item itemvalue="JUnit.NoteRangeModelImpTest" />
+        <item itemvalue="JUnit.NoteRangeModelImpTest.canCheckEquality" />
+        <item itemvalue="JUnit.NoteRangeModelImpTest.testToString" />
       </list>
     </recent_temporary>
   </component>
@@ -349,7 +382,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624491992279</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Renamed ActiveNotes to NoteList">
+      <created>1624492243841</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1624492243841</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -386,7 +426,8 @@
     <MESSAGE value="Can now select midi instrument from a JList" />
     <MESSAGE value="application now supports three different display modes" />
     <MESSAGE value="fixed test" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed test" />
+    <MESSAGE value="Renamed ActiveNotes to NoteList" />
+    <option name="LAST_COMMIT_MESSAGE" value="Renamed ActiveNotes to NoteList" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2360" y="94" key="#Project_Structure" timestamp="1623030882619">
@@ -399,12 +440,13 @@
     </state>
     <state x="2334" y="175" width="1092" height="738" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1622938795575" />
     <state x="2334" y="175" width="1092" height="762" key="#com.intellij.execution.impl.EditConfigurationsDialog/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623004301396" />
-    <state x="2685" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1624484286003">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1624742704490">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@0.0.1920.1040" timestamp="1624742704490" />
     <state x="2685" y="226" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623603068545" />
     <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1624460146554" />
-    <state x="2685" y="226" key="#com.intellij.ide.util.MemberChooser/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624484286003" />
+    <state x="2685" y="226" key="#com.intellij.ide.util.MemberChooser/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624497179231" />
     <state x="2610" y="299" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1623085320512">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -427,9 +469,10 @@
     </state>
     <state x="743" y="389" width="500" height="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1623806598684" />
     <state x="2663" y="389" width="433" height="268" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623258775882" />
-    <state x="2577" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1624492197100">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="657" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1624668761691">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="657" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@0.0.1920.1040" timestamp="1624668761691" />
     <state x="2577" y="106" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1622934087904" />
     <state x="657" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1623700024657" />
     <state x="2577" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624492197100" />
@@ -442,37 +485,41 @@
     </state>
     <state x="2660" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623597162241" />
     <state x="2660" y="275" key="FileChooserDialogImpl/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623081015703" />
-    <state width="1877" height="248" key="GridCell.Tab.0.bottom" timestamp="1624491964576">
+    <state width="1860" height="248" key="GridCell.Tab.0.bottom" timestamp="1624744073987">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1461" height="237" key="GridCell.Tab.0.bottom/0.0.1504.963@0.0.1504.963" timestamp="1624023531942" />
-    <state width="1877" height="237" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1624020281438" />
+    <state width="1877" height="248" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@0.0.1920.1040" timestamp="1624743279496" />
+    <state width="1860" height="248" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1624744073987" />
     <state width="1877" height="248" key="GridCell.Tab.0.bottom/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1624460299806" />
-    <state width="1877" height="248" key="GridCell.Tab.0.bottom/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624491964576" />
+    <state width="1877" height="248" key="GridCell.Tab.0.bottom/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624498726509" />
     <state width="1877" height="269" key="GridCell.Tab.0.bottom/3840.0.1504.976/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1623080032650" />
-    <state width="1877" height="248" key="GridCell.Tab.0.center" timestamp="1624491964575">
+    <state width="1860" height="248" key="GridCell.Tab.0.center" timestamp="1624744073987">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1461" height="237" key="GridCell.Tab.0.center/0.0.1504.963@0.0.1504.963" timestamp="1624023531940" />
-    <state width="1877" height="237" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1624020281438" />
+    <state width="1877" height="248" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@0.0.1920.1040" timestamp="1624743279496" />
+    <state width="1860" height="248" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1624744073987" />
     <state width="1877" height="248" key="GridCell.Tab.0.center/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1624460299806" />
-    <state width="1877" height="248" key="GridCell.Tab.0.center/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624491964575" />
+    <state width="1877" height="248" key="GridCell.Tab.0.center/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624498726509" />
     <state width="1877" height="269" key="GridCell.Tab.0.center/3840.0.1504.976/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1623080032650" />
-    <state width="1877" height="248" key="GridCell.Tab.0.left" timestamp="1624491964575">
+    <state width="1860" height="248" key="GridCell.Tab.0.left" timestamp="1624744073986">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1461" height="237" key="GridCell.Tab.0.left/0.0.1504.963@0.0.1504.963" timestamp="1624023531940" />
-    <state width="1877" height="237" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1624020281437" />
+    <state width="1877" height="248" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@0.0.1920.1040" timestamp="1624743279496" />
+    <state width="1860" height="248" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1624744073986" />
     <state width="1877" height="248" key="GridCell.Tab.0.left/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1624460299806" />
-    <state width="1877" height="248" key="GridCell.Tab.0.left/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624491964575" />
+    <state width="1877" height="248" key="GridCell.Tab.0.left/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624498726508" />
     <state width="1877" height="269" key="GridCell.Tab.0.left/3840.0.1504.976/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1623080032649" />
-    <state width="1877" height="248" key="GridCell.Tab.0.right" timestamp="1624491964575">
+    <state width="1860" height="248" key="GridCell.Tab.0.right" timestamp="1624744073987">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1461" height="237" key="GridCell.Tab.0.right/0.0.1504.963@0.0.1504.963" timestamp="1624023531941" />
-    <state width="1877" height="237" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1624020281438" />
+    <state width="1877" height="248" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@0.0.1920.1040" timestamp="1624743279496" />
+    <state width="1860" height="248" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1624744073987" />
     <state width="1877" height="248" key="GridCell.Tab.0.right/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1624460299806" />
-    <state width="1877" height="248" key="GridCell.Tab.0.right/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624491964575" />
+    <state width="1877" height="248" key="GridCell.Tab.0.right/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624498726509" />
     <state width="1877" height="269" key="GridCell.Tab.0.right/3840.0.1504.976/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1623080032650" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1623700625078">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -511,19 +558,20 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="446" key="SwitcherDM/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623446247711" />
-    <state x="2472" y="240" key="Vcs.Push.Dialog.v2" timestamp="1624491993984">
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2" timestamp="1624492245337">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2472" y="240" key="Vcs.Push.Dialog.v2/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623608166714" />
     <state x="552" y="240" key="Vcs.Push.Dialog.v2/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1623700275458" />
-    <state x="2472" y="240" key="Vcs.Push.Dialog.v2/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624491993984" />
+    <state x="2472" y="240" key="Vcs.Push.Dialog.v2/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624492245337" />
     <state x="2584" y="411" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1623031506462">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2584" y="411" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623031506462" />
-    <state x="2651" y="314" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1624484438054">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="1159" y="197" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1624743197697">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="1159" y="197" key="com.intellij.testIntegration.createTest.CreateTestDialog/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@0.0.1920.1040" timestamp="1624743197697" />
     <state x="2651" y="314" key="com.intellij.testIntegration.createTest.CreateTestDialog/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1623603479989" />
     <state x="2651" y="314" key="com.intellij.testIntegration.createTest.CreateTestDialog/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1624484438054" />
     <state x="2425" y="256" width="909" height="629" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1623978983607">
@@ -544,9 +592,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2587" y="76" width="585" height="888" key="find.popup/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@1920.0.1920.1040" timestamp="1622933246416" />
-    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1623684329388">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1624742368068">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/0.0.1920.1040/3840.0.1504.963@0.0.1920.1040" timestamp="1624742368068" />
     <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/3840.0.1504.976/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1623684329388" />
   </component>
   <component name="XDebuggerManager">

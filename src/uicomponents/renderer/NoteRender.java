@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageRender {
+public class NoteRender {
     private static final File trebleClefFile = new File("./Images/Treble-clef.png");
     private static final File bassClefFile = new File("./Images/Bass-clef.png");
     private static final File noteFile = new File("./Images/Whole-Note.png");
@@ -29,7 +29,7 @@ public class ImageRender {
 
     private final Graphics2D graphics2D;
 
-    public ImageRender(Graphics2D graphics2D){
+    public NoteRender(Graphics2D graphics2D){
         this.graphics2D = graphics2D;
     }
 

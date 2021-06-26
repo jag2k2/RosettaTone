@@ -5,10 +5,15 @@ import java.awt.*;
 
 import instrument.*;
 import music.*;
+import notification.RangeChangeNotifierImp;
 import notification.StaffChangeNotifierImp;
+import statemodels.NoteStateImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.RangeSelectorImp;
 import uicomponents.renderer.GrandStaffRendererImp;
+import statemodels.NoteRangeModelImp;
+import uicomponents.renderer.NoteTextRenderer;
+import uicomponents.renderer.RangeRendererImp;
 import uicomponents.staffselector.ModeSelectorImp;
 import uicomponents.staffselector.StaffOptions;
 
@@ -19,33 +24,45 @@ public class MainGUI {
         this.frame = new JFrame();
         JPanel mainPanel = new JPanel(new BorderLayout());
 
-        JTextArea textArea = new JTextArea();
+        //State Models
+        NoteStateImp noteStateImp = new NoteStateImp();
+        NoteRangeModelImp noteRangeModelImp = new NoteRangeModelImp(new Note(NoteName.C, 4), new Note(NoteName.B, 4));
 
-        NoteStateImp noteState = new NoteStateImp();
-        StaffSelectionImp staffSelectionImp = new StaffSelectionImp(StaffOptions.Grand);
-
-        GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(noteState, staffSelectionImp, textArea);
+        //Notifiers
         StaffChangeNotifierImp staffChangeNotifierImp = new StaffChangeNotifierImp();
+        RangeChangeNotifierImp rangeChangeNotifierImp = new RangeChangeNotifierImp();
 
-        KeyNoteReceiverImp keyReceiver = new KeyNoteReceiverImp(noteState, staffChangeNotifierImp);
-        ModeSelectorImp staffSelector = new ModeSelectorImp(staffSelectionImp, staffChangeNotifierImp);
-        InstrumentBrowserImp instrumentBrowser = new InstrumentBrowserImp(keyReceiver);
-        RangeSelectorImp rangeSelector = new RangeSelectorImp();
+        //KeyReceiver
+        KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(noteStateImp, staffChangeNotifierImp);
 
-        staffChangeNotifierImp.add(grandStaffRenderer);
+        //Selectors
+        InstrumentBrowserImp instrumentBrowserImp = new InstrumentBrowserImp(keyNoteReceiverImp);
+        StaffSelectionImp staffSelectionImp = new StaffSelectionImp(StaffOptions.Grand);
+        ModeSelectorImp modeSelectorImp = new ModeSelectorImp(staffSelectionImp, staffChangeNotifierImp);
+        RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(rangeChangeNotifierImp);
 
+        //Renderers
+        GrandStaffRendererImp grandStaffRendererImp = new GrandStaffRendererImp(noteStateImp, staffSelectionImp);
+        RangeRendererImp rangeRendererImp = new RangeRendererImp(noteRangeModelImp);
+        NoteTextRenderer noteTextRendererImp = new NoteTextRenderer(noteStateImp);
+
+        //Add Observers
+        staffChangeNotifierImp.addObserver(grandStaffRendererImp);
+        staffChangeNotifierImp.addObserver(noteTextRendererImp);
+        rangeChangeNotifierImp.addObserver(rangeRendererImp);
+
+        //Build Panels
         JPanel configPanel = new JPanel();
         configPanel.setLayout(new BoxLayout(configPanel, BoxLayout.Y_AXIS));
-        configPanel.add(instrumentBrowser.getPanel());
-        configPanel.add(rangeSelector.getPanel());
-        configPanel.add(staffSelector.getPanel());
-
+        configPanel.add(instrumentBrowserImp.getPanel());
+        configPanel.add(rangeSelectorImp.getPanel());
+        configPanel.add(modeSelectorImp.getPanel());
 
         JPanel staffPanel = new JPanel(new FlowLayout());
-        staffPanel.add(grandStaffRenderer);
+        staffPanel.add(grandStaffRendererImp);
         mainPanel.add(BorderLayout.WEST, configPanel);
         mainPanel.add(BorderLayout.CENTER, staffPanel);
-        mainPanel.add(BorderLayout.SOUTH, textArea);
+        mainPanel.add(BorderLayout.SOUTH, noteTextRendererImp.getPanel());
         frame.setTitle("Rosetta Tone");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(mainPanel);

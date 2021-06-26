@@ -1,6 +1,6 @@
 package instrument;
 
-import music.NoteState;
+import statemodels.NoteState;
 import notification.StaffChangeNotifier;
 
 import javax.sound.midi.*;
@@ -35,9 +35,6 @@ public class KeyNoteReceiverImp implements Receiver {
                 noteState.NoteOff(key);
                 staffChangeNotifier.notifyObservers();
             }
-        } else if (message instanceof MetaMessage){
-            MetaMessage metaMessage = (MetaMessage) message;
-            System.out.println(message);
         }
     }
     @Override

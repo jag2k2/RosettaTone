@@ -10,8 +10,8 @@ public class StaffChangeNotifierImp implements StaffChangeNotifier {
     }
 
     @Override
-    public void add(StaffChangeObserver staffChangeObserver) {
-        staffChangeObservers.add(staffChangeObserver);
+    public void addObserver(StaffChangeObserver observer) {
+        staffChangeObservers.add(observer);
     }
 
     @Override

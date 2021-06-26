@@ -1,6 +1,6 @@
 package notification;
 
 public interface StaffChangeNotifier {
-    void add(StaffChangeObserver staffChangeObserver);
+    void addObserver(StaffChangeObserver observer);
     void notifyObservers();
 }

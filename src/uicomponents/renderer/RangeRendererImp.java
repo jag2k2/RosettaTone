@@ -14,6 +14,6 @@ public class RangeRendererImp extends Component implements RangeChangeObserver {
 
     @Override
     public void updateRange() {
-
+        System.out.println(noteRangeModel.toString());
     }
 }

@@ -18,7 +18,6 @@ public class NoteRangeRenderer implements ListCellRenderer<Note> {
     @Override
     public Component getListCellRendererComponent(JList<? extends Note> list, Note value, int index, boolean isSelected, boolean cellHasFocus) {
         if(isSelected) {
-            System.out.println(cellHasFocus);
             rangeChangeNotifier.notifyObservers();
         }
         return listCellRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);

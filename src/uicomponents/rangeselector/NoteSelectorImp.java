@@ -11,12 +11,10 @@ import java.awt.event.ActionListener;
 
 public class NoteSelectorImp implements PopupMenuListener, ActionListener {
     private final NoteLimitModel noteLimitModel;
-    private final JPanel panel;
     private final JComboBox<Note> noteComboBox;
 
     public NoteSelectorImp(NoteLimitModel noteLimitModel){
         this.noteLimitModel = noteLimitModel;
-        this.panel = new JPanel();
         this.noteComboBox = new JComboBox<>();
         this.noteComboBox.setRenderer(new NoteListRenderer(noteComboBox.getRenderer(), noteLimitModel));
         this.noteComboBox.addPopupMenuListener(this);
@@ -25,6 +23,7 @@ public class NoteSelectorImp implements PopupMenuListener, ActionListener {
     }
 
     public JPanel getPanel(){
+        JPanel panel = new JPanel();
         panel.add(noteComboBox);
         return panel;
     }

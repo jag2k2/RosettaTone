@@ -17,7 +17,7 @@ public class GrandStaffRendererImp extends Component implements StaffChangeObser
     }
 
     @Override
-    public void update() {
+    public void updateStaff() {
         repaint();
     }
 

@@ -77,7 +77,7 @@ public class NoteStateImp implements NoteState, StaffChangeNotifier {
     @Override
     public void notifyObservers() {
         for (StaffChangeObserver staffChangeObserver : staffChangeObservers) {
-            staffChangeObserver.update();
+            staffChangeObserver.updateStaff();
         }
     }
 }

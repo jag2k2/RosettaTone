@@ -12,14 +12,12 @@ public class RangeSelectorImp implements ActionListener {
     static private final Note lowerBoundNote = new Note(NoteName.A, 0);
     static private final Note upperBoundNote = new Note(NoteName.C, 8);
 
-    private final JPanel panel;
     private final NoteLimitModel lowerLimitModel;
     private final NoteLimitModel upperLimitModel;
     private final NoteSelectorImp lowerNoteSelector;
     private final NoteSelectorImp upperNoteSelector;
 
     public RangeSelectorImp(NoteLimitModel lowerLimitModel, NoteLimitModel upperLimitModel){
-        this.panel = new JPanel(new FlowLayout());
         this.lowerLimitModel = lowerLimitModel;
         this.upperLimitModel = upperLimitModel;
         this.lowerNoteSelector = new NoteSelectorImp(lowerLimitModel);
@@ -32,6 +30,7 @@ public class RangeSelectorImp implements ActionListener {
     }
 
     public JPanel getPanel(){
+        JPanel panel = new JPanel(new FlowLayout());
         panel.add(lowerNoteSelector.getPanel());
         panel.add(upperNoteSelector.getPanel());
         return panel;

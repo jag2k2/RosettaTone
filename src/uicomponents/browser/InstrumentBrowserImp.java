@@ -2,7 +2,6 @@ package uicomponents.browser;
 
 import instrument.simluated.MidiDeviceSimImp;
 import utility.Maybe;
-
 import javax.sound.midi.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -13,30 +12,26 @@ public class InstrumentBrowserImp implements InstrumentBrowser, ListSelectionLis
     private final Receiver midiReceiver;
     private final JList<MidiDevice> deviceList;
     private final DefaultListModel<MidiDevice> listModel;
-    private final JScrollPane listScrollPane;
-
     private Maybe<MidiDevice> selectedDevice = new Maybe<>();
 
     public InstrumentBrowserImp(Receiver midiReceiver){
         this.midiReceiver = midiReceiver;
         listModel = new DefaultListModel<>();
         deviceList = new JList<>(listModel);
-        listScrollPane = new JScrollPane(deviceList);
-
         deviceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         deviceList.addListSelectionListener(this);
         deviceList.setCellRenderer(new InstrumentRenderer(deviceList.getCellRenderer()));
-
-        Dimension listSize = new Dimension(200, 100);
-        deviceList.setPreferredSize(listSize);
-        deviceList.setMaximumSize(listSize);
-        deviceList.setMinimumSize(listSize);
 
         refreshTransmitterDevices();
     }
 
     @Override
     public JScrollPane getPanel() {
+        JScrollPane listScrollPane = new JScrollPane(deviceList);
+        Dimension listSize = new Dimension(200, 100);
+        deviceList.setPreferredSize(listSize);
+        deviceList.setMaximumSize(listSize);
+        deviceList.setMinimumSize(listSize);
         return listScrollPane;
     }
 

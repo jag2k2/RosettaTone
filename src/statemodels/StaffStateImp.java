@@ -44,7 +44,7 @@ public class StaffStateImp implements StaffState, StaffChangeNotifier {
     @Override
     public void notifyObservers() {
         for (StaffChangeObserver observer : observers){
-            observer.update();
+            observer.updateStaff();
         }
     }
 }

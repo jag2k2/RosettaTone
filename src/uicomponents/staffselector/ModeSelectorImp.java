@@ -7,19 +7,17 @@ import java.awt.event.ActionListener;
 
 public class ModeSelectorImp implements ActionListener {
     private final JComboBox<StaffOptions> clefComboBox;
-    private final JPanel panel;
     private final StaffState staffState;
 
     public ModeSelectorImp(StaffState staffState){
         this.staffState = staffState;
         this.clefComboBox = new JComboBox<>(StaffOptions.values());
         this.clefComboBox.addActionListener(this);
-        this.panel = new JPanel();
-
-        panel.add(clefComboBox);
     }
 
     public JPanel getPanel(){
+        JPanel panel = new JPanel();
+        panel.add(clefComboBox);
         return panel;
     }
 

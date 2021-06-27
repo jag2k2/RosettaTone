@@ -24,9 +24,9 @@ public class MainGUI {
 
         //State Models
         NoteStateImp noteStateImp = new NoteStateImp();
+        StaffStateImp staffStateImp = new StaffStateImp(StaffOptions.Grand);
         NoteLimitModelImp lowerNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.C, 4));
         NoteLimitModelImp upperNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.B, 4));
-        StaffStateImp staffStateImp = new StaffStateImp(StaffOptions.Grand);
 
         //KeyReceiver
         KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(noteStateImp);

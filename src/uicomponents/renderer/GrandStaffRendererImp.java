@@ -29,9 +29,11 @@ public class GrandStaffRendererImp extends Component implements StaffChangeObser
     @Override
     public void paint(Graphics g) {
         Graphics2D graphics2D = (Graphics2D)g;
-        NoteRender noteRender = new NoteRender(graphics2D);
-        noteRender.paintBackground();
-        noteRender.drawEnabledStaffs(staffState);
-        noteRender.drawNotes(noteState.getActiveNotes(), staffState);
+        NoteDrawer noteDrawer = new NoteDrawer(graphics2D);
+        noteDrawer.paintBackground();
+        noteDrawer.drawEnabledStaffs(staffState);
+        noteDrawer.drawNotes(noteState.getActiveNotes(), staffState);
     }
+
+
 }

@@ -1,11 +1,14 @@
 package uicomponents.staffselector;
 
 import statemodels.StaffState;
+import uicomponents.UIComponent;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ModeSelectorImp implements ActionListener {
+public class ModeSelectorImp implements UIComponent, ActionListener {
     private final JComboBox<StaffOptions> clefComboBox;
     private final StaffState staffState;
 
@@ -15,7 +18,8 @@ public class ModeSelectorImp implements ActionListener {
         this.clefComboBox.addActionListener(this);
     }
 
-    public JPanel getPanel(){
+    @Override
+    public Component getComponent() {
         JPanel panel = new JPanel();
         panel.add(clefComboBox);
         return panel;

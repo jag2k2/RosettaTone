@@ -1,8 +1,8 @@
 package uicomponents.renderer;
 
+import music.Note;
 import notification.RangeChangeObserver;
 import statemodels.NoteLimitModel;
-
 import java.awt.*;
 
 public class RangeRendererImp extends Component implements RangeChangeObserver {
@@ -16,6 +16,24 @@ public class RangeRendererImp extends Component implements RangeChangeObserver {
 
     @Override
     public void updateRange() {
-        System.out.println("[" + lowerNoteLimitModel.getLimit().toString() + ", " + upperNoteLimitModel.getLimit().toString() + "]");
+        repaint();
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return CanvasRender.getRangeIndicatorSize();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        Graphics2D graphics2D = (Graphics2D)g;
+        RangeDrawer rangeDrawer = new RangeDrawer(graphics2D);
+        Note upperLimitNote = upperNoteLimitModel.getLimit();
+        Note lowerLimitNote = lowerNoteLimitModel.getLimit();
+
+        rangeDrawer.paintBackground();
+        rangeDrawer.drawLimit(upperLimitNote);
+        rangeDrawer.drawLimit(lowerLimitNote);
+        rangeDrawer.drawVerticalConnector(upperLimitNote, lowerLimitNote);
     }
 }

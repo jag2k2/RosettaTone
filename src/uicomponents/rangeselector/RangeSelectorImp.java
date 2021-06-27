@@ -3,12 +3,14 @@ package uicomponents.rangeselector;
 import music.Note;
 import music.NoteName;
 import statemodels.NoteLimitModel;
+import uicomponents.UIComponent;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RangeSelectorImp implements ActionListener {
+public class RangeSelectorImp implements UIComponent, ActionListener {
     static private final Note lowerBoundNote = new Note(NoteName.A, 0);
     static private final Note upperBoundNote = new Note(NoteName.C, 8);
 
@@ -29,7 +31,8 @@ public class RangeSelectorImp implements ActionListener {
         refreshSelectors();
     }
 
-    public JPanel getPanel(){
+    @Override
+    public Component getComponent() {
         JPanel panel = new JPanel(new FlowLayout());
         panel.add(lowerNoteSelector.getPanel());
         panel.add(upperNoteSelector.getPanel());

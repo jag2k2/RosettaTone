@@ -5,6 +5,7 @@ import java.awt.*;
 
 public class CanvasRender {
     private static final int canvasWidth = 750;
+    private static final int rangeIndicatorWidth = 150;
     private static final int canvasHeight = 750;
     private static final int numberOfLines = 52;
     private static final int lineSpacing = 15;
@@ -14,6 +15,10 @@ public class CanvasRender {
 
     static public Dimension getCanvasSize(){
         return new Dimension(canvasWidth, canvasHeight);
+    }
+
+    static public Dimension getRangeIndicatorSize(){
+        return new Dimension(rangeIndicatorWidth, canvasHeight);
     }
 
     static public int getLineNumber(Note note){

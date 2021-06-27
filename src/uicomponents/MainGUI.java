@@ -51,15 +51,16 @@ public class MainGUI {
         //Build Panels
         JPanel configPanel = new JPanel();
         configPanel.setLayout(new BoxLayout(configPanel, BoxLayout.Y_AXIS));
-        configPanel.add(instrumentBrowserImp.getPanel());
-        configPanel.add(rangeSelectorImp.getPanel());
-        configPanel.add(modeSelectorImp.getPanel());
+        configPanel.add(instrumentBrowserImp.getComponent());
+        configPanel.add(rangeSelectorImp.getComponent());
+        configPanel.add(modeSelectorImp.getComponent());
 
         JPanel staffPanel = new JPanel(new FlowLayout());
+        staffPanel.add(rangeRendererImp);
         staffPanel.add(grandStaffRendererImp);
         mainPanel.add(BorderLayout.WEST, configPanel);
         mainPanel.add(BorderLayout.CENTER, staffPanel);
-        mainPanel.add(BorderLayout.SOUTH, noteTextRendererImp.getPanel());
+        mainPanel.add(BorderLayout.SOUTH, noteTextRendererImp.getComponent());
         frame.setTitle("Rosetta Tone");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(mainPanel);

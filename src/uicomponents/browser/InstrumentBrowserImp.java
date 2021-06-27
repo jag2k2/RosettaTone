@@ -1,6 +1,7 @@
 package uicomponents.browser;
 
 import instrument.simluated.MidiDeviceSimImp;
+import uicomponents.UIComponent;
 import utility.Maybe;
 import javax.sound.midi.*;
 import javax.swing.*;
@@ -8,7 +9,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 
-public class InstrumentBrowserImp implements InstrumentBrowser, ListSelectionListener {
+public class InstrumentBrowserImp implements UIComponent, InstrumentBrowser, ListSelectionListener {
     private final Receiver midiReceiver;
     private final JList<MidiDevice> deviceList;
     private final DefaultListModel<MidiDevice> listModel;
@@ -26,7 +27,7 @@ public class InstrumentBrowserImp implements InstrumentBrowser, ListSelectionLis
     }
 
     @Override
-    public JScrollPane getPanel() {
+    public Component getComponent() {
         JScrollPane listScrollPane = new JScrollPane(deviceList);
         Dimension listSize = new Dimension(200, 100);
         deviceList.setPreferredSize(listSize);

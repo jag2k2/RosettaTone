@@ -1,24 +1,24 @@
 package uicomponents.rangeselector;
 
 import music.Note;
-import notification.RangeChangeNotifier;
+import statemodels.NoteLimitModel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class NoteRangeRenderer implements ListCellRenderer<Note> {
-    ListCellRenderer<? super Note> listCellRenderer;
-    RangeChangeNotifier rangeChangeNotifier;
+public class NoteListRenderer implements ListCellRenderer<Note> {
+    private final ListCellRenderer<? super Note> listCellRenderer;
+    private final NoteLimitModel noteLimitModel;
 
-    public NoteRangeRenderer(ListCellRenderer<? super Note> listCellRenderer, RangeChangeNotifier rangeChangeNotifier){
+    public NoteListRenderer(ListCellRenderer<? super Note> listCellRenderer, NoteLimitModel noteLimitModel){
         this.listCellRenderer = listCellRenderer;
-        this.rangeChangeNotifier = rangeChangeNotifier;
+        this.noteLimitModel = noteLimitModel;
     }
 
     @Override
     public Component getListCellRendererComponent(JList<? extends Note> list, Note value, int index, boolean isSelected, boolean cellHasFocus) {
         if(isSelected) {
-            rangeChangeNotifier.notifyObservers();
+            noteLimitModel.changeLimit(value);
         }
         return listCellRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
     }

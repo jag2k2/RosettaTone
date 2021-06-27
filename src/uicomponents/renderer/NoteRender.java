@@ -2,6 +2,7 @@ package uicomponents.renderer;
 
 import imageprocessing.StaffImage;
 import music.*;
+import statemodels.StaffState;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -40,20 +41,20 @@ public class NoteRender {
         graphics2D.fillRect(0,0,canvasWidth,canvasHeight);
     }
 
-    public void drawEnabledStaffs(StaffSelection staffSelection){
+    public void drawEnabledStaffs(StaffState staffState){
         configLineDraw();
-        for (Staff staff : enabledStaffs(staffSelection)){
+        for (Staff staff : enabledStaffs(staffState)){
             drawStaff(staff);
         }
     }
 
-    public java.util.List<Staff> enabledStaffs(StaffSelection staffSelection){
+    public java.util.List<Staff> enabledStaffs(StaffState staffState){
         List<Staff> enabledStaffs = new ArrayList<>();
 
-        if (staffSelection.trebleEnabled()){
+        if (staffState.trebleEnabled()){
             enabledStaffs.add(trebleStaff);
         }
-        if (staffSelection.bassEnabled()){
+        if (staffState.bassEnabled()){
             enabledStaffs.add(bassStaff);
         }
         return enabledStaffs;
@@ -80,11 +81,11 @@ public class NoteRender {
         graphics2D.setStroke(new BasicStroke(lineThickness));
     }
 
-    protected void drawNotes(NoteList noteList, StaffSelection staffSelection){
+    protected void drawNotes(NoteList noteList, StaffState staffState){
         for (Note note : noteList){
             drawNote(note, noteList);
             drawAccidentals(note);
-            drawHelperLines(note, staffSelection);
+            drawHelperLines(note, staffState);
         }
     }
 
@@ -117,16 +118,16 @@ public class NoteRender {
         }
     }
 
-    protected void drawHelperLines(Note note, StaffSelection staffSelection){
+    protected void drawHelperLines(Note note, StaffState staffState){
         int lineNumber = CanvasRender.getLineNumber(note);
         int topVisibleLine = trebleStaff.getTopVisibleLine();
         int bottomVisibleLine = bassStaff.getBottomVisibleLine();
 
-        if (!staffSelection.trebleEnabled()) {
+        if (!staffState.trebleEnabled()) {
             topVisibleLine = bassStaff.getTopVisibleLine();
         }
 
-        if (!staffSelection.bassEnabled()) {
+        if (!staffState.bassEnabled()) {
             bottomVisibleLine = trebleStaff.getBottomVisibleLine();
         }
 
@@ -138,7 +139,7 @@ public class NoteRender {
             drawHelperLine(i);
         }
 
-        if (staffSelection.trebleEnabled() && staffSelection.bassEnabled()){
+        if (staffState.trebleEnabled() && staffState.bassEnabled()){
             if(lineNumber > trebleStaff.getBottomVisibleLine() && lineNumber < bassStaff.getTopVisibleLine()){
                 drawHelperLine(lineNumber);
             }

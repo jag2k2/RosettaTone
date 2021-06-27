@@ -1,8 +1,8 @@
-package music;
+package statemodels;
 
 import uicomponents.staffselector.StaffOptions;
 
-public interface StaffSelection {
+public interface StaffState {
     void setSelection(StaffOptions staffSelection);
     StaffOptions getSelection();
     boolean trebleEnabled();

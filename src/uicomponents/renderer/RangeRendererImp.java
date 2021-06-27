@@ -1,19 +1,21 @@
 package uicomponents.renderer;
 
 import notification.RangeChangeObserver;
-import statemodels.NoteRangeModel;
+import statemodels.NoteLimitModel;
 
 import java.awt.*;
 
 public class RangeRendererImp extends Component implements RangeChangeObserver {
-    private final NoteRangeModel noteRangeModel;
+    private final NoteLimitModel lowerNoteLimitModel;
+    private final NoteLimitModel upperNoteLimitModel;
 
-    public RangeRendererImp(NoteRangeModel noteRangeModel){
-        this.noteRangeModel = noteRangeModel;
+    public RangeRendererImp(NoteLimitModel lowerNoteLimitModel, NoteLimitModel upperNoteLimitModel){
+        this.lowerNoteLimitModel = lowerNoteLimitModel;
+        this.upperNoteLimitModel = upperNoteLimitModel;
     }
 
     @Override
     public void updateRange() {
-        System.out.println(noteRangeModel.toString());
+        System.out.println("[" + lowerNoteLimitModel.getLimit().toString() + ", " + upperNoteLimitModel.getLimit().toString() + "]");
     }
 }

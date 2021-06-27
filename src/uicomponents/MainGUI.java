@@ -5,10 +5,11 @@ import java.awt.*;
 import instrument.*;
 import music.*;
 import statemodels.NoteStateImp;
+import statemodels.StaffStateImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.RangeSelectorImp;
 import uicomponents.renderer.GrandStaffRendererImp;
-import statemodels.NoteRangeModelImp;
+import statemodels.NoteLimitModelImp;
 import uicomponents.renderer.NoteTextRenderer;
 import uicomponents.renderer.RangeRendererImp;
 import uicomponents.staffselector.ModeSelectorImp;
@@ -23,26 +24,29 @@ public class MainGUI {
 
         //State Models
         NoteStateImp noteStateImp = new NoteStateImp();
-        NoteRangeModelImp noteRangeModelImp = new NoteRangeModelImp(new Note(NoteName.C, 4), new Note(NoteName.B, 4));
+        NoteLimitModelImp lowerNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.C, 4));
+        NoteLimitModelImp upperNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.B, 4));
+        StaffStateImp staffStateImp = new StaffStateImp(StaffOptions.Grand);
 
         //KeyReceiver
         KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(noteStateImp);
 
         //Selectors
         InstrumentBrowserImp instrumentBrowserImp = new InstrumentBrowserImp(keyNoteReceiverImp);
-        StaffSelectionImp staffSelectionImp = new StaffSelectionImp(StaffOptions.Grand);
-        ModeSelectorImp modeSelectorImp = new ModeSelectorImp(staffSelectionImp);
-        RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(noteRangeModelImp);
+        ModeSelectorImp modeSelectorImp = new ModeSelectorImp(staffStateImp);
+        RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(lowerNoteLimitModelImp, upperNoteLimitModelImp);
 
         //Renderers
-        GrandStaffRendererImp grandStaffRendererImp = new GrandStaffRendererImp(noteStateImp, staffSelectionImp);
-        RangeRendererImp rangeRendererImp = new RangeRendererImp(noteRangeModelImp);
+        GrandStaffRendererImp grandStaffRendererImp = new GrandStaffRendererImp(noteStateImp, staffStateImp);
+        RangeRendererImp rangeRendererImp = new RangeRendererImp(lowerNoteLimitModelImp, upperNoteLimitModelImp);
         NoteTextRenderer noteTextRendererImp = new NoteTextRenderer(noteStateImp);
 
         //Add Observers
         noteStateImp.addObserver(grandStaffRendererImp);
         noteStateImp.addObserver(noteTextRendererImp);
-        noteRangeModelImp.addObserver(rangeRendererImp);
+        staffStateImp.addObserver(grandStaffRendererImp);
+        lowerNoteLimitModelImp.addObserver(rangeRendererImp);
+        upperNoteLimitModelImp.addObserver(rangeRendererImp);
 
         //Build Panels
         JPanel configPanel = new JPanel();

@@ -4,8 +4,10 @@ import music.Note;
 import statemodels.NoteLimitModel;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,13 +19,15 @@ public class NoteSelectorImp implements PopupMenuListener, ActionListener {
         this.noteLimitModel = noteLimitModel;
         this.noteComboBox = new JComboBox<>();
         this.noteComboBox.setRenderer(new NoteListRenderer(noteComboBox.getRenderer(), noteLimitModel));
-        this.noteComboBox.addPopupMenuListener(this);
 
+        this.noteComboBox.addPopupMenuListener(this);
         this.noteComboBox.addActionListener(this);
     }
 
     public JPanel getPanel(){
         JPanel panel = new JPanel();
+        Dimension boxSize = new Dimension(80, 40);
+        noteComboBox.setPreferredSize(boxSize);
         panel.add(noteComboBox);
         return panel;
     }

@@ -6,6 +6,7 @@ import statemodels.NoteLimitModel;
 import uicomponents.UIComponent;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,6 +35,8 @@ public class RangeSelectorImp implements UIComponent, ActionListener {
     @Override
     public Component getComponent() {
         JPanel panel = new JPanel(new FlowLayout());
+        Border border = BorderFactory.createLineBorder(Color.GRAY);
+        panel.setBorder(border);
         panel.add(lowerNoteSelector.getPanel());
         panel.add(upperNoteSelector.getPanel());
         return panel;

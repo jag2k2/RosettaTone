@@ -3,9 +3,12 @@ package uicomponents.renderer;
 import music.Note;
 import notification.RangeChangeObserver;
 import statemodels.NoteLimitModel;
+
+import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
-public class RangeRendererImp extends Component implements RangeChangeObserver {
+public class RangeRendererImp extends JComponent implements RangeChangeObserver {
     private final NoteLimitModel lowerNoteLimitModel;
     private final NoteLimitModel upperNoteLimitModel;
 

@@ -21,12 +21,12 @@ public class RangeDrawer {
     public void drawLimit(Note note){
         int lineNumber = CanvasRender.getLineNumber(note);
         int circleRadius = 20;
-        int circleXPos = 100;
+        int circleXPos = 50;
         int circleYPos = CanvasRender.getLineYOffset(lineNumber) - (circleRadius/2);
         graphics2D.setColor(Color.BLACK);
         graphics2D.fillOval(circleXPos, circleYPos, circleRadius, circleRadius);
 
-        int fontXPos = 70;
+        int fontXPos = 20;
         int fontYPos = CanvasRender.getLineYOffset(lineNumber) + (circleRadius/2) - 2;
 
         graphics2D.setFont(new Font("TimesRoman", Font.PLAIN, 20));
@@ -34,8 +34,8 @@ public class RangeDrawer {
     }
 
     public void drawVerticalConnector(Note upperLimitNote, Note lowerLimitNote){
-        int connX1 = 100 + (20 / 2);
-        int connX2 = 100 + (20 / 2);
+        int connX1 = 50 + (20 / 2);
+        int connX2 = 50 + (20 / 2);
         int connY1 = CanvasRender.getLineYOffset(CanvasRender.getLineNumber(upperLimitNote));
         int connY2 = CanvasRender.getLineYOffset(CanvasRender.getLineNumber(lowerLimitNote));
 

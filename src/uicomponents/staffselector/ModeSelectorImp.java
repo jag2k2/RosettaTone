@@ -4,6 +4,7 @@ import statemodels.StaffState;
 import uicomponents.UIComponent;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,8 @@ public class ModeSelectorImp implements UIComponent, ActionListener {
     @Override
     public Component getComponent() {
         JPanel panel = new JPanel();
+        Border border = BorderFactory.createLineBorder(Color.GRAY);
+        panel.setBorder(border);
         panel.add(clefComboBox);
         return panel;
     }

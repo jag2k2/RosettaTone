@@ -5,6 +5,7 @@ import uicomponents.UIComponent;
 import utility.Maybe;
 import javax.sound.midi.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
@@ -29,6 +30,8 @@ public class InstrumentBrowserImp implements UIComponent, InstrumentBrowser, Lis
     @Override
     public Component getComponent() {
         JScrollPane listScrollPane = new JScrollPane(deviceList);
+        Border border = BorderFactory.createLineBorder(Color.GRAY);
+        listScrollPane.setBorder(border);
         Dimension listSize = new Dimension(200, 100);
         deviceList.setPreferredSize(listSize);
         deviceList.setMaximumSize(listSize);

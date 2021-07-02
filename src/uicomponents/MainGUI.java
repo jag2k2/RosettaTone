@@ -5,7 +5,6 @@ import java.awt.*;
 import instrument.*;
 import music.*;
 import statemodels.NoteStateImp;
-import statemodels.StaffStateImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.RangeSelectorImp;
 import uicomponents.renderer.GrandStaffRendererImp;
@@ -13,7 +12,7 @@ import statemodels.NoteLimitModelImp;
 import uicomponents.renderer.NoteTextRenderer;
 import uicomponents.renderer.RangeRendererImp;
 import uicomponents.staffselector.ModeSelectorImp;
-import uicomponents.staffselector.StaffOptions;
+import uicomponents.staffselector.StaffMode;
 
 public class MainGUI {
     private final JFrame frame;
@@ -24,7 +23,6 @@ public class MainGUI {
 
         //State Models
         NoteStateImp noteStateImp = new NoteStateImp();
-        StaffStateImp staffStateImp = new StaffStateImp(StaffOptions.Grand);
         NoteLimitModelImp lowerNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.C, 4));
         NoteLimitModelImp upperNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.B, 4));
 
@@ -33,18 +31,18 @@ public class MainGUI {
 
         //Selectors
         InstrumentBrowserImp instrumentBrowserImp = new InstrumentBrowserImp(keyNoteReceiverImp);
-        ModeSelectorImp modeSelectorImp = new ModeSelectorImp(staffStateImp);
+        ModeSelectorImp modeSelectorImp = new ModeSelectorImp(StaffMode.Grand);
         RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(lowerNoteLimitModelImp, upperNoteLimitModelImp);
 
         //Renderers
-        GrandStaffRendererImp grandStaffRendererImp = new GrandStaffRendererImp(noteStateImp, staffStateImp);
+        GrandStaffRendererImp grandStaffRendererImp = new GrandStaffRendererImp(noteStateImp, modeSelectorImp);
         RangeRendererImp rangeRendererImp = new RangeRendererImp(lowerNoteLimitModelImp, upperNoteLimitModelImp);
         NoteTextRenderer noteTextRendererImp = new NoteTextRenderer(noteStateImp);
 
         //Add Observers
         noteStateImp.addObserver(grandStaffRendererImp);
         noteStateImp.addObserver(noteTextRendererImp);
-        staffStateImp.addObserver(grandStaffRendererImp);
+        modeSelectorImp.addObserver(grandStaffRendererImp);
         lowerNoteLimitModelImp.addObserver(rangeRendererImp);
         upperNoteLimitModelImp.addObserver(rangeRendererImp);
 

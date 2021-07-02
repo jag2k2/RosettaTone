@@ -1,22 +1,19 @@
-package music;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import statemodels.StaffStateImp;
-import uicomponents.staffselector.StaffOptions;
+package uicomponents.staffselector;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-class StaffStateImpTest {
-    private StaffStateImp trebleSelection;
-    private StaffStateImp bassSelection;
-    private StaffStateImp grandSelection;
+class ModeSelectorImpTest {
+    private ModeSelectorImp trebleSelection;
+    private ModeSelectorImp bassSelection;
+    private ModeSelectorImp grandSelection;
 
     @BeforeEach
     void setup(){
-        trebleSelection = new StaffStateImp(StaffOptions.Treble);
-        bassSelection = new StaffStateImp(StaffOptions.Bass);
-        grandSelection = new StaffStateImp(StaffOptions.Grand);
+        trebleSelection = new ModeSelectorImp(StaffMode.Treble);
+        bassSelection = new ModeSelectorImp(StaffMode.Bass);
+        grandSelection = new ModeSelectorImp(StaffMode.Grand);
     }
 
     @Test

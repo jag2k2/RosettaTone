@@ -1,5 +1,5 @@
 package uicomponents.staffselector;
 
-public enum StaffOptions {
+public enum StaffMode {
     Treble, Bass, Grand
 }

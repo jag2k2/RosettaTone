@@ -2,7 +2,7 @@ package uicomponents.renderer;
 
 import imageprocessing.StaffImage;
 import music.*;
-import statemodels.StaffState;
+import uicomponents.staffselector.StaffModeHolder;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -41,20 +41,20 @@ public class NoteDrawer {
         graphics2D.fillRect(0,0,canvasWidth,canvasHeight);
     }
 
-    public void drawEnabledStaffs(StaffState staffState){
+    public void drawEnabledStaffs(StaffModeHolder staffModeHolder){
         configLineDraw();
-        for (Staff staff : enabledStaffs(staffState)){
+        for (Staff staff : enabledStaffs(staffModeHolder)){
             drawStaff(staff);
         }
     }
 
-    public java.util.List<Staff> enabledStaffs(StaffState staffState){
+    public java.util.List<Staff> enabledStaffs(StaffModeHolder staffModeHolder){
         List<Staff> enabledStaffs = new ArrayList<>();
 
-        if (staffState.trebleEnabled()){
+        if (staffModeHolder.trebleEnabled()){
             enabledStaffs.add(trebleStaff);
         }
-        if (staffState.bassEnabled()){
+        if (staffModeHolder.bassEnabled()){
             enabledStaffs.add(bassStaff);
         }
         return enabledStaffs;
@@ -81,11 +81,11 @@ public class NoteDrawer {
         graphics2D.setStroke(new BasicStroke(lineThickness));
     }
 
-    protected void drawNotes(NoteList noteList, StaffState staffState){
+    protected void drawNotes(NoteList noteList, StaffModeHolder staffModeHolder){
         for (Note note : noteList){
             drawNote(note, noteList);
             drawAccidentals(note);
-            drawHelperLines(note, staffState);
+            drawHelperLines(note, staffModeHolder);
         }
     }
 
@@ -118,16 +118,16 @@ public class NoteDrawer {
         }
     }
 
-    protected void drawHelperLines(Note note, StaffState staffState){
+    protected void drawHelperLines(Note note, StaffModeHolder staffModeHolder){
         int lineNumber = CanvasRender.getLineNumber(note);
         int topVisibleLine = trebleStaff.getTopVisibleLine();
         int bottomVisibleLine = bassStaff.getBottomVisibleLine();
 
-        if (!staffState.trebleEnabled()) {
+        if (!staffModeHolder.trebleEnabled()) {
             topVisibleLine = bassStaff.getTopVisibleLine();
         }
 
-        if (!staffState.bassEnabled()) {
+        if (!staffModeHolder.bassEnabled()) {
             bottomVisibleLine = trebleStaff.getBottomVisibleLine();
         }
 
@@ -139,7 +139,7 @@ public class NoteDrawer {
             drawHelperLine(i);
         }
 
-        if (staffState.trebleEnabled() && staffState.bassEnabled()){
+        if (staffModeHolder.trebleEnabled() && staffModeHolder.bassEnabled()){
             if(lineNumber > trebleStaff.getBottomVisibleLine() && lineNumber < bassStaff.getTopVisibleLine()){
                 drawHelperLine(lineNumber);
             }

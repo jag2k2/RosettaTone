@@ -4,7 +4,6 @@ import music.Note;
 import statemodels.NoteLimitModel;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import java.awt.*;

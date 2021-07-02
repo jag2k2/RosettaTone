@@ -1,15 +1,14 @@
 package instrument;
 
-import statemodels.NoteState;
-import notification.StaffChangeNotifier;
+import statemodels.KeyboardState;
 
 import javax.sound.midi.*;
 
 public class KeyNoteReceiverImp implements Receiver {
-    private final NoteState noteState;
+    private final KeyboardState keyboardState;
 
-    public KeyNoteReceiverImp(NoteState noteState){
-        this.noteState = noteState;
+    public KeyNoteReceiverImp(KeyboardState keyboardState){
+        this.keyboardState = keyboardState;
     }
 
     @Override
@@ -20,16 +19,16 @@ public class KeyNoteReceiverImp implements Receiver {
                 Key key = new Key(sm.getData1());
                 int velocity = sm.getData2();
                 if (velocity > 0){
-                    noteState.NoteOn(key);
+                    keyboardState.KeyPressed(key);
                 }
                 else {
-                    noteState.NoteOff(key);
+                    keyboardState.KeyReleased(key);
                 }
             }
             else if (sm.getCommand() == ShortMessage.NOTE_OFF) {
                 Key key = new Key(sm.getData1());
                 int velocity = sm.getData2();
-                noteState.NoteOff(key);
+                keyboardState.KeyReleased(key);
             }
         }
     }

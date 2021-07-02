@@ -15,6 +15,7 @@ public class NoteLimitModelImp implements NoteLimitModel, RangeChangeNotifier {
         this.observers = new ArrayList<>();
     }
 
+    @Override
     public void changeLimit(Note note){
         if (!note.equals(noteLimit)) {
             this.noteLimit = note;
@@ -22,6 +23,7 @@ public class NoteLimitModelImp implements NoteLimitModel, RangeChangeNotifier {
         }
     }
 
+    @Override
     public Note getLimit(){
         return noteLimit;
     }

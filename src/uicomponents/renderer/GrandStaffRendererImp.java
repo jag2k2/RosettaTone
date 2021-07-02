@@ -1,18 +1,18 @@
 package uicomponents.renderer;
 
 import notification.StaffChangeObserver;
-import statemodels.NoteState;
+import statemodels.KeyboardState;
 import uicomponents.staffselector.StaffModeHolder;
 
 import java.awt.*;
 
 public class GrandStaffRendererImp extends Component implements StaffChangeObserver {
 
-    private final NoteState noteState;
+    private final KeyboardState keyboardState;
     private final StaffModeHolder staffModeHolder;
 
-    public GrandStaffRendererImp(NoteState noteState, StaffModeHolder staffModeHolder){
-        this.noteState = noteState;
+    public GrandStaffRendererImp(KeyboardState keyboardState, StaffModeHolder staffModeHolder){
+        this.keyboardState = keyboardState;
         this.staffModeHolder = staffModeHolder;
     }
 
@@ -32,7 +32,7 @@ public class GrandStaffRendererImp extends Component implements StaffChangeObser
         NoteDrawer noteDrawer = new NoteDrawer(graphics2D);
         noteDrawer.paintBackground();
         noteDrawer.drawEnabledStaffs(staffModeHolder);
-        noteDrawer.drawNotes(noteState.getActiveNotes(), staffModeHolder);
+        noteDrawer.drawNotes(keyboardState.getActiveNotes(), staffModeHolder);
     }
 
 

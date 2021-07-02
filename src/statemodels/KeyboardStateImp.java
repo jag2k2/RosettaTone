@@ -7,13 +7,13 @@ import notification.StaffChangeObserver;
 
 import java.util.ArrayList;
 
-public class NoteStateImp implements NoteState, StaffChangeNotifier {
+public class KeyboardStateImp implements KeyboardState, StaffChangeNotifier {
     private final int octaves = 9;
     private final int naturalsPerOctave = 7;
     private final Note[][] Notes = new Note[octaves][naturalsPerOctave];
     private final ArrayList<StaffChangeObserver> staffChangeObservers;
 
-    public NoteStateImp(){
+    public KeyboardStateImp(){
         this.staffChangeObservers = new ArrayList<>();
         NoteName[] noteNames = NoteName.values();
         for (int octave = 0; octave < octaves; octave++){
@@ -24,13 +24,13 @@ public class NoteStateImp implements NoteState, StaffChangeNotifier {
     }
 
     @Override
-    public void NoteOn(Key key) {
+    public void KeyPressed(Key key) {
         changeNoteState(key, true);
         notifyObservers();
     }
 
     @Override
-    public void NoteOff(Key key) {
+    public void KeyReleased(Key key) {
         changeNoteState(key, false);
         notifyObservers();
     }

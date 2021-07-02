@@ -3,13 +3,13 @@ package music;
 import instrument.Key;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import statemodels.NoteState;
-import statemodels.NoteStateImp;
+import statemodels.KeyboardState;
+import statemodels.KeyboardStateImp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NoteStateImpTest {
-    NoteState noteState = new NoteStateImp();
+class KeyboardStateImpTest {
+    KeyboardState keyboardState = new KeyboardStateImp();
     Key keyC4 = new Key(60);
     Key keyCSharp4 = new Key(61);
     Key keyGSharp2 = new Key(44);
@@ -31,10 +31,10 @@ class NoteStateImpTest {
 
     @Test
     void changeNoteStates() {
-        noteState.NoteOn(keyC4);
-        noteState.NoteOn(keyCSharp4);
-        noteState.NoteOn(keyGSharp2);
-        noteState.NoteOn(keyDSharp7);
+        keyboardState.KeyPressed(keyC4);
+        keyboardState.KeyPressed(keyCSharp4);
+        keyboardState.KeyPressed(keyGSharp2);
+        keyboardState.KeyPressed(keyDSharp7);
 
         expected.add(noteG2);
         noteG2.setAccidental(NoteAccidental.SHARP, true);
@@ -44,6 +44,6 @@ class NoteStateImpTest {
         expected.add(noteD7);
         noteD7.setAccidental(NoteAccidental.SHARP, true);
 
-        assertEquals(expected, noteState.getActiveNotes());
+        assertEquals(expected, keyboardState.getActiveNotes());
     }
 }

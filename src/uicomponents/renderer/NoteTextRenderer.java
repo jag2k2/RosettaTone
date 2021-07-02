@@ -1,7 +1,7 @@
 package uicomponents.renderer;
 
 import notification.StaffChangeObserver;
-import statemodels.NoteState;
+import statemodels.KeyboardState;
 import uicomponents.UIComponent;
 
 import javax.swing.*;
@@ -9,10 +9,10 @@ import java.awt.*;
 
 public class NoteTextRenderer implements UIComponent, StaffChangeObserver {
     private final JTextArea textArea;
-    private final NoteState noteState;
+    private final KeyboardState keyboardState;
 
-    public NoteTextRenderer(NoteState noteState){
-        this.noteState = noteState;
+    public NoteTextRenderer(KeyboardState keyboardState){
+        this.keyboardState = keyboardState;
         this.textArea = new JTextArea();
 
     }
@@ -26,6 +26,6 @@ public class NoteTextRenderer implements UIComponent, StaffChangeObserver {
 
     @Override
     public void updateStaff() {
-        textArea.setText(noteState.getActiveNotes().toString());
+        textArea.setText(keyboardState.getActiveNotes().toString());
     }
 }

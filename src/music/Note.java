@@ -30,8 +30,12 @@ public class Note implements Comparable<Note>, Incrementable, Decrementable {
         this.octave = note.octave;
     }
 
-    public int getNoteNumber() {
-        return noteName.getPosition() + (octave * 7);
+    public int getOctave() {
+        return octave;
+    }
+
+    public NoteName getNoteName(){
+        return noteName;
     }
 
     public List<NoteAccidental> getActiveAccidentals() {

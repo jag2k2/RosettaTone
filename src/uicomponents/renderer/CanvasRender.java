@@ -22,7 +22,7 @@ public class CanvasRender {
     }
 
     static public int getLineNumber(Note note){
-        return (numberOfLines - 1) - (note.getNoteNumber() - 5);
+        return (numberOfLines - 1) - ((note.getNoteName().getPosition() + (note.getOctave() * 7)) - 5);
     }
 
     static public int getNumberOfLines(){

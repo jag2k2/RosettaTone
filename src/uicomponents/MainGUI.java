@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import instrument.*;
 import music.*;
-import statemodels.NoteStateImp;
+import statemodels.KeyboardStateImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.RangeSelectorImp;
 import uicomponents.renderer.GrandStaffRendererImp;
@@ -22,7 +22,7 @@ public class MainGUI {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         //State Models
-        NoteStateImp noteStateImp = new NoteStateImp();
+        KeyboardStateImp noteStateImp = new KeyboardStateImp();
         NoteLimitModelImp lowerNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.C, 4));
         NoteLimitModelImp upperNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.B, 4));
 

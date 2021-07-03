@@ -44,4 +44,15 @@ class NoteListImpTest {
         assertTrue(activeNotes.isSandwiched(noteF4));
         assertFalse(activeNotes.isSandwiched(noteA4));
     }
+
+    @Test
+    void canCheckForContains(){
+        NoteList checkList = new NoteListImp();
+        checkList.add(new Note(NoteName.C, 4));
+        assertTrue(activeNotes.contains(checkList));
+        checkList.add(new Note(NoteName.E, 4));
+        assertTrue(activeNotes.contains(checkList));
+        checkList.add(new Note(NoteName.C, 2));
+        assertFalse(activeNotes.contains(checkList));
+    }
 }

@@ -1,26 +1,40 @@
 package music;
 
 import utility.Maybe;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
 public class NoteListImp implements NoteList {
-    private final List<Note> activeNotes;
+    private final List<Note> notes;
 
     public NoteListImp(){
-        activeNotes = new ArrayList<>();
+        notes = new ArrayList<>();
     }
 
     @Override
     public Iterator<Note> iterator() {
-        return activeNotes.iterator();
+        return notes.iterator();
     }
 
     @Override
     public void add(Note note){
-        activeNotes.add(note);
+        notes.add(note);
+    }
+
+    @Override
+    public void clear() {
+        notes.clear();
+    }
+
+    @Override
+    public boolean contains(NoteList noteList) {
+        for (Note note : noteList){
+            if (!notes.contains(note)){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -35,9 +49,9 @@ public class NoteListImp implements NoteList {
 
     protected Maybe<Note> getPrevious(Note noteToFind) {
         int i = 0;
-        for (Note note : activeNotes){
+        for (Note note : notes){
             if (note.equals(noteToFind) && i > 0){
-                return new Maybe<>(activeNotes.get(i-1));
+                return new Maybe<>(notes.get(i-1));
             }
             i++;
         }
@@ -46,14 +60,14 @@ public class NoteListImp implements NoteList {
 
     @Override
     public String toString() {
-        return activeNotes.toString();
+        return notes.toString();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof NoteListImp){
             NoteListImp toCompare = (NoteListImp) obj;
-            return activeNotes.equals(toCompare.activeNotes);
+            return notes.equals(toCompare.notes);
         }
         return false;
     }

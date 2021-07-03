@@ -1,6 +1,6 @@
 package uicomponents.staffselector;
 
-public interface StaffModeHolder {
+public interface ModeSelector {
     StaffMode getSelection();
     boolean trebleEnabled();
     boolean bassEnabled();

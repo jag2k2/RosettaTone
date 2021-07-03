@@ -5,6 +5,7 @@ import java.awt.*;
 import instrument.*;
 import music.*;
 import statemodels.KeyboardStateImp;
+import trainer.SightReadTrainerImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.RangeSelectorImp;
 import uicomponents.renderer.GrandStaffRendererImp;
@@ -22,12 +23,15 @@ public class MainGUI {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         //State Models
-        KeyboardStateImp noteStateImp = new KeyboardStateImp();
+        KeyboardStateImp keyboardStateImp = new KeyboardStateImp();
         NoteLimitModelImp lowerNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.C, 4));
         NoteLimitModelImp upperNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.B, 4));
 
         //KeyReceiver
-        KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(noteStateImp);
+        KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(keyboardStateImp);
+
+        //Trainer
+        SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(lowerNoteLimitModelImp, upperNoteLimitModelImp, keyboardStateImp);
 
         //Selectors
         InstrumentBrowserImp instrumentBrowserImp = new InstrumentBrowserImp(keyNoteReceiverImp);
@@ -35,16 +39,24 @@ public class MainGUI {
         RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(lowerNoteLimitModelImp, upperNoteLimitModelImp);
 
         //Renderers
-        GrandStaffRendererImp grandStaffRendererImp = new GrandStaffRendererImp(noteStateImp, modeSelectorImp);
+        GrandStaffRendererImp grandStaffRendererImp = new GrandStaffRendererImp(keyboardStateImp, modeSelectorImp, sightReadTrainerImp);
         RangeRendererImp rangeRendererImp = new RangeRendererImp(lowerNoteLimitModelImp, upperNoteLimitModelImp);
-        NoteTextRenderer noteTextRendererImp = new NoteTextRenderer(noteStateImp);
+        NoteTextRenderer noteTextRendererImp = new NoteTextRenderer(keyboardStateImp);
 
         //Add Observers
-        noteStateImp.addObserver(grandStaffRendererImp);
-        noteStateImp.addObserver(noteTextRendererImp);
+        keyboardStateImp.addObserver(grandStaffRendererImp);
+        keyboardStateImp.addObserver(noteTextRendererImp);
+        keyboardStateImp.addObserver(sightReadTrainerImp);
+
         modeSelectorImp.addObserver(grandStaffRendererImp);
+
         lowerNoteLimitModelImp.addObserver(rangeRendererImp);
+        lowerNoteLimitModelImp.addObserver(sightReadTrainerImp);
+
         upperNoteLimitModelImp.addObserver(rangeRendererImp);
+        upperNoteLimitModelImp.addObserver(sightReadTrainerImp);
+
+        sightReadTrainerImp.addObserver(grandStaffRendererImp);
 
         //Build Panels
         JPanel configPanel = new JPanel();

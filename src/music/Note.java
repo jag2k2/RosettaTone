@@ -23,6 +23,15 @@ public class Note implements Comparable<Note>, Incrementable, Decrementable {
     public Note(Key key){
         this.noteName = NoteName.values()[key.getNaturalIndex()];
         this.octave = key.getOctave();
+        if (key.getAccidental() == NoteAccidental.NATURAL){
+            natural = true;
+        }
+        else if (key.getAccidental() == NoteAccidental.SHARP){
+            sharp = true;
+        }
+        else if (key.getAccidental() == NoteAccidental.FLAT){
+            flat = true;
+        }
     }
 
     public Note(Note note){

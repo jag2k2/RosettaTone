@@ -36,7 +36,7 @@ public class NoteLimitModelImp implements NoteLimitModel, RangeChangeNotifier {
     @Override
     public void notifyObservers() {
         for(RangeChangeObserver observer : observers){
-            observer.updateRange();
+            observer.rangeChanged();
         }
     }
 

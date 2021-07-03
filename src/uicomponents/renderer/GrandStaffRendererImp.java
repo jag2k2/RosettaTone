@@ -1,23 +1,37 @@
 package uicomponents.renderer;
 
-import notification.StaffChangeObserver;
+import notification.KeyboardChangeObserver;
+import notification.ModeChangeObserver;
+import notification.NoteTargetChangeObserver;
 import statemodels.KeyboardState;
-import uicomponents.staffselector.StaffModeHolder;
+import trainer.SightReadTrainer;
+import uicomponents.staffselector.ModeSelector;
 
 import java.awt.*;
 
-public class GrandStaffRendererImp extends Component implements StaffChangeObserver {
-
+public class GrandStaffRendererImp extends Component implements ModeChangeObserver, KeyboardChangeObserver, NoteTargetChangeObserver {
     private final KeyboardState keyboardState;
-    private final StaffModeHolder staffModeHolder;
+    private final ModeSelector modeSelector;
+    private final SightReadTrainer sightReadTrainer;
 
-    public GrandStaffRendererImp(KeyboardState keyboardState, StaffModeHolder staffModeHolder){
+    public GrandStaffRendererImp(KeyboardState keyboardState, ModeSelector modeSelector, SightReadTrainer sightReadTrainer){
         this.keyboardState = keyboardState;
-        this.staffModeHolder = staffModeHolder;
+        this.modeSelector = modeSelector;
+        this.sightReadTrainer = sightReadTrainer;
     }
 
     @Override
-    public void updateStaff() {
+    public void modeChanged() {
+        repaint();
+    }
+
+    @Override
+    public void keyboardChanged() {
+        repaint();
+    }
+
+    @Override
+    public void noteTargetChanged() {
         repaint();
     }
 
@@ -31,9 +45,8 @@ public class GrandStaffRendererImp extends Component implements StaffChangeObser
         Graphics2D graphics2D = (Graphics2D)g;
         NoteDrawer noteDrawer = new NoteDrawer(graphics2D);
         noteDrawer.paintBackground();
-        noteDrawer.drawEnabledStaffs(staffModeHolder);
-        noteDrawer.drawNotes(keyboardState.getActiveNotes(), staffModeHolder);
+        noteDrawer.drawEnabledStaffs(modeSelector);
+        noteDrawer.drawNotes(keyboardState.getActiveNotes(), modeSelector);
+        noteDrawer.drawNotes(sightReadTrainer.getNoteTarget(), modeSelector);
     }
-
-
 }

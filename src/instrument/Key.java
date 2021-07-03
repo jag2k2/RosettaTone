@@ -1,9 +1,8 @@
 package instrument;
 
+import music.Note;
 import music.NoteAccidental;
 import music.NoteName;
-
-import java.util.Random;
 
 public class Key {
     private final int midiNumber;
@@ -46,6 +45,19 @@ public class Key {
            return getOctavePosition() / 2;
        else
            return (1 + getOctavePosition()) / 2;
+    }
+
+    public NoteAccidental getAccidental(){
+        if (isCDorE())
+            if (getOctavePosition() % 2 == 1)
+                return NoteAccidental.SHARP;
+            else
+                return NoteAccidental.NATURAL;
+        else
+            if (1 + getOctavePosition() % 2 == 1)
+                return NoteAccidental.SHARP;
+            else
+                return NoteAccidental.NATURAL;
     }
 
     protected int getOctavePosition(){

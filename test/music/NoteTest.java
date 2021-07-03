@@ -29,6 +29,12 @@ class NoteTest {
     }
 
     @Test
+    void canConstructFromKey(){
+        noteCompare = new Note(new Key(60));
+        assertEquals(noteCompare, noteC4);
+    }
+
+    @Test
     void equalsChecks(){
         noteCompare = new Note(NoteName.C, 5);
         noteCompare.setAccidental(NoteAccidental.NATURAL, true);

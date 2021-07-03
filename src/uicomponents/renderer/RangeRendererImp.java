@@ -18,7 +18,7 @@ public class RangeRendererImp extends JComponent implements RangeChangeObserver 
     }
 
     @Override
-    public void updateRange() {
+    public void rangeChanged() {
         repaint();
     }
 

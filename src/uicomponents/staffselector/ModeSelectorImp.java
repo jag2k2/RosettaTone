@@ -1,7 +1,7 @@
 package uicomponents.staffselector;
 
-import notification.StaffChangeNotifier;
-import notification.StaffChangeObserver;
+import notification.ModeChangeNotifier;
+import notification.ModeChangeObserver;
 import uicomponents.UIComponent;
 
 import javax.swing.*;
@@ -12,9 +12,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModeSelectorImp implements UIComponent, ActionListener, StaffModeHolder, StaffChangeNotifier {
+public class ModeSelectorImp implements UIComponent, ActionListener, ModeSelector, ModeChangeNotifier {
     private final JComboBox<StaffMode> clefComboBox;
-    private final List<StaffChangeObserver> observers;
+    private final List<ModeChangeObserver> observers;
 
     public ModeSelectorImp(StaffMode staffState){
         this.clefComboBox = new JComboBox<>(StaffMode.values());
@@ -56,14 +56,14 @@ public class ModeSelectorImp implements UIComponent, ActionListener, StaffModeHo
     }
 
     @Override
-    public void addObserver(StaffChangeObserver observer) {
+    public void addObserver(ModeChangeObserver observer) {
         observers.add(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (StaffChangeObserver observer : observers){
-            observer.updateStaff();
+        for (ModeChangeObserver observer : observers){
+            observer.modeChanged();
         }
     }
 

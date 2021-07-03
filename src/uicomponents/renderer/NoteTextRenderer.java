@@ -1,13 +1,13 @@
 package uicomponents.renderer;
 
-import notification.StaffChangeObserver;
+import notification.KeyboardChangeObserver;
 import statemodels.KeyboardState;
 import uicomponents.UIComponent;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class NoteTextRenderer implements UIComponent, StaffChangeObserver {
+public class NoteTextRenderer implements UIComponent, KeyboardChangeObserver {
     private final JTextArea textArea;
     private final KeyboardState keyboardState;
 
@@ -25,7 +25,7 @@ public class NoteTextRenderer implements UIComponent, StaffChangeObserver {
     }
 
     @Override
-    public void updateStaff() {
+    public void keyboardChanged() {
         textArea.setText(keyboardState.getActiveNotes().toString());
     }
 }

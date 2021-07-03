@@ -1,5 +1,6 @@
 package instrument;
 
+import music.Note;
 import music.NoteAccidental;
 import music.NoteName;
 import org.junit.jupiter.api.Test;
@@ -93,6 +94,14 @@ class KeyTest {
         assertEquals(1, keyDSharp2.getNaturalIndex());
         assertEquals(4, keyGSharp5.getNaturalIndex());
         assertEquals(5, keyA4.getNaturalIndex());
+    }
+
+    @Test
+    void getAccidentals() {
+        assertEquals(NoteAccidental.SHARP, keyDSharp2.getAccidental());
+        assertEquals(NoteAccidental.NATURAL, keyC4.getAccidental());
+        assertEquals(NoteAccidental.SHARP, keyGSharp4.getAccidental());
+        assertEquals(NoteAccidental.NATURAL, keyG4.getAccidental());
     }
 
     @Test

@@ -14,7 +14,9 @@ public class InstrumentBrowserImp implements UIComponent, InstrumentBrowser, Lis
     private final Receiver midiReceiver;
     private final JList<MidiDevice> deviceList;
     private final DefaultListModel<MidiDevice> listModel;
+
     private Maybe<MidiDevice> selectedDevice = new Maybe<>();
+    private Transmitter transmitter;
 
     public InstrumentBrowserImp(Receiver midiReceiver){
         this.midiReceiver = midiReceiver;
@@ -51,7 +53,7 @@ public class InstrumentBrowserImp implements UIComponent, InstrumentBrowser, Lis
             MidiDevice device = listModel.get(selectedIndex);
             try {
                 device.open();
-                Transmitter transmitter = device.getTransmitter();
+                transmitter = device.getTransmitter();
                 transmitter.setReceiver(midiReceiver);
                 selectedDevice = new Maybe<>(device);
             } catch (Exception ex) {

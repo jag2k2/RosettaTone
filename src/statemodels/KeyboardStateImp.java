@@ -2,19 +2,19 @@ package statemodels;
 
 import instrument.Key;
 import music.*;
-import notification.StaffChangeNotifier;
-import notification.StaffChangeObserver;
+import notification.KeyboardChangeNotifier;
+import notification.KeyboardChangeObserver;
 
 import java.util.ArrayList;
 
-public class KeyboardStateImp implements KeyboardState, StaffChangeNotifier {
+public class KeyboardStateImp implements KeyboardState, KeyboardChangeNotifier {
     private final int octaves = 9;
     private final int naturalsPerOctave = 7;
     private final Note[][] Notes = new Note[octaves][naturalsPerOctave];
-    private final ArrayList<StaffChangeObserver> staffChangeObservers;
+    private final ArrayList<KeyboardChangeObserver> keyboardChangeObservers;
 
     public KeyboardStateImp(){
-        this.staffChangeObservers = new ArrayList<>();
+        this.keyboardChangeObservers = new ArrayList<>();
         NoteName[] noteNames = NoteName.values();
         for (int octave = 0; octave < octaves; octave++){
             for(int octaveNote = 0; octaveNote < naturalsPerOctave; octaveNote++){
@@ -70,14 +70,14 @@ public class KeyboardStateImp implements KeyboardState, StaffChangeNotifier {
     }
 
     @Override
-    public void addObserver(StaffChangeObserver observer) {
-        staffChangeObservers.add(observer);
+    public void addObserver(KeyboardChangeObserver observer) {
+        keyboardChangeObservers.add(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (StaffChangeObserver staffChangeObserver : staffChangeObservers) {
-            staffChangeObserver.updateStaff();
+        for (KeyboardChangeObserver keyboardChangeObserver : keyboardChangeObservers) {
+            keyboardChangeObserver.keyboardChanged();
         }
     }
 }

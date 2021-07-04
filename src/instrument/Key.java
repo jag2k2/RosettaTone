@@ -1,5 +1,6 @@
 package instrument;
 
+import music.Note;
 import music.NoteAccidental;
 import music.NoteName;
 
@@ -26,6 +27,10 @@ public class Key {
             midiSum--;
         }
         this.midiNumber = midiSum;
+    }
+
+    public Note getNote(){
+        return new Note(NoteName.values()[getNaturalIndex()], getOctave(), getAccidental());
     }
 
     public Key generateRandomKeyBetweenThisAnd(Key otherKey){

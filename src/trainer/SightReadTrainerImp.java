@@ -81,7 +81,7 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
         Key lowerKey = new Key(lowerNote.getOctave(), lowerNote.getNoteName(), NoteAccidental.NATURAL);
         Key upperKey = new Key(upperNote.getOctave(), upperNote.getNoteName(), NoteAccidental.NATURAL);
         Key randomKey = lowerKey.generateRandomKeyBetweenThisAnd(upperKey);
-        Note randomNote = new Note(randomKey);
+        Note randomNote = randomKey.getNote();
         NoteCollection noteTarget = new NoteCollectionImp();
         noteTarget.add(randomNote);
         flashcardList.add(noteTarget);

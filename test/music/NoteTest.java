@@ -44,27 +44,29 @@ class NoteTest {
         noteC5 = new Note(NoteName.C, 5);
         noteD5 = new Note(NoteName.D, 5);
 
-        noteC3 = new Note(new Key(48));
+        Key key48 = new Key(48);
+        noteC3 = key48.getNote();
     }
 
     @Test
     void canConstructFromKey(){
-        noteCompare = new Note(new Key(60));
+        Key key60 = new Key(60);
+        noteCompare = key60.getNote();
         assertEquals(noteCompare, noteC4);
     }
 
     @Test
     void equalsChecks(){
-        noteCompare = new Note(NoteName.C, 5, NoteAccidental.NATURAL);
+        noteCompare = new Note(NoteName.C, 5);
         assertNotEquals(noteC4, noteCompare);
 
-        noteCompare = new Note(NoteName.C, 4, NoteAccidental.NATURAL);
+        noteCompare = new Note(NoteName.C, 4);
         assertEquals(noteC4, noteCompare);
 
         noteCompare = new Note(NoteName.E, 4, NoteAccidental.SHARP);
         assertEquals(noteESharp4, noteCompare);
 
-        noteCompare = new Note(NoteName.C, 3, NoteAccidental.NATURAL);
+        noteCompare = new Note(NoteName.C, 3);
         assertEquals(noteC3, noteCompare);
     }
 
@@ -109,6 +111,12 @@ class NoteTest {
         assertTrue(noteC4.compareTo(noteC3) > 0);
         assertEquals(noteC4.compareTo(noteCompare), 0);
         assertTrue(noteC4.compareTo(noteC5) < 0);
+    }
+
+    @Test
+    void canGenerateHashCode(){
+        Note newNote = new Note(NoteName.C, 4, NoteAccidental.SHARP);
+        assertEquals(noteC4.hashCode(), newNote.hashCode());
     }
 
     @Test

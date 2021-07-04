@@ -39,10 +39,10 @@ public class NoteCollectionImp implements NoteCollection {
     @Override
     public boolean isSqueezed(Note note){
         Note adjacentNote = note.getPrevious(NoteAccidental.NATURAL);
-        Note adjacentNoteSharp = note.getPrevious(NoteAccidental.SHARP);
-        Note adjacentNoteFlat = note.getPrevious(NoteAccidental.FLAT);
-        if(notes.contains(adjacentNote) || notes.contains(adjacentNoteSharp) || notes.contains(adjacentNoteFlat)){
-            return !isSqueezed(adjacentNote);
+        for (Note noteInSet : notes){
+            if (noteInSet.noteHeadEquals(adjacentNote)){
+                return !isSqueezed(adjacentNote);
+            }
         }
         return false;
     }

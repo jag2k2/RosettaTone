@@ -8,6 +8,7 @@ import uicomponents.UIComponent;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,7 +37,7 @@ public class RangeSelectorImp implements UIComponent, ActionListener {
     @Override
     public Component getComponent() {
         JPanel panel = new JPanel(new FlowLayout());
-        Border border = BorderFactory.createLineBorder(Color.GRAY);
+        Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
         panel.setBorder(border);
         panel.add(lowerNoteSelector.getPanel());
         panel.add(upperNoteSelector.getPanel());

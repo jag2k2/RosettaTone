@@ -5,15 +5,20 @@ import uicomponents.UIComponent;
 import utility.Maybe;
 import javax.sound.midi.*;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class InstrumentBrowserImp implements UIComponent, InstrumentBrowser, ListSelectionListener {
+public class InstrumentBrowserImp implements UIComponent, InstrumentBrowser, ListSelectionListener, ActionListener {
     private final Receiver midiReceiver;
     private final JList<MidiDevice> deviceList;
     private final DefaultListModel<MidiDevice> listModel;
+    private final JButton refreshButton;
 
     private Maybe<MidiDevice> selectedDevice = new Maybe<>();
     private Transmitter transmitter;
@@ -25,13 +30,25 @@ public class InstrumentBrowserImp implements UIComponent, InstrumentBrowser, Lis
         deviceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         deviceList.addListSelectionListener(this);
         deviceList.setCellRenderer(new InstrumentRenderer(deviceList.getCellRenderer()));
+        ImageIcon refreshImage = new ImageIcon("./Images/refresh.png");
+        refreshButton = new JButton(refreshImage);
+        refreshButton.addActionListener(this);
 
         refreshTransmitterDevices();
     }
 
     @Override
     public Component getComponent() {
-        JScrollPane listScrollPane = new JScrollPane(deviceList);
+        refreshButton.setPreferredSize(new Dimension(20, 20));
+        FlowLayout buttonPanelLayout = new FlowLayout(FlowLayout.LEFT);
+        buttonPanelLayout.setVgap(1);
+        JPanel buttonPanel = new JPanel(buttonPanelLayout);
+        buttonPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+        buttonPanel.add(refreshButton);
+        JPanel browserPanel = new JPanel(new BorderLayout());
+        browserPanel.add(BorderLayout.NORTH, buttonPanel);
+        browserPanel.add(BorderLayout.CENTER, deviceList);
+        JScrollPane listScrollPane = new JScrollPane(browserPanel);
         Border border = BorderFactory.createLineBorder(Color.GRAY);
         listScrollPane.setBorder(border);
         Dimension listSize = new Dimension(200, 100);
@@ -50,22 +67,30 @@ public class InstrumentBrowserImp implements UIComponent, InstrumentBrowser, Lis
                 }
             }
             int selectedIndex = deviceList.getSelectedIndex();
-            MidiDevice device = listModel.get(selectedIndex);
-            try {
-                device.open();
-                transmitter = device.getTransmitter();
-                transmitter.setReceiver(midiReceiver);
-                selectedDevice = new Maybe<>(device);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            MidiDevice device = deviceList.getSelectedValue();
+            if (selectedIndex >= 0){
+                try {
+                    device.open();
+                    transmitter = device.getTransmitter();
+                    transmitter.setReceiver(midiReceiver);
+                    selectedDevice = new Maybe<>(device);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         }
     }
 
     @Override
+    public void actionPerformed(ActionEvent e) {
+        refreshTransmitterDevices();
+    }
+
+    @Override
     public void refreshTransmitterDevices() {
         listModel.clear();
-        listModel.addElement(new MidiDeviceSimImp(deviceList));
+        MidiDevice simDevice = new MidiDeviceSimImp(deviceList);
+        listModel.addElement(simDevice);
         MidiDevice.Info[] deviceInfo = MidiSystem.getMidiDeviceInfo();
         for (MidiDevice.Info info : deviceInfo) {
             try {

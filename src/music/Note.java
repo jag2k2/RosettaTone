@@ -1,15 +1,13 @@
 package music;
 
-import instrument.Key;
-
-import java.util.HashSet;
 import java.util.Set;
+import java.util.HashSet;
 
 public class Note implements Comparable<Note> {
 
     private final NoteName noteName;
     private final int octave;
-    private final Set<NoteAccidental> accidentals = new HashSet<>();
+    private final HashSet<NoteAccidental> accidentals = new HashSet<>();
 
     public Note(NoteName noteName, int octave) {
         this.noteName = noteName;
@@ -30,11 +28,11 @@ public class Note implements Comparable<Note> {
         accidentals.addAll(noteAccidentals);
     }
 
-    public Note(Key key){
+    /*public Note(Key key){
         this.noteName = NoteName.values()[key.getNaturalIndex()];
         this.octave = key.getOctave();
         accidentals.add(key.getAccidental());
-    }
+    }*/
 
     public int getOctave() {
         return octave;
@@ -62,11 +60,15 @@ public class Note implements Comparable<Note> {
     public boolean equals(Object obj) {
         if (obj instanceof Note){
             Note noteCompare = (Note) obj;
-            return this.noteName == noteCompare.noteName &&
-                    this.octave == noteCompare.octave &&
-                    this.accidentals.equals(noteCompare.accidentals);
+            return this.noteName == noteCompare.noteName
+                    && this.octave == noteCompare.octave
+                    && this.accidentals.equals(noteCompare.accidentals);
         }
         return false;
+    }
+
+    public boolean noteHeadEquals(Note note){
+        return this.noteName == note.noteName && this.octave == note.octave;
     }
 
     @Override

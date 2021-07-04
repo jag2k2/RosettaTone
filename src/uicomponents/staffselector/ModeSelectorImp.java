@@ -3,6 +3,7 @@ package uicomponents.staffselector;
 import notification.ModeChangeNotifier;
 import notification.ModeChangeObserver;
 import uicomponents.UIComponent;
+import uicomponents.rangeselector.NoteListRenderer;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -19,6 +20,8 @@ public class ModeSelectorImp implements UIComponent, ActionListener, ModeSelecto
     public ModeSelectorImp(StaffMode staffState){
         this.clefComboBox = new JComboBox<>(StaffMode.values());
         this.observers = new ArrayList<>();
+        this.clefComboBox.setRenderer(new StaffModeRenderer(clefComboBox.getRenderer()));
+
         this.clefComboBox.addActionListener(this);
         this.clefComboBox.setSelectedItem(staffState);
     }
@@ -28,6 +31,8 @@ public class ModeSelectorImp implements UIComponent, ActionListener, ModeSelecto
         JPanel panel = new JPanel();
         Border border = BorderFactory.createLineBorder(Color.GRAY);
         panel.setBorder(border);
+        Dimension boxSize = new Dimension(100, 40);
+        clefComboBox.setPreferredSize(boxSize);
         panel.add(clefComboBox);
         return panel;
     }

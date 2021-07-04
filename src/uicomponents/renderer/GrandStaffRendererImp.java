@@ -5,11 +5,13 @@ import notification.ModeChangeObserver;
 import notification.NoteTargetChangeObserver;
 import statemodels.KeyboardState;
 import trainer.SightReadTrainer;
+import uicomponents.UIComponent;
 import uicomponents.staffselector.ModeSelector;
 
+import javax.swing.*;
 import java.awt.*;
 
-public class GrandStaffRendererImp extends Component implements ModeChangeObserver, KeyboardChangeObserver, NoteTargetChangeObserver {
+public class GrandStaffRendererImp extends Component implements UIComponent, ModeChangeObserver, KeyboardChangeObserver, NoteTargetChangeObserver {
     private final KeyboardState keyboardState;
     private final ModeSelector modeSelector;
     private final SightReadTrainer sightReadTrainer;
@@ -18,6 +20,14 @@ public class GrandStaffRendererImp extends Component implements ModeChangeObserv
         this.keyboardState = keyboardState;
         this.modeSelector = modeSelector;
         this.sightReadTrainer = sightReadTrainer;
+    }
+
+    @Override
+    public Component getComponent() {
+        JPanel panel = new JPanel();
+        panel.add(this);
+        panel.setBackground(Color.WHITE);
+        return panel;
     }
 
     @Override
@@ -44,7 +54,6 @@ public class GrandStaffRendererImp extends Component implements ModeChangeObserv
     public void paint(Graphics g) {
         Graphics2D graphics2D = (Graphics2D)g;
         NoteDrawer noteDrawer = new NoteDrawer(graphics2D);
-        noteDrawer.paintBackground();
         noteDrawer.drawEnabledStaffs(modeSelector);
         noteDrawer.drawNotes(keyboardState.getActiveNotes(), modeSelector);
         noteDrawer.drawTargets(sightReadTrainer.getNoteTargets(), modeSelector);

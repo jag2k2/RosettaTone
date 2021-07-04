@@ -3,18 +3,26 @@ package uicomponents.renderer;
 import music.Note;
 import notification.RangeChangeObserver;
 import statemodels.NoteLimitModel;
+import uicomponents.UIComponent;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
-public class RangeRendererImp extends JComponent implements RangeChangeObserver {
+public class RangeRendererImp extends Component implements UIComponent, RangeChangeObserver {
     private final NoteLimitModel lowerNoteLimitModel;
     private final NoteLimitModel upperNoteLimitModel;
 
     public RangeRendererImp(NoteLimitModel lowerNoteLimitModel, NoteLimitModel upperNoteLimitModel){
         this.lowerNoteLimitModel = lowerNoteLimitModel;
         this.upperNoteLimitModel = upperNoteLimitModel;
+    }
+
+    @Override
+    public Component getComponent() {
+        JPanel panel = new JPanel();
+        panel.add(this);
+        panel.setBackground(Color.WHITE);
+        return panel;
     }
 
     @Override
@@ -34,7 +42,6 @@ public class RangeRendererImp extends JComponent implements RangeChangeObserver 
         Note upperLimitNote = upperNoteLimitModel.getLimit();
         Note lowerLimitNote = lowerNoteLimitModel.getLimit();
 
-        rangeDrawer.paintBackground();
         rangeDrawer.drawLimit(upperLimitNote);
         rangeDrawer.drawLimit(lowerLimitNote);
         rangeDrawer.drawVerticalConnector(upperLimitNote, lowerLimitNote);

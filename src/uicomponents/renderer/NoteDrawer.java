@@ -83,6 +83,7 @@ public class NoteDrawer {
 
     public void drawNotes(NoteCollection noteCollection, ModeSelector modeSelector){
         int noteX = CanvasRender.getNoteXOffset(1);
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
         for (Note note : noteCollection){
             drawNote(note, noteCollection, noteX);
             drawAccidentals(note, noteX);
@@ -92,6 +93,7 @@ public class NoteDrawer {
 
     public void drawTargets(NoteCollectionList noteCollectionList, ModeSelector modeSelector){
         int i = 0;
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         for (NoteCollection noteTarget: noteCollectionList){
             i++;
             int noteX = CanvasRender.getNoteXOffset(i);

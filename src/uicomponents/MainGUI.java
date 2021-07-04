@@ -59,15 +59,18 @@ public class MainGUI {
         sightReadTrainerImp.addObserver(grandStaffRendererImp);
 
         //Build Panels
-        JPanel configPanel = new JPanel();
-        configPanel.setLayout(new BoxLayout(configPanel, BoxLayout.Y_AXIS));
-        configPanel.add(instrumentBrowserImp.getComponent());
-        configPanel.add(rangeSelectorImp.getComponent());
-        configPanel.add(modeSelectorImp.getComponent());
+        JPanel verticalPanel = new JPanel();
+        verticalPanel.setLayout(new BoxLayout(verticalPanel, BoxLayout.Y_AXIS));
+        verticalPanel.add(instrumentBrowserImp.getComponent());
+        verticalPanel.add(rangeSelectorImp.getComponent());
+        verticalPanel.add(modeSelectorImp.getComponent());
+        JPanel configPanel = new JPanel(new BorderLayout());
+        configPanel.add(BorderLayout.NORTH, verticalPanel);
 
-        JPanel staffPanel = new JPanel(new FlowLayout());
-        staffPanel.add(rangeRendererImp);
-        staffPanel.add(grandStaffRendererImp);
+        JPanel staffPanel = new JPanel(new BorderLayout());
+        staffPanel.add(BorderLayout.WEST, rangeRendererImp.getComponent());
+        staffPanel.add(BorderLayout.CENTER, grandStaffRendererImp.getComponent());
+        staffPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         mainPanel.add(BorderLayout.WEST, configPanel);
         mainPanel.add(BorderLayout.CENTER, staffPanel);
         mainPanel.add(BorderLayout.SOUTH, noteTextRendererImp.getComponent());

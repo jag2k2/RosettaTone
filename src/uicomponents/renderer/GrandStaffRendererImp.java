@@ -56,6 +56,6 @@ public class GrandStaffRendererImp extends Component implements UIComponent, Mod
         NoteDrawer noteDrawer = new NoteDrawer(graphics2D);
         noteDrawer.drawEnabledStaffs(modeSelector);
         noteDrawer.drawNotes(keyboardState.getActiveNotes(), modeSelector);
-        noteDrawer.drawTargets(sightReadTrainer.getNoteTargets(), modeSelector);
+        noteDrawer.drawFlashcardNotes(sightReadTrainer.getFlashcardNotes(), modeSelector);
     }
 }

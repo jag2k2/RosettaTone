@@ -34,13 +34,6 @@ public class NoteDrawer {
         this.graphics2D = graphics2D;
     }
 
-    protected void paintBackground(){
-        graphics2D.setColor(Color.WHITE);
-        int canvasWidth = (int) CanvasRender.getCanvasSize().getWidth();
-        int canvasHeight = (int) CanvasRender.getCanvasSize().getHeight();
-        graphics2D.fillRect(0,0,canvasWidth,canvasHeight);
-    }
-
     public void drawEnabledStaffs(ModeSelector modeSelector){
         configLineDraw();
         for (Staff staff : enabledStaffs(modeSelector)){
@@ -91,14 +84,14 @@ public class NoteDrawer {
         }
     }
 
-    public void drawTargets(NoteCollectionList noteCollectionList, ModeSelector modeSelector){
+    public void drawFlashcardNotes(NoteCollectionList noteCollectionList, ModeSelector modeSelector){
         int i = 0;
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
-        for (NoteCollection noteTarget: noteCollectionList){
+        for (NoteCollection flashcardNotes: noteCollectionList){
             i++;
             int noteX = CanvasRender.getNoteXOffset(i);
-            for (Note note : noteTarget){
-                drawNote(note, noteTarget, noteX);
+            for (Note note : flashcardNotes){
+                drawNote(note, flashcardNotes, noteX);
                 drawAccidentals(note, noteX);
                 drawHelperLines(note, modeSelector, noteX);
             }

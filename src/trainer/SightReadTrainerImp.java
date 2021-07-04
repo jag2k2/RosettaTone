@@ -18,16 +18,16 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
     private final NoteLimitModel lowerLimit;
     private final NoteLimitModel upperLimit;
     private final KeyboardState keyboardState;
-    private final NoteCollectionList noteTargets;
+    private final NoteCollectionList flashcardList;
     private final List<NoteTargetChangeObserver> observers;
 
     public SightReadTrainerImp(NoteLimitModel lowerLimit, NoteLimitModel upperLimit, KeyboardState keyboardState){
         this.lowerLimit = lowerLimit;
         this.upperLimit = upperLimit;
         this.keyboardState = keyboardState;
-        this.noteTargets = new NoteCollectionListImp();
+        this.flashcardList = new NoteCollectionListImp();
         this.observers = new ArrayList<>();
-        generateNewNoteTargets();
+        generateAllNewFlashcards();
     }
 
     @Override
@@ -43,37 +43,38 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
     }
 
     @Override
-    public NoteCollectionList getNoteTargets() {
-        return noteTargets;
+    public NoteCollectionList getFlashcardNotes() {
+        return flashcardList;
     }
 
     @Override
     public void rangeChanged() {
-        generateNewNoteTargets();
+        generateAllNewFlashcards();
         notifyObservers();
     }
 
     @Override
     public void keyboardChanged() {
         NoteCollection activeNotes = keyboardState.getActiveNotes();
-        for (NoteCollection currentTarget : noteTargets.getFirstItem()){
+        for (NoteCollection currentTarget : flashcardList.getFirstItem()){
             if(activeNotes.contains(currentTarget)){
-                noteTargets.removeFirstItem();
-                addNewNoteTarget();
+                flashcardList.removeFirstItem();
+                addNewFlashcard();
                 notifyObservers();
             }
         }
     }
 
-    protected void generateNewNoteTargets(){
-        noteTargets.clear();
+    protected void generateAllNewFlashcards(
+    ){
+        flashcardList.clear();
 
         for (int i = 0; i < targetCount; i++) {
-            addNewNoteTarget();
+            addNewFlashcard();
         }
     }
 
-    protected void addNewNoteTarget(){
+    protected void addNewFlashcard(){
         Note lowerNote = lowerLimit.getLimit();
         Note upperNote = upperLimit.getLimit();
 
@@ -83,7 +84,7 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
         Note randomNote = new Note(randomKey);
         NoteCollection noteTarget = new NoteCollectionImp();
         noteTarget.add(randomNote);
-        noteTargets.add(noteTarget);
+        flashcardList.add(noteTarget);
     }
 
 }

@@ -1,7 +1,7 @@
 package trainer;
 
-import music.NoteCollection;
+import music.NoteCollectionList;
 
 public interface SightReadTrainer {
-    NoteCollection getNoteTarget();
+    NoteCollectionList getNoteTargets();
 }

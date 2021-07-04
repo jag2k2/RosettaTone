@@ -81,44 +81,56 @@ public class NoteDrawer {
         graphics2D.setStroke(new BasicStroke(lineThickness));
     }
 
-    protected void drawNotes(NoteCollection noteCollection, ModeSelector modeSelector){
+    public void drawNotes(NoteCollection noteCollection, ModeSelector modeSelector){
+        int noteX = CanvasRender.getNoteXOffset(1);
         for (Note note : noteCollection){
-            drawNote(note, noteCollection);
-            drawAccidentals(note);
-            drawHelperLines(note, modeSelector);
+            drawNote(note, noteCollection, noteX);
+            drawAccidentals(note, noteX);
+            drawHelperLines(note, modeSelector, noteX);
         }
     }
 
-    protected void drawNote(Note note, NoteCollection noteCollection){
+    public void drawTargets(NoteCollectionList noteCollectionList, ModeSelector modeSelector){
+        int i = 0;
+        for (NoteCollection noteTarget: noteCollectionList){
+            i++;
+            int noteX = CanvasRender.getNoteXOffset(i);
+            for (Note note : noteTarget){
+                drawNote(note, noteTarget, noteX);
+                drawAccidentals(note, noteX);
+                drawHelperLines(note, modeSelector, noteX);
+            }
+        }
+    }
+
+    protected void drawNote(Note note, NoteCollection noteCollection, int xPos){
         int lineNumber = CanvasRender.getLineNumber(note);
-        int noteX = CanvasRender.getNoteXOffset();
         int noteHeight = noteImage.getBufferedImage().getHeight();
         int noteY = CanvasRender.getLineYOffset(lineNumber) - (noteHeight / 2);
 
         int noteWidth = noteImage.getBufferedImage().getWidth();
         if (noteCollection.isSqueezed(note)) {
-            noteX += noteWidth;
+            xPos += noteWidth;
         }
-        graphics2D.drawImage(noteImage.getBufferedImage(), null, noteX, noteY);
+        graphics2D.drawImage(noteImage.getBufferedImage(), null, xPos, noteY);
     }
 
 
-    protected void drawAccidentals(Note note) {
+    protected void drawAccidentals(Note note, int xPos) {
         int lineNumber = CanvasRender.getLineNumber(note);
-        int noteX = CanvasRender.getNoteXOffset();
         int noteHeight = noteImage.getBufferedImage().getHeight();
         int noteY = CanvasRender.getLineYOffset(lineNumber) - (noteHeight / 2);
         for (NoteAccidental accidental : note.getActiveAccidentals()) {
             if (accidental == NoteAccidental.SHARP) {
                 BufferedImage sharpBufferedImage = sharpImage.getBufferedImage();
-                int sharpXPos = noteX - (int) (sharpImage.getBufferedImage().getWidth() * 1.3);
+                int sharpXPos = xPos - (int) (sharpImage.getBufferedImage().getWidth() * 1.3);
                 int sharpYPos = noteY - (sharpBufferedImage.getHeight() / 3);
                 graphics2D.drawImage(sharpBufferedImage, null, sharpXPos, sharpYPos);
             }
         }
     }
 
-    protected void drawHelperLines(Note note, ModeSelector modeSelector){
+    protected void drawHelperLines(Note note, ModeSelector modeSelector, int xPos){
         int lineNumber = CanvasRender.getLineNumber(note);
         int topVisibleLine = trebleStaff.getTopVisibleLine();
         int bottomVisibleLine = bassStaff.getBottomVisibleLine();
@@ -132,23 +144,23 @@ public class NoteDrawer {
         }
 
         for (int i = lineNumber; i < topVisibleLine; i++){
-            drawHelperLine(i);
+            drawHelperLine(i, xPos);
         }
         for (int i = lineNumber; i > bottomVisibleLine; i--){
-            drawHelperLine(i);
+            drawHelperLine(i, xPos);
         }
 
         if (modeSelector.trebleEnabled() && modeSelector.bassEnabled()){
             if(lineNumber > trebleStaff.getBottomVisibleLine() && lineNumber < bassStaff.getTopVisibleLine()){
-                drawHelperLine(lineNumber);
+                drawHelperLine(lineNumber, xPos);
             }
         }
     }
 
-    protected void drawHelperLine(int lineNumber){
+    protected void drawHelperLine(int lineNumber, int xPos){
         int helperLineYPos = CanvasRender.getLineYOffset(lineNumber);
         if ((lineNumber % 2) == 0) {
-            int lineXPosStart = CanvasRender.getNoteXOffset() - 2;
+            int lineXPosStart = xPos - 2;
             int lineXPosEnd = lineXPosStart + noteImage.getBufferedImage().getWidth() + 2;
             graphics2D.drawLine(lineXPosStart, helperLineYPos, lineXPosEnd, helperLineYPos);
         }

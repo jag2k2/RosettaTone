@@ -47,6 +47,6 @@ public class GrandStaffRendererImp extends Component implements ModeChangeObserv
         noteDrawer.paintBackground();
         noteDrawer.drawEnabledStaffs(modeSelector);
         noteDrawer.drawNotes(keyboardState.getActiveNotes(), modeSelector);
-        noteDrawer.drawNotes(sightReadTrainer.getNoteTarget(), modeSelector);
+        noteDrawer.drawTargets(sightReadTrainer.getNoteTargets(), modeSelector);
     }
 }

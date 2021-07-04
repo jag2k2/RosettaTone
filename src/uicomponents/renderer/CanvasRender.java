@@ -4,14 +4,14 @@ import music.Note;
 import java.awt.*;
 
 public class CanvasRender {
-    private static final int canvasWidth = 750;
+    private static final int canvasWidth = 1200;
     private static final int rangeIndicatorWidth = 100;
     private static final int canvasHeight = 750;
     private static final int numberOfLines = 52;
     private static final int lineSpacing = 15;
     private static final int leftMargin = 100;
-    private static final int lineLength = 500;
-    private static final int noteXSpacing = 200;
+    private static final int lineLength = 1050;
+    private static final int noteXSpacing = 100;
 
     static public Dimension getCanvasSize(){
         return new Dimension(canvasWidth, canvasHeight);
@@ -49,7 +49,7 @@ public class CanvasRender {
         return lineSpacing;
     }
 
-    static public int getNoteXOffset(){
-        return leftMargin + noteXSpacing;
+    static public int getNoteXOffset(int column){
+        return leftMargin + column * noteXSpacing;
     }
 }

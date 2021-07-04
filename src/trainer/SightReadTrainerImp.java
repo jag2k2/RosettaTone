@@ -1,10 +1,7 @@
 package trainer;
 
 import instrument.Key;
-import music.Note;
-import music.NoteAccidental;
-import music.NoteCollection;
-import music.NoteCollectionImp;
+import music.*;
 import notification.KeyboardChangeObserver;
 import notification.NoteTargetChangeNotifier;
 import notification.NoteTargetChangeObserver;
@@ -16,19 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserver, KeyboardChangeObserver, NoteTargetChangeNotifier {
+    static private final int targetCount = 10;
+
     private final NoteLimitModel lowerLimit;
     private final NoteLimitModel upperLimit;
     private final KeyboardState keyboardState;
-    private final NoteCollection noteTarget;
+    private final NoteCollectionList noteTargets;
     private final List<NoteTargetChangeObserver> observers;
 
     public SightReadTrainerImp(NoteLimitModel lowerLimit, NoteLimitModel upperLimit, KeyboardState keyboardState){
         this.lowerLimit = lowerLimit;
         this.upperLimit = upperLimit;
         this.keyboardState = keyboardState;
-        this.noteTarget = new NoteCollectionImp();
+        this.noteTargets = new NoteCollectionListImp();
         this.observers = new ArrayList<>();
-        generateNoteTarget();
+        generateNewNoteTargets();
     }
 
     @Override
@@ -44,26 +43,37 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
     }
 
     @Override
-    public NoteCollection getNoteTarget() {
-        return noteTarget;
+    public NoteCollectionList getNoteTargets() {
+        return noteTargets;
     }
 
     @Override
     public void rangeChanged() {
-        generateNoteTarget();
+        generateNewNoteTargets();
+        notifyObservers();
     }
 
     @Override
     public void keyboardChanged() {
         NoteCollection activeNotes = keyboardState.getActiveNotes();
-        if(activeNotes.contains(noteTarget)){
-            generateNoteTarget();
+        for (NoteCollection currentTarget : noteTargets.getFirstItem()){
+            if(activeNotes.contains(currentTarget)){
+                noteTargets.removeFirstItem();
+                addNewNoteTarget();
+                notifyObservers();
+            }
         }
     }
 
-    protected void generateNoteTarget(){
-        noteTarget.clear();
+    protected void generateNewNoteTargets(){
+        noteTargets.clear();
 
+        for (int i = 0; i < targetCount; i++) {
+            addNewNoteTarget();
+        }
+    }
+
+    protected void addNewNoteTarget(){
         Note lowerNote = lowerLimit.getLimit();
         Note upperNote = upperLimit.getLimit();
 
@@ -71,9 +81,9 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
         Key upperKey = new Key(upperNote.getOctave(), upperNote.getNoteName(), NoteAccidental.NATURAL);
         Key randomKey = lowerKey.generateRandomKeyBetweenThisAnd(upperKey);
         Note randomNote = new Note(randomKey);
-
+        NoteCollection noteTarget = new NoteCollectionImp();
         noteTarget.add(randomNote);
-        notifyObservers();
+        noteTargets.add(noteTarget);
     }
 
 }

@@ -1,5 +1,5 @@
 package notification;
 
-public interface NoteTargetChangeObserver {
+public interface FlashcardChangeObserver {
     void noteTargetChanged();
 }

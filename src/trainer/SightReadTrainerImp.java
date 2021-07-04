@@ -3,8 +3,8 @@ package trainer;
 import instrument.Key;
 import music.*;
 import notification.KeyboardChangeObserver;
-import notification.NoteTargetChangeNotifier;
-import notification.NoteTargetChangeObserver;
+import notification.FlashcardChangeNotifier;
+import notification.FlashcardChangeObserver;
 import notification.RangeChangeObserver;
 import statemodels.KeyboardState;
 import statemodels.NoteLimitModel;
@@ -12,14 +12,14 @@ import statemodels.NoteLimitModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserver, KeyboardChangeObserver, NoteTargetChangeNotifier {
+public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserver, KeyboardChangeObserver, FlashcardChangeNotifier {
     static private final int targetCount = 8;
 
     private final NoteLimitModel lowerLimit;
     private final NoteLimitModel upperLimit;
     private final KeyboardState keyboardState;
     private final NoteCollectionList flashcardList;
-    private final List<NoteTargetChangeObserver> observers;
+    private final List<FlashcardChangeObserver> observers;
 
     public SightReadTrainerImp(NoteLimitModel lowerLimit, NoteLimitModel upperLimit, KeyboardState keyboardState){
         this.lowerLimit = lowerLimit;
@@ -31,13 +31,13 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
     }
 
     @Override
-    public void addObserver(NoteTargetChangeObserver observer) {
+    public void addObserver(FlashcardChangeObserver observer) {
         observers.add(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (NoteTargetChangeObserver observer : observers){
+        for (FlashcardChangeObserver observer : observers){
             observer.noteTargetChanged();
         }
     }

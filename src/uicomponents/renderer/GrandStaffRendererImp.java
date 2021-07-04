@@ -2,7 +2,7 @@ package uicomponents.renderer;
 
 import notification.KeyboardChangeObserver;
 import notification.ModeChangeObserver;
-import notification.NoteTargetChangeObserver;
+import notification.FlashcardChangeObserver;
 import statemodels.KeyboardState;
 import trainer.SightReadTrainer;
 import uicomponents.UIComponent;
@@ -11,7 +11,7 @@ import uicomponents.staffselector.ModeSelector;
 import javax.swing.*;
 import java.awt.*;
 
-public class GrandStaffRendererImp extends Component implements UIComponent, ModeChangeObserver, KeyboardChangeObserver, NoteTargetChangeObserver {
+public class GrandStaffRendererImp extends Component implements UIComponent, ModeChangeObserver, KeyboardChangeObserver, FlashcardChangeObserver {
     private final KeyboardState keyboardState;
     private final ModeSelector modeSelector;
     private final SightReadTrainer sightReadTrainer;

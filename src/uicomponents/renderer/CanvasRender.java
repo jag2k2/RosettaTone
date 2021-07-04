@@ -11,7 +11,7 @@ public class CanvasRender {
     private static final int lineSpacing = 15;
     private static final int leftMargin = 10;
     private static final int lineLength = 1200;
-    private static final int noteXSpacing = 110;
+    private static final int noteXSpacing = 135;
 
     static public Dimension getCanvasSize(){
         return new Dimension(canvasWidth, canvasHeight);

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserver, KeyboardChangeObserver, NoteTargetChangeNotifier {
-    static private final int targetCount = 10;
+    static private final int targetCount = 8;
 
     private final NoteLimitModel lowerLimit;
     private final NoteLimitModel upperLimit;

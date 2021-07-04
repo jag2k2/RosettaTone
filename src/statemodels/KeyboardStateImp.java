@@ -6,67 +6,60 @@ import notification.KeyboardChangeNotifier;
 import notification.KeyboardChangeObserver;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class KeyboardStateImp implements KeyboardState, KeyboardChangeNotifier {
-    private final int octaves = 9;
-    private final int naturalsPerOctave = 7;
-    private final Note[][] Notes = new Note[octaves][naturalsPerOctave];
+    private final Set<Key> keys;
     private final ArrayList<KeyboardChangeObserver> keyboardChangeObservers;
 
     public KeyboardStateImp(){
         this.keyboardChangeObservers = new ArrayList<>();
-        NoteName[] noteNames = NoteName.values();
-        for (int octave = 0; octave < octaves; octave++){
-            for(int octaveNote = 0; octaveNote < naturalsPerOctave; octaveNote++){
-                Notes[octave][octaveNote] = new Note(noteNames[octaveNote], octave);
-            }
-        }
+        this.keys = new HashSet<>();
     }
 
     @Override
     public void KeyPressed(Key key) {
-        changeNoteState(key, true);
+        keys.add(key);
         notifyObservers();
     }
 
     @Override
     public void KeyReleased(Key key) {
-        changeNoteState(key, false);
+        keys.remove(key);
         notifyObservers();
     }
 
-    protected void changeNoteState(Key key, boolean active){
-        int octave = key.getOctave();
-        int naturalIndex = key.getNaturalIndex();
-        if (key.isCDorE()){
-            if (key.isEven()){
-                Notes[octave][naturalIndex].setAccidental(NoteAccidental.NATURAL, active);
-            }
-            else{
-                Notes[octave][naturalIndex].setAccidental(NoteAccidental.SHARP, active);
-            }
-        }
-        else{
-            if (key.isEven()){
-                Notes[octave][naturalIndex].setAccidental(NoteAccidental.SHARP, active);
-            }
-            else{
-                Notes[octave][naturalIndex].setAccidental(NoteAccidental.NATURAL, active);
-            }
-        }
-    }
-
     @Override
-    public NoteList getActiveNotes() {
-        NoteList pressedNotes = new NoteListImp();
-        for (Note[] notes : Notes){
-            for(Note note : notes){
-                if (note.isActive()){
-                    pressedNotes.add(note);
+    public NoteCollection getActiveNotes() {
+        NoteCollection pressedNotes = new NoteCollectionImp();
+        for (Key key : keys){
+            Set<NoteAccidental> accidentals = new HashSet<>();
+            if (key.isNatural()){
+                accidentals.add(NoteAccidental.NATURAL);
+                if (sharpExistsAlso(key)){
+                    accidentals.add(NoteAccidental.SHARP);
+                }
+            } else {
+                accidentals.add(NoteAccidental.SHARP);
+                if (naturalExistsAlso(key)){
+                    accidentals.add(NoteAccidental.NATURAL);
                 }
             }
+            Note noteToAdd = new Note(NoteName.values()[key.getNaturalIndex()], key.getOctave(), accidentals);
+            pressedNotes.add(noteToAdd);
         }
         return pressedNotes;
+    }
+
+    protected boolean sharpExistsAlso(Key key){
+        Key nextKey = key.getNext();
+        return keys.contains(nextKey);
+    }
+
+    protected boolean naturalExistsAlso(Key key){
+        Key previousKey = key.getPrevious();
+        return keys.contains(previousKey);
     }
 
     @Override

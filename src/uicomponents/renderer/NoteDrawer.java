@@ -81,22 +81,22 @@ public class NoteDrawer {
         graphics2D.setStroke(new BasicStroke(lineThickness));
     }
 
-    protected void drawNotes(NoteList noteList, ModeSelector modeSelector){
-        for (Note note : noteList){
-            drawNote(note, noteList);
+    protected void drawNotes(NoteCollection noteCollection, ModeSelector modeSelector){
+        for (Note note : noteCollection){
+            drawNote(note, noteCollection);
             drawAccidentals(note);
             drawHelperLines(note, modeSelector);
         }
     }
 
-    protected void drawNote(Note note, NoteList noteList){
+    protected void drawNote(Note note, NoteCollection noteCollection){
         int lineNumber = CanvasRender.getLineNumber(note);
         int noteX = CanvasRender.getNoteXOffset();
         int noteHeight = noteImage.getBufferedImage().getHeight();
         int noteY = CanvasRender.getLineYOffset(lineNumber) - (noteHeight / 2);
 
         int noteWidth = noteImage.getBufferedImage().getWidth();
-        if (noteList.isSandwiched(note)) {
+        if (noteCollection.isSqueezed(note)) {
             noteX += noteWidth;
         }
         graphics2D.drawImage(noteImage.getBufferedImage(), null, noteX, noteY);

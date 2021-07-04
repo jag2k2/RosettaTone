@@ -1,6 +1,5 @@
 package instrument;
 
-import music.Note;
 import music.NoteAccidental;
 import music.NoteName;
 
@@ -60,16 +59,28 @@ public class Key {
                 return NoteAccidental.NATURAL;
     }
 
+    public Key getNext(){
+        return new Key(midiNumber + 1);
+    }
+
+    public Key getPrevious(){
+        return new Key(midiNumber - 1);
+    }
+
     protected int getOctavePosition(){
         return midiNumber % 12;
     }
 
-    public boolean isCDorE(){
+    protected boolean isCDorE(){
         return (getOctavePosition() < 5);
     }
 
-    public boolean isEven(){
+    protected boolean isEven(){
         return ((midiNumber % 2) == 0);
+    }
+
+    public boolean isNatural(){
+        return (isCDorE() && isEven()) || (!isCDorE() && !isEven());
     }
 
     @Override
@@ -83,6 +94,11 @@ public class Key {
 
     @Override
     public String toString() {
-        return "midi: " + Integer.toString(midiNumber);
+        return "midi: " + midiNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.toString(midiNumber).hashCode();
     }
 }

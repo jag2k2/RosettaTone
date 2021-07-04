@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import statemodels.KeyboardState;
 import statemodels.KeyboardStateImp;
 
+import java.util.HashSet;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class KeyboardStateImpTest {
@@ -15,18 +17,21 @@ class KeyboardStateImpTest {
     Key keyGSharp2 = new Key(44);
     Key keyDSharp7 = new Key(99);
 
-    Note noteC4;
-    Note noteG2;
-    Note noteD7;
-    NoteListImp expected;
+    Note noteCnatSharp4;
+    Note noteGSharp2;
+    Note noteDSharp7;
+    NoteCollectionImp expected;
 
     @BeforeEach
     void setup(){
-        noteC4 = new Note(NoteName.C, 4);
-        noteG2 = new Note(NoteName.G, 2);
-        noteD7 = new Note(NoteName.D, 7);
+        HashSet<NoteAccidental> accidentals = new HashSet<>();
+        accidentals.add(NoteAccidental.NATURAL);
+        accidentals.add(NoteAccidental.SHARP);
+        noteCnatSharp4 = new Note(NoteName.C, 4, accidentals);
+        noteGSharp2 = new Note(NoteName.G, 2, NoteAccidental.SHARP);
+        noteDSharp7 = new Note(NoteName.D, 7, NoteAccidental.SHARP);
 
-        expected = new NoteListImp();
+        expected = new NoteCollectionImp();
     }
 
     @Test
@@ -36,13 +41,9 @@ class KeyboardStateImpTest {
         keyboardState.KeyPressed(keyGSharp2);
         keyboardState.KeyPressed(keyDSharp7);
 
-        expected.add(noteG2);
-        noteG2.setAccidental(NoteAccidental.SHARP, true);
-        expected.add(noteC4);
-        noteC4.setAccidental(NoteAccidental.NATURAL, true);
-        noteC4.setAccidental(NoteAccidental.SHARP, true);
-        expected.add(noteD7);
-        noteD7.setAccidental(NoteAccidental.SHARP, true);
+        expected.add(noteGSharp2);
+        expected.add(noteCnatSharp4);
+        expected.add(noteDSharp7);
 
         assertEquals(expected, keyboardState.getActiveNotes());
     }

@@ -4,28 +4,47 @@ import instrument.Key;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 class NoteTest {
     private Note noteB3;
     private Note noteC3;
     private Note noteC4;
     private Note noteD4;
-    private Note noteE4;
+    private Note noteESharp4;
     private Note noteB4;
     private Note noteC5;
+    private Note noteD5;
     private Note noteCompare;
+    private Set<NoteAccidental> naturalSharp;
+    private Set<NoteAccidental> naturalFlat;
+    private Set<NoteAccidental> naturalSharpFlat;
 
     @BeforeEach
     void setup(){
+        this.naturalSharp = new HashSet<>();
+        naturalSharp.add(NoteAccidental.NATURAL);
+        naturalSharp.add(NoteAccidental.SHARP);
+
+        this.naturalFlat = new HashSet<>();
+        naturalFlat.add(NoteAccidental.NATURAL);
+        naturalFlat.add(NoteAccidental.FLAT);
+
+        this.naturalSharpFlat = new HashSet<>();
+        naturalSharpFlat.add(NoteAccidental.NATURAL);
+        naturalSharpFlat.add(NoteAccidental.SHARP);
+        naturalSharpFlat.add(NoteAccidental.FLAT);
+
         noteB3 = new Note(NoteName.B, 3);
         noteC4 = new Note(NoteName.C, 4);
-        noteC4.setAccidental(NoteAccidental.NATURAL, true);
         noteD4 = new Note(NoteName.D, 4);
-        noteE4 = new Note(NoteName.E, 4);
+        noteESharp4 = new Note(NoteName.E, 4, NoteAccidental.SHARP);
         noteB4 = new Note(NoteName.B, 4);
         noteC5 = new Note(NoteName.C, 5);
+        noteD5 = new Note(NoteName.D, 5);
 
         noteC3 = new Note(new Key(48));
-        noteC3.setAccidental(NoteAccidental.SHARP, true);
     }
 
     @Test
@@ -36,23 +55,16 @@ class NoteTest {
 
     @Test
     void equalsChecks(){
-        noteCompare = new Note(NoteName.C, 5);
-        noteCompare.setAccidental(NoteAccidental.NATURAL, true);
+        noteCompare = new Note(NoteName.C, 5, NoteAccidental.NATURAL);
         assertNotEquals(noteC4, noteCompare);
 
-        noteCompare = new Note(NoteName.C, 4);
-        assertNotEquals(noteC4, noteCompare);
-
-        noteCompare = new Note(NoteName.C, 4);
-        noteCompare.setAccidental(NoteAccidental.NATURAL, true);
+        noteCompare = new Note(NoteName.C, 4, NoteAccidental.NATURAL);
         assertEquals(noteC4, noteCompare);
 
-        noteC4.setAccidental(NoteAccidental.SHARP, true);
-        noteCompare.setAccidental(NoteAccidental.SHARP, true);
-        assertEquals(noteC4, noteCompare);
+        noteCompare = new Note(NoteName.E, 4, NoteAccidental.SHARP);
+        assertEquals(noteESharp4, noteCompare);
 
-        noteCompare = new Note(NoteName.C, 3);
-        noteCompare.setAccidental(NoteAccidental.SHARP, true);
+        noteCompare = new Note(NoteName.C, 3, NoteAccidental.NATURAL);
         assertEquals(noteC3, noteCompare);
     }
 
@@ -68,30 +80,26 @@ class NoteTest {
 
     @Test
     void canDetectNotAdjacent() {
-        assertFalse(noteC4.isAdjacent(noteE4));
+        assertFalse(noteC4.isAdjacent(noteESharp4));
         assertFalse(noteC5.isAdjacent(noteD4));
         assertFalse(noteB3.isAdjacent(noteC5));
     }
 
     @Test
     void canIncrement(){
-        Note noteTest = new Note(NoteName.C, 4);
-        noteTest.increment();
+        Note noteTest = noteC4.getNext(NoteAccidental.NATURAL);
         assertEquals(noteTest, noteD4);
 
-        noteTest = new Note(NoteName.B, 4);
-        noteTest.increment();
+        noteTest = noteB4.getNext(NoteAccidental.NATURAL);
         assertEquals(noteTest, noteC5);
     }
 
     @Test
     void canDecrement(){
-        Note noteTest = new Note(NoteName.C, 4);
-        noteTest.decrement();
+        Note noteTest = noteC4.getPrevious(NoteAccidental.NATURAL);
         assertEquals(noteTest, noteB3);
 
-        noteTest = new Note(NoteName.E, 4);
-        noteTest.decrement();
+        noteTest = noteESharp4.getPrevious(NoteAccidental.NATURAL);
         assertEquals(noteTest, noteD4);
     }
 
@@ -99,52 +107,42 @@ class NoteTest {
     void canCompare() {
         noteCompare = new Note(NoteName.C, 4);
         assertTrue(noteC4.compareTo(noteC3) > 0);
-        assertTrue(noteC4.compareTo(noteCompare) == 0);
+        assertEquals(noteC4.compareTo(noteCompare), 0);
         assertTrue(noteC4.compareTo(noteC5) < 0);
     }
 
     @Test
-    void canDisplayNoAccidentals(){
-        assertEquals("C5", noteC5.toString());
-    }
-
-    @Test
     void canDisplayWithOnlyNatural(){
-        noteC5.setAccidental(NoteAccidental.NATURAL, true);
         assertEquals("C5", noteC5.toString());
     }
 
     @Test
     void canDisplayOnlySharp(){
-        noteC5.setAccidental(NoteAccidental.SHARP, true);
-        assertEquals("C#5", noteC5.toString());
+        Note noteCSharp5 = new Note(NoteName.C, 5, NoteAccidental.SHARP);
+        assertEquals("C#5", noteCSharp5.toString());
     }
 
     @Test
     void canDisplayOnlyFlat(){
-        noteC5.setAccidental(NoteAccidental.FLAT, true);
-        assertEquals("Cb5", noteC5.toString());
+        Note noteCFlat5 = new Note(NoteName.C, 5, NoteAccidental.FLAT);
+        assertEquals("Cb5", noteCFlat5.toString());
     }
 
     @Test
     void canDisplayNaturalAndSharp(){
-        noteC5.setAccidental(NoteAccidental.NATURAL, true);
-        noteC5.setAccidental(NoteAccidental.SHARP, true);
-        assertEquals("Cnat#5", noteC5.toString());
+        Note noteCNatSharp5 = new Note(NoteName.C, 5, naturalSharp);
+        assertEquals("Cn#5", noteCNatSharp5.toString());
     }
 
     @Test
     void canDisplayNaturalAndFlat(){
-        noteC5.setAccidental(NoteAccidental.NATURAL, true);
-        noteC5.setAccidental(NoteAccidental.FLAT, true);
-        assertEquals("Cnatb5", noteC5.toString());
+        Note noteCNatFlat5 = new Note(NoteName.C, 5, naturalFlat);
+        assertEquals("Cnb5", noteCNatFlat5.toString());
     }
 
     @Test
     void canDisplayAllAccidentals(){
-        noteC5.setAccidental(NoteAccidental.NATURAL, true);
-        noteC5.setAccidental(NoteAccidental.SHARP, true);
-        noteC5.setAccidental(NoteAccidental.FLAT, true);
-        assertEquals("Cnat#b5", noteC5.toString());
+        Note noteCNatSharpFlat5 = new Note(NoteName.C, 5, naturalSharpFlat);
+        assertEquals("Cn#b5", noteCNatSharpFlat5.toString());
     }
 }

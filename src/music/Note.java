@@ -1,42 +1,39 @@
 package music;
 
 import instrument.Key;
-import utility.Decrementable;
-import utility.Incrementable;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Note implements Comparable<Note>, Incrementable, Decrementable {
+public class Note implements Comparable<Note> {
 
-    private NoteName noteName;
-    private int octave;
-    private boolean natural = false;
-    private boolean sharp = false;
-    private boolean flat = false;
+    private final NoteName noteName;
+    private final int octave;
+    private final Set<NoteAccidental> accidentals = new HashSet<>();
 
     public Note(NoteName noteName, int octave) {
         this.noteName = noteName;
         this.octave = octave;
+        accidentals.add(NoteAccidental.NATURAL);
+    }
+
+    public Note(NoteName noteName, int octave, NoteAccidental noteAccidental) {
+        this.noteName = noteName;
+        this.octave = octave;
+        accidentals.add(noteAccidental);
+
+    }
+
+    public Note(NoteName noteName, int octave, Set<NoteAccidental> noteAccidentals){
+        this.noteName = noteName;
+        this.octave = octave;
+        accidentals.addAll(noteAccidentals);
     }
 
     public Note(Key key){
         this.noteName = NoteName.values()[key.getNaturalIndex()];
         this.octave = key.getOctave();
-        if (key.getAccidental() == NoteAccidental.NATURAL){
-            natural = true;
-        }
-        else if (key.getAccidental() == NoteAccidental.SHARP){
-            sharp = true;
-        }
-        else if (key.getAccidental() == NoteAccidental.FLAT){
-            flat = true;
-        }
-    }
-
-    public Note(Note note){
-        this.noteName = note.noteName;
-        this.octave = note.octave;
+        accidentals.add(key.getAccidental());
     }
 
     public int getOctave() {
@@ -47,34 +44,8 @@ public class Note implements Comparable<Note>, Incrementable, Decrementable {
         return noteName;
     }
 
-    public List<NoteAccidental> getActiveAccidentals() {
-        List<NoteAccidental> accidentals = new ArrayList<>();
-        if (natural){
-            accidentals.add(NoteAccidental.NATURAL);
-        }
-        if (sharp){
-            accidentals.add(NoteAccidental.SHARP);
-        }
-        if (flat){
-            accidentals.add(NoteAccidental.FLAT);
-        }
+    public Set<NoteAccidental> getActiveAccidentals() {
         return accidentals;
-    }
-
-    public void setAccidental(NoteAccidental accidental, boolean activated){
-        if(accidental == NoteAccidental.NATURAL){
-            natural = activated;
-        }
-        if(accidental == NoteAccidental.SHARP){
-            sharp = activated;
-        }
-        if(accidental == NoteAccidental.FLAT){
-            flat = activated;
-        }
-    }
-
-    public boolean isActive(){
-        return (natural || flat || sharp);
     }
 
     public boolean isAdjacent(Note otherNote) {
@@ -93,49 +64,59 @@ public class Note implements Comparable<Note>, Incrementable, Decrementable {
             Note noteCompare = (Note) obj;
             return this.noteName == noteCompare.noteName &&
                     this.octave == noteCompare.octave &&
-                    this.natural == noteCompare.natural &&
-                    this.sharp == noteCompare.sharp &&
-                    this.flat == noteCompare.flat;
+                    this.accidentals.equals(noteCompare.accidentals);
         }
         return false;
     }
 
     @Override
+    public int hashCode() {
+        String nameOctave = noteName.name() + octave;
+        return nameOctave.hashCode();
+    }
+
+    @Override
     public String toString() {
         String noteString = noteName.toString();
-        if (natural && (sharp || flat)){
-            noteString += "nat";
+        if (accidentals.contains(NoteAccidental.NATURAL) && (accidentals.contains(NoteAccidental.FLAT) || accidentals.contains(NoteAccidental.SHARP))){
+            noteString += "n";
         }
-        if (sharp) {
+        if (accidentals.contains(NoteAccidental.SHARP)) {
             noteString += "#";
         }
-        if (flat) {
+        if (accidentals.contains(NoteAccidental.FLAT)) {
             noteString += "b";
         }
         noteString += Integer.toString(octave);
         return noteString;
     }
 
-    @Override
-    public void increment() {
+    public Note getNext(NoteAccidental noteAccidental) {
+        int newOctave = octave;
+        NoteName newNoteName;
+
         if (noteName.getPosition() >= NoteName.B.getPosition()){
-            octave++;
-            noteName = NoteName.C;
+            newOctave++;
+            newNoteName = NoteName.C;
         }
         else {
-            noteName = NoteName.values()[noteName.getPosition() + 1];
+            newNoteName = NoteName.values()[noteName.getPosition() + 1];
         }
+        return new Note(newNoteName, newOctave, noteAccidental);
     }
 
-    @Override
-    public void decrement() {
+    public Note getPrevious(NoteAccidental noteAccidental) {
+        int newOctave = octave;
+        NoteName newNoteName;
+
         if (noteName.getPosition() <= NoteName.C.getPosition()){
-            octave--;
-            noteName = NoteName.B;
+            newOctave--;
+            newNoteName = NoteName.B;
         }
         else {
-            noteName = NoteName.values()[noteName.getPosition() - 1];
+            newNoteName = NoteName.values()[noteName.getPosition() - 1];
         }
+        return new Note(newNoteName, newOctave, noteAccidental);
     }
 
     @Override

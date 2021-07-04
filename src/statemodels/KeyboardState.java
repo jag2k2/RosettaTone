@@ -1,10 +1,10 @@
 package statemodels;
 
 import instrument.Key;
-import music.NoteList;
+import music.NoteCollection;
 
 public interface KeyboardState {
     void KeyPressed(Key key);
     void KeyReleased(Key key);
-    NoteList getActiveNotes();
+    NoteCollection getActiveNotes();
 }

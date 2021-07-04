@@ -11,13 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class NoteLimitModelImpTest {
     private NoteLimitModelImp noteRangeModel;
     private Note noteC4;
-    private Note noteA4;
     private Note noteB4;
 
     @BeforeEach
     void setup(){
         noteC4 = new Note(NoteName.C, 4);
-        noteA4 = new Note(NoteName.A, 4);
         noteB4 = new Note(NoteName.B, 4);
         noteRangeModel = new NoteLimitModelImp(noteC4);
     }

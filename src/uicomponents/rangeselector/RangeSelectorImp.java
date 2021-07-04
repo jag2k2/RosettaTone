@@ -1,6 +1,7 @@
 package uicomponents.rangeselector;
 
 import music.Note;
+import music.NoteAccidental;
 import music.NoteName;
 import statemodels.NoteLimitModel;
 import uicomponents.UIComponent;
@@ -12,8 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RangeSelectorImp implements UIComponent, ActionListener {
-    static private final Note lowerBoundNote = new Note(NoteName.A, 0);
-    static private final Note upperBoundNote = new Note(NoteName.C, 8);
+    static private final Note lowerBoundNote = new Note(NoteName.A, 0, NoteAccidental.NATURAL);
+    static private final Note upperBoundNote = new Note(NoteName.C, 8, NoteAccidental.NATURAL);
 
     private final NoteLimitModel lowerLimitModel;
     private final NoteLimitModel upperLimitModel;

@@ -1,6 +1,7 @@
 package uicomponents.rangeselector;
 
 import music.Note;
+import music.NoteAccidental;
 import statemodels.NoteLimitModel;
 
 import javax.swing.*;
@@ -45,11 +46,10 @@ public class NoteSelectorImp implements PopupMenuListener, ActionListener {
 
     public void refreshSelection(Note upperNote, Note lowerNote, Note selectedNote){
         noteComboBox.removeAllItems();
-        for (Note noteIterator = new Note(upperNote); noteIterator.compareTo(lowerNote) >= 0; noteIterator.decrement()){
-            Note noteToAdd = new Note(noteIterator);
-            noteComboBox.addItem(noteToAdd);
+        for (Note noteIterator = upperNote; noteIterator.compareTo(lowerNote) >= 0; noteIterator = noteIterator.getPrevious(NoteAccidental.NATURAL)){
+            noteComboBox.addItem(noteIterator);
             if (noteIterator.equals(selectedNote)){
-                noteComboBox.setSelectedItem(noteToAdd);
+                noteComboBox.setSelectedItem(noteIterator);
             }
         }
     }

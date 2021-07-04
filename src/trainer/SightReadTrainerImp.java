@@ -3,8 +3,8 @@ package trainer;
 import instrument.Key;
 import music.Note;
 import music.NoteAccidental;
-import music.NoteList;
-import music.NoteListImp;
+import music.NoteCollection;
+import music.NoteCollectionImp;
 import notification.KeyboardChangeObserver;
 import notification.NoteTargetChangeNotifier;
 import notification.NoteTargetChangeObserver;
@@ -19,14 +19,14 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
     private final NoteLimitModel lowerLimit;
     private final NoteLimitModel upperLimit;
     private final KeyboardState keyboardState;
-    private final NoteList noteTarget;
+    private final NoteCollection noteTarget;
     private final List<NoteTargetChangeObserver> observers;
 
     public SightReadTrainerImp(NoteLimitModel lowerLimit, NoteLimitModel upperLimit, KeyboardState keyboardState){
         this.lowerLimit = lowerLimit;
         this.upperLimit = upperLimit;
         this.keyboardState = keyboardState;
-        this.noteTarget = new NoteListImp();
+        this.noteTarget = new NoteCollectionImp();
         this.observers = new ArrayList<>();
         generateNoteTarget();
     }
@@ -44,7 +44,7 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
     }
 
     @Override
-    public NoteList getNoteTarget() {
+    public NoteCollection getNoteTarget() {
         return noteTarget;
     }
 
@@ -55,7 +55,7 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
 
     @Override
     public void keyboardChanged() {
-        NoteList activeNotes = keyboardState.getActiveNotes();
+        NoteCollection activeNotes = keyboardState.getActiveNotes();
         if(activeNotes.contains(noteTarget)){
             generateNoteTarget();
         }

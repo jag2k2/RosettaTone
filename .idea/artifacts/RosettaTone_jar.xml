@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="RosettaTone:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/RosettaTone_jar</output-path>
+    <root id="archive" name="RosettaTone.jar">
+      <element id="module-output" name="RosettaTone" />
+    </root>
+  </artifact>
+</component>

@@ -3,9 +3,10 @@ package uicomponents.browser;
 import instrument.simluated.MidiDeviceSimImp;
 import uicomponents.UIComponent;
 import utility.Maybe;
+
+import javax.imageio.ImageIO;
 import javax.sound.midi.*;
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -13,15 +14,17 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
 
 public class InstrumentBrowserImp implements UIComponent, InstrumentBrowser, ListSelectionListener, ActionListener {
     private final Receiver midiReceiver;
     private final JList<MidiDevice> deviceList;
     private final DefaultListModel<MidiDevice> listModel;
-    private final JButton refreshButton;
 
+    private JButton refreshButton;
     private Maybe<MidiDevice> selectedDevice = new Maybe<>();
-    private Transmitter transmitter;
 
     public InstrumentBrowserImp(Receiver midiReceiver){
         this.midiReceiver = midiReceiver;
@@ -30,10 +33,18 @@ public class InstrumentBrowserImp implements UIComponent, InstrumentBrowser, Lis
         deviceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         deviceList.addListSelectionListener(this);
         deviceList.setCellRenderer(new InstrumentRenderer(deviceList.getCellRenderer()));
-        ImageIcon refreshImage = new ImageIcon("./Images/refresh.png");
-        refreshButton = new JButton(refreshImage);
-        refreshButton.addActionListener(this);
 
+        try{
+            URL fileURL = getClass().getResource("/images/refresh.png");
+            Image refreshImage = ImageIO.read(Objects.requireNonNull(fileURL));
+            ImageIcon refreshIcon = new ImageIcon(refreshImage);
+            refreshButton = new JButton(refreshIcon);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        refreshButton.addActionListener(this);
         refreshTransmitterDevices();
     }
 
@@ -71,7 +82,7 @@ public class InstrumentBrowserImp implements UIComponent, InstrumentBrowser, Lis
             if (selectedIndex >= 0){
                 try {
                     device.open();
-                    transmitter = device.getTransmitter();
+                    Transmitter transmitter = device.getTransmitter();
                     transmitter.setReceiver(midiReceiver);
                     selectedDevice = new Maybe<>(device);
                 } catch (Exception ex) {

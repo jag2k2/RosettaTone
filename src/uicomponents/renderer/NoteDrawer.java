@@ -6,27 +6,26 @@ import uicomponents.staffselector.ModeSelector;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class NoteDrawer {
-    private static final File trebleClefFile = new File("./Images/Treble-clef.png");
-    private static final File bassClefFile = new File("./Images/Bass-clef.png");
-    private static final File noteFile = new File("./Images/Whole-Note.png");
-    private static final File naturalFile = new File("./Images/Natural.png");
-    private static final File sharpFile = new File("./Images/Sharp.png");
-    private static final File flatFile = new File("./Images/Flat.png");
+    private static final String trebleClefPath = "/images/Treble-clef.png";
+    private static final String bassClefPath = "/images/Bass-clef.png";
+    private static final String notePath = "/images/Whole-Note.png";
+    private static final String naturalPath = "/images/Natural.png";
+    private static final String sharpPath = "/images/Sharp.png";
+    private static final String flatPath = "/images/Flat.png";
 
-    private static final StaffImage trebleImage = new StaffImage(trebleClefFile, 0.5);
-    private static final StaffImage bassImage = new StaffImage(bassClefFile, 0.4);
-    private static final StaffImage noteImage = new StaffImage(noteFile, 0.22);
-    private static final StaffImage naturalImage = new StaffImage(naturalFile, 0.4);
-    private static final StaffImage sharpImage = new StaffImage(sharpFile, 0.4);
-    private static final StaffImage flatImage = new StaffImage(flatFile, 0.4);
+    private final StaffImage trebleImage = new StaffImage(trebleClefPath);
+    private final StaffImage bassImage = new StaffImage(bassClefPath);
+    private final StaffImage noteImage = new StaffImage(notePath);
+    private final StaffImage naturalImage = new StaffImage(naturalPath);
+    private final StaffImage sharpImage = new StaffImage(sharpPath);
+    private final StaffImage flatImage = new StaffImage(flatPath);
 
-    private static final Staff trebleStaff = new Staff(trebleImage, 15, 3, 18, 26);
-    private static final Staff bassStaff = new Staff(bassImage, 30, 0, 30, 38);
+    private final Staff trebleStaff = new Staff(trebleImage, 15, 3, 18, 26);
+    private final Staff bassStaff = new Staff(bassImage, 30, 0, 30, 38);
 
     private final Graphics2D graphics2D;
     private final ModeSelector modeSelector;
@@ -34,6 +33,12 @@ public class NoteDrawer {
     public NoteDrawer(Graphics2D graphics2D, ModeSelector modeSelector){
         this.graphics2D = graphics2D;
         this.modeSelector = modeSelector;
+        trebleImage.resize(0.5);
+        bassImage.resize(0.4);
+        noteImage.resize(0.22);
+        naturalImage.resize(0.4);
+        sharpImage.resize(0.4);
+        flatImage.resize(0.4);
     }
 
     public void drawEnabledStaffs(){

@@ -3,26 +3,27 @@ package imageprocessing;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.*;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
 
 public class StaffImage {
     private BufferedImage bufferedImage;
 
-    public StaffImage(File file, double scaleFactor){
+    public StaffImage(String path){
         try {
-            this.bufferedImage = ImageIO.read(file);
+            URL fileURL = getClass().getResource(path);
+            this.bufferedImage = ImageIO.read(Objects.requireNonNull(fileURL));
         } catch (IOException exception){
             exception.printStackTrace();
         }
-        resize(scaleFactor);
     }
 
     public BufferedImage getBufferedImage(){
         return bufferedImage;
     }
 
-    protected void resize(double scaleFactor){
+    public void resize(double scaleFactor){
         int newWidth = (int) (bufferedImage.getWidth() * scaleFactor);
         int newHeight = (int) (bufferedImage.getHeight() * scaleFactor);
         Image scaledImage = bufferedImage.getScaledInstance(newWidth, newHeight, Image.SCALE_DEFAULT);

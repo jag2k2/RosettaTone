@@ -33,13 +33,6 @@ public class Key {
         return new Note(NoteName.values()[getNaturalIndex()], getOctave(), getAccidental());
     }
 
-    public Key generateRandomKeyBetweenThisAnd(Key otherKey){
-        int max = otherKey.midiNumber;
-        int min = this.midiNumber;
-        int randomMidiNumber = (int) Math.floor(Math.random()*(max-min+1) + min);
-        return new Key(randomMidiNumber);
-    }
-
     public int getOctave(){
         return (midiNumber / 12) - 1;
     }

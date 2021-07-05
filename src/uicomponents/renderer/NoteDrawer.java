@@ -29,19 +29,21 @@ public class NoteDrawer {
     private static final Staff bassStaff = new Staff(bassImage, 30, 0, 30, 38);
 
     private final Graphics2D graphics2D;
+    private final ModeSelector modeSelector;
 
-    public NoteDrawer(Graphics2D graphics2D){
+    public NoteDrawer(Graphics2D graphics2D, ModeSelector modeSelector){
         this.graphics2D = graphics2D;
+        this.modeSelector = modeSelector;
     }
 
-    public void drawEnabledStaffs(ModeSelector modeSelector){
+    public void drawEnabledStaffs(){
         configLineDraw();
-        for (Staff staff : enabledStaffs(modeSelector)){
+        for (Staff staff : enabledStaffs()){
             drawStaff(staff);
         }
     }
 
-    public java.util.List<Staff> enabledStaffs(ModeSelector modeSelector){
+    public java.util.List<Staff> enabledStaffs(){
         List<Staff> enabledStaffs = new ArrayList<>();
 
         if (modeSelector.trebleEnabled()){
@@ -74,27 +76,27 @@ public class NoteDrawer {
         graphics2D.setStroke(new BasicStroke(lineThickness));
     }
 
-    public void drawNotes(NoteCollection noteCollection, ModeSelector modeSelector){
+    public void drawKeyboardNotes(NoteCollection noteCollection){
         int noteX = CanvasRender.getNoteXOffset(1);
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-        for (Note note : noteCollection){
-            drawNote(note, noteCollection, noteX);
-            drawAccidentals(note, noteX);
-            drawHelperLines(note, modeSelector, noteX);
+        drawNoteCollection(noteCollection, noteX);
+    }
+
+    public void drawFlashcardNotes(NoteCollectionList noteCollectionList, int xTraveled){
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+        int i = 0;
+        for (NoteCollection noteCollection: noteCollectionList){
+            i++;
+            int noteX = CanvasRender.getNoteXOffset(i) + CanvasRender.getNoteXSpacing() - xTraveled;
+            drawNoteCollection(noteCollection, noteX);
         }
     }
 
-    public void drawFlashcardNotes(NoteCollectionList noteCollectionList, ModeSelector modeSelector){
-        int i = 0;
-        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
-        for (NoteCollection flashcardNotes: noteCollectionList){
-            i++;
-            int noteX = CanvasRender.getNoteXOffset(i);
-            for (Note note : flashcardNotes){
-                drawNote(note, flashcardNotes, noteX);
-                drawAccidentals(note, noteX);
-                drawHelperLines(note, modeSelector, noteX);
-            }
+    protected void drawNoteCollection(NoteCollection noteCollection, int xPosition){
+        for (Note note : noteCollection){
+            drawNote(note, noteCollection, xPosition);
+            drawAccidentals(note, xPosition);
+            drawHelperLines(note, modeSelector, xPosition);
         }
     }
 

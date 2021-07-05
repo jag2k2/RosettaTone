@@ -1,6 +1,8 @@
 package uicomponents.renderer;
 
 import music.Note;
+import music.NoteName;
+
 import java.awt.*;
 
 public class CanvasRender {
@@ -19,10 +21,6 @@ public class CanvasRender {
 
     static public Dimension getRangeIndicatorSize(){
         return new Dimension(rangeIndicatorWidth, canvasHeight);
-    }
-
-    static public int getLineNumber(Note note){
-        return (numberOfLines - 1) - ((note.getNoteName().getPosition() + (note.getOctave() * 7)) - 5);
     }
 
     static public int getNumberOfLines(){
@@ -51,5 +49,25 @@ public class CanvasRender {
 
     static public int getNoteXOffset(int column){
         return leftMargin + column * noteXSpacing;
+    }
+
+    static public int getNoteXSpacing() { return noteXSpacing; }
+
+    static public int getLineNumber(Note note){
+        return (numberOfLines - 1) - ((note.getNoteName().getPosition() + (note.getOctave() * 7)) - 5);
+    }
+
+    static public Note getRandomNote(Note lowerNote, Note upperNote){
+        int min = getLineNumber(upperNote);
+        int max = getLineNumber(lowerNote);
+        int randomLine = (int) Math.floor(Math.random()*(max-min+1) + min);
+        return getNote(randomLine);
+    }
+
+    static protected Note getNote(int lineNumber){
+        int notePosition = (numberOfLines - 1) - lineNumber + 5;
+        int octave = notePosition / 7;
+        int octavePosition = notePosition % 7;
+        return new Note(NoteName.values()[octavePosition], octave);
     }
 }

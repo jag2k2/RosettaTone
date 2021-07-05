@@ -11,10 +11,11 @@ import uicomponents.staffselector.ModeSelector;
 import javax.swing.*;
 import java.awt.*;
 
-public class GrandStaffRendererImp extends Component implements UIComponent, ModeChangeObserver, KeyboardChangeObserver, FlashcardChangeObserver {
+public class GrandStaffRendererImp extends JComponent implements UIComponent, ModeChangeObserver, KeyboardChangeObserver, FlashcardChangeObserver, Runnable {
     private final KeyboardState keyboardState;
     private final ModeSelector modeSelector;
     private final SightReadTrainer sightReadTrainer;
+    private int xTraveled = CanvasRender.getNoteXSpacing();
 
     public GrandStaffRendererImp(KeyboardState keyboardState, ModeSelector modeSelector, SightReadTrainer sightReadTrainer){
         this.keyboardState = keyboardState;
@@ -41,8 +42,9 @@ public class GrandStaffRendererImp extends Component implements UIComponent, Mod
     }
 
     @Override
-    public void noteTargetChanged() {
-        repaint();
+    public void flashcardChanged() {
+        Thread thread = new Thread(this);
+        thread.start();
     }
 
     @Override
@@ -51,11 +53,44 @@ public class GrandStaffRendererImp extends Component implements UIComponent, Mod
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D)g;
-        NoteDrawer noteDrawer = new NoteDrawer(graphics2D);
-        noteDrawer.drawEnabledStaffs(modeSelector);
-        noteDrawer.drawNotes(keyboardState.getActiveNotes(), modeSelector);
-        noteDrawer.drawFlashcardNotes(sightReadTrainer.getFlashcardNotes(), modeSelector);
+        NoteDrawer noteDrawer = new NoteDrawer(graphics2D, modeSelector);
+        noteDrawer.drawEnabledStaffs();
+        noteDrawer.drawKeyboardNotes(keyboardState.getActiveNotes());
+        noteDrawer.drawFlashcardNotes(sightReadTrainer.getFlashcardNotes(), xTraveled);
+    }
+
+    @Override
+    public void run() {
+
+        int deltaX = 5;
+        int delay = 5;
+        xTraveled = 0;
+
+        long beforeTime, timeDiff, sleepTime;
+        beforeTime = System.currentTimeMillis();
+
+        while (xTraveled < CanvasRender.getNoteXSpacing()){
+
+            xTraveled += deltaX;
+            repaint();
+
+            timeDiff = System.currentTimeMillis() - beforeTime;
+            sleepTime = delay - timeDiff;
+
+            if (sleepTime < 0) {
+                sleepTime = 2;
+            }
+
+            try {
+                Thread.sleep(sleepTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            beforeTime = System.currentTimeMillis();
+        }
     }
 }

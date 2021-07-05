@@ -1,6 +1,5 @@
 package trainer;
 
-import instrument.Key;
 import music.*;
 import notification.KeyboardChangeObserver;
 import notification.FlashcardChangeNotifier;
@@ -8,6 +7,7 @@ import notification.FlashcardChangeObserver;
 import notification.RangeChangeObserver;
 import statemodels.KeyboardState;
 import statemodels.NoteLimitModel;
+import uicomponents.renderer.CanvasRender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
     @Override
     public void notifyObservers() {
         for (FlashcardChangeObserver observer : observers){
-            observer.noteTargetChanged();
+            observer.flashcardChanged();
         }
     }
 
@@ -78,10 +78,7 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
         Note lowerNote = lowerLimit.getLimit();
         Note upperNote = upperLimit.getLimit();
 
-        Key lowerKey = new Key(lowerNote.getOctave(), lowerNote.getNoteName(), NoteAccidental.NATURAL);
-        Key upperKey = new Key(upperNote.getOctave(), upperNote.getNoteName(), NoteAccidental.NATURAL);
-        Key randomKey = lowerKey.generateRandomKeyBetweenThisAnd(upperKey);
-        Note randomNote = randomKey.getNote();
+        Note randomNote = CanvasRender.getRandomNote(lowerNote, upperNote);
         NoteCollection noteTarget = new NoteCollectionImp();
         noteTarget.add(randomNote);
         flashcardList.add(noteTarget);

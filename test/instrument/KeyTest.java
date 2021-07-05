@@ -1,13 +1,8 @@
 package instrument;
 
-import music.Note;
 import music.NoteAccidental;
 import music.NoteName;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -125,46 +120,5 @@ class KeyTest {
         Key compare = new Key(60);
         assertEquals(keyC4, compare);
         assertNotEquals(keyDSharp2, compare);
-    }
-
-    @Test
-    void canGenerateRandomKey(){
-        int iterations = 10000;
-        List<Key> octave4 = new ArrayList<>();
-        octave4.add(keyC4);
-        octave4.add(keyCSharp4);
-        octave4.add(keyD4);
-        octave4.add(keyDSharp4);
-        octave4.add(keyE4);
-        octave4.add(keyF4);
-        octave4.add(keyFSharp4);
-        octave4.add(keyG4);
-        octave4.add(keyGSharp4);
-        octave4.add(keyA4);
-        octave4.add(keyASharp4);
-        octave4.add(keyB4);
-        int intervalSize = octave4.size();
-
-        HashMap<Key, Integer> histogram = new HashMap<>();
-
-        Key upperKey = keyB4;
-        for (int i = 0; i < iterations; i++){
-            Key randomKey = keyC4.generateRandomKeyBetweenThisAnd(upperKey);
-            if (octave4.contains(randomKey)){
-                int keyIndex = octave4.indexOf(randomKey);
-                int count = histogram.getOrDefault(octave4.get(keyIndex), 0);
-                count++;
-                histogram.put(octave4.get(keyIndex), count);
-            }
-        }
-
-        assertEquals(intervalSize, histogram.size());
-
-        for (Key key : octave4){
-            int total = histogram.getOrDefault(key, 0);
-            System.out.println(key + " -> " + total);
-            int minimumCount = (int) ((float) iterations / intervalSize * 0.85);
-            assertTrue(total > minimumCount);
-        }
     }
 }

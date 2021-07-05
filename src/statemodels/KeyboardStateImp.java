@@ -19,13 +19,13 @@ public class KeyboardStateImp implements KeyboardState, KeyboardChangeNotifier {
     }
 
     @Override
-    public void KeyPressed(Key key) {
+    public void keyPressed(Key key) {
         keys.add(key);
         notifyObservers();
     }
 
     @Override
-    public void KeyReleased(Key key) {
+    public void keyReleased(Key key) {
         keys.remove(key);
         notifyObservers();
     }
@@ -53,6 +53,8 @@ public class KeyboardStateImp implements KeyboardState, KeyboardChangeNotifier {
     }
 
     protected boolean sharpExistsAlso(Key key){
+        if (key.getNaturalIndex() == 2 || key.getNaturalIndex() == 6)
+            return false;
         Key nextKey = key.getNext();
         return keys.contains(nextKey);
     }

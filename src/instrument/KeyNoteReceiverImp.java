@@ -19,16 +19,16 @@ public class KeyNoteReceiverImp implements Receiver {
                 Key key = new Key(sm.getData1());
                 int velocity = sm.getData2();
                 if (velocity > 0){
-                    keyboardState.KeyPressed(key);
+                    keyboardState.keyPressed(key);
                 }
                 else {
-                    keyboardState.KeyReleased(key);
+                    keyboardState.keyReleased(key);
                 }
             }
             else if (sm.getCommand() == ShortMessage.NOTE_OFF) {
                 Key key = new Key(sm.getData1());
                 int velocity = sm.getData2();
-                keyboardState.KeyReleased(key);
+                keyboardState.keyReleased(key);
             }
         }
     }

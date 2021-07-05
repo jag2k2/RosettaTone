@@ -4,7 +4,7 @@ import instrument.Key;
 import music.NoteCollection;
 
 public interface KeyboardState {
-    void KeyPressed(Key key);
-    void KeyReleased(Key key);
+    void keyPressed(Key key);
+    void keyReleased(Key key);
     NoteCollection getActiveNotes();
 }

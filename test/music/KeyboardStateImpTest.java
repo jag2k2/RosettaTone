@@ -12,11 +12,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class KeyboardStateImpTest {
     KeyboardState keyboardState = new KeyboardStateImp();
+    Key keyB3 = new Key (59);
     Key keyC4 = new Key(60);
     Key keyCSharp4 = new Key(61);
+    Key keyE4 = new Key(64);
+    Key keyF4 = new Key(65);
     Key keyGSharp2 = new Key(44);
     Key keyDSharp7 = new Key(99);
 
+    Note noteB3 = new Note(NoteName.B, 3);
+    Note noteC4 = new Note(NoteName.C, 4);
+    Note noteE4 = new Note(NoteName.E, 4);
+    Note noteF4 = new Note(NoteName.F, 4);
     Note noteCnatSharp4;
     Note noteGSharp2;
     Note noteDSharp7;
@@ -36,14 +43,36 @@ class KeyboardStateImpTest {
 
     @Test
     void changeNoteStates() {
-        keyboardState.KeyPressed(keyC4);
-        keyboardState.KeyPressed(keyCSharp4);
-        keyboardState.KeyPressed(keyGSharp2);
-        keyboardState.KeyPressed(keyDSharp7);
+        keyboardState.keyPressed(keyC4);
+        keyboardState.keyPressed(keyCSharp4);
+        keyboardState.keyPressed(keyGSharp2);
+        keyboardState.keyPressed(keyDSharp7);
 
         expected.add(noteGSharp2);
         expected.add(noteCnatSharp4);
         expected.add(noteDSharp7);
+
+        assertEquals(expected, keyboardState.getActiveNotes());
+    }
+
+    @Test
+    void testBCHalfStepNaturals(){
+        keyboardState.keyPressed(keyB3);
+        keyboardState.keyPressed(keyC4);
+
+        expected.add(noteB3);
+        expected.add(noteC4);
+
+        assertEquals(expected, keyboardState.getActiveNotes());
+    }
+
+    @Test
+    void testEFHalfStepNaturals(){
+        keyboardState.keyPressed(keyE4);
+        keyboardState.keyPressed(keyF4);
+
+        expected.add(noteE4);
+        expected.add(noteF4);
 
         assertEquals(expected, keyboardState.getActiveNotes());
     }

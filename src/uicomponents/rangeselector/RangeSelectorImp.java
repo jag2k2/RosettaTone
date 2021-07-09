@@ -3,7 +3,6 @@ package uicomponents.rangeselector;
 import music.Note;
 import music.NoteName;
 import statemodels.NoteRangeLimits;
-import statemodels.NoteRangeModel;
 import uicomponents.UIComponent;
 
 import javax.swing.*;
@@ -17,14 +16,12 @@ public class RangeSelectorImp implements UIComponent, ActionListener {
     static private final Note lowerBoundNote = new Note(NoteName.A, 0);
     static private final Note upperBoundNote = new Note(NoteName.C, 8);
 
-    private final NoteRangeLimits noteRangeLimits;
-    private final NoteSelectorImp lowerNoteSelector;
-    private final NoteSelectorImp upperNoteSelector;
+    private final NoteSelector lowerNoteSelector;
+    private final NoteSelector upperNoteSelector;
 
-    public RangeSelectorImp(NoteRangeModel noteRangeModel, NoteRangeLimits noteRangeLimits){
-        this.noteRangeLimits = noteRangeLimits;
-        this.lowerNoteSelector = new NoteSelectorImp(noteRangeModel.getLowerLimitModel());
-        this.upperNoteSelector = new NoteSelectorImp(noteRangeModel.getUpperLimitModel());
+    public RangeSelectorImp(NoteSelector lowerNoteSelector, NoteSelector upperNoteSelector){
+        this.lowerNoteSelector = lowerNoteSelector;
+        this.upperNoteSelector = upperNoteSelector;
 
         lowerNoteSelector.addActionListener(this);
         upperNoteSelector.addActionListener(this);
@@ -50,8 +47,8 @@ public class RangeSelectorImp implements UIComponent, ActionListener {
     }
 
     protected void refreshSelectors(){
-        Note lowerSelectedNote = noteRangeLimits.getLowerLimitNote();
-        Note upperSelectedNote = noteRangeLimits.getUpperLimitNote();
+        Note lowerSelectedNote = lowerNoteSelector.getSelectedNote();
+        Note upperSelectedNote = upperNoteSelector.getSelectedNote();
 
         lowerNoteSelector.refreshSelection(upperSelectedNote, lowerBoundNote, lowerSelectedNote);
         upperNoteSelector.refreshSelection(upperBoundNote, lowerSelectedNote, upperSelectedNote);

@@ -3,15 +3,13 @@ package uicomponents.rangeselector;
 import music.Note;
 import music.NoteAccidental;
 import statemodels.NoteLimitModel;
-import uicomponents.UIComponent;
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NoteSelectorImp implements UIComponent, PopupMenuListener, ActionListener {
+public class NoteSelectorImp implements NoteSelector {
     private final NoteLimitModel noteLimitModel;
     private final JComboBox<Note> noteComboBox;
 
@@ -33,6 +31,7 @@ public class NoteSelectorImp implements UIComponent, PopupMenuListener, ActionLi
         return panel;
     }
 
+    @Override
     public void refreshSelection(Note upperNote, Note lowerNote, Note selectedNote){
         noteComboBox.removeAllItems();
         for (Note noteIterator = upperNote; noteIterator.compareTo(lowerNote) >= 0; noteIterator = noteIterator.getPrevious(NoteAccidental.NATURAL)){
@@ -43,6 +42,12 @@ public class NoteSelectorImp implements UIComponent, PopupMenuListener, ActionLi
         }
     }
 
+    @Override
+    public Note getSelectedNote() {
+        return noteLimitModel.getLimit();
+    }
+
+    @Override
     public void addActionListener(ActionListener actionListener){
         this.noteComboBox.addActionListener(actionListener);
     }

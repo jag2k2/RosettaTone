@@ -9,9 +9,10 @@ import notification.KeyboardChangeNotifierImp;
 import notification.ModeChangeNotifierImp;
 import notification.RangeChangeNotifierImp;
 import statemodels.KeyboardStateImp;
-import statemodels.NoteRangeImp;
+import statemodels.NoteRangeLimitsImp;
 import trainer.SightReadTrainerImp;
 import uicomponents.browser.InstrumentBrowserImp;
+import uicomponents.rangeselector.NoteSelectorImp;
 import uicomponents.rangeselector.RangeSelectorImp;
 import uicomponents.renderer.GrandStaffRendererImp;
 import statemodels.NoteLimitModelImp;
@@ -39,22 +40,24 @@ public class MainGUI {
         Note defaultUpperRangeNote = new Note(NoteName.C, 5);
         NoteLimitModelImp lowerNoteLimitModelImp = new NoteLimitModelImp(defaultLowerRangeNote, rangeChangeNotifierImp);
         NoteLimitModelImp upperNoteLimitModelImp = new NoteLimitModelImp(defaultUpperRangeNote, rangeChangeNotifierImp);
-        NoteRangeImp noteRangeImp = new NoteRangeImp(lowerNoteLimitModelImp, upperNoteLimitModelImp);
+        NoteRangeLimitsImp noteRangeLimitsImp = new NoteRangeLimitsImp(lowerNoteLimitModelImp, upperNoteLimitModelImp);
 
         //KeyReceiver
         KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(keyboardStateImp);
 
         //Trainer
-        SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(noteRangeImp, keyboardStateImp, flashcardChangeNotifierImp);
+        SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(noteRangeLimitsImp, keyboardStateImp, flashcardChangeNotifierImp);
 
         //Selectors
         InstrumentBrowserImp instrumentBrowserImp = new InstrumentBrowserImp(keyNoteReceiverImp);
         ModeSelectorImp modeSelectorImp = new ModeSelectorImp(StaffMode.Grand, modeChangeNotifierImp);
-        RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(noteRangeImp, noteRangeImp);
+        NoteSelectorImp lowerNoteSelectorImp = new NoteSelectorImp(lowerNoteLimitModelImp);
+        NoteSelectorImp upperNoteSelectorImp = new NoteSelectorImp(upperNoteLimitModelImp);
+        RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(lowerNoteSelectorImp, upperNoteSelectorImp);
 
         //Renderers
         GrandStaffRendererImp grandStaffRendererImp = new GrandStaffRendererImp(keyboardStateImp, modeSelectorImp, sightReadTrainerImp);
-        RangeRendererImp rangeRendererImp = new RangeRendererImp(noteRangeImp);
+        RangeRendererImp rangeRendererImp = new RangeRendererImp(noteRangeLimitsImp);
         NoteTextRenderer noteTextRendererImp = new NoteTextRenderer(keyboardStateImp);
 
         //Add Observers

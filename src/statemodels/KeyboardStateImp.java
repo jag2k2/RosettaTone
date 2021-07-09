@@ -9,25 +9,25 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class KeyboardStateImp implements KeyboardState, KeyboardChangeNotifier {
+public class KeyboardStateImp implements KeyboardState {
     private final Set<Key> keys;
-    private final ArrayList<KeyboardChangeObserver> keyboardChangeObservers;
+    private final KeyboardChangeNotifier keyboardChangeNotifier;
 
-    public KeyboardStateImp(){
-        this.keyboardChangeObservers = new ArrayList<>();
+    public KeyboardStateImp(KeyboardChangeNotifier keyboardChangeNotifier){
+        this.keyboardChangeNotifier = keyboardChangeNotifier;
         this.keys = new HashSet<>();
     }
 
     @Override
     public void keyPressed(Key key) {
         keys.add(key);
-        notifyObservers();
+        keyboardChangeNotifier.notifyObservers();
     }
 
     @Override
     public void keyReleased(Key key) {
         keys.remove(key);
-        notifyObservers();
+        keyboardChangeNotifier.notifyObservers();
     }
 
     @Override
@@ -62,17 +62,5 @@ public class KeyboardStateImp implements KeyboardState, KeyboardChangeNotifier {
     protected boolean naturalExistsAlso(Key key){
         Key previousKey = key.getPrevious();
         return keys.contains(previousKey);
-    }
-
-    @Override
-    public void addObserver(KeyboardChangeObserver observer) {
-        keyboardChangeObservers.add(observer);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (KeyboardChangeObserver keyboardChangeObserver : keyboardChangeObservers) {
-            keyboardChangeObserver.keyboardChanged();
-        }
     }
 }

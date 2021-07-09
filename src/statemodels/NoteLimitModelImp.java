@@ -2,42 +2,27 @@ package statemodels;
 
 import music.Note;
 import notification.RangeChangeNotifier;
-import notification.RangeChangeObserver;
-import java.util.ArrayList;
-import java.util.List;
 
-public class NoteLimitModelImp implements NoteLimitModel, RangeChangeNotifier {
+public class NoteLimitModelImp implements NoteLimitModel {
     private Note noteLimit;
-    private final List<RangeChangeObserver> observers;
+    private final RangeChangeNotifier rangeChangeNotifier;
 
-    public NoteLimitModelImp(Note noteLimit){
+    public NoteLimitModelImp(Note noteLimit, RangeChangeNotifier rangeChangeNotifier){
         this.noteLimit = noteLimit;
-        this.observers = new ArrayList<>();
+        this.rangeChangeNotifier = rangeChangeNotifier;
     }
 
     @Override
     public void changeLimit(Note note){
         if (!note.equals(noteLimit)) {
             this.noteLimit = note;
-            notifyObservers();
+            rangeChangeNotifier.notifyObservers();
         }
     }
 
     @Override
     public Note getLimit(){
         return noteLimit;
-    }
-
-    @Override
-    public void addObserver(RangeChangeObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for(RangeChangeObserver observer : observers){
-            observer.rangeChanged();
-        }
     }
 
     @Override

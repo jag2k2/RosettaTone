@@ -12,34 +12,22 @@ import uicomponents.renderer.CanvasRender;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserver, KeyboardChangeObserver, FlashcardChangeNotifier {
+public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserver, KeyboardChangeObserver {
     static private final int targetCount = 8;
 
     private final NoteLimitModel lowerLimit;
     private final NoteLimitModel upperLimit;
     private final KeyboardState keyboardState;
     private final NoteCollectionList flashcardList;
-    private final List<FlashcardChangeObserver> observers;
+    private final FlashcardChangeNotifier flashcardChangeNotifier;
 
-    public SightReadTrainerImp(NoteLimitModel lowerLimit, NoteLimitModel upperLimit, KeyboardState keyboardState){
+    public SightReadTrainerImp(NoteLimitModel lowerLimit, NoteLimitModel upperLimit, KeyboardState keyboardState, FlashcardChangeNotifier flashcardChangeNotifier){
         this.lowerLimit = lowerLimit;
         this.upperLimit = upperLimit;
         this.keyboardState = keyboardState;
         this.flashcardList = new NoteCollectionListImp();
-        this.observers = new ArrayList<>();
+        this.flashcardChangeNotifier = flashcardChangeNotifier;
         generateAllNewFlashcards();
-    }
-
-    @Override
-    public void addObserver(FlashcardChangeObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (FlashcardChangeObserver observer : observers){
-            observer.flashcardChanged();
-        }
     }
 
     @Override
@@ -50,7 +38,7 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
     @Override
     public void rangeChanged() {
         generateAllNewFlashcards();
-        notifyObservers();
+        flashcardChangeNotifier.notifyObservers();
     }
 
     @Override
@@ -60,7 +48,7 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
             if(activeNotes.contains(currentTarget)){
                 flashcardList.removeFirstItem();
                 addNewFlashcard();
-                notifyObservers();
+                flashcardChangeNotifier.notifyObservers();
             }
         }
     }

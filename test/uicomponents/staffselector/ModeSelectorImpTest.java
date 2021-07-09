@@ -1,6 +1,8 @@
 package uicomponents.staffselector;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import notification.ModeChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,9 +13,9 @@ class ModeSelectorImpTest {
 
     @BeforeEach
     void setup(){
-        trebleSelection = new ModeSelectorImp(StaffMode.Treble);
-        bassSelection = new ModeSelectorImp(StaffMode.Bass);
-        grandSelection = new ModeSelectorImp(StaffMode.Grand);
+        trebleSelection = new ModeSelectorImp(StaffMode.Treble, new ModeChangeNotifierImp());
+        bassSelection = new ModeSelectorImp(StaffMode.Bass, new ModeChangeNotifierImp());
+        grandSelection = new ModeSelectorImp(StaffMode.Grand, new ModeChangeNotifierImp());
     }
 
     @Test

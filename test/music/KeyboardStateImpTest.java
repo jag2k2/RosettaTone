@@ -1,6 +1,7 @@
 package music;
 
 import instrument.Key;
+import notification.KeyboardChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import statemodels.KeyboardState;
@@ -11,7 +12,7 @@ import java.util.HashSet;
 import static org.junit.jupiter.api.Assertions.*;
 
 class KeyboardStateImpTest {
-    KeyboardState keyboardState = new KeyboardStateImp();
+    KeyboardState keyboardState = new KeyboardStateImp(new KeyboardChangeNotifierImp());
     Key keyB3 = new Key (59);
     Key keyC4 = new Key(60);
     Key keyCSharp4 = new Key(61);

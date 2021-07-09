@@ -2,6 +2,7 @@ package uicomponents.renderer;
 
 import music.Note;
 import music.NoteName;
+import notification.RangeChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import statemodels.NoteLimitModelImp;
@@ -17,7 +18,7 @@ class NoteLimitModelImpTest {
     void setup(){
         noteC4 = new Note(NoteName.C, 4);
         noteB4 = new Note(NoteName.B, 4);
-        noteRangeModel = new NoteLimitModelImp(noteC4);
+        noteRangeModel = new NoteLimitModelImp(noteC4, new RangeChangeNotifierImp());
     }
 
     @Test
@@ -27,10 +28,10 @@ class NoteLimitModelImpTest {
 
     @Test
     void canCheckEquality() {
-        NoteLimitModelImp modelToCompare = new NoteLimitModelImp(noteC4);
+        NoteLimitModelImp modelToCompare = new NoteLimitModelImp(noteC4, new RangeChangeNotifierImp());
         assertEquals(modelToCompare, noteRangeModel);
         assertEquals(noteRangeModel, modelToCompare);
-        modelToCompare = new NoteLimitModelImp(noteB4);
+        modelToCompare = new NoteLimitModelImp(noteB4, new RangeChangeNotifierImp());
         assertNotEquals(modelToCompare, noteRangeModel);
     }
 }

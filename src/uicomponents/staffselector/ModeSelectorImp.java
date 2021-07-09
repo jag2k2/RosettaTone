@@ -3,24 +3,20 @@ package uicomponents.staffselector;
 import notification.ModeChangeNotifier;
 import notification.ModeChangeObserver;
 import uicomponents.UIComponent;
-import uicomponents.rangeselector.NoteListRenderer;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
-public class ModeSelectorImp implements UIComponent, ActionListener, ModeSelector, ModeChangeNotifier {
+public class ModeSelectorImp implements UIComponent, ActionListener, ModeSelector {
     private final JComboBox<StaffMode> clefComboBox;
-    private final List<ModeChangeObserver> observers;
+    private final ModeChangeNotifier modeChangeNotifier;
 
-    public ModeSelectorImp(StaffMode staffState){
+    public ModeSelectorImp(StaffMode staffState, ModeChangeNotifier modeChangeNotifier){
         this.clefComboBox = new JComboBox<>(StaffMode.values());
-        this.observers = new ArrayList<>();
+        this.modeChangeNotifier = modeChangeNotifier;
         this.clefComboBox.setRenderer(new StaffModeRenderer(clefComboBox.getRenderer()));
 
         this.clefComboBox.addActionListener(this);
@@ -58,19 +54,6 @@ public class ModeSelectorImp implements UIComponent, ActionListener, ModeSelecto
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        notifyObservers();
+        modeChangeNotifier.notifyObservers();
     }
-
-    @Override
-    public void addObserver(ModeChangeObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (ModeChangeObserver observer : observers){
-            observer.modeChanged();
-        }
-    }
-
 }

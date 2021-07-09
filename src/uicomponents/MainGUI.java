@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import instrument.*;
 import music.*;
+import notification.FlashcardChangeNotifierImp;
+import notification.KeyboardChangeNotifierImp;
+import notification.ModeChangeNotifierImp;
+import notification.RangeChangeNotifierImp;
 import statemodels.KeyboardStateImp;
 import trainer.SightReadTrainerImp;
 import uicomponents.browser.InstrumentBrowserImp;
@@ -22,20 +26,26 @@ public class MainGUI {
         this.frame = new JFrame();
         JPanel mainPanel = new JPanel(new BorderLayout());
 
+        //Notifiers
+        KeyboardChangeNotifierImp keyboardChangeNotifierImp = new KeyboardChangeNotifierImp();
+        ModeChangeNotifierImp modeChangeNotifierImp = new ModeChangeNotifierImp();
+        RangeChangeNotifierImp rangeChangeNotifierImp = new RangeChangeNotifierImp();
+        FlashcardChangeNotifierImp flashcardChangeNotifierImp = new FlashcardChangeNotifierImp();
+
         //State Models
-        KeyboardStateImp keyboardStateImp = new KeyboardStateImp();
-        NoteLimitModelImp lowerNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.C, 4, NoteAccidental.NATURAL));
-        NoteLimitModelImp upperNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.B, 4, NoteAccidental.NATURAL));
+        KeyboardStateImp keyboardStateImp = new KeyboardStateImp(keyboardChangeNotifierImp);
+        NoteLimitModelImp lowerNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.C, 4, NoteAccidental.NATURAL), rangeChangeNotifierImp);
+        NoteLimitModelImp upperNoteLimitModelImp = new NoteLimitModelImp(new Note(NoteName.B, 4, NoteAccidental.NATURAL), rangeChangeNotifierImp);
 
         //KeyReceiver
         KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(keyboardStateImp);
 
         //Trainer
-        SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(lowerNoteLimitModelImp, upperNoteLimitModelImp, keyboardStateImp);
+        SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(lowerNoteLimitModelImp, upperNoteLimitModelImp, keyboardStateImp, flashcardChangeNotifierImp);
 
         //Selectors
         InstrumentBrowserImp instrumentBrowserImp = new InstrumentBrowserImp(keyNoteReceiverImp);
-        ModeSelectorImp modeSelectorImp = new ModeSelectorImp(StaffMode.Grand);
+        ModeSelectorImp modeSelectorImp = new ModeSelectorImp(StaffMode.Grand, modeChangeNotifierImp);
         RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(lowerNoteLimitModelImp, upperNoteLimitModelImp);
 
         //Renderers
@@ -44,19 +54,16 @@ public class MainGUI {
         NoteTextRenderer noteTextRendererImp = new NoteTextRenderer(keyboardStateImp);
 
         //Add Observers
-        keyboardStateImp.addObserver(grandStaffRendererImp);
-        keyboardStateImp.addObserver(noteTextRendererImp);
-        keyboardStateImp.addObserver(sightReadTrainerImp);
+        keyboardChangeNotifierImp.addObserver(grandStaffRendererImp);
+        keyboardChangeNotifierImp.addObserver(noteTextRendererImp);
+        keyboardChangeNotifierImp.addObserver(sightReadTrainerImp);
 
-        modeSelectorImp.addObserver(grandStaffRendererImp);
+        modeChangeNotifierImp.addObserver(grandStaffRendererImp);
 
-        lowerNoteLimitModelImp.addObserver(rangeRendererImp);
-        lowerNoteLimitModelImp.addObserver(sightReadTrainerImp);
+        rangeChangeNotifierImp.addObserver(rangeRendererImp);
+        rangeChangeNotifierImp.addObserver(sightReadTrainerImp);
 
-        upperNoteLimitModelImp.addObserver(rangeRendererImp);
-        upperNoteLimitModelImp.addObserver(sightReadTrainerImp);
-
-        sightReadTrainerImp.addObserver(grandStaffRendererImp);
+        flashcardChangeNotifierImp.addObserver(grandStaffRendererImp);
 
         //Build Panels
         JPanel verticalPanel = new JPanel();

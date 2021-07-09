@@ -3,27 +3,21 @@ package trainer;
 import music.*;
 import notification.KeyboardChangeObserver;
 import notification.FlashcardChangeNotifier;
-import notification.FlashcardChangeObserver;
 import notification.RangeChangeObserver;
 import statemodels.KeyboardState;
-import statemodels.NoteLimitModel;
+import statemodels.NoteRangeLimits;
 import uicomponents.renderer.CanvasRender;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserver, KeyboardChangeObserver {
     static private final int targetCount = 8;
 
-    private final NoteLimitModel lowerLimit;
-    private final NoteLimitModel upperLimit;
+    private final NoteRangeLimits noteRangeLimits;
     private final KeyboardState keyboardState;
     private final NoteCollectionList flashcardList;
     private final FlashcardChangeNotifier flashcardChangeNotifier;
 
-    public SightReadTrainerImp(NoteLimitModel lowerLimit, NoteLimitModel upperLimit, KeyboardState keyboardState, FlashcardChangeNotifier flashcardChangeNotifier){
-        this.lowerLimit = lowerLimit;
-        this.upperLimit = upperLimit;
+    public SightReadTrainerImp(NoteRangeLimits noteRangeLimits, KeyboardState keyboardState, FlashcardChangeNotifier flashcardChangeNotifier){
+        this.noteRangeLimits = noteRangeLimits;
         this.keyboardState = keyboardState;
         this.flashcardList = new NoteCollectionListImp();
         this.flashcardChangeNotifier = flashcardChangeNotifier;
@@ -63,8 +57,8 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
     }
 
     protected void addNewFlashcard(){
-        Note lowerNote = lowerLimit.getLimit();
-        Note upperNote = upperLimit.getLimit();
+        Note lowerNote = noteRangeLimits.getLowerLimitNote();
+        Note upperNote = noteRangeLimits.getUpperLimitNote();
 
         Note randomNote = CanvasRender.getRandomNote(lowerNote, upperNote);
         NoteCollection noteTarget = new NoteCollectionImp();

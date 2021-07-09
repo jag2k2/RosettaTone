@@ -1,7 +1,6 @@
 package uicomponents.renderer;
 
 import music.Note;
-
 import java.awt.*;
 
 public class RangeDrawer {
@@ -9,13 +8,6 @@ public class RangeDrawer {
 
     public RangeDrawer(Graphics2D graphics2D){
         this.graphics2D = graphics2D;
-    }
-
-    protected void paintBackground(){
-        graphics2D.setColor(Color.WHITE);
-        int canvasWidth = (int) CanvasRender.getRangeIndicatorSize().getWidth();
-        int canvasHeight = (int) CanvasRender.getCanvasSize().getHeight();
-        graphics2D.fillRect(0,0,canvasWidth,canvasHeight);
     }
 
     public void drawLimit(Note note){

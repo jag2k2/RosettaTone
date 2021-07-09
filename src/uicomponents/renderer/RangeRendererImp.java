@@ -2,19 +2,17 @@ package uicomponents.renderer;
 
 import music.Note;
 import notification.RangeChangeObserver;
-import statemodels.NoteLimitModel;
+import statemodels.NoteRangeLimits;
 import uicomponents.UIComponent;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class RangeRendererImp extends Component implements UIComponent, RangeChangeObserver {
-    private final NoteLimitModel lowerNoteLimitModel;
-    private final NoteLimitModel upperNoteLimitModel;
+    private final NoteRangeLimits noteRangeModel;
 
-    public RangeRendererImp(NoteLimitModel lowerNoteLimitModel, NoteLimitModel upperNoteLimitModel){
-        this.lowerNoteLimitModel = lowerNoteLimitModel;
-        this.upperNoteLimitModel = upperNoteLimitModel;
+    public RangeRendererImp(NoteRangeLimits noteRangeModel){
+        this.noteRangeModel = noteRangeModel;
     }
 
     @Override
@@ -39,8 +37,8 @@ public class RangeRendererImp extends Component implements UIComponent, RangeCha
     public void paint(Graphics g) {
         Graphics2D graphics2D = (Graphics2D)g;
         RangeDrawer rangeDrawer = new RangeDrawer(graphics2D);
-        Note upperLimitNote = upperNoteLimitModel.getLimit();
-        Note lowerLimitNote = lowerNoteLimitModel.getLimit();
+        Note upperLimitNote = noteRangeModel.getLowerLimitNote();
+        Note lowerLimitNote = noteRangeModel.getUpperLimitNote();
 
         rangeDrawer.drawLimit(upperLimitNote);
         rangeDrawer.drawLimit(lowerLimitNote);

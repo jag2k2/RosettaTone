@@ -1,9 +1,9 @@
 package uicomponents.rangeselector;
 
 import music.Note;
-import music.NoteAccidental;
 import music.NoteName;
-import statemodels.NoteLimitModel;
+import statemodels.NoteRangeLimits;
+import statemodels.NoteRangeModel;
 import uicomponents.UIComponent;
 
 import javax.swing.*;
@@ -14,19 +14,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RangeSelectorImp implements UIComponent, ActionListener {
-    static private final Note lowerBoundNote = new Note(NoteName.A, 0, NoteAccidental.NATURAL);
-    static private final Note upperBoundNote = new Note(NoteName.C, 8, NoteAccidental.NATURAL);
+    static private final Note lowerBoundNote = new Note(NoteName.A, 0);
+    static private final Note upperBoundNote = new Note(NoteName.C, 8);
 
-    private final NoteLimitModel lowerLimitModel;
-    private final NoteLimitModel upperLimitModel;
+    private final NoteRangeLimits noteRangeLimits;
     private final NoteSelectorImp lowerNoteSelector;
     private final NoteSelectorImp upperNoteSelector;
 
-    public RangeSelectorImp(NoteLimitModel lowerLimitModel, NoteLimitModel upperLimitModel){
-        this.lowerLimitModel = lowerLimitModel;
-        this.upperLimitModel = upperLimitModel;
-        this.lowerNoteSelector = new NoteSelectorImp(lowerLimitModel);
-        this.upperNoteSelector = new NoteSelectorImp(upperLimitModel);
+    public RangeSelectorImp(NoteRangeModel noteRangeModel, NoteRangeLimits noteRangeLimits){
+        this.noteRangeLimits = noteRangeLimits;
+        this.lowerNoteSelector = new NoteSelectorImp(noteRangeModel.getLowerLimitModel());
+        this.upperNoteSelector = new NoteSelectorImp(noteRangeModel.getUpperLimitModel());
 
         lowerNoteSelector.addActionListener(this);
         upperNoteSelector.addActionListener(this);
@@ -39,8 +37,8 @@ public class RangeSelectorImp implements UIComponent, ActionListener {
         JPanel panel = new JPanel(new FlowLayout());
         Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
         panel.setBorder(border);
-        panel.add(lowerNoteSelector.getPanel());
-        panel.add(upperNoteSelector.getPanel());
+        panel.add(lowerNoteSelector.getComponent());
+        panel.add(upperNoteSelector.getComponent());
         return panel;
     }
 
@@ -52,8 +50,8 @@ public class RangeSelectorImp implements UIComponent, ActionListener {
     }
 
     protected void refreshSelectors(){
-        Note lowerSelectedNote = lowerLimitModel.getLimit();
-        Note upperSelectedNote = upperLimitModel.getLimit();
+        Note lowerSelectedNote = noteRangeLimits.getLowerLimitNote();
+        Note upperSelectedNote = noteRangeLimits.getUpperLimitNote();
 
         lowerNoteSelector.refreshSelection(upperSelectedNote, lowerBoundNote, lowerSelectedNote);
         upperNoteSelector.refreshSelection(upperBoundNote, lowerSelectedNote, upperSelectedNote);

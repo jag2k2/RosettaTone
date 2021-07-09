@@ -3,7 +3,7 @@ package uicomponents.rangeselector;
 import music.Note;
 import music.NoteAccidental;
 import statemodels.NoteLimitModel;
-
+import uicomponents.UIComponent;
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NoteSelectorImp implements PopupMenuListener, ActionListener {
+public class NoteSelectorImp implements UIComponent, PopupMenuListener, ActionListener {
     private final NoteLimitModel noteLimitModel;
     private final JComboBox<Note> noteComboBox;
 
@@ -24,24 +24,13 @@ public class NoteSelectorImp implements PopupMenuListener, ActionListener {
         this.noteComboBox.addActionListener(this);
     }
 
-    public JPanel getPanel(){
+    @Override
+    public Component getComponent(){
         JPanel panel = new JPanel();
         Dimension boxSize = new Dimension(80, 40);
         noteComboBox.setPreferredSize(boxSize);
         panel.add(noteComboBox);
         return panel;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("comboBoxChanged")){
-            Note selectedNote = (Note) noteComboBox.getSelectedItem();
-            noteLimitModel.changeLimit(selectedNote);
-        }
-    }
-
-    public void addActionListener(ActionListener actionListener){
-        this.noteComboBox.addActionListener(actionListener);
     }
 
     public void refreshSelection(Note upperNote, Note lowerNote, Note selectedNote){
@@ -51,6 +40,18 @@ public class NoteSelectorImp implements PopupMenuListener, ActionListener {
             if (noteIterator.equals(selectedNote)){
                 noteComboBox.setSelectedItem(noteIterator);
             }
+        }
+    }
+
+    public void addActionListener(ActionListener actionListener){
+        this.noteComboBox.addActionListener(actionListener);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("comboBoxChanged")){
+            Note selectedNote = (Note) noteComboBox.getSelectedItem();
+            noteLimitModel.changeLimit(selectedNote);
         }
     }
 

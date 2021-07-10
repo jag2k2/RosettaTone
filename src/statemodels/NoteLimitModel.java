@@ -3,6 +3,6 @@ package statemodels;
 import music.Note;
 
 public interface NoteLimitModel {
-    void changeLimit(Note note);
+    void setLimit(Note note);
     Note getLimit();
 }

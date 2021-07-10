@@ -56,7 +56,7 @@ public class NoteSelectorImp implements NoteSelector {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("comboBoxChanged")){
             Note selectedNote = (Note) noteComboBox.getSelectedItem();
-            noteLimitModel.changeLimit(selectedNote);
+            noteLimitModel.setLimit(selectedNote);
         }
     }
 
@@ -74,6 +74,6 @@ public class NoteSelectorImp implements NoteSelector {
     public void popupMenuCanceled(PopupMenuEvent e) {
         ComboBoxModel<Note> listModel = noteComboBox.getModel();
         Note selectedNote = listModel.getElementAt(noteComboBox.getSelectedIndex());
-        noteLimitModel.changeLimit(selectedNote);
+        noteLimitModel.setLimit(selectedNote);
     }
 }

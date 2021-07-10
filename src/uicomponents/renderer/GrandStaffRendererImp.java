@@ -1,25 +1,25 @@
 package uicomponents.renderer;
 
 import notification.KeyboardChangeObserver;
-import notification.ModeChangeObserver;
+import notification.ClefModeChangeObserver;
 import notification.FlashcardChangeObserver;
+import statemodels.ClefModeState;
 import statemodels.KeyboardState;
 import trainer.SightReadTrainer;
 import uicomponents.UIComponent;
-import uicomponents.clefmode.ClefModeSelector;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class GrandStaffRendererImp extends JComponent implements UIComponent, ModeChangeObserver, KeyboardChangeObserver, FlashcardChangeObserver, Runnable {
+public class GrandStaffRendererImp extends JComponent implements UIComponent, ClefModeChangeObserver, KeyboardChangeObserver, FlashcardChangeObserver, Runnable {
     private final KeyboardState keyboardState;
-    private final ClefModeSelector clefModeSelector;
+    private final ClefModeState clefModeState;
     private final SightReadTrainer sightReadTrainer;
     private int xTraveled = RenderConstants.noteXSpacing;
 
-    public GrandStaffRendererImp(KeyboardState keyboardState, ClefModeSelector clefModeSelector, SightReadTrainer sightReadTrainer){
+    public GrandStaffRendererImp(KeyboardState keyboardState, ClefModeState clefModeState, SightReadTrainer sightReadTrainer){
         this.keyboardState = keyboardState;
-        this.clefModeSelector = clefModeSelector;
+        this.clefModeState = clefModeState;
         this.sightReadTrainer = sightReadTrainer;
     }
 
@@ -56,7 +56,7 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Mo
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D)g;
-        NoteDrawer noteDrawer = new NoteDrawer(graphics2D, clefModeSelector);
+        NoteDrawer noteDrawer = new NoteDrawer(graphics2D, clefModeState);
         noteDrawer.drawEnabledStaffs();
         noteDrawer.drawKeyboardNotes(keyboardState.getActiveNotes());
         noteDrawer.drawFlashcardNotes(sightReadTrainer.getFlashcardNotes(), xTraveled);

@@ -13,7 +13,7 @@ public class NoteLimitModelImp implements NoteLimitModel {
     }
 
     @Override
-    public void changeLimit(Note note){
+    public void setLimit(Note note){
         if (!note.equals(noteLimit)) {
             this.noteLimit = note;
             rangeChangeNotifier.notifyObservers();

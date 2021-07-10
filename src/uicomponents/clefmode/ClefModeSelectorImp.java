@@ -1,6 +1,6 @@
 package uicomponents.clefmode;
 
-import notification.ModeChangeNotifier;
+import statemodels.ClefModeState;
 import uicomponents.UIComponent;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -9,17 +9,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ClefModeSelectorImp implements UIComponent, ActionListener, ClefModeSelector {
+public class ClefModeSelectorImp implements UIComponent, ActionListener {
     private final JComboBox<ClefMode> clefComboBox;
-    private final ModeChangeNotifier modeChangeNotifier;
+    private final ClefModeState clefModeState;
 
-    public ClefModeSelectorImp(ClefMode staffState, ModeChangeNotifier modeChangeNotifier){
+    public ClefModeSelectorImp(ClefModeState clefModeState){
         this.clefComboBox = new JComboBox<>(ClefMode.values());
-        this.modeChangeNotifier = modeChangeNotifier;
+        this.clefModeState = clefModeState;
         this.clefComboBox.setRenderer(new ClefModeRenderer(clefComboBox.getRenderer()));
 
         this.clefComboBox.addActionListener(this);
-        this.clefComboBox.setSelectedItem(staffState);
+        this.clefComboBox.setSelectedItem(clefModeState.getState());
     }
 
     @Override
@@ -34,25 +34,9 @@ public class ClefModeSelectorImp implements UIComponent, ActionListener, ClefMod
     }
 
     @Override
-    public ClefMode getSelection() {
-        int selectedIndex = clefComboBox.getSelectedIndex();
-        return clefComboBox.getItemAt(selectedIndex);
-    }
-
-    @Override
-    public boolean trebleEnabled() {
-        ClefMode selectedMode = getSelection();
-        return (selectedMode == ClefMode.Treble || selectedMode == ClefMode.Grand);
-    }
-
-    @Override
-    public boolean bassEnabled() {
-        ClefMode selectedMode = getSelection();
-        return (selectedMode == ClefMode.Bass || selectedMode == ClefMode.Grand);
-    }
-
-    @Override
     public void actionPerformed(ActionEvent e) {
-        modeChangeNotifier.notifyObservers();
+        int selectedIndex = clefComboBox.getSelectedIndex();
+        ClefMode selectedMode = clefComboBox.getItemAt(selectedIndex);
+        clefModeState.setState(selectedMode);
     }
 }

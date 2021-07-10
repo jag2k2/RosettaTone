@@ -1,4 +1,4 @@
-package uicomponents.renderer;
+package uicomponents;
 
 import java.awt.*;
 

@@ -2,7 +2,8 @@ package uicomponents.renderer;
 
 import imageprocessing.StaffImage;
 import music.*;
-import uicomponents.clefmode.ClefModeSelector;
+import statemodels.ClefModeState;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -21,11 +22,11 @@ public class NoteDrawer {
     private final StaffImage flatImage = new StaffImage(flatPath);
 
     private final Graphics2D graphics2D;
-    private final ClefModeSelector clefModeSelector;
+    private final ClefModeState clefModeState;
 
-    public NoteDrawer(Graphics2D graphics2D, ClefModeSelector clefModeSelector){
+    public NoteDrawer(Graphics2D graphics2D, ClefModeState clefModeState){
         this.graphics2D = graphics2D;
-        this.clefModeSelector = clefModeSelector;
+        this.clefModeState = clefModeState;
         noteImage.resize(0.22);
         naturalImage.resize(0.4);
         sharpImage.resize(0.4);
@@ -42,10 +43,10 @@ public class NoteDrawer {
     public java.util.List<Staff> enabledStaffs(){
         List<Staff> enabledStaffs = new ArrayList<>();
 
-        if (clefModeSelector.trebleEnabled()){
+        if (clefModeState.trebleEnabled()){
             enabledStaffs.add(RenderConstants.trebleStaff);
         }
-        if (clefModeSelector.bassEnabled()){
+        if (clefModeState.bassEnabled()){
             enabledStaffs.add(RenderConstants.bassStaff);
         }
         return enabledStaffs;
@@ -93,7 +94,7 @@ public class NoteDrawer {
         for (Note note : noteCollection){
             drawNote(note, noteCollection, xPosition);
             drawAccidentals(note, xPosition);
-            drawHelperLines(note, clefModeSelector, xPosition);
+            drawHelperLines(note, clefModeState, xPosition);
         }
     }
 
@@ -124,18 +125,18 @@ public class NoteDrawer {
         }
     }
 
-    protected void drawHelperLines(Note note, ClefModeSelector clefModeSelector, int xPos){
+    protected void drawHelperLines(Note note, ClefModeState clefModeState, int xPos){
         int lineNumber = RenderConstants.getLineNumber(note);
         Staff trebleStaff = RenderConstants.trebleStaff;
         Staff bassStaff = RenderConstants.bassStaff;
         int topVisibleLine = trebleStaff.getTopVisibleLine();
         int bottomVisibleLine = bassStaff.getBottomVisibleLine();
 
-        if (!clefModeSelector.trebleEnabled()) {
+        if (!clefModeState.trebleEnabled()) {
             topVisibleLine = bassStaff.getTopVisibleLine();
         }
 
-        if (!clefModeSelector.bassEnabled()) {
+        if (!clefModeState.bassEnabled()) {
             bottomVisibleLine = trebleStaff.getBottomVisibleLine();
         }
 
@@ -146,7 +147,7 @@ public class NoteDrawer {
             drawHelperLine(i, xPos);
         }
 
-        if (clefModeSelector.trebleEnabled() && clefModeSelector.bassEnabled()){
+        if (clefModeState.trebleEnabled() && clefModeState.bassEnabled()){
             if(lineNumber > trebleStaff.getBottomVisibleLine() && lineNumber < bassStaff.getTopVisibleLine()){
                 drawHelperLine(lineNumber, xPos);
             }

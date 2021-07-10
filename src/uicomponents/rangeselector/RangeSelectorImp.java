@@ -31,12 +31,20 @@ public class RangeSelectorImp implements UIComponent, ActionListener {
 
     @Override
     public Component getComponent() {
-        JPanel panel = new JPanel(new FlowLayout());
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(lowerNoteSelector.getComponent());
+        buttonPanel.add(upperNoteSelector.getComponent());
+        JPanel panel = new JPanel();
+        BoxLayout panelLayout = new BoxLayout(panel, BoxLayout.X_AXIS);
+        panel.setLayout(panelLayout);
+        JLabel title = new JLabel();
+        title.setText("Note Range");
+        title.setPreferredSize(new Dimension(10,10));
+        panel.add(title);
+        panel.add(buttonPanel);
         Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
         panel.setBorder(border);
-        panel.add(lowerNoteSelector.getComponent());
-        panel.add(upperNoteSelector.getComponent());
-        return panel;
+        return buttonPanel;
     }
 
     @Override

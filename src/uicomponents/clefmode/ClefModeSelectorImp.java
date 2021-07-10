@@ -1,7 +1,6 @@
-package uicomponents.staffselector;
+package uicomponents.clefmode;
 
 import notification.ModeChangeNotifier;
-import notification.ModeChangeObserver;
 import uicomponents.UIComponent;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,14 +9,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ModeSelectorImp implements UIComponent, ActionListener, ModeSelector {
-    private final JComboBox<StaffMode> clefComboBox;
+public class ClefModeSelectorImp implements UIComponent, ActionListener, ClefModeSelector {
+    private final JComboBox<ClefMode> clefComboBox;
     private final ModeChangeNotifier modeChangeNotifier;
 
-    public ModeSelectorImp(StaffMode staffState, ModeChangeNotifier modeChangeNotifier){
-        this.clefComboBox = new JComboBox<>(StaffMode.values());
+    public ClefModeSelectorImp(ClefMode staffState, ModeChangeNotifier modeChangeNotifier){
+        this.clefComboBox = new JComboBox<>(ClefMode.values());
         this.modeChangeNotifier = modeChangeNotifier;
-        this.clefComboBox.setRenderer(new StaffModeRenderer(clefComboBox.getRenderer()));
+        this.clefComboBox.setRenderer(new ClefModeRenderer(clefComboBox.getRenderer()));
 
         this.clefComboBox.addActionListener(this);
         this.clefComboBox.setSelectedItem(staffState);
@@ -35,21 +34,21 @@ public class ModeSelectorImp implements UIComponent, ActionListener, ModeSelecto
     }
 
     @Override
-    public StaffMode getSelection() {
+    public ClefMode getSelection() {
         int selectedIndex = clefComboBox.getSelectedIndex();
         return clefComboBox.getItemAt(selectedIndex);
     }
 
     @Override
     public boolean trebleEnabled() {
-        StaffMode selectedMode = getSelection();
-        return (selectedMode == StaffMode.Treble || selectedMode == StaffMode.Grand);
+        ClefMode selectedMode = getSelection();
+        return (selectedMode == ClefMode.Treble || selectedMode == ClefMode.Grand);
     }
 
     @Override
     public boolean bassEnabled() {
-        StaffMode selectedMode = getSelection();
-        return (selectedMode == StaffMode.Bass || selectedMode == StaffMode.Grand);
+        ClefMode selectedMode = getSelection();
+        return (selectedMode == ClefMode.Bass || selectedMode == ClefMode.Grand);
     }
 
     @Override

@@ -1,19 +1,17 @@
-package uicomponents.staffselector;
-
-import music.Note;
+package uicomponents.clefmode;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class StaffModeRenderer implements ListCellRenderer<StaffMode> {
-    private final ListCellRenderer<? super StaffMode> listCellRenderer;
+public class ClefModeRenderer implements ListCellRenderer<ClefMode> {
+    private final ListCellRenderer<? super ClefMode> listCellRenderer;
 
-    public StaffModeRenderer(ListCellRenderer<? super StaffMode> listCellRenderer){
+    public ClefModeRenderer(ListCellRenderer<? super ClefMode> listCellRenderer){
         this.listCellRenderer = listCellRenderer;
     }
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends StaffMode> list, StaffMode value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<? extends ClefMode> list, ClefMode value, int index, boolean isSelected, boolean cellHasFocus) {
         Component rendererComponent = listCellRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         if (rendererComponent instanceof JLabel){
             JLabel rendererLabel = (JLabel) rendererComponent;

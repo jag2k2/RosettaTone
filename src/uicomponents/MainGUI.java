@@ -18,8 +18,8 @@ import uicomponents.renderer.GrandStaffRendererImp;
 import statemodels.NoteLimitModelImp;
 import uicomponents.renderer.NoteTextRenderer;
 import uicomponents.renderer.RangeRendererImp;
-import uicomponents.staffselector.ModeSelectorImp;
-import uicomponents.staffselector.StaffMode;
+import uicomponents.clefmode.ClefModeSelectorImp;
+import uicomponents.clefmode.ClefMode;
 
 public class MainGUI {
     private final JFrame frame;
@@ -50,7 +50,7 @@ public class MainGUI {
 
         //Selectors
         InstrumentBrowserImp instrumentBrowserImp = new InstrumentBrowserImp(keyNoteReceiverImp);
-        ModeSelectorImp modeSelectorImp = new ModeSelectorImp(StaffMode.Grand, modeChangeNotifierImp);
+        ClefModeSelectorImp modeSelectorImp = new ClefModeSelectorImp(ClefMode.Grand, modeChangeNotifierImp);
         NoteSelectorImp lowerNoteSelectorImp = new NoteSelectorImp(lowerNoteLimitModelImp);
         NoteSelectorImp upperNoteSelectorImp = new NoteSelectorImp(upperNoteLimitModelImp);
         RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(lowerNoteSelectorImp, upperNoteSelectorImp);

@@ -1,4 +1,4 @@
-package uicomponents.staffselector;
+package uicomponents.clefmode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,16 +6,16 @@ import notification.ModeChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ModeSelectorImpTest {
-    private ModeSelectorImp trebleSelection;
-    private ModeSelectorImp bassSelection;
-    private ModeSelectorImp grandSelection;
+class ClefModeSelectorImpTest {
+    private ClefModeSelectorImp trebleSelection;
+    private ClefModeSelectorImp bassSelection;
+    private ClefModeSelectorImp grandSelection;
 
     @BeforeEach
     void setup(){
-        trebleSelection = new ModeSelectorImp(StaffMode.Treble, new ModeChangeNotifierImp());
-        bassSelection = new ModeSelectorImp(StaffMode.Bass, new ModeChangeNotifierImp());
-        grandSelection = new ModeSelectorImp(StaffMode.Grand, new ModeChangeNotifierImp());
+        trebleSelection = new ClefModeSelectorImp(ClefMode.Treble, new ModeChangeNotifierImp());
+        bassSelection = new ClefModeSelectorImp(ClefMode.Bass, new ModeChangeNotifierImp());
+        grandSelection = new ClefModeSelectorImp(ClefMode.Grand, new ModeChangeNotifierImp());
     }
 
     @Test

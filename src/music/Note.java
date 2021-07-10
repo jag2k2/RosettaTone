@@ -7,7 +7,7 @@ public class Note implements Comparable<Note> {
 
     private final NoteName noteName;
     private final int octave;
-    private final HashSet<NoteAccidental> accidentals = new HashSet<>();
+    private final Set<NoteAccidental> accidentals = new HashSet<>();
 
     public Note(NoteName noteName, int octave) {
         this.noteName = noteName;
@@ -27,12 +27,6 @@ public class Note implements Comparable<Note> {
         this.octave = octave;
         accidentals.addAll(noteAccidentals);
     }
-
-    /*public Note(Key key){
-        this.noteName = NoteName.values()[key.getNaturalIndex()];
-        this.octave = key.getOctave();
-        accidentals.add(key.getAccidental());
-    }*/
 
     public int getOctave() {
         return octave;
@@ -56,41 +50,8 @@ public class Note implements Comparable<Note> {
         return sameOctaveAdjacent || noteBCAdjacent;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Note){
-            Note noteCompare = (Note) obj;
-            return this.noteName == noteCompare.noteName
-                    && this.octave == noteCompare.octave
-                    && this.accidentals.equals(noteCompare.accidentals);
-        }
-        return false;
-    }
-
     public boolean noteHeadEquals(Note note){
         return this.noteName == note.noteName && this.octave == note.octave;
-    }
-
-    @Override
-    public int hashCode() {
-        String nameOctave = noteName.name() + octave;
-        return nameOctave.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        String noteString = noteName.toString();
-        if (accidentals.contains(NoteAccidental.NATURAL) && (accidentals.contains(NoteAccidental.FLAT) || accidentals.contains(NoteAccidental.SHARP))){
-            noteString += "n";
-        }
-        if (accidentals.contains(NoteAccidental.SHARP)) {
-            noteString += "#";
-        }
-        if (accidentals.contains(NoteAccidental.FLAT)) {
-            noteString += "b";
-        }
-        noteString += Integer.toString(octave);
-        return noteString;
     }
 
     public Note getNext(NoteAccidental noteAccidental) {
@@ -121,12 +82,45 @@ public class Note implements Comparable<Note> {
         return new Note(newNoteName, newOctave, noteAccidental);
     }
 
+    protected int noteValue(){
+        return octave * 10 + noteName.getPosition();
+    }
+
     @Override
     public int compareTo(Note o) {
         return noteValue() - o.noteValue();
     }
 
-    protected int noteValue(){
-        return octave * 10 + noteName.getPosition();
+    @Override
+    public int hashCode() {
+        String nameOctave = noteName.name() + octave;
+        return nameOctave.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        String noteString = noteName.toString();
+        if (accidentals.contains(NoteAccidental.NATURAL) && (accidentals.contains(NoteAccidental.FLAT) || accidentals.contains(NoteAccidental.SHARP))){
+            noteString += "n";
+        }
+        if (accidentals.contains(NoteAccidental.SHARP)) {
+            noteString += "#";
+        }
+        if (accidentals.contains(NoteAccidental.FLAT)) {
+            noteString += "b";
+        }
+        noteString += Integer.toString(octave);
+        return noteString;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Note){
+            Note noteCompare = (Note) obj;
+            return this.noteName == noteCompare.noteName
+                    && this.octave == noteCompare.octave
+                    && this.accidentals.equals(noteCompare.accidentals);
+        }
+        return false;
     }
 }

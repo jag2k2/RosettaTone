@@ -1,11 +1,13 @@
-package music;
+package statemodels;
 
 import instrument.Key;
+import music.Note;
+import music.NoteAccidental;
+import music.NoteCollectionImp;
+import music.NoteName;
 import notification.KeyboardChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import statemodels.KeyboardState;
-import statemodels.KeyboardStateImp;
 
 import java.util.HashSet;
 

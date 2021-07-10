@@ -1,4 +1,4 @@
-package statemodels;
+package uicomponents.rangeselector;
 
 import music.Note;
 import trainer.NoteRangeLimits;

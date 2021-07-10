@@ -1,19 +1,18 @@
 package statemodels;
 
 import music.Staff;
-import notification.ClefModeChangeNotifier;
 import uicomponents.clefmode.ClefMode;
-import uicomponents.clefmode.ClefModeState;
+import uicomponents.clefmode.ClefModeModifier;
 import uicomponents.renderer.StaffDecorator;
 import uicomponents.renderer.RenderConstants;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClefModeStateImp implements ClefModeState, StaffDecorator {
+public class ClefModeModifierImp implements ClefModeModifier, StaffDecorator {
     private final ClefModeChangeNotifier clefModeChangeNotifier;
     private ClefMode clefMode;
 
-    public ClefModeStateImp(ClefMode clefMode, ClefModeChangeNotifier clefModeChangeNotifier){
+    public ClefModeModifierImp(ClefMode clefMode, ClefModeChangeNotifier clefModeChangeNotifier){
         this.clefMode = clefMode;
         this.clefModeChangeNotifier = clefModeChangeNotifier;
     }

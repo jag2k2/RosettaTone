@@ -1,5 +1,7 @@
 package notification;
 
+import statemodels.ClefModeChangeNotifier;
+
 import java.util.ArrayList;
 
 public class ClefModeChangeNotifierImp implements ClefModeChangeNotifier {

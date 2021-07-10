@@ -1,6 +1,6 @@
 package uicomponents.renderer;
 
-import music.NoteCollectionList;
+import trainer.NoteCollectionList;
 
 public interface FlashcardNoteGetter {
     NoteCollectionList getFlashcardNotes();

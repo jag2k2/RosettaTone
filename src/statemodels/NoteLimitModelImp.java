@@ -1,7 +1,6 @@
 package statemodels;
 
 import music.Note;
-import notification.RangeChangeNotifier;
 import uicomponents.rangeselector.noteselector.NoteLimitModel;
 
 public class NoteLimitModelImp implements NoteLimitModel {

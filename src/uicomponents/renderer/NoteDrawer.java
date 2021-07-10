@@ -2,6 +2,9 @@ package uicomponents.renderer;
 
 import imageprocessing.StaffImage;
 import music.*;
+import utility.NoteCollection;
+import trainer.NoteCollectionList;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 

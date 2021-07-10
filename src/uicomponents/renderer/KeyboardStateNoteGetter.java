@@ -1,6 +1,6 @@
 package uicomponents.renderer;
 
-import music.NoteCollection;
+import utility.NoteCollection;
 
 public interface KeyboardStateNoteGetter {
     NoteCollection getActiveNotes();

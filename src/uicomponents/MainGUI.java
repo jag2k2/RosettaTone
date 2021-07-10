@@ -8,9 +8,9 @@ import notification.FlashcardChangeNotifierImp;
 import notification.KeyboardChangeNotifierImp;
 import notification.ClefModeChangeNotifierImp;
 import notification.RangeChangeNotifierImp;
-import statemodels.ClefModeStateImp;
+import statemodels.ClefModeModifierImp;
 import statemodels.KeyStateManipulatorImp;
-import statemodels.NoteRangeLimitsImp;
+import uicomponents.rangeselector.NoteRangeLimitsImp;
 import trainer.SightReadTrainerImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.noteselector.NoteSelectorImp;
@@ -42,7 +42,7 @@ public class MainGUI {
         NoteLimitModelImp lowerNoteLimitModelImp = new NoteLimitModelImp(defaultLowerRangeNote, rangeChangeNotifierImp);
         NoteLimitModelImp upperNoteLimitModelImp = new NoteLimitModelImp(defaultUpperRangeNote, rangeChangeNotifierImp);
         NoteRangeLimitsImp noteRangeLimitsImp = new NoteRangeLimitsImp(lowerNoteLimitModelImp, upperNoteLimitModelImp);
-        ClefModeStateImp clefModeStateImp = new ClefModeStateImp(ClefMode.Grand, modeChangeNotifierImp);
+        ClefModeModifierImp clefModeStateImp = new ClefModeModifierImp(ClefMode.Grand, modeChangeNotifierImp);
 
         //KeyReceiver
         KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(keyboardStateImp);

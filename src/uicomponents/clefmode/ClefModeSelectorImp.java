@@ -10,15 +10,15 @@ import java.awt.event.ActionListener;
 
 public class ClefModeSelectorImp implements UIComponent, ActionListener {
     private final JComboBox<ClefMode> clefComboBox;
-    private final ClefModeState clefModeState;
+    private final ClefModeModifier clefModeModifier;
 
-    public ClefModeSelectorImp(ClefModeState clefModeState){
+    public ClefModeSelectorImp(ClefModeModifier clefModeModifier){
         this.clefComboBox = new JComboBox<>(ClefMode.values());
-        this.clefModeState = clefModeState;
+        this.clefModeModifier = clefModeModifier;
         this.clefComboBox.setRenderer(new ClefModeRenderer(clefComboBox.getRenderer()));
 
         this.clefComboBox.addActionListener(this);
-        this.clefComboBox.setSelectedItem(clefModeState.getState());
+        this.clefComboBox.setSelectedItem(clefModeModifier.getState());
     }
 
     @Override
@@ -36,6 +36,6 @@ public class ClefModeSelectorImp implements UIComponent, ActionListener {
     public void actionPerformed(ActionEvent e) {
         int selectedIndex = clefComboBox.getSelectedIndex();
         ClefMode selectedMode = clefComboBox.getItemAt(selectedIndex);
-        clefModeState.setState(selectedMode);
+        clefModeModifier.setState(selectedMode);
     }
 }

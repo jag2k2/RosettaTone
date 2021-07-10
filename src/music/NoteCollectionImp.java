@@ -1,5 +1,8 @@
 package music;
 
+import trainer.KeyboardEvaluator;
+import utility.NoteCollection;
+
 import java.util.Iterator;
 import java.util.Set;
 import java.util.HashSet;
@@ -19,11 +22,6 @@ public class NoteCollectionImp implements NoteCollection {
     @Override
     public void add(Note note){
         notes.add(note);
-    }
-
-    @Override
-    public void clear() {
-        notes.clear();
     }
 
     @Override
@@ -51,13 +49,4 @@ public class NoteCollectionImp implements NoteCollection {
     public String toString() {
         return notes.toString();
     }
-
-    /*@Override
-    public boolean equals(Object obj) {
-        if (obj instanceof NoteCollectionImp){
-            NoteCollectionImp toCompare = (NoteCollectionImp) obj;
-            return notes.equals(toCompare.notes);
-        }
-        return false;
-    }*/
 }

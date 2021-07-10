@@ -1,6 +1,6 @@
 package uicomponents.clefmode;
 
-public interface ClefModeState {
+public interface ClefModeModifier {
     ClefMode getState();
     void setState(ClefMode clefMode);
 }

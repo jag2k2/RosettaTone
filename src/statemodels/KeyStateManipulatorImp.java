@@ -3,9 +3,10 @@ package statemodels;
 import instrument.Key;
 import instrument.KeyStateManipulator;
 import music.*;
-import notification.KeyboardChangeNotifier;
 import trainer.KeyboardEvaluator;
 import uicomponents.renderer.KeyboardStateNoteGetter;
+import utility.NoteCollection;
+
 import java.util.HashSet;
 import java.util.Set;
 

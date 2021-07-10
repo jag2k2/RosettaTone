@@ -55,42 +55,4 @@ class KeyStateManipulatorImpTest {
         keyboardState.keyReleased(keyC4);
         assertNotEquals(keyboardState, compare);
     }
-
-    @Test
-    void changeNoteStates() {
-        keyboardState.keyPressed(keyC4);
-        keyboardState.keyPressed(keyCSharp4);
-        keyboardState.keyPressed(keyGSharp2);
-        keyboardState.keyPressed(keyDSharp7);
-
-        expected.add(noteGSharp2);
-        expected.add(noteCnatSharp4);
-        expected.add(noteDSharp7);
-
-        assertEquals(expected, keyboardState.getActiveNotes());
-    }
-
-    @Test
-    void testBCHalfStepNaturals(){
-        keyboardState.keyPressed(keyB3);
-        keyboardState.keyPressed(keyC4);
-
-        expected.add(noteB3);
-        expected.add(noteC4);
-
-        assertEquals(expected, keyboardState.getActiveNotes());
-    }
-
-    @Test
-    void testEFHalfStepNaturals(){
-        keyboardState.keyPressed(keyE4);
-        keyboardState.keyPressed(keyF4);
-
-        expected.add(noteE4);
-        expected.add(noteF4);
-
-        assertEquals(expected, keyboardState.getActiveNotes());
-    }
-
-
 }

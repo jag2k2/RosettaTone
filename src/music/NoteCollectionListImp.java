@@ -1,12 +1,14 @@
 package music;
 
 import utility.Maybe;
+import utility.NoteCollection;
+import trainer.NoteCollectionList;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class NoteCollectionListImp implements NoteCollectionList{
+public class NoteCollectionListImp implements NoteCollectionList {
     private final List<NoteCollection> noteCollections;
 
     public NoteCollectionListImp(){

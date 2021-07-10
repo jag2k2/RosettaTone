@@ -1,5 +1,7 @@
 package notification;
 
+import statemodels.RangeChangeNotifier;
+
 import java.util.ArrayList;
 
 public class RangeChangeNotifierImp implements RangeChangeNotifier {

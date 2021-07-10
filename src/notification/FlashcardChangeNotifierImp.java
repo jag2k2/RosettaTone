@@ -1,5 +1,7 @@
 package notification;
 
+import trainer.FlashcardChangeNotifier;
+
 import java.util.ArrayList;
 
 public class FlashcardChangeNotifierImp implements FlashcardChangeNotifier {

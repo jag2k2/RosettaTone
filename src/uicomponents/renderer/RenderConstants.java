@@ -4,10 +4,8 @@ import imageprocessing.StaffImage;
 import music.Note;
 import music.NoteName;
 import music.Staff;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 public class RenderConstants {
     private static final String notePath = "/images/Whole-Note.png";
@@ -16,7 +14,7 @@ public class RenderConstants {
     private static final String flatPath = "/images/Flat.png";
 
     private static final double noteResizeFactor = 0.22;
-    private static final double accidentalResizeFactor = 0.22;
+    private static final double accidentalResizeFactor = 0.40;
 
     private static final String trebleClefPath = "/images/Treble-clef.png";
     private static final String bassClefPath = "/images/Bass-clef.png";

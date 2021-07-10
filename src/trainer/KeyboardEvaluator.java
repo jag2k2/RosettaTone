@@ -1,7 +1,7 @@
 package trainer;
 
-import music.NoteCollection;
+import utility.NoteCollection;
 
 public interface KeyboardEvaluator {
-    public boolean contains(NoteCollection noteCollection);
+    boolean contains(NoteCollection noteCollection);
 }

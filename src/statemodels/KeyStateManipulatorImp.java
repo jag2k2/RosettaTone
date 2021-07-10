@@ -22,13 +22,13 @@ public class KeyStateManipulatorImp implements KeyStateManipulator, KeyboardEval
     @Override
     public void keyPressed(Key key) {
         keys.add(key);
-        keyboardChangeNotifier.notifyObservers();
+        keyboardChangeNotifier.notifyKeyboardChanged();
     }
 
     @Override
     public void keyReleased(Key key) {
         keys.remove(key);
-        keyboardChangeNotifier.notifyObservers();
+        keyboardChangeNotifier.notifyKeyboardChanged();
     }
 
     @Override

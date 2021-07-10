@@ -15,6 +15,8 @@ public class SightReadTrainerImp implements FlashcardNoteGetter, RangeChangeObse
     private final NoteCollectionList flashcardList;
     private final FlashcardChangeNotifier flashcardChangeNotifier;
 
+    private boolean satisfied = false;
+
     public SightReadTrainerImp(NoteRangeLimits noteRangeLimits, KeyboardEvaluator keyboardEvaluator, FlashcardChangeNotifier flashcardChangeNotifier){
         this.noteRangeLimits = noteRangeLimits;
         this.keyboardEvaluator = keyboardEvaluator;
@@ -31,16 +33,21 @@ public class SightReadTrainerImp implements FlashcardNoteGetter, RangeChangeObse
     @Override
     public void rangeChanged() {
         generateAllNewFlashcards();
-        flashcardChangeNotifier.notifyObservers();
+        flashcardChangeNotifier.notifyFlashcardSatisfied();
     }
 
     @Override
-    public void keyboardChanged() {
+    public void notifyKeyboardChanged() {
         for (NoteCollection currentTarget : flashcardList.getFirstItem()){
             if(keyboardEvaluator.contains(currentTarget)){
+                satisfied = true;
+                flashcardChangeNotifier.notifyFlashcardSatisfied();
+            }
+            if(!keyboardEvaluator.contains(currentTarget) && satisfied){
+                satisfied = false;
                 flashcardList.removeFirstItem();
                 addNewFlashcard();
-                flashcardChangeNotifier.notifyObservers();
+                flashcardChangeNotifier.notifyFlashcardChanged();
             }
         }
     }

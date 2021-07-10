@@ -13,7 +13,14 @@ public class FlashcardChangeNotifierImp implements FlashcardChangeNotifier {
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyFlashcardSatisfied() {
+        for (FlashcardChangeObserver observer : observers){
+            observer.flashcardSatisfied();
+        }
+    }
+
+    @Override
+    public void notifyFlashcardChanged() {
         for (FlashcardChangeObserver observer : observers){
             observer.flashcardChanged();
         }

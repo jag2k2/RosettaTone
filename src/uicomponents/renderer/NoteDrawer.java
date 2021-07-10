@@ -47,20 +47,20 @@ public class NoteDrawer {
     public void drawKeyboardNotes(NoteCollection noteCollection){
         int noteX = RenderConstants.getNoteXOffset(1);
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-        drawNoteCollection(noteCollection, noteX);
+        drawNoteCollection(noteCollection, noteX, false);
     }
 
-    public void drawFlashcardNotes(NoteCollectionList noteCollectionList, int xTraveled){
+    public void drawFlashcardNotes(NoteCollectionList noteCollectionList, int xTraveled, boolean drawName){
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         int i = 0;
         for (NoteCollection noteCollection: noteCollectionList){
             i++;
             int noteX = RenderConstants.getNoteXOffset(i) + RenderConstants.noteXSpacing - xTraveled;
-            drawNoteCollection(noteCollection, noteX);
+            drawNoteCollection(noteCollection, noteX, drawName);
         }
     }
 
-    protected void drawNoteCollection(NoteCollection noteCollection, int xPosition){
+    protected void drawNoteCollection(NoteCollection noteCollection, int xPosition, boolean drawName){
         for (Note note : noteCollection){
             drawNote(note, noteCollection, xPosition);
             drawAccidentals(note, xPosition);

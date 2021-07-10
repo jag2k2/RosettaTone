@@ -1,4 +1,4 @@
-package statemodels;
+package uicomponents.rangeselector.noteselector;
 
 import music.Note;
 

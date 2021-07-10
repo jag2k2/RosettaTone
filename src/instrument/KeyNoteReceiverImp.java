@@ -1,14 +1,12 @@
 package instrument;
 
-import statemodels.KeyboardState;
-
 import javax.sound.midi.*;
 
 public class KeyNoteReceiverImp implements Receiver {
-    private final KeyboardState keyboardState;
+    private final KeyStateManipulator keyStateManipulator;
 
-    public KeyNoteReceiverImp(KeyboardState keyboardState){
-        this.keyboardState = keyboardState;
+    public KeyNoteReceiverImp(KeyStateManipulator keyStateManipulator){
+        this.keyStateManipulator = keyStateManipulator;
     }
 
     @Override
@@ -19,16 +17,16 @@ public class KeyNoteReceiverImp implements Receiver {
                 Key key = new Key(sm.getData1());
                 int velocity = sm.getData2();
                 if (velocity > 0){
-                    keyboardState.keyPressed(key);
+                    keyStateManipulator.keyPressed(key);
                 }
                 else {
-                    keyboardState.keyReleased(key);
+                    keyStateManipulator.keyReleased(key);
                 }
             }
             else if (sm.getCommand() == ShortMessage.NOTE_OFF) {
                 Key key = new Key(sm.getData1());
                 int velocity = sm.getData2();
-                keyboardState.keyReleased(key);
+                keyStateManipulator.keyReleased(key);
             }
         }
     }

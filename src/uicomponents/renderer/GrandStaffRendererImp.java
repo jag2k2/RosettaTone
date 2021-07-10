@@ -3,23 +3,21 @@ package uicomponents.renderer;
 import notification.KeyboardChangeObserver;
 import notification.ClefModeChangeObserver;
 import notification.FlashcardChangeObserver;
-import statemodels.KeyboardState;
-import trainer.SightReadTrainer;
 import uicomponents.UIComponent;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class GrandStaffRendererImp extends JComponent implements UIComponent, ClefModeChangeObserver, KeyboardChangeObserver, FlashcardChangeObserver, Runnable {
-    private final KeyboardState keyboardState;
+    private final KeyboardStateNoteGetter keyboardStateNoteGetter;
     private final StaffDecorator staffDecorator;
-    private final SightReadTrainer sightReadTrainer;
+    private final FlashcardNoteGetter flashcardNoteGetter;
     private int xTraveled = RenderConstants.noteXSpacing;
 
-    public GrandStaffRendererImp(KeyboardState keyboardState, StaffDecorator staffDecorator, SightReadTrainer sightReadTrainer){
-        this.keyboardState = keyboardState;
+    public GrandStaffRendererImp(KeyboardStateNoteGetter keyboardStateNoteGetter, StaffDecorator staffDecorator, FlashcardNoteGetter flashcardNoteGetter){
+        this.keyboardStateNoteGetter = keyboardStateNoteGetter;
         this.staffDecorator = staffDecorator;
-        this.sightReadTrainer = sightReadTrainer;
+        this.flashcardNoteGetter = flashcardNoteGetter;
     }
 
     @Override
@@ -57,8 +55,8 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
         Graphics2D graphics2D = (Graphics2D)g;
         NoteDrawer noteDrawer = new NoteDrawer(graphics2D, staffDecorator);
         noteDrawer.drawEnabledStaffs();
-        noteDrawer.drawKeyboardNotes(keyboardState.getActiveNotes());
-        noteDrawer.drawFlashcardNotes(sightReadTrainer.getFlashcardNotes(), xTraveled);
+        noteDrawer.drawKeyboardNotes(keyboardStateNoteGetter.getActiveNotes());
+        noteDrawer.drawFlashcardNotes(flashcardNoteGetter.getFlashcardNotes(), xTraveled);
     }
 
     @Override

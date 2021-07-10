@@ -4,21 +4,20 @@ import music.*;
 import notification.KeyboardChangeObserver;
 import notification.FlashcardChangeNotifier;
 import notification.RangeChangeObserver;
-import statemodels.KeyboardState;
-import statemodels.NoteRangeLimits;
 import uicomponents.renderer.RenderConstants;
+import uicomponents.renderer.FlashcardNoteGetter;
 
-public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserver, KeyboardChangeObserver {
+public class SightReadTrainerImp implements FlashcardNoteGetter, RangeChangeObserver, KeyboardChangeObserver {
     static private final int targetCount = 8;
 
     private final NoteRangeLimits noteRangeLimits;
-    private final KeyboardState keyboardState;
+    private final KeyboardEvaluator keyboardEvaluator;
     private final NoteCollectionList flashcardList;
     private final FlashcardChangeNotifier flashcardChangeNotifier;
 
-    public SightReadTrainerImp(NoteRangeLimits noteRangeLimits, KeyboardState keyboardState, FlashcardChangeNotifier flashcardChangeNotifier){
+    public SightReadTrainerImp(NoteRangeLimits noteRangeLimits, KeyboardEvaluator keyboardEvaluator, FlashcardChangeNotifier flashcardChangeNotifier){
         this.noteRangeLimits = noteRangeLimits;
-        this.keyboardState = keyboardState;
+        this.keyboardEvaluator = keyboardEvaluator;
         this.flashcardList = new NoteCollectionListImp();
         this.flashcardChangeNotifier = flashcardChangeNotifier;
         generateAllNewFlashcards();
@@ -37,9 +36,8 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
 
     @Override
     public void keyboardChanged() {
-        NoteCollection activeNotes = keyboardState.getActiveNotes();
         for (NoteCollection currentTarget : flashcardList.getFirstItem()){
-            if(activeNotes.contains(currentTarget)){
+            if(keyboardEvaluator.contains(currentTarget)){
                 flashcardList.removeFirstItem();
                 addNewFlashcard();
                 flashcardChangeNotifier.notifyObservers();

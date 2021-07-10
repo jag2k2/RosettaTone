@@ -1,19 +1,19 @@
 package statemodels;
 
 import instrument.Key;
+import instrument.KeyStateManipulator;
 import music.*;
 import notification.KeyboardChangeNotifier;
-import notification.KeyboardChangeObserver;
-
-import java.util.ArrayList;
+import trainer.KeyboardEvaluator;
+import uicomponents.renderer.KeyboardStateNoteGetter;
 import java.util.HashSet;
 import java.util.Set;
 
-public class KeyboardStateImp implements KeyboardState {
+public class KeyStateManipulatorImp implements KeyStateManipulator, KeyboardEvaluator, KeyboardStateNoteGetter {
     private final Set<Key> keys;
     private final KeyboardChangeNotifier keyboardChangeNotifier;
 
-    public KeyboardStateImp(KeyboardChangeNotifier keyboardChangeNotifier){
+    public KeyStateManipulatorImp(KeyboardChangeNotifier keyboardChangeNotifier){
         this.keyboardChangeNotifier = keyboardChangeNotifier;
         this.keys = new HashSet<>();
     }
@@ -28,6 +28,11 @@ public class KeyboardStateImp implements KeyboardState {
     public void keyReleased(Key key) {
         keys.remove(key);
         keyboardChangeNotifier.notifyObservers();
+    }
+
+    @Override
+    public boolean contains(NoteCollection noteCollection) {
+        return getActiveNotes().contains(noteCollection);
     }
 
     @Override
@@ -62,5 +67,14 @@ public class KeyboardStateImp implements KeyboardState {
     protected boolean naturalExistsAlso(Key key){
         Key previousKey = key.getPrevious();
         return keys.contains(previousKey);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof KeyStateManipulatorImp){
+            KeyStateManipulatorImp compare = (KeyStateManipulatorImp) obj;
+            return keys.equals(compare.keys);
+        }
+        return false;
     }
 }

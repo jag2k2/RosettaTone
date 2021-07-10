@@ -1,7 +1,7 @@
-package trainer;
+package uicomponents.renderer;
 
 import music.NoteCollectionList;
 
-public interface SightReadTrainer {
+public interface FlashcardNoteGetter {
     NoteCollectionList getFlashcardNotes();
 }

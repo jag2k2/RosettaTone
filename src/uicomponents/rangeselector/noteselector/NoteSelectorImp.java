@@ -1,8 +1,10 @@
-package uicomponents.rangeselector;
+package uicomponents.rangeselector.noteselector;
 
 import music.Note;
 import music.NoteAccidental;
-import statemodels.NoteLimitModel;
+import uicomponents.rangeselector.NoteListRenderer;
+import uicomponents.rangeselector.NoteSelector;
+
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import java.awt.*;

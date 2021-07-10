@@ -3,6 +3,7 @@ package statemodels;
 import music.Staff;
 import notification.ClefModeChangeNotifier;
 import uicomponents.clefmode.ClefMode;
+import uicomponents.clefmode.ClefModeState;
 import uicomponents.renderer.StaffDecorator;
 import uicomponents.renderer.RenderConstants;
 import java.util.HashSet;

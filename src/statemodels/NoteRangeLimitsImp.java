@@ -1,8 +1,10 @@
 package statemodels;
 
 import music.Note;
+import trainer.NoteRangeLimits;
+import uicomponents.rangeselector.noteselector.NoteLimitModel;
 
-public class NoteRangeLimitsImp implements NoteRangeLimits{
+public class NoteRangeLimitsImp implements NoteRangeLimits {
     private final NoteLimitModel lowerLimitModel;
     private final NoteLimitModel upperLimitModel;
 

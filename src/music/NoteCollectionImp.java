@@ -52,12 +52,12 @@ public class NoteCollectionImp implements NoteCollection {
         return notes.toString();
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object obj) {
         if (obj instanceof NoteCollectionImp){
             NoteCollectionImp toCompare = (NoteCollectionImp) obj;
             return notes.equals(toCompare.notes);
         }
         return false;
-    }
+    }*/
 }

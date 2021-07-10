@@ -1,6 +1,5 @@
 package uicomponents.clefmode;
 
-import statemodels.ClefModeState;
 import uicomponents.UIComponent;
 import javax.swing.*;
 import javax.swing.border.Border;

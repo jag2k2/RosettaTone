@@ -1,6 +1,4 @@
-package statemodels;
-
-import uicomponents.clefmode.ClefMode;
+package uicomponents.clefmode;
 
 public interface ClefModeState {
     ClefMode getState();

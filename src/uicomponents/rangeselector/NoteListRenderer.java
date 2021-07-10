@@ -1,7 +1,7 @@
 package uicomponents.rangeselector;
 
 import music.Note;
-import statemodels.NoteLimitModel;
+import uicomponents.rangeselector.noteselector.NoteLimitModel;
 
 import javax.swing.*;
 import java.awt.*;

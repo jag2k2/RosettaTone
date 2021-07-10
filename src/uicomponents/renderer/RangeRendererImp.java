@@ -2,7 +2,7 @@ package uicomponents.renderer;
 
 import music.Note;
 import notification.RangeChangeObserver;
-import statemodels.NoteRangeLimits;
+import trainer.NoteRangeLimits;
 import uicomponents.UIComponent;
 
 import javax.swing.*;

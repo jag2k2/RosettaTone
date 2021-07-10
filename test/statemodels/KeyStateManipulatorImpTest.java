@@ -13,8 +13,8 @@ import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class KeyboardStateImpTest {
-    KeyboardState keyboardState = new KeyboardStateImp(new KeyboardChangeNotifierImp());
+class KeyStateManipulatorImpTest {
+    KeyStateManipulatorImp keyboardState = new KeyStateManipulatorImp(new KeyboardChangeNotifierImp());
     Key keyB3 = new Key (59);
     Key keyC4 = new Key(60);
     Key keyCSharp4 = new Key(61);
@@ -42,6 +42,18 @@ class KeyboardStateImpTest {
         noteDSharp7 = new Note(NoteName.D, 7, NoteAccidental.SHARP);
 
         expected = new NoteCollectionImp();
+    }
+
+    @Test
+    void checkEquals(){
+        KeyStateManipulatorImp compare = new KeyStateManipulatorImp(new KeyboardChangeNotifierImp());
+
+        keyboardState.keyPressed(keyC4);
+        compare.keyPressed(keyC4);
+        assertEquals(keyboardState, compare);
+
+        keyboardState.keyReleased(keyC4);
+        assertNotEquals(keyboardState, compare);
     }
 
     @Test
@@ -79,4 +91,6 @@ class KeyboardStateImpTest {
 
         assertEquals(expected, keyboardState.getActiveNotes());
     }
+
+
 }

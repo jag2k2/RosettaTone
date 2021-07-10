@@ -1,12 +1,23 @@
 package uicomponents.renderer;
 
+import imageprocessing.StaffImage;
 import music.Note;
 import music.NoteName;
 import music.Staff;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 
 public class RenderConstants {
+    private static final String notePath = "/images/Whole-Note.png";
+    private static final String naturalPath = "/images/Natural.png";
+    private static final String sharpPath = "/images/Sharp.png";
+    private static final String flatPath = "/images/Flat.png";
+
+    private static final double noteResizeFactor = 0.22;
+    private static final double accidentalResizeFactor = 0.22;
+
     private static final String trebleClefPath = "/images/Treble-clef.png";
     private static final String bassClefPath = "/images/Bass-clef.png";
     public static final Staff trebleStaff = new Staff(trebleClefPath, 0.5, 15, 3, 18, 26);
@@ -58,5 +69,29 @@ public class RenderConstants {
         int octave = notePosition / 7;
         int octavePosition = notePosition % 7;
         return new Note(NoteName.values()[octavePosition], octave);
+    }
+
+    static public BufferedImage getNoteImage(){
+        StaffImage staffImage = new StaffImage(notePath);
+        staffImage.resize(noteResizeFactor);
+        return staffImage.getBufferedImage();
+    }
+
+    static public BufferedImage getSharpImage(){
+        StaffImage staffImage = new StaffImage(sharpPath);
+        staffImage.resize(accidentalResizeFactor);
+        return staffImage.getBufferedImage();
+    }
+
+    static public BufferedImage getNaturalImage(){
+        StaffImage staffImage = new StaffImage(naturalPath);
+        staffImage.resize(accidentalResizeFactor);
+        return staffImage.getBufferedImage();
+    }
+
+    static public BufferedImage getFlatImage(){
+        StaffImage staffImage = new StaffImage(flatPath);
+        staffImage.resize(accidentalResizeFactor);
+        return staffImage.getBufferedImage();
     }
 }

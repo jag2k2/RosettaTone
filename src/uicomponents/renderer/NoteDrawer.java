@@ -2,15 +2,11 @@ package uicomponents.renderer;
 
 import imageprocessing.StaffImage;
 import music.*;
-import statemodels.ClefModeState;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 
 public class NoteDrawer {
-
     private static final String notePath = "/images/Whole-Note.png";
     private static final String naturalPath = "/images/Natural.png";
     private static final String sharpPath = "/images/Sharp.png";
@@ -22,56 +18,42 @@ public class NoteDrawer {
     private final StaffImage flatImage = new StaffImage(flatPath);
 
     private final Graphics2D graphics2D;
-    private final ClefModeState clefModeState;
+    private final StaffDecorator staffDecorator;
 
-    public NoteDrawer(Graphics2D graphics2D, ClefModeState clefModeState){
+    public NoteDrawer(Graphics2D graphics2D, StaffDecorator staffDecorator){
         this.graphics2D = graphics2D;
-        this.clefModeState = clefModeState;
+        this.staffDecorator = staffDecorator;
         noteImage.resize(0.22);
         naturalImage.resize(0.4);
         sharpImage.resize(0.4);
         flatImage.resize(0.4);
+
+        graphics2D.setColor(Color.BLACK);
+        int lineThickness = 2;
+        graphics2D.setStroke(new BasicStroke(lineThickness));
     }
 
     public void drawEnabledStaffs(){
-        configLineDraw();
-        for (Staff staff : enabledStaffs()){
-            drawStaff(staff);
+        for (Staff staff : staffDecorator.getEnabledStaffs()){
+            drawClef(staff);
+            drawStaffLines(staff);
         }
     }
 
-    public java.util.List<Staff> enabledStaffs(){
-        List<Staff> enabledStaffs = new ArrayList<>();
-
-        if (clefModeState.trebleEnabled()){
-            enabledStaffs.add(RenderConstants.trebleStaff);
-        }
-        if (clefModeState.bassEnabled()){
-            enabledStaffs.add(RenderConstants.bassStaff);
-        }
-        return enabledStaffs;
-    }
-
-    public void drawStaff(Staff staff){
+    protected void drawClef(Staff staff){
         int clefImageXPos = RenderConstants.getClefXOffset();
         int clefImageYPos = staff.getClefYOffset();
         StaffImage staffImage = staff.createStaffImage();
         graphics2D.drawImage(staffImage.getBufferedImage(), null, clefImageXPos, clefImageYPos);
-        int totalNumberOfLines = RenderConstants.numberOfLines;
-        for (int i = 0; i < totalNumberOfLines; i++){
-            if ((staff.getTopVisibleLine() <= i) && (i <= staff.getBottomVisibleLine()) && ((i % 2) == 0)){
-                int lineYPos =  RenderConstants.getLineYOffset(i);
-                int lineXPosStart = RenderConstants.getLineXStart();
-                int lineXPosEnd = RenderConstants.getLineXEnd();
-                graphics2D.drawLine(lineXPosStart, lineYPos, lineXPosEnd, lineYPos);
-            }
-        }
     }
 
-    protected void configLineDraw(){
-        graphics2D.setColor(Color.BLACK);
-        int lineThickness = 2;
-        graphics2D.setStroke(new BasicStroke(lineThickness));
+    protected void drawStaffLines(Staff staff){
+        int lineXPosStart = RenderConstants.getLineXStart();
+        int lineXPosEnd = RenderConstants.getLineXEnd();
+        for (int visibleLine : staff.getVisibleLines()) {
+            int lineYPos = RenderConstants.getLineYOffset(visibleLine);
+            graphics2D.drawLine(lineXPosStart, lineYPos, lineXPosEnd, lineYPos);
+        }
     }
 
     public void drawKeyboardNotes(NoteCollection noteCollection){
@@ -94,7 +76,7 @@ public class NoteDrawer {
         for (Note note : noteCollection){
             drawNote(note, noteCollection, xPosition);
             drawAccidentals(note, xPosition);
-            drawHelperLines(note, clefModeState, xPosition);
+            drawHelperLines(note, xPosition);
         }
     }
 
@@ -125,38 +107,10 @@ public class NoteDrawer {
         }
     }
 
-    protected void drawHelperLines(Note note, ClefModeState clefModeState, int xPos){
+    protected void drawHelperLines(Note note, int xPos) {
         int lineNumber = RenderConstants.getLineNumber(note);
-        Staff trebleStaff = RenderConstants.trebleStaff;
-        Staff bassStaff = RenderConstants.bassStaff;
-        int topVisibleLine = trebleStaff.getTopVisibleLine();
-        int bottomVisibleLine = bassStaff.getBottomVisibleLine();
-
-        if (!clefModeState.trebleEnabled()) {
-            topVisibleLine = bassStaff.getTopVisibleLine();
-        }
-
-        if (!clefModeState.bassEnabled()) {
-            bottomVisibleLine = trebleStaff.getBottomVisibleLine();
-        }
-
-        for (int i = lineNumber; i < topVisibleLine; i++){
-            drawHelperLine(i, xPos);
-        }
-        for (int i = lineNumber; i > bottomVisibleLine; i--){
-            drawHelperLine(i, xPos);
-        }
-
-        if (clefModeState.trebleEnabled() && clefModeState.bassEnabled()){
-            if(lineNumber > trebleStaff.getBottomVisibleLine() && lineNumber < bassStaff.getTopVisibleLine()){
-                drawHelperLine(lineNumber, xPos);
-            }
-        }
-    }
-
-    protected void drawHelperLine(int lineNumber, int xPos){
-        int helperLineYPos = RenderConstants.getLineYOffset(lineNumber);
-        if ((lineNumber % 2) == 0) {
+        for (int helperLineNumber : staffDecorator.getHelperLines(lineNumber)) {
+            int helperLineYPos = RenderConstants.getLineYOffset(helperLineNumber);
             int lineXPosStart = xPos - 2;
             int lineXPosEnd = lineXPosStart + noteImage.getBufferedImage().getWidth() + 2;
             graphics2D.drawLine(lineXPosStart, helperLineYPos, lineXPosEnd, helperLineYPos);

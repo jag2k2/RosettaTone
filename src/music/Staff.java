@@ -3,6 +3,9 @@ package music;
 import imageprocessing.StaffImage;
 import uicomponents.renderer.RenderConstants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Staff {
 
     private final String imagePath;
@@ -32,11 +35,34 @@ public class Staff {
         return (RenderConstants.lineSpacing * clefLineOffset) + clefFineTuneYOffset;
     }
 
-    public int getTopVisibleLine(){
-        return topVisibleLine;
+    public boolean isLineVisible(int lineNumber){
+        return (topVisibleLine <= lineNumber) && (lineNumber <= bottomVisibleLine);
     }
 
-    public int getBottomVisibleLine(){
-        return bottomVisibleLine;
+    public boolean isLineAboveVisible(int lineNumber){
+        return lineNumber < topVisibleLine;
+    }
+
+    public boolean isLineBelowVisible(int lineNumber){
+        return lineNumber > bottomVisibleLine;
+    }
+
+    public int getClosestVisibleLine(int lineNumber){
+        int distanceFromTop = Math.abs(lineNumber - topVisibleLine);
+        int distanceFromBottom = Math.abs(lineNumber - bottomVisibleLine);
+        if (distanceFromTop < distanceFromBottom)
+            return topVisibleLine;
+        else
+            return bottomVisibleLine;
+    }
+
+    public List<Integer> getVisibleLines(){
+        List<Integer> visibleLines = new ArrayList<>();
+        for (int i = topVisibleLine; i <= bottomVisibleLine; i++){
+            if ((i % 2) == 0){
+                visibleLines.add(i);
+            }
+        }
+        return visibleLines;
     }
 }

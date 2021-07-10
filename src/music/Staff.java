@@ -1,8 +1,7 @@
 package music;
 
 import imageprocessing.StaffImage;
-import uicomponents.renderer.CanvasRender;
-import java.awt.image.BufferedImage;
+import uicomponents.renderer.RenderConstants;
 
 public class Staff {
 
@@ -30,7 +29,7 @@ public class Staff {
     }
 
     public int getClefYOffset(){
-        return (CanvasRender.getLineSpacing() * clefLineOffset) + clefFineTuneYOffset;
+        return (RenderConstants.lineSpacing * clefLineOffset) + clefFineTuneYOffset;
     }
 
     public int getTopVisibleLine(){

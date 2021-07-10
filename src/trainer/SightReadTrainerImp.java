@@ -6,7 +6,7 @@ import notification.FlashcardChangeNotifier;
 import notification.RangeChangeObserver;
 import statemodels.KeyboardState;
 import statemodels.NoteRangeLimits;
-import uicomponents.renderer.CanvasRender;
+import uicomponents.renderer.RenderConstants;
 
 public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserver, KeyboardChangeObserver {
     static private final int targetCount = 8;
@@ -60,7 +60,7 @@ public class SightReadTrainerImp implements SightReadTrainer, RangeChangeObserve
         Note lowerNote = noteRangeLimits.getLowerLimitNote();
         Note upperNote = noteRangeLimits.getUpperLimitNote();
 
-        Note randomNote = CanvasRender.getRandomNote(lowerNote, upperNote);
+        Note randomNote = RenderConstants.getRandomNote(lowerNote, upperNote);
         NoteCollection noteTarget = new NoteCollectionImp();
         noteTarget.add(randomNote);
         flashcardList.add(noteTarget);

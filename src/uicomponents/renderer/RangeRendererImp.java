@@ -30,7 +30,7 @@ public class RangeRendererImp extends Component implements UIComponent, RangeCha
 
     @Override
     public Dimension getPreferredSize() {
-        return CanvasRender.getRangeIndicatorSize();
+        return RenderConstants.rangeIndicatorSize;
     }
 
     @Override

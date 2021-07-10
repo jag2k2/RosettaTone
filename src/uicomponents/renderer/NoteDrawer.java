@@ -3,7 +3,6 @@ package uicomponents.renderer;
 import imageprocessing.StaffImage;
 import music.*;
 import uicomponents.clefmode.ClefModeSelector;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -44,25 +43,25 @@ public class NoteDrawer {
         List<Staff> enabledStaffs = new ArrayList<>();
 
         if (clefModeSelector.trebleEnabled()){
-            enabledStaffs.add(CanvasRender.trebleStaff);
+            enabledStaffs.add(RenderConstants.trebleStaff);
         }
         if (clefModeSelector.bassEnabled()){
-            enabledStaffs.add(CanvasRender.bassStaff);
+            enabledStaffs.add(RenderConstants.bassStaff);
         }
         return enabledStaffs;
     }
 
     public void drawStaff(Staff staff){
-        int clefImageXPos = CanvasRender.getClefXOffset();
+        int clefImageXPos = RenderConstants.getClefXOffset();
         int clefImageYPos = staff.getClefYOffset();
         StaffImage staffImage = staff.createStaffImage();
         graphics2D.drawImage(staffImage.getBufferedImage(), null, clefImageXPos, clefImageYPos);
-        int totalNumberOfLines = CanvasRender.getNumberOfLines();
+        int totalNumberOfLines = RenderConstants.numberOfLines;
         for (int i = 0; i < totalNumberOfLines; i++){
             if ((staff.getTopVisibleLine() <= i) && (i <= staff.getBottomVisibleLine()) && ((i % 2) == 0)){
-                int lineYPos =  CanvasRender.getLineYOffset(i);
-                int lineXPosStart = CanvasRender.getLineXStart();
-                int lineXPosEnd = CanvasRender.getLineXEnd();
+                int lineYPos =  RenderConstants.getLineYOffset(i);
+                int lineXPosStart = RenderConstants.getLineXStart();
+                int lineXPosEnd = RenderConstants.getLineXEnd();
                 graphics2D.drawLine(lineXPosStart, lineYPos, lineXPosEnd, lineYPos);
             }
         }
@@ -75,7 +74,7 @@ public class NoteDrawer {
     }
 
     public void drawKeyboardNotes(NoteCollection noteCollection){
-        int noteX = CanvasRender.getNoteXOffset(1);
+        int noteX = RenderConstants.getNoteXOffset(1);
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
         drawNoteCollection(noteCollection, noteX);
     }
@@ -85,7 +84,7 @@ public class NoteDrawer {
         int i = 0;
         for (NoteCollection noteCollection: noteCollectionList){
             i++;
-            int noteX = CanvasRender.getNoteXOffset(i) + CanvasRender.getNoteXSpacing() - xTraveled;
+            int noteX = RenderConstants.getNoteXOffset(i) + RenderConstants.noteXSpacing - xTraveled;
             drawNoteCollection(noteCollection, noteX);
         }
     }
@@ -99,9 +98,9 @@ public class NoteDrawer {
     }
 
     protected void drawNote(Note note, NoteCollection noteCollection, int xPos){
-        int lineNumber = CanvasRender.getLineNumber(note);
+        int lineNumber = RenderConstants.getLineNumber(note);
         int noteHeight = noteImage.getBufferedImage().getHeight();
-        int noteY = CanvasRender.getLineYOffset(lineNumber) - (noteHeight / 2);
+        int noteY = RenderConstants.getLineYOffset(lineNumber) - (noteHeight / 2);
 
         int noteWidth = noteImage.getBufferedImage().getWidth();
         if (noteCollection.isSqueezed(note)) {
@@ -112,9 +111,9 @@ public class NoteDrawer {
 
 
     protected void drawAccidentals(Note note, int xPos) {
-        int lineNumber = CanvasRender.getLineNumber(note);
+        int lineNumber = RenderConstants.getLineNumber(note);
         int noteHeight = noteImage.getBufferedImage().getHeight();
-        int noteY = CanvasRender.getLineYOffset(lineNumber) - (noteHeight / 2);
+        int noteY = RenderConstants.getLineYOffset(lineNumber) - (noteHeight / 2);
         for (NoteAccidental accidental : note.getActiveAccidentals()) {
             if (accidental == NoteAccidental.SHARP) {
                 BufferedImage sharpBufferedImage = sharpImage.getBufferedImage();
@@ -126,9 +125,9 @@ public class NoteDrawer {
     }
 
     protected void drawHelperLines(Note note, ClefModeSelector clefModeSelector, int xPos){
-        int lineNumber = CanvasRender.getLineNumber(note);
-        Staff trebleStaff = CanvasRender.trebleStaff;
-        Staff bassStaff = CanvasRender.bassStaff;
+        int lineNumber = RenderConstants.getLineNumber(note);
+        Staff trebleStaff = RenderConstants.trebleStaff;
+        Staff bassStaff = RenderConstants.bassStaff;
         int topVisibleLine = trebleStaff.getTopVisibleLine();
         int bottomVisibleLine = bassStaff.getBottomVisibleLine();
 
@@ -155,7 +154,7 @@ public class NoteDrawer {
     }
 
     protected void drawHelperLine(int lineNumber, int xPos){
-        int helperLineYPos = CanvasRender.getLineYOffset(lineNumber);
+        int helperLineYPos = RenderConstants.getLineYOffset(lineNumber);
         if ((lineNumber % 2) == 0) {
             int lineXPosStart = xPos - 2;
             int lineXPosEnd = lineXPosStart + noteImage.getBufferedImage().getWidth() + 2;

@@ -1,9 +1,7 @@
 package uicomponents.renderer;
 
-import instrument.Key;
 import music.Note;
 import music.NoteName;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CanvasRenderTest {
+class RenderConstantsTest {
     private Note noteC4 = new Note(NoteName.C, 4);
     private Note noteD4 = new Note(NoteName.D, 4);
     private Note noteE4 = new Note(NoteName.E, 4);
@@ -26,19 +24,19 @@ class CanvasRenderTest {
 
     @Test
     void getLineNumber() {
-        assertEquals(28, CanvasRender.getLineNumber(noteC4));
+        assertEquals(28, RenderConstants.getLineNumber(noteC4));
     }
 
     @Test
     void getNoteFromLineNumber(){
-        actualNote = CanvasRender.getNote(28);
+        actualNote = RenderConstants.getNote(28);
         assertEquals(noteC4, actualNote);
 
-        actualNote = CanvasRender.getNote(40);
+        actualNote = RenderConstants.getNote(40);
         expectedNote = new Note(NoteName.E, 2);
         assertEquals(expectedNote, actualNote);
 
-        actualNote = CanvasRender.getNote(8);
+        actualNote = RenderConstants.getNote(8);
         expectedNote = new Note(NoteName.B, 6);
         assertEquals(expectedNote, actualNote);
     }
@@ -61,7 +59,7 @@ class CanvasRenderTest {
         Note lowerNote = noteC4;
         Note upperNote = noteB4;
         for (int i = 0; i < iterations; i++){
-            Note randomNote = CanvasRender.getRandomNote(lowerNote, upperNote);
+            Note randomNote = RenderConstants.getRandomNote(lowerNote, upperNote);
             if (octave4.contains(randomNote)){
                 int noteIndex = octave4.indexOf(randomNote);
                 int count = histogram.getOrDefault(octave4.get(noteIndex), 0);

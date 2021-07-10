@@ -15,7 +15,7 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Mo
     private final KeyboardState keyboardState;
     private final ClefModeSelector clefModeSelector;
     private final SightReadTrainer sightReadTrainer;
-    private int xTraveled = CanvasRender.getNoteXSpacing();
+    private int xTraveled = RenderConstants.noteXSpacing;
 
     public GrandStaffRendererImp(KeyboardState keyboardState, ClefModeSelector clefModeSelector, SightReadTrainer sightReadTrainer){
         this.keyboardState = keyboardState;
@@ -49,7 +49,7 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Mo
 
     @Override
     public Dimension getPreferredSize() {
-        return CanvasRender.getCanvasSize();
+        return RenderConstants.canvasSize;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Mo
         long beforeTime, timeDiff, sleepTime;
         beforeTime = System.currentTimeMillis();
 
-        while (xTraveled < CanvasRender.getNoteXSpacing()){
+        while (xTraveled < RenderConstants.noteXSpacing){
 
             xTraveled += deltaX;
             repaint();

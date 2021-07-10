@@ -10,22 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NoteDrawer {
-    private static final String trebleClefPath = "/images/Treble-clef.png";
-    private static final String bassClefPath = "/images/Bass-clef.png";
+
     private static final String notePath = "/images/Whole-Note.png";
     private static final String naturalPath = "/images/Natural.png";
     private static final String sharpPath = "/images/Sharp.png";
     private static final String flatPath = "/images/Flat.png";
 
-    private final StaffImage trebleImage = new StaffImage(trebleClefPath);
-    private final StaffImage bassImage = new StaffImage(bassClefPath);
     private final StaffImage noteImage = new StaffImage(notePath);
     private final StaffImage naturalImage = new StaffImage(naturalPath);
     private final StaffImage sharpImage = new StaffImage(sharpPath);
     private final StaffImage flatImage = new StaffImage(flatPath);
-
-    private final Staff trebleStaff = new Staff(trebleImage, 15, 3, 18, 26);
-    private final Staff bassStaff = new Staff(bassImage, 30, 0, 30, 38);
 
     private final Graphics2D graphics2D;
     private final ClefModeSelector clefModeSelector;
@@ -33,8 +27,6 @@ public class NoteDrawer {
     public NoteDrawer(Graphics2D graphics2D, ClefModeSelector clefModeSelector){
         this.graphics2D = graphics2D;
         this.clefModeSelector = clefModeSelector;
-        trebleImage.resize(0.5);
-        bassImage.resize(0.4);
         noteImage.resize(0.22);
         naturalImage.resize(0.4);
         sharpImage.resize(0.4);
@@ -52,10 +44,10 @@ public class NoteDrawer {
         List<Staff> enabledStaffs = new ArrayList<>();
 
         if (clefModeSelector.trebleEnabled()){
-            enabledStaffs.add(trebleStaff);
+            enabledStaffs.add(CanvasRender.trebleStaff);
         }
         if (clefModeSelector.bassEnabled()){
-            enabledStaffs.add(bassStaff);
+            enabledStaffs.add(CanvasRender.bassStaff);
         }
         return enabledStaffs;
     }
@@ -63,7 +55,8 @@ public class NoteDrawer {
     public void drawStaff(Staff staff){
         int clefImageXPos = CanvasRender.getClefXOffset();
         int clefImageYPos = staff.getClefYOffset();
-        graphics2D.drawImage(staff.getStaffImage(), null, clefImageXPos, clefImageYPos);
+        StaffImage staffImage = staff.createStaffImage();
+        graphics2D.drawImage(staffImage.getBufferedImage(), null, clefImageXPos, clefImageYPos);
         int totalNumberOfLines = CanvasRender.getNumberOfLines();
         for (int i = 0; i < totalNumberOfLines; i++){
             if ((staff.getTopVisibleLine() <= i) && (i <= staff.getBottomVisibleLine()) && ((i % 2) == 0)){
@@ -134,6 +127,8 @@ public class NoteDrawer {
 
     protected void drawHelperLines(Note note, ClefModeSelector clefModeSelector, int xPos){
         int lineNumber = CanvasRender.getLineNumber(note);
+        Staff trebleStaff = CanvasRender.trebleStaff;
+        Staff bassStaff = CanvasRender.bassStaff;
         int topVisibleLine = trebleStaff.getTopVisibleLine();
         int bottomVisibleLine = bassStaff.getBottomVisibleLine();
 

@@ -6,23 +6,27 @@ import java.awt.image.BufferedImage;
 
 public class Staff {
 
-    private final StaffImage staffImage;
+    private final String imagePath;
+    private final double resizeFactor;
     private final int clefLineOffset;
     private final int clefFineTuneYOffset;
     private final int topVisibleLine;
     private final int bottomVisibleLine;
 
-    public Staff(StaffImage staffImage, int clefLineOffset,
+    public Staff(String imagePath, double resizeFactor, int clefLineOffset,
                  int clefFineTuneYOffset, int topVisibleLine, int bottomVisibleLine){
-        this.staffImage = staffImage;
+        this.imagePath = imagePath;
+        this.resizeFactor = resizeFactor;
         this.clefLineOffset = clefLineOffset;
         this.clefFineTuneYOffset = clefFineTuneYOffset;
         this.topVisibleLine = topVisibleLine;
         this.bottomVisibleLine = bottomVisibleLine;
     }
 
-    public BufferedImage getStaffImage(){
-        return staffImage.getBufferedImage();
+    public StaffImage createStaffImage(){
+        StaffImage staffImage = new StaffImage(imagePath);
+        staffImage.resize(resizeFactor);
+        return staffImage;
     }
 
     public int getClefYOffset(){

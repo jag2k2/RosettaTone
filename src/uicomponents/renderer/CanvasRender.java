@@ -2,10 +2,16 @@ package uicomponents.renderer;
 
 import music.Note;
 import music.NoteName;
+import music.Staff;
 
 import java.awt.*;
 
 public class CanvasRender {
+    private static final String trebleClefPath = "/images/Treble-clef.png";
+    private static final String bassClefPath = "/images/Bass-clef.png";
+    public static final Staff trebleStaff = new Staff(trebleClefPath, 0.5, 15, 3, 18, 26);
+    public static Staff bassStaff = new Staff(bassClefPath, 0.4, 30, 0, 30, 38);
+
     private static final int canvasWidth = 1200;
     private static final int rangeIndicatorWidth = 100;
     private static final int canvasHeight = 750;

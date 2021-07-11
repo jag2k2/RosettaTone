@@ -1,5 +1,6 @@
 package uicomponents.renderer;
 
+import notification.FlashcardSatisfiedObserver;
 import notification.KeyboardChangeObserver;
 import notification.ClefModeChangeObserver;
 import notification.FlashcardChangeObserver;
@@ -8,7 +9,8 @@ import uicomponents.UIComponent;
 import javax.swing.*;
 import java.awt.*;
 
-public class GrandStaffRendererImp extends JComponent implements UIComponent, ClefModeChangeObserver, KeyboardChangeObserver, FlashcardChangeObserver, Runnable {
+public class GrandStaffRendererImp extends JComponent implements UIComponent, ClefModeChangeObserver,
+        KeyboardChangeObserver, FlashcardSatisfiedObserver, FlashcardChangeObserver, Runnable {
     private final KeyboardStateNoteGetter keyboardStateNoteGetter;
     private final StaffDecorator staffDecorator;
     private final FlashcardNoteGetter flashcardNoteGetter;

@@ -6,10 +6,7 @@ import java.awt.*;
 import imageprocessing.ImageLoaderImp;
 import instrument.*;
 import music.*;
-import notification.FlashcardChangeNotifierImp;
-import notification.KeyboardChangeNotifierImp;
-import notification.ClefModeChangeNotifierImp;
-import notification.RangeChangeNotifierImp;
+import notification.*;
 import statemodels.ClefModeModifierImp;
 import statemodels.KeyStateManipulatorImp;
 import uicomponents.rangeselector.NoteRangeLimitsImp;
@@ -35,6 +32,7 @@ public class MainGUI {
         KeyboardChangeNotifierImp keyboardChangeNotifierImp = new KeyboardChangeNotifierImp();
         ClefModeChangeNotifierImp modeChangeNotifierImp = new ClefModeChangeNotifierImp();
         RangeChangeNotifierImp rangeChangeNotifierImp = new RangeChangeNotifierImp();
+        FlashcardSatisfiedNotifierImp flashcardSatisfiedNotifierImp = new FlashcardSatisfiedNotifierImp();
         FlashcardChangeNotifierImp flashcardChangeNotifierImp = new FlashcardChangeNotifierImp();
 
         //State Models
@@ -50,7 +48,7 @@ public class MainGUI {
         KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(keyboardStateImp);
 
         //Trainer
-        SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(noteRangeLimitsImp, keyboardStateImp, flashcardChangeNotifierImp);
+        SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(noteRangeLimitsImp, keyboardStateImp, flashcardSatisfiedNotifierImp, flashcardChangeNotifierImp);
 
         //Selectors
         InstrumentBrowserImp instrumentBrowserImp = new InstrumentBrowserImp(keyNoteReceiverImp);
@@ -75,6 +73,7 @@ public class MainGUI {
         rangeChangeNotifierImp.addObserver(rangeRendererImp);
         rangeChangeNotifierImp.addObserver(sightReadTrainerImp);
 
+        flashcardSatisfiedNotifierImp.addObserver(grandStaffRendererImp);
         flashcardChangeNotifierImp.addObserver(grandStaffRendererImp);
 
         //Build Panels

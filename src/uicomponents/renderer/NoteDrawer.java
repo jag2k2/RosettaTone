@@ -85,7 +85,9 @@ public class NoteDrawer {
         if(drawName){
             NoteName noteName = note.getNoteName();
             graphics2D.setFont(new Font("Dialog", Font.BOLD, RenderConstants.nameFontSize));
-            int nameY = RenderConstants.getLineYOffset(lineNumber) + noteHeight / 2 - 2;
+            int nameY = RenderConstants.getLineYOffset(lineNumber) - 2;
+            if ((RenderConstants.getLineNumber(note) % 2) == 1)
+                nameY += noteHeight / 2;
             graphics2D.drawString(noteName.toString(), xPos + noteWidth, nameY);
         }
     }

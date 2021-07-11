@@ -64,7 +64,6 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
         noteDrawer.drawEnabledStaffs();
         noteDrawer.drawKeyboardNotes(keyboardStateNoteGetter.getActiveNotes());
         noteDrawer.drawFlashcardNotes(flashcardNoteGetter.getFlashcardNotes(), xTraveled, drawName);
-        System.out.println(drawName);
     }
 
     @Override

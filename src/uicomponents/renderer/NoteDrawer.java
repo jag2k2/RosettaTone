@@ -4,7 +4,6 @@ import imageprocessing.StaffImage;
 import music.*;
 import utility.NoteCollection;
 import trainer.NoteCollectionList;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -50,10 +49,11 @@ public class NoteDrawer {
         drawNoteCollection(noteCollection, noteX, false);
     }
 
-    public void drawFlashcardNotes(NoteCollectionList noteCollectionList, int xTraveled, boolean drawName){
+    public void drawFlashcardNotes(NoteCollectionList noteCollectionList, int xTraveled, boolean drawLeadingName){
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         int i = 0;
         for (NoteCollection noteCollection: noteCollectionList){
+            boolean drawName = (i == 0) & drawLeadingName;
             i++;
             int noteX = RenderConstants.getNoteXOffset(i) + RenderConstants.noteXSpacing - xTraveled;
             drawNoteCollection(noteCollection, noteX, drawName);
@@ -62,13 +62,13 @@ public class NoteDrawer {
 
     protected void drawNoteCollection(NoteCollection noteCollection, int xPosition, boolean drawName){
         for (Note note : noteCollection){
-            drawNote(note, noteCollection, xPosition);
+            drawNote(note, noteCollection, xPosition, drawName);
             drawAccidentals(note, xPosition);
             drawHelperLines(note, xPosition);
         }
     }
 
-    protected void drawNote(Note note, NoteCollection noteCollection, int xPos){
+    protected void drawNote(Note note, NoteCollection noteCollection, int xPos, boolean drawName){
         int lineNumber = RenderConstants.getLineNumber(note);
         BufferedImage noteImage = RenderConstants.getNoteImage();
         int noteWidth = noteImage.getWidth();
@@ -79,6 +79,13 @@ public class NoteDrawer {
             xPos += noteWidth;
         }
         graphics2D.drawImage(noteImage, null, xPos, noteY);
+
+        if(drawName){
+            NoteName noteName = note.getNoteName();
+            graphics2D.setFont(new Font("Dialog", Font.BOLD, RenderConstants.nameFontSize));
+            int nameY = RenderConstants.getLineYOffset(lineNumber) + noteHeight / 2 - 2;
+            graphics2D.drawString(noteName.toString(), xPos + noteWidth, nameY);
+        }
     }
 
 

@@ -1,4 +1,4 @@
-package uicomponents.rangeselector;
+package uicomponents.rangeselector.noteselector;
 
 import music.Note;
 import uicomponents.rangeselector.noteselector.NoteLimitModel;
@@ -26,6 +26,7 @@ public class NoteListRenderer implements ListCellRenderer<Note> {
             Font oldFont = rendererLabel.getFont();
             Font newFont = new Font(oldFont.getName(), Font.PLAIN, 20);
             rendererLabel.setFont(newFont);
+            rendererLabel.setHorizontalAlignment(SwingConstants.CENTER);
             return rendererLabel;
         }
         return rendererComponent;

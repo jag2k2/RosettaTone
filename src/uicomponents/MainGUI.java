@@ -9,7 +9,7 @@ import music.*;
 import notification.*;
 import statemodels.ClefModeModifierImp;
 import statemodels.KeyStateManipulatorImp;
-import uicomponents.rangeselector.NoteRangeLimitsImp;
+import statemodels.NoteRangeLimitsImp;
 import trainer.SightReadTrainerImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.noteselector.NoteSelectorImp;

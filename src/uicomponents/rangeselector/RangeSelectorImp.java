@@ -2,16 +2,15 @@ package uicomponents.rangeselector;
 
 import music.Note;
 import music.NoteName;
+import notification.RangeChangeObserver;
 import uicomponents.UIComponent;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class RangeSelectorImp implements UIComponent, ActionListener {
+public class RangeSelectorImp implements UIComponent, RangeChangeObserver {
     static private final Note lowerBoundNote = new Note(NoteName.A, 0);
     static private final Note upperBoundNote = new Note(NoteName.C, 8);
 
@@ -21,10 +20,6 @@ public class RangeSelectorImp implements UIComponent, ActionListener {
     public RangeSelectorImp(NoteSelector lowerNoteSelector, NoteSelector upperNoteSelector){
         this.lowerNoteSelector = lowerNoteSelector;
         this.upperNoteSelector = upperNoteSelector;
-
-        lowerNoteSelector.addActionListener(this);
-        upperNoteSelector.addActionListener(this);
-
         refreshSelectors();
     }
 
@@ -39,10 +34,8 @@ public class RangeSelectorImp implements UIComponent, ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("comboBoxChanged")){
-            refreshSelectors();
-        }
+    public void rangeChanged() {
+        refreshSelectors();
     }
 
     protected void refreshSelectors(){

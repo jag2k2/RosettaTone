@@ -33,7 +33,7 @@ public class SightReadTrainerImp implements FlashcardNoteGetter, RangeChangeObse
     @Override
     public void rangeChanged() {
         generateAllNewFlashcards();
-        flashcardChangeNotifier.notifyFlashcardSatisfied();
+        flashcardChangeNotifier.notifyFlashcardChanged();
     }
 
     @Override

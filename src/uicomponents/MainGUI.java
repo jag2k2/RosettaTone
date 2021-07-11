@@ -2,6 +2,8 @@ package uicomponents;
 
 import javax.swing.*;
 import java.awt.*;
+
+import imageprocessing.ImageLoaderImp;
 import instrument.*;
 import music.*;
 import notification.FlashcardChangeNotifierImp;
@@ -58,7 +60,8 @@ public class MainGUI {
         RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(lowerNoteSelectorImp, upperNoteSelectorImp);
 
         //Renderers
-        GrandStaffRendererImp grandStaffRendererImp = new GrandStaffRendererImp(keyboardStateImp, clefModeStateImp, sightReadTrainerImp);
+        ImageLoaderImp imageLoaderImp = new ImageLoaderImp();
+        GrandStaffRendererImp grandStaffRendererImp = new GrandStaffRendererImp(keyboardStateImp, clefModeStateImp, sightReadTrainerImp, imageLoaderImp);
         RangeRendererImp rangeRendererImp = new RangeRendererImp(noteRangeLimitsImp);
         NoteTextRenderer noteTextRendererImp = new NoteTextRenderer(keyboardStateImp);
 

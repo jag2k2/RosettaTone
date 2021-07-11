@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Staff {
 
-    private final String imagePath;
-    private final double resizeFactor;
+    public final String imagePath;
+    public final double resizeFactor;
     private final int clefLineOffset;
     private final int clefFineTuneYOffset;
     private final int topVisibleLine;

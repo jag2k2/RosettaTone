@@ -12,13 +12,15 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
     private final KeyboardStateNoteGetter keyboardStateNoteGetter;
     private final StaffDecorator staffDecorator;
     private final FlashcardNoteGetter flashcardNoteGetter;
+    private final ImageLoader imageLoader;
     private int xTraveled = RenderConstants.noteXSpacing;
     private boolean drawName = false;
 
-    public GrandStaffRendererImp(KeyboardStateNoteGetter keyboardStateNoteGetter, StaffDecorator staffDecorator, FlashcardNoteGetter flashcardNoteGetter){
+    public GrandStaffRendererImp(KeyboardStateNoteGetter keyboardStateNoteGetter, StaffDecorator staffDecorator, FlashcardNoteGetter flashcardNoteGetter, ImageLoader imageLoader){
         this.keyboardStateNoteGetter = keyboardStateNoteGetter;
         this.staffDecorator = staffDecorator;
         this.flashcardNoteGetter = flashcardNoteGetter;
+        this.imageLoader = imageLoader;
     }
 
     @Override
@@ -60,7 +62,7 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D)g;
-        NoteDrawer noteDrawer = new NoteDrawer(graphics2D, staffDecorator);
+        NoteDrawer noteDrawer = new NoteDrawer(graphics2D, staffDecorator, imageLoader);
         noteDrawer.drawEnabledStaffs();
         noteDrawer.drawKeyboardNotes(keyboardStateNoteGetter.getActiveNotes());
         noteDrawer.drawFlashcardNotes(flashcardNoteGetter.getFlashcardNotes(), xTraveled, drawName);

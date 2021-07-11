@@ -4,7 +4,6 @@ import music.Note;
 import music.NoteAccidental;
 import notification.RangeChangeNotifierImp;
 import uicomponents.rangeselector.noteselector.NoteLimitModel;
-import uicomponents.rangeselector.noteselector.DisplayDirection;
 
 import javax.swing.*;
 

@@ -3,6 +3,7 @@ package statemodels;
 import music.Note;
 import music.NoteCollectionImp;
 import music.NoteName;
+import notification.RangeChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utility.NoteCollection;
@@ -24,11 +25,13 @@ class NoteLimitModelImpTest {
 
     @Test
     void canCheckEquality() {
-        NoteLimitModelImp modelToCompare = new NoteLimitModelImp(lowerLimit, activeNote, upperLimit);
+        NoteLimitModelImp modelToCompare = new NoteLimitModelImp(lowerLimit, activeNote, upperLimit, new RangeChangeNotifierImp());
         assertEquals(modelToCompare, noteLimitModel);
 
         modelToCompare = new NoteLimitModelImp(new Note(NoteName.C, 8), activeNote, upperLimit);
         assertNotEquals(modelToCompare, noteLimitModel);
+
+        assertNotEquals(new Note(NoteName.C, 4), noteLimitModel);
     }
 
     @Test

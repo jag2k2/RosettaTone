@@ -35,13 +35,13 @@ public class RangeRendererImp extends Component implements UIComponent, RangeCha
 
     @Override
     public void paint(Graphics g) {
-        Graphics2D graphics2D = (Graphics2D)g;
+        /*Graphics2D graphics2D = (Graphics2D)g;
         RangeDrawer rangeDrawer = new RangeDrawer(graphics2D);
         Note upperLimitNote = noteRangeModel.getLowerLimitNote();
         Note lowerLimitNote = noteRangeModel.getUpperLimitNote();
 
         rangeDrawer.drawLimit(upperLimitNote);
         rangeDrawer.drawLimit(lowerLimitNote);
-        rangeDrawer.drawVerticalConnector(upperLimitNote, lowerLimitNote);
+        rangeDrawer.drawVerticalConnector(upperLimitNote, lowerLimitNote);*/
     }
 }

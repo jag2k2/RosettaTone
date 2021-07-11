@@ -1,6 +1,7 @@
 package statemodels;
 
 import music.Note;
+import music.NoteName;
 import trainer.NoteRangeLimits;
 import uicomponents.rangeselector.noteselector.NoteLimitModel;
 
@@ -14,14 +15,7 @@ public class NoteRangeLimitsImp implements NoteRangeLimits {
     }
 
     @Override
-    public Note getLowerLimitNote() {
-        //return lowerLimitModel.getLimit();
-        return null;
-    }
-
-    @Override
-    public Note getUpperLimitNote() {
-        //return upperLimitModel.getLimit();
-        return null;
+    public Note generateRandomNote() {
+        return new Note(NoteName.A, 4);
     }
 }

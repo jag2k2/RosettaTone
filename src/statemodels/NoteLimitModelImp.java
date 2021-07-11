@@ -39,6 +39,7 @@ public class NoteLimitModelImp implements NoteLimitModel {
     public void incrementActive() {
         if (activeLimit.compareTo(upperLimit) < 0){
             activeLimit = activeLimit.getNext(NoteAccidental.NATURAL);
+            rangeChangeNotifier.notifyObservers();
         }
     }
 
@@ -46,6 +47,7 @@ public class NoteLimitModelImp implements NoteLimitModel {
     public void decrementActive() {
         if (activeLimit.compareTo(lowerLimit) > 0){
             activeLimit = activeLimit.getPrevious(NoteAccidental.NATURAL);
+            rangeChangeNotifier.notifyObservers();
         }
     }
 

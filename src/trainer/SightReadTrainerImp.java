@@ -64,10 +64,7 @@ public class SightReadTrainerImp implements FlashcardNoteGetter, RangeChangeObse
     }
 
     protected void addNewFlashcard(){
-        Note lowerNote = noteRangeLimits.getLowerLimitNote();
-        Note upperNote = noteRangeLimits.getUpperLimitNote();
-
-        Note randomNote = RenderConstants.getRandomNote(lowerNote, upperNote);
+        Note randomNote = noteRangeLimits.generateRandomNote();
         NoteCollection noteTarget = new NoteCollectionImp();
         noteTarget.add(randomNote);
         flashcardList.add(noteTarget);

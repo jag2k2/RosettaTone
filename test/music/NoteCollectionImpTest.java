@@ -37,6 +37,22 @@ class NoteCollectionImpTest {
     }
 
     @Test
+    void canCheckEquality(){
+        NoteCollection collection1 = new NoteCollectionImp();
+        NoteCollection collection2 = new NoteCollectionImp();
+        assertEquals(collection1, collection2);
+
+        collection1.add(noteD4);
+        assertNotEquals(collection1, collection2);
+
+        collection2.add(noteD4);
+        assertEquals(collection1, collection2);
+
+        collection1.add(noteE4);
+        assertNotEquals(collection1, collection2);
+    }
+
+    @Test
     void wontAddDuplicate(){
         Note otherNoteD4 = new Note(NoteName.D, 4, NoteAccidental.SHARP);
         System.out.println(activeNotes);

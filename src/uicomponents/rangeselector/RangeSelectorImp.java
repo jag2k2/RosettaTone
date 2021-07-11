@@ -1,26 +1,18 @@
 package uicomponents.rangeselector;
 
-import music.Note;
-import music.NoteName;
-import notification.RangeChangeObserver;
 import uicomponents.UIComponent;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 
-public class RangeSelectorImp implements UIComponent, RangeChangeObserver {
-    static private final Note lowerBoundNote = new Note(NoteName.A, 0);
-    static private final Note upperBoundNote = new Note(NoteName.C, 8);
+public class RangeSelectorImp implements UIComponent {
+    private final UIComponent lowerNoteSelector;
+    private final UIComponent upperNoteSelector;
 
-    private final NoteSelector lowerNoteSelector;
-    private final NoteSelector upperNoteSelector;
-
-    public RangeSelectorImp(NoteSelector lowerNoteSelector, NoteSelector upperNoteSelector){
+    public RangeSelectorImp(UIComponent lowerNoteSelector, UIComponent upperNoteSelector){
         this.lowerNoteSelector = lowerNoteSelector;
         this.upperNoteSelector = upperNoteSelector;
-        refreshSelectors();
     }
 
     @Override
@@ -31,18 +23,5 @@ public class RangeSelectorImp implements UIComponent, RangeChangeObserver {
         Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
         panel.setBorder(border);
         return panel;
-    }
-
-    @Override
-    public void rangeChanged() {
-        refreshSelectors();
-    }
-
-    protected void refreshSelectors(){
-        Note lowerSelectedNote = lowerNoteSelector.getSelectedNote();
-        Note upperSelectedNote = upperNoteSelector.getSelectedNote();
-
-        lowerNoteSelector.refreshSelection(upperSelectedNote, lowerBoundNote, lowerSelectedNote);
-        upperNoteSelector.refreshSelection(upperBoundNote, lowerSelectedNote, upperSelectedNote);
     }
 }

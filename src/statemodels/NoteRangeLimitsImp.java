@@ -15,11 +15,13 @@ public class NoteRangeLimitsImp implements NoteRangeLimits {
 
     @Override
     public Note getLowerLimitNote() {
-        return lowerLimitModel.getLimit();
+        //return lowerLimitModel.getLimit();
+        return null;
     }
 
     @Override
     public Note getUpperLimitNote() {
-        return upperLimitModel.getLimit();
+        //return upperLimitModel.getLimit();
+        return null;
     }
 }

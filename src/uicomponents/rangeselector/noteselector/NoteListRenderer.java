@@ -18,7 +18,7 @@ public class NoteListRenderer implements ListCellRenderer<Note> {
     @Override
     public Component getListCellRendererComponent(JList<? extends Note> list, Note value, int index, boolean isSelected, boolean cellHasFocus) {
         if(isSelected) {
-            noteLimitModel.setLimit(value);
+            noteLimitModel.setActiveLimit(value);
         }
         Component rendererComponent = listCellRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         if (rendererComponent instanceof JLabel){

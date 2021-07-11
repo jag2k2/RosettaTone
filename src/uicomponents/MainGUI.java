@@ -14,6 +14,7 @@ import trainer.SightReadTrainerImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.noteselector.NoteSelectorImp;
 import uicomponents.rangeselector.RangeSelectorImp;
+import uicomponents.rangeselector.noteselector.DisplayDirection;
 import uicomponents.renderer.GrandStaffRendererImp;
 import statemodels.NoteLimitModelImp;
 import uicomponents.renderer.NoteTextRenderer;
@@ -31,16 +32,19 @@ public class MainGUI {
         //Notifiers
         KeyboardChangeNotifierImp keyboardChangeNotifierImp = new KeyboardChangeNotifierImp();
         ClefModeChangeNotifierImp modeChangeNotifierImp = new ClefModeChangeNotifierImp();
-        RangeChangeNotifierImp rangeChangeNotifierImp = new RangeChangeNotifierImp();
+        RangeChangeNotifierImp lowerRangeChangeNotifierImp = new RangeChangeNotifierImp();
+        RangeChangeNotifierImp upperRangeChangeNotifierImp = new RangeChangeNotifierImp();
         FlashcardSatisfiedNotifierImp flashcardSatisfiedNotifierImp = new FlashcardSatisfiedNotifierImp();
         FlashcardChangeNotifierImp flashcardChangeNotifierImp = new FlashcardChangeNotifierImp();
 
         //State Models
         KeyStateManipulatorImp keyboardStateImp = new KeyStateManipulatorImp(keyboardChangeNotifierImp);
+        Note lowerBoundNote = new Note(NoteName.A, 0);
+        Note upperBoundNote = new Note(NoteName.C, 8);
         Note defaultLowerRangeNote = new Note(NoteName.C, 4);
         Note defaultUpperRangeNote = new Note(NoteName.C, 5);
-        NoteLimitModelImp lowerNoteLimitModelImp = new NoteLimitModelImp(defaultLowerRangeNote, rangeChangeNotifierImp);
-        NoteLimitModelImp upperNoteLimitModelImp = new NoteLimitModelImp(defaultUpperRangeNote, rangeChangeNotifierImp);
+        NoteLimitModelImp lowerNoteLimitModelImp = new NoteLimitModelImp(lowerBoundNote, defaultLowerRangeNote, defaultUpperRangeNote, lowerRangeChangeNotifierImp);
+        NoteLimitModelImp upperNoteLimitModelImp = new NoteLimitModelImp(upperBoundNote, defaultUpperRangeNote, defaultLowerRangeNote, upperRangeChangeNotifierImp);
         NoteRangeLimitsImp noteRangeLimitsImp = new NoteRangeLimitsImp(lowerNoteLimitModelImp, upperNoteLimitModelImp);
         ClefModeModifierImp clefModeStateImp = new ClefModeModifierImp(ClefMode.Grand, modeChangeNotifierImp);
 
@@ -53,8 +57,8 @@ public class MainGUI {
         //Selectors
         InstrumentBrowserImp instrumentBrowserImp = new InstrumentBrowserImp(keyNoteReceiverImp);
         ClefModeSelectorImp modeSelectorImp = new ClefModeSelectorImp(clefModeStateImp);
-        NoteSelectorImp lowerNoteSelectorImp = new NoteSelectorImp(lowerNoteLimitModelImp);
-        NoteSelectorImp upperNoteSelectorImp = new NoteSelectorImp(upperNoteLimitModelImp);
+        NoteSelectorImp lowerNoteSelectorImp = new NoteSelectorImp(lowerNoteLimitModelImp, upperNoteLimitModelImp, DisplayDirection.HARDBOUND_LOW);
+        NoteSelectorImp upperNoteSelectorImp = new NoteSelectorImp(upperNoteLimitModelImp, lowerNoteLimitModelImp, DisplayDirection.HARDBOUND_HIGH);
         RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(lowerNoteSelectorImp, upperNoteSelectorImp);
 
         //Renderers
@@ -70,8 +74,13 @@ public class MainGUI {
 
         modeChangeNotifierImp.addObserver(grandStaffRendererImp);
 
-        rangeChangeNotifierImp.addObserver(rangeRendererImp);
-        rangeChangeNotifierImp.addObserver(sightReadTrainerImp);
+        lowerRangeChangeNotifierImp.addObserver(rangeRendererImp);
+        lowerRangeChangeNotifierImp.addObserver(sightReadTrainerImp);
+        lowerRangeChangeNotifierImp.addObserver(upperNoteSelectorImp);
+
+        upperRangeChangeNotifierImp.addObserver(rangeRendererImp);
+        upperRangeChangeNotifierImp.addObserver(sightReadTrainerImp);
+        upperRangeChangeNotifierImp.addObserver(lowerNoteSelectorImp);
 
         flashcardSatisfiedNotifierImp.addObserver(grandStaffRendererImp);
         flashcardChangeNotifierImp.addObserver(grandStaffRendererImp);

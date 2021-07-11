@@ -1,8 +1,8 @@
 package uicomponents.rangeselector.noteselector;
 
 import music.Note;
-import music.NoteAccidental;
-import uicomponents.rangeselector.NoteSelector;
+import notification.RangeChangeObserver;
+import uicomponents.UIComponent;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,16 +14,20 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.Objects;
 
-public class NoteSelectorImp implements NoteSelector, ActionListener, PopupMenuListener {
+public class NoteSelectorImp implements UIComponent, ActionListener, PopupMenuListener, RangeChangeObserver {
     private static final String upButtonName = "upButton";
     private static final String downButtonName = "downButton";
     private final NoteLimitModel noteLimitModel;
+    private final NoteLimitModel otherNoteLimitModel;
     private final JComboBox<Note> noteComboBox;
+    private final DisplayDirection displayDirection;
     private JButton upButton;
     private JButton downButton;
 
-    public NoteSelectorImp(NoteLimitModel noteLimitModel){
+    public NoteSelectorImp(NoteLimitModel noteLimitModel, NoteLimitModel otherNoteLimitModel, DisplayDirection displayDirection){
         this.noteLimitModel = noteLimitModel;
+        this.otherNoteLimitModel = otherNoteLimitModel;
+        this.displayDirection = displayDirection;
         this.noteComboBox = new JComboBox<>();
         this.noteComboBox.setRenderer(new NoteListRenderer(noteComboBox.getRenderer(), noteLimitModel));
         try{
@@ -61,34 +65,29 @@ public class NoteSelectorImp implements NoteSelector, ActionListener, PopupMenuL
     }
 
     @Override
-    public void refreshSelection(Note upperNote, Note lowerNote, Note selectedNote){
-        noteComboBox.removeAllItems();
-        for (Note noteIterator = upperNote; noteIterator.compareTo(lowerNote) >= 0; noteIterator = noteIterator.getPrevious(NoteAccidental.NATURAL)){
-            noteComboBox.addItem(noteIterator);
-            if (noteIterator.equals(selectedNote)){
-                noteComboBox.setSelectedItem(noteIterator);
-            }
+    public void rangeChanged(){
+        if (displayDirection == DisplayDirection.HARDBOUND_LOW){
+            //noteLimitModel.updateUpperLimit(otherNoteLimitModel);
         }
-    }
-
-    @Override
-    public Note getSelectedNote() {
-        return noteLimitModel.getLimit();
+        else if (displayDirection == DisplayDirection.HARDBOUND_HIGH){
+            //noteLimitModel.updateLowerLimit(otherNoteLimitModel);
+        }
+        noteLimitModel.refreshJComboBoxOptions(noteComboBox);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("comboBoxChanged")){
             Note selectedNote = (Note) noteComboBox.getSelectedItem();
-            noteLimitModel.setLimit(selectedNote);
+            noteLimitModel.setActiveLimit(selectedNote);
         }
         else if (e.getSource() instanceof JButton){
             JButton pushedButton = (JButton) e.getSource();
             if (pushedButton.getName().equals(upButtonName)){
-                System.out.println("Up Button Pushed!");
+                noteLimitModel.incrementActive();
             }
             else if (pushedButton.getName().equals(downButtonName)){
-                System.out.println("Down Button Pushed!");
+                noteLimitModel.decrementActive();
             }
         }
     }
@@ -107,6 +106,6 @@ public class NoteSelectorImp implements NoteSelector, ActionListener, PopupMenuL
     public void popupMenuCanceled(PopupMenuEvent e) {
         ComboBoxModel<Note> listModel = noteComboBox.getModel();
         Note selectedNote = listModel.getElementAt(noteComboBox.getSelectedIndex());
-        noteLimitModel.setLimit(selectedNote);
+        noteLimitModel.setActiveLimit(selectedNote);
     }
 }

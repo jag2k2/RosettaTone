@@ -1,5 +1,6 @@
 package music;
 
+import statemodels.NoteLimitModelImp;
 import trainer.KeyboardEvaluator;
 import utility.NoteCollection;
 
@@ -41,6 +42,15 @@ public class NoteCollectionImp implements NoteCollection {
             if (noteInSet.noteHeadEquals(adjacentNote)){
                 return !isSqueezed(adjacentNote);
             }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof NoteCollectionImp){
+            NoteCollectionImp compareTo = (NoteCollectionImp) obj;
+            return notes.equals(compareTo.notes);
         }
         return false;
     }

@@ -1,17 +1,16 @@
 package uicomponents.renderer;
 
 import notification.LimitChangeObserver;
-import trainer.RandomNoteGenerator;
 import uicomponents.UIComponent;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class LimitRendererImp extends Component implements UIComponent, LimitChangeObserver {
-    private final RandomNoteGenerator noteRangeModel;
+    private final MusicDrawable noteLimitInterval;
 
-    public LimitRendererImp(RandomNoteGenerator noteRangeModel){
-        this.noteRangeModel = noteRangeModel;
+    public LimitRendererImp(MusicDrawable noteLimitInterval){
+        this.noteLimitInterval = noteLimitInterval;
     }
 
     @Override
@@ -23,24 +22,18 @@ public class LimitRendererImp extends Component implements UIComponent, LimitCha
     }
 
     @Override
-    public void rangeChanged() {
-        repaint();
-    }
-
-    @Override
     public Dimension getPreferredSize() {
         return RenderConstants.rangeIndicatorSize;
     }
 
     @Override
-    public void paint(Graphics g) {
-        /*Graphics2D graphics2D = (Graphics2D)g;
-        RangeDrawer rangeDrawer = new RangeDrawer(graphics2D);
-        Note upperLimitNote = noteRangeModel.getLowerLimitNote();
-        Note lowerLimitNote = noteRangeModel.getUpperLimitNote();
+    public void rangeChanged() {
+        repaint();
+    }
 
-        rangeDrawer.drawLimit(upperLimitNote);
-        rangeDrawer.drawLimit(lowerLimitNote);
-        rangeDrawer.drawVerticalConnector(upperLimitNote, lowerLimitNote);*/
+    @Override
+    public void paint(Graphics g) {
+        Graphics2D graphics2D = (Graphics2D)g;
+        noteLimitInterval.draw(graphics2D);
     }
 }

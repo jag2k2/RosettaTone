@@ -8,13 +8,13 @@ import uicomponents.rangeselector.noteselector.BoundedNoteModifier;
 
 import javax.swing.*;
 
-abstract public class AbstractBoundedNoteModifier implements BoundedNoteModifier, LimitChangeObserver {
+abstract public class AbstractBoundedNoteLimit implements BoundedNoteModifier, LimitChangeObserver {
     private final NoteModifier noteModifier;
     private Note lowerBound;
     private Note upperBound;
     private final LimitChangeNotifier boundChangeNotifier;
 
-    protected AbstractBoundedNoteModifier(NoteModifier noteModifier, Note lowerBound, Note upperBound, LimitChangeNotifier boundChangeNotifier){
+    protected AbstractBoundedNoteLimit(NoteModifier noteModifier, Note lowerBound, Note upperBound, LimitChangeNotifier boundChangeNotifier){
         this.noteModifier = noteModifier;
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
@@ -73,8 +73,8 @@ abstract public class AbstractBoundedNoteModifier implements BoundedNoteModifier
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof AbstractBoundedNoteModifier){
-            AbstractBoundedNoteModifier toCompare = (AbstractBoundedNoteModifier) obj;
+        if (obj instanceof AbstractBoundedNoteLimit){
+            AbstractBoundedNoteLimit toCompare = (AbstractBoundedNoteLimit) obj;
             return lowerBound.equals(toCompare.lowerBound)
                     && noteModifier.equals(toCompare.noteModifier)
                     && upperBound.equals(toCompare.upperBound);

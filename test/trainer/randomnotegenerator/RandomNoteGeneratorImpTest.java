@@ -5,7 +5,7 @@ import music.NoteName;
 import notification.LimitChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import statemodels.notelimit.NoteModifierImp;
+import statemodels.notelimit.NoteLimitImp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,8 +26,8 @@ class RandomNoteGeneratorImpTest {
 
     @BeforeEach
     void setUp() {
-        LineNumberable lowerLimit = new NoteModifierImp(noteC4, new LimitChangeNotifierImp());
-        LineNumberable upperLimit = new NoteModifierImp(noteB4, new LimitChangeNotifierImp());
+        LineNumberable lowerLimit = new NoteLimitImp(noteC4, new LimitChangeNotifierImp());
+        LineNumberable upperLimit = new NoteLimitImp(noteB4, new LimitChangeNotifierImp());
         randomNoteGenerator = new RandomNoteGeneratorImp(lowerLimit, upperLimit);
     }
 

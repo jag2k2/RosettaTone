@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UpperBoundedNoteModifierTest implements LimitChangeObserver {
 
-    private UpperBoundedNoteModifierImp boundedNoteLimit;
+    private UpperBoundedNoteLimitImp boundedNoteLimit;
     private NoteModifier lowerNoteModifier;
     private LimitChangeNotifier limitChangeNotifier;
     private LimitChangeNotifier otherLimitChangeNotifier;
@@ -39,9 +39,9 @@ public class UpperBoundedNoteModifierTest implements LimitChangeObserver {
         limitChangeNotifier = new LimitChangeNotifierImp();
         otherLimitChangeNotifier = new LimitChangeNotifierImp();
         boundChangeNotifier = new LimitChangeNotifierImp();
-        lowerNoteModifier = new NoteModifierImp(lowerLimitNote, limitChangeNotifier);
-        otherLimit = new NoteModifierImp(otherLimitNote, otherLimitChangeNotifier);
-        boundedNoteLimit = new UpperBoundedNoteModifierImp(lowerNoteModifier, otherLimit, lowerBoundNote, upperBoundNote, boundChangeNotifier);
+        lowerNoteModifier = new NoteLimitImp(lowerLimitNote, limitChangeNotifier);
+        otherLimit = new NoteLimitImp(otherLimitNote, otherLimitChangeNotifier);
+        boundedNoteLimit = new UpperBoundedNoteLimitImp(lowerNoteModifier, otherLimit, lowerBoundNote, upperBoundNote, boundChangeNotifier);
 
         limitChangeNotifier.addObserver(this);
         boundChangeNotifier.addObserver(this);
@@ -53,7 +53,7 @@ public class UpperBoundedNoteModifierTest implements LimitChangeObserver {
     @Test
     void canMatchUpperBoundToOtherNoteLimit(){
         otherLimitChangeNotifier.notifyObservers();
-        UpperBoundedNoteModifierImp expected = new UpperBoundedNoteModifierImp(lowerNoteModifier, otherLimit, otherLimitNote, upperBoundNote, new LimitChangeNotifierImp());
+        UpperBoundedNoteLimitImp expected = new UpperBoundedNoteLimitImp(lowerNoteModifier, otherLimit, otherLimitNote, upperBoundNote, new LimitChangeNotifierImp());
         assertEquals(expected, boundedNoteLimit);
         assertEquals(notificationsFired, 1);
     }

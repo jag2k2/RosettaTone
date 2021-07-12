@@ -33,6 +33,9 @@ public class RenderConstants {
     public static final int noteXSpacing = 135;
     public static final int nameFontSize = 35;
 
+    public static final int limitRenderXOffset = 50;
+    public static final int limitDotDiameter = 20;
+
     static public int getLineNumber(Note note){
         return (numberOfLines - 1) - ((note.getNoteName().getPosition() + (note.getOctave() * 7)) - 5);
     }

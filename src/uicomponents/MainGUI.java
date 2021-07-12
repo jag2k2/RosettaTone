@@ -10,14 +10,15 @@ import notification.*;
 import statemodels.ClefModeModifierImp;
 import statemodels.KeyStateManipulatorImp;
 import trainer.randomnotegenerator.RandomNoteGeneratorImp;
-import statemodels.notelimit.LowerBoundedNoteModifierImp;
-import statemodels.notelimit.NoteModifierImp;
-import statemodels.notelimit.UpperBoundedNoteModifierImp;
+import statemodels.notelimit.LowerBoundedNoteLimitImp;
+import statemodels.notelimit.NoteLimitImp;
+import statemodels.notelimit.UpperBoundedNoteLimitImp;
 import trainer.SightReadTrainerImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.noteselector.NoteSelectorImp;
 import uicomponents.rangeselector.RangeSelectorImp;
 import uicomponents.renderer.GrandStaffRendererImp;
+import uicomponents.renderer.NoteLimitDrawerImp;
 import uicomponents.renderer.NoteTextRenderer;
 import uicomponents.renderer.LimitRendererImp;
 import uicomponents.clefmode.ClefModeSelectorImp;
@@ -46,10 +47,10 @@ public class MainGUI {
         Note upperBoundNote = new Note(NoteName.C, 8);
         Note defaultLowerLimitNote = new Note(NoteName.C, 4);
         Note defaultUpperLimitNote = new Note(NoteName.C, 5);
-        NoteModifierImp lowerNoteLimit = new NoteModifierImp(defaultLowerLimitNote, lowerLimitChangeNotifier);
-        NoteModifierImp upperNoteLimit = new NoteModifierImp(defaultUpperLimitNote, upperLimitChangeNotifier);
-        LowerBoundedNoteModifierImp lowerBoundedNoteLimit = new LowerBoundedNoteModifierImp(lowerNoteLimit, upperNoteLimit, lowerBoundNote, defaultUpperLimitNote, lowerBoundChangeNotifier);
-        UpperBoundedNoteModifierImp upperBoundedNoteLimit = new UpperBoundedNoteModifierImp(upperNoteLimit, lowerNoteLimit, defaultLowerLimitNote, upperBoundNote, upperBoundChangeNotifier);
+        NoteLimitImp lowerNoteLimit = new NoteLimitImp(defaultLowerLimitNote, lowerLimitChangeNotifier);
+        NoteLimitImp upperNoteLimit = new NoteLimitImp(defaultUpperLimitNote, upperLimitChangeNotifier);
+        LowerBoundedNoteLimitImp lowerBoundedNoteLimit = new LowerBoundedNoteLimitImp(lowerNoteLimit, upperNoteLimit, lowerBoundNote, defaultUpperLimitNote, lowerBoundChangeNotifier);
+        UpperBoundedNoteLimitImp upperBoundedNoteLimit = new UpperBoundedNoteLimitImp(upperNoteLimit, lowerNoteLimit, defaultLowerLimitNote, upperBoundNote, upperBoundChangeNotifier);
         ClefModeModifierImp clefModeState = new ClefModeModifierImp(ClefMode.Grand, modeChangeNotifier);
 
         //KeyReceiver
@@ -68,8 +69,9 @@ public class MainGUI {
 
         //Renderers
         ImageLoaderImp imageLoader = new ImageLoaderImp();
+        NoteLimitDrawerImp noteLimitDrawer = new NoteLimitDrawerImp(lowerNoteLimit, upperNoteLimit);
         GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardState, clefModeState, sightReadTrainer, imageLoader);
-        LimitRendererImp rangeRenderer = new LimitRendererImp(randomNoteGenerator);
+        LimitRendererImp rangeRenderer = new LimitRendererImp(noteLimitDrawer);
         NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardState);
 
         //Add Observers

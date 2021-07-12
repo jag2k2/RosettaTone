@@ -13,7 +13,7 @@ import uicomponents.rangeselector.noteselector.NoteModifier;
 
 public class LowerBoundedNoteModifierTest implements LimitChangeObserver {
 
-    private LowerBoundedNoteModifierImp boundedNoteLimit;
+    private LowerBoundedNoteLimitImp boundedNoteLimit;
     private NoteModifier lowerNoteModifier;
     private LimitChangeNotifier limitChangeNotifier;
     private LimitChangeNotifier otherLimitChangeNotifier;
@@ -39,9 +39,9 @@ public class LowerBoundedNoteModifierTest implements LimitChangeObserver {
         limitChangeNotifier = new LimitChangeNotifierImp();
         otherLimitChangeNotifier = new LimitChangeNotifierImp();
         boundChangeNotifier = new LimitChangeNotifierImp();
-        lowerNoteModifier = new NoteModifierImp(lowerLimitNote, limitChangeNotifier);
-        otherLimit = new NoteModifierImp(otherLimitNote, otherLimitChangeNotifier);
-        boundedNoteLimit = new LowerBoundedNoteModifierImp(lowerNoteModifier, otherLimit, lowerBoundNote, upperBoundNote, boundChangeNotifier);
+        lowerNoteModifier = new NoteLimitImp(lowerLimitNote, limitChangeNotifier);
+        otherLimit = new NoteLimitImp(otherLimitNote, otherLimitChangeNotifier);
+        boundedNoteLimit = new LowerBoundedNoteLimitImp(lowerNoteModifier, otherLimit, lowerBoundNote, upperBoundNote, boundChangeNotifier);
 
         limitChangeNotifier.addObserver(this);
         boundChangeNotifier.addObserver(this);
@@ -53,7 +53,7 @@ public class LowerBoundedNoteModifierTest implements LimitChangeObserver {
     @Test
     void canMatchUpperBoundToOtherNoteLimit(){
         otherLimitChangeNotifier.notifyObservers();
-        LowerBoundedNoteModifierImp expected = new LowerBoundedNoteModifierImp(lowerNoteModifier, otherLimit, lowerBoundNote, otherLimitNote, new LimitChangeNotifierImp());
+        LowerBoundedNoteLimitImp expected = new LowerBoundedNoteLimitImp(lowerNoteModifier, otherLimit, lowerBoundNote, otherLimitNote, new LimitChangeNotifierImp());
         assertEquals(expected, boundedNoteLimit);
         assertEquals(notificationsFired, 1);
     }

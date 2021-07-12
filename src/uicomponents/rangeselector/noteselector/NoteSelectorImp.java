@@ -21,10 +21,10 @@ public class NoteSelectorImp implements UIComponent, ActionListener, PopupMenuLi
     private JButton upButton;
     private JButton downButton;
 
-    public NoteSelectorImp(BoundedNoteModifier boundedNoteModel, NotePreviewer notePreviewer){
+    public NoteSelectorImp(BoundedNoteModifier boundedNoteModel, LimitPreviewer limitPreviewer){
         this.boundedNoteModel = boundedNoteModel;
         this.noteComboBox = new JComboBox<>();
-        this.noteComboBox.setRenderer(new NoteListRenderer(noteComboBox.getRenderer(), notePreviewer));
+        this.noteComboBox.setRenderer(new NoteListRenderer(noteComboBox.getRenderer(), limitPreviewer));
         try{
             URL upArrowURL = getClass().getResource("/images/UpArrow.png");
             URL downArrowURL = getClass().getResource("/images/DownArrow.png");

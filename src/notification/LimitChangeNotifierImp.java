@@ -1,6 +1,6 @@
 package notification;
 
-import statemodels.notelimit.LimitChangeNotifier;
+import notelimit.LimitChangeNotifier;
 
 import java.util.ArrayList;
 

@@ -1,63 +1,73 @@
-package statemodels.notelimit;
+package notelimit;
 
 import music.Note;
 import music.NoteAccidental;
 import notification.LimitChangeObserver;
-import uicomponents.rangeselector.noteselector.NoteModifier;
+import uicomponents.rangeselector.noteselector.LimitModifier;
 import uicomponents.rangeselector.noteselector.BoundedNoteModifier;
+import utility.Maybe;
 
 import javax.swing.*;
 
 abstract public class AbstractBoundedNoteLimit implements BoundedNoteModifier, LimitChangeObserver {
-    private final NoteModifier noteModifier;
+    private final LimitModifier limitModifier;
     private Note lowerBound;
     private Note upperBound;
-    private final LimitChangeNotifier boundChangeNotifier;
+    private Maybe<LimitChangeNotifier> boundChangeNotifier = new Maybe<>();
 
-    protected AbstractBoundedNoteLimit(NoteModifier noteModifier, Note lowerBound, Note upperBound, LimitChangeNotifier boundChangeNotifier){
-        this.noteModifier = noteModifier;
+    protected AbstractBoundedNoteLimit(LimitModifier limitModifier, Note lowerBound, Note upperBound){
+        this.limitModifier = limitModifier;
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
-        this.boundChangeNotifier = boundChangeNotifier;
     }
 
-    protected void setLowerBound(NoteModifier noteModifier) {
-        if (noteModifier.compareTo(lowerBound) != 0){
-            lowerBound = noteModifier.getLimit();
-            boundChangeNotifier.notifyObservers();
+    public void addBoundChangeNotifier(LimitChangeNotifier boundChangeNotifier){
+        this.boundChangeNotifier = new Maybe<>(boundChangeNotifier);
+    }
+
+    protected void setLowerBound(LimitModifier limitModifier) {
+        if (limitModifier.compareTo(lowerBound) != 0){
+            lowerBound = limitModifier.getLimit();
+            notifyAnyObservers();
         }
     }
 
-    protected void setUpperBound(NoteModifier noteModifier) {
-        if (noteModifier.compareTo(upperBound) != 0) {
-            upperBound = noteModifier.getLimit();
-            boundChangeNotifier.notifyObservers();
+    protected void setUpperBound(LimitModifier limitModifier) {
+        if (limitModifier.compareTo(upperBound) != 0) {
+            upperBound = limitModifier.getLimit();
+            notifyAnyObservers();
+        }
+    }
+
+    protected void notifyAnyObservers(){
+        for (LimitChangeNotifier notifier : boundChangeNotifier){
+            notifier.notifyObservers();
         }
     }
 
     @Override
     public Note getLimit() {
-        return noteModifier.getLimit();
+        return limitModifier.getLimit();
     }
 
     @Override
     public void setLimit(Note note){
         if ((note.compareTo(lowerBound) >= 0) && (note.compareTo(upperBound) <= 0)) {
-            noteModifier.setLimit(note);
+            limitModifier.setLimit(note);
         }
     }
 
     @Override
     public void increment() {
-        if (noteModifier.compareTo(upperBound) < 0){
-            noteModifier.increment();
+        if (limitModifier.compareTo(upperBound) < 0){
+            limitModifier.increment();
         }
     }
 
     @Override
     public void decrement() {
-        if (noteModifier.compareTo(lowerBound) > 0){
-            noteModifier.decrement();
+        if (limitModifier.compareTo(lowerBound) > 0){
+            limitModifier.decrement();
         }
     }
 
@@ -66,7 +76,7 @@ abstract public class AbstractBoundedNoteLimit implements BoundedNoteModifier, L
         comboBox.removeAllItems();
         for (Note noteIterator = upperBound; noteIterator.compareTo(lowerBound) >= 0; noteIterator = noteIterator.getPrevious(NoteAccidental.NATURAL)){
             comboBox.addItem(noteIterator);
-            if (noteModifier.compareTo(noteIterator) == 0)
+            if (limitModifier.compareTo(noteIterator) == 0)
                 comboBox.setSelectedItem(noteIterator);
         }
     }
@@ -76,7 +86,7 @@ abstract public class AbstractBoundedNoteLimit implements BoundedNoteModifier, L
         if (obj instanceof AbstractBoundedNoteLimit){
             AbstractBoundedNoteLimit toCompare = (AbstractBoundedNoteLimit) obj;
             return lowerBound.equals(toCompare.lowerBound)
-                    && noteModifier.equals(toCompare.noteModifier)
+                    && limitModifier.equals(toCompare.limitModifier)
                     && upperBound.equals(toCompare.upperBound);
         }
         return false;
@@ -89,6 +99,6 @@ abstract public class AbstractBoundedNoteLimit implements BoundedNoteModifier, L
 
     @Override
     public int compareTo(Note note) {
-        return noteModifier.compareTo(note);
+        return limitModifier.compareTo(note);
     }
 }

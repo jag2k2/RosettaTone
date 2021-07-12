@@ -8,12 +8,12 @@ import uicomponents.renderer.RenderConstants;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ClefModeModifierImpTest {
-    private ClefModeModifierImp clefModeState;
+class ClefModeStateImpTest {
+    private ClefModeStateImp clefModeState;
 
     @BeforeEach
     void setup(){
-        clefModeState = new ClefModeModifierImp(ClefMode.Grand, new ClefModeChangeNotifierImp());
+        clefModeState = new ClefModeStateImp(ClefMode.Grand, new ClefModeChangeNotifierImp());
     }
 
 

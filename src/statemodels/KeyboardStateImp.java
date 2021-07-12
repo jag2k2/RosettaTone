@@ -10,11 +10,11 @@ import utility.NoteCollection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class KeyStateManipulatorImp implements KeyStateManipulator, KeyboardEvaluator, KeyboardStateNoteGetter {
+public class KeyboardStateImp implements KeyStateManipulator, KeyboardEvaluator, KeyboardStateNoteGetter {
     private final Set<Key> keys;
     private final KeyboardChangeNotifier keyboardChangeNotifier;
 
-    public KeyStateManipulatorImp(KeyboardChangeNotifier keyboardChangeNotifier){
+    public KeyboardStateImp(KeyboardChangeNotifier keyboardChangeNotifier){
         this.keyboardChangeNotifier = keyboardChangeNotifier;
         this.keys = new HashSet<>();
     }
@@ -72,8 +72,8 @@ public class KeyStateManipulatorImp implements KeyStateManipulator, KeyboardEval
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof KeyStateManipulatorImp){
-            KeyStateManipulatorImp compare = (KeyStateManipulatorImp) obj;
+        if (obj instanceof KeyboardStateImp){
+            KeyboardStateImp compare = (KeyboardStateImp) obj;
             return keys.equals(compare.keys);
         }
         return false;

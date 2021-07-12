@@ -1,22 +1,31 @@
-package statemodels.notelimit;
+package notelimit;
 
 import music.Note;
 import music.NoteAccidental;
 import trainer.randomnotegenerator.LineNumberable;
-import uicomponents.rangeselector.noteselector.NoteModifier;
-import uicomponents.rangeselector.noteselector.NotePreviewer;
+import uicomponents.rangeselector.noteselector.LimitModifier;
+import uicomponents.rangeselector.noteselector.LimitPreviewer;
 import uicomponents.renderer.MusicDrawable;
 import uicomponents.renderer.RenderConstants;
+import utility.Maybe;
 
 import java.awt.*;
 
-public class NoteLimitImp implements NoteModifier, NotePreviewer, LineNumberable, MusicDrawable {
+public class NoteLimitImp implements LimitModifier, LimitPreviewer, LineNumberable, MusicDrawable {
     private Note limit;
-    private final LimitChangeNotifier limitChangeNotifier;
+    private Maybe<LimitChangeNotifier> limitChangeNotifier = new Maybe<>();
+    private Maybe<LimitChangeNotifier> previewChangeNotifier = new Maybe<>();
 
-    public NoteLimitImp(Note limit, LimitChangeNotifier limitChangeNotifier){
+    public NoteLimitImp(Note limit){
         this.limit = limit;
-        this.limitChangeNotifier = limitChangeNotifier;
+    }
+
+    public void addLimitChangeNotifier(LimitChangeNotifier limitChangeNotifier){
+        this.limitChangeNotifier = new Maybe<>(limitChangeNotifier);
+    }
+
+    public void addPreviewChangeNotifier(LimitChangeNotifier previewChangeNotifier){
+        this.previewChangeNotifier = new Maybe<>(previewChangeNotifier);
     }
 
     @Override
@@ -28,13 +37,20 @@ public class NoteLimitImp implements NoteModifier, NotePreviewer, LineNumberable
     public void setLimit(Note note){
         if (!limit.equals(note)) {
             limit = note;
-            limitChangeNotifier.notifyObservers();
+            for (LimitChangeNotifier notifier : limitChangeNotifier){
+                notifier.notifyObservers();
+            }
         }
     }
 
     @Override
     public void preview(Note note) {
-
+        if (!limit.equals(note)) {
+            limit = note;
+            for (LimitChangeNotifier notifier : previewChangeNotifier){
+                notifier.notifyObservers();
+            }
+        }
     }
 
     @Override

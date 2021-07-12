@@ -8,11 +8,11 @@ import uicomponents.renderer.RenderConstants;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClefModeModifierImp implements ClefModeModifier, StaffDecorator {
+public class ClefModeStateImp implements ClefModeModifier, StaffDecorator {
     private final ClefModeChangeNotifier clefModeChangeNotifier;
     private ClefMode clefMode;
 
-    public ClefModeModifierImp(ClefMode clefMode, ClefModeChangeNotifier clefModeChangeNotifier){
+    public ClefModeStateImp(ClefMode clefMode, ClefModeChangeNotifier clefModeChangeNotifier){
         this.clefMode = clefMode;
         this.clefModeChangeNotifier = clefModeChangeNotifier;
     }

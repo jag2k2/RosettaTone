@@ -1,4 +1,4 @@
-package statemodels.notelimit;
+package notelimit;
 
 import music.Note;
 import music.NoteCollectionImp;
@@ -8,7 +8,7 @@ import notification.LimitChangeObserver;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uicomponents.rangeselector.noteselector.NoteModifier;
+import uicomponents.rangeselector.noteselector.LimitModifier;
 import utility.NoteCollection;
 
 import javax.swing.*;
@@ -22,7 +22,7 @@ public class AbstractBoundedNoteLimitTest implements LimitChangeObserver {
     private LimitChangeNotifier otherLimitChangeNotifier;
     private LimitChangeNotifier boundChangeNotifier;
 
-    private NoteModifier otherLimit;
+    private LimitModifier otherLimit;
 
     private final Note lowerBound = new Note(NoteName.C, 4);
     private final Note lowerLimit = new Note(NoteName.D, 4);
@@ -41,9 +41,11 @@ public class AbstractBoundedNoteLimitTest implements LimitChangeObserver {
         limitChangeNotifier = new LimitChangeNotifierImp();
         otherLimitChangeNotifier = new LimitChangeNotifierImp();
         boundChangeNotifier = new LimitChangeNotifierImp();
-        NoteModifier noteModifier = new NoteLimitImp(lowerLimit, limitChangeNotifier);
-        otherLimit = new NoteLimitImp(otherLimitNote, otherLimitChangeNotifier);
-        boundedNoteLimit = new LowerBoundedNoteLimitImp(noteModifier, otherLimit, lowerBound, upperBound, boundChangeNotifier);
+        NoteLimitImp noteLimit = new NoteLimitImp(lowerLimit);
+        noteLimit.addLimitChangeNotifier(limitChangeNotifier);
+        otherLimit = new NoteLimitImp(otherLimitNote);
+        boundedNoteLimit = new LowerBoundedNoteLimitImp(noteLimit, otherLimit, lowerBound, upperBound);
+        boundedNoteLimit.addBoundChangeNotifier(boundChangeNotifier);
 
         limitChangeNotifier.addObserver(this);
         boundChangeNotifier.addObserver(this);
@@ -54,11 +56,11 @@ public class AbstractBoundedNoteLimitTest implements LimitChangeObserver {
 
     @Test
     void canCheckEquality() {
-        NoteModifier noteModifier = new NoteLimitImp(new Note(NoteName.D, 4), new LimitChangeNotifierImp());
-        LowerBoundedNoteLimitImp expected = new LowerBoundedNoteLimitImp(noteModifier, otherLimit, lowerBound, upperBound, boundChangeNotifier);
+        LimitModifier limitModifier = new NoteLimitImp(new Note(NoteName.D, 4));
+        LowerBoundedNoteLimitImp expected = new LowerBoundedNoteLimitImp(limitModifier, otherLimit, lowerBound, upperBound);
         assertEquals(expected, boundedNoteLimit);
 
-        expected = expected = new LowerBoundedNoteLimitImp(noteModifier, otherLimit, new Note(NoteName.B,1), upperBound, boundChangeNotifier);
+        expected = expected = new LowerBoundedNoteLimitImp(limitModifier, otherLimit, new Note(NoteName.B,1), upperBound);
         assertNotEquals(expected, boundedNoteLimit);
     }
 
@@ -76,8 +78,8 @@ public class AbstractBoundedNoteLimitTest implements LimitChangeObserver {
 
     @Test
     void wontOverwriteSameLowerBound() {
-        NoteModifier noteModifier = new NoteLimitImp(lowerBound, new LimitChangeNotifierImp());
-        boundedNoteLimit.setLowerBound(noteModifier);
+        LimitModifier limitModifier = new NoteLimitImp(lowerBound);
+        boundedNoteLimit.setLowerBound(limitModifier);
         assertFalse(notificationFired);
     }
 
@@ -89,8 +91,8 @@ public class AbstractBoundedNoteLimitTest implements LimitChangeObserver {
 
     @Test
     void wontOverwriteSameUpperBound(){
-        NoteModifier noteModifier = new NoteLimitImp(upperBound, new LimitChangeNotifierImp());
-        boundedNoteLimit.setUpperBound(noteModifier);
+        LimitModifier limitModifier = new NoteLimitImp(upperBound);
+        boundedNoteLimit.setUpperBound(limitModifier);
         assertFalse(notificationFired);
     }
 

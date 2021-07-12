@@ -6,13 +6,14 @@ import java.awt.*;
 import imageprocessing.ImageLoaderImp;
 import instrument.*;
 import music.*;
+import notelimit.LimitChangeNotifier;
 import notification.*;
-import statemodels.ClefModeModifierImp;
-import statemodels.KeyStateManipulatorImp;
+import statemodels.ClefModeStateImp;
+import statemodels.KeyboardStateImp;
 import trainer.randomnotegenerator.RandomNoteGeneratorImp;
-import statemodels.notelimit.LowerBoundedNoteLimitImp;
-import statemodels.notelimit.NoteLimitImp;
-import statemodels.notelimit.UpperBoundedNoteLimitImp;
+import notelimit.LowerBoundedNoteLimitImp;
+import notelimit.NoteLimitImp;
+import notelimit.UpperBoundedNoteLimitImp;
 import trainer.SightReadTrainerImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.noteselector.NoteSelectorImp;
@@ -38,20 +39,30 @@ public class MainGUI {
         LimitChangeNotifierImp upperLimitChangeNotifier = new LimitChangeNotifierImp();
         LimitChangeNotifierImp lowerBoundChangeNotifier = new LimitChangeNotifierImp();
         LimitChangeNotifierImp upperBoundChangeNotifier = new LimitChangeNotifierImp();
+        LimitChangeNotifierImp limitPreviewNotifier = new LimitChangeNotifierImp();
         FlashcardSatisfiedNotifierImp flashcardSatisfiedNotifier = new FlashcardSatisfiedNotifierImp();
         FlashcardChangeNotifierImp flashcardChangeNotifier = new FlashcardChangeNotifierImp();
 
         //State Models
-        KeyStateManipulatorImp keyboardState = new KeyStateManipulatorImp(keyboardChangeNotifier);
+        KeyboardStateImp keyboardState = new KeyboardStateImp(keyboardChangeNotifier);
         Note lowerBoundNote = new Note(NoteName.A, 0);
         Note upperBoundNote = new Note(NoteName.C, 8);
         Note defaultLowerLimitNote = new Note(NoteName.C, 4);
         Note defaultUpperLimitNote = new Note(NoteName.C, 5);
-        NoteLimitImp lowerNoteLimit = new NoteLimitImp(defaultLowerLimitNote, lowerLimitChangeNotifier);
-        NoteLimitImp upperNoteLimit = new NoteLimitImp(defaultUpperLimitNote, upperLimitChangeNotifier);
-        LowerBoundedNoteLimitImp lowerBoundedNoteLimit = new LowerBoundedNoteLimitImp(lowerNoteLimit, upperNoteLimit, lowerBoundNote, defaultUpperLimitNote, lowerBoundChangeNotifier);
-        UpperBoundedNoteLimitImp upperBoundedNoteLimit = new UpperBoundedNoteLimitImp(upperNoteLimit, lowerNoteLimit, defaultLowerLimitNote, upperBoundNote, upperBoundChangeNotifier);
-        ClefModeModifierImp clefModeState = new ClefModeModifierImp(ClefMode.Grand, modeChangeNotifier);
+
+        NoteLimitImp lowerNoteLimit = new NoteLimitImp(defaultLowerLimitNote);
+        lowerNoteLimit.addLimitChangeNotifier(lowerLimitChangeNotifier);
+        lowerNoteLimit.addPreviewChangeNotifier(limitPreviewNotifier);
+
+        NoteLimitImp upperNoteLimit = new NoteLimitImp(defaultUpperLimitNote);
+        upperNoteLimit.addLimitChangeNotifier(upperLimitChangeNotifier);
+        upperNoteLimit.addPreviewChangeNotifier(limitPreviewNotifier);
+
+        LowerBoundedNoteLimitImp lowerBoundedNoteLimit = new LowerBoundedNoteLimitImp(lowerNoteLimit, upperNoteLimit, lowerBoundNote, defaultUpperLimitNote);
+        lowerBoundedNoteLimit.addBoundChangeNotifier(lowerBoundChangeNotifier);
+        UpperBoundedNoteLimitImp upperBoundedNoteLimit = new UpperBoundedNoteLimitImp(upperNoteLimit, lowerNoteLimit, defaultLowerLimitNote, upperBoundNote);
+        upperBoundedNoteLimit.addBoundChangeNotifier(upperBoundChangeNotifier);
+        ClefModeStateImp clefModeState = new ClefModeStateImp(ClefMode.Grand, modeChangeNotifier);
 
         //KeyReceiver
         KeyNoteReceiverImp keyNoteReceiver = new KeyNoteReceiverImp(keyboardState);
@@ -94,6 +105,9 @@ public class MainGUI {
         upperLimitChangeNotifier.addObserver(lowerBoundedNoteLimit);
 
         upperBoundChangeNotifier.addObserver(upperNoteSelector);
+
+        limitPreviewNotifier.addObserver(rangeRenderer);
+        limitPreviewNotifier.addObserver(sightReadTrainer);
 
         flashcardSatisfiedNotifier.addObserver(grandStaffRenderer);
         flashcardChangeNotifier.addObserver(grandStaffRenderer);

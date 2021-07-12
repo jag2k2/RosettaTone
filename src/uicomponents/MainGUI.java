@@ -9,7 +9,7 @@ import music.*;
 import notification.*;
 import statemodels.ClefModeModifierImp;
 import statemodels.KeyStateManipulatorImp;
-import statemodels.NoteRangeLimitsImp;
+import trainer.randomnotegenerator.RandomNoteGeneratorImp;
 import statemodels.notelimit.LowerBoundedNoteModifierImp;
 import statemodels.notelimit.NoteModifierImp;
 import statemodels.notelimit.UpperBoundedNoteModifierImp;
@@ -50,15 +50,14 @@ public class MainGUI {
         NoteModifierImp upperNoteLimit = new NoteModifierImp(defaultUpperLimitNote, upperLimitChangeNotifier);
         LowerBoundedNoteModifierImp lowerBoundedNoteLimit = new LowerBoundedNoteModifierImp(lowerNoteLimit, upperNoteLimit, lowerBoundNote, defaultUpperLimitNote, lowerBoundChangeNotifier);
         UpperBoundedNoteModifierImp upperBoundedNoteLimit = new UpperBoundedNoteModifierImp(upperNoteLimit, lowerNoteLimit, defaultLowerLimitNote, upperBoundNote, upperBoundChangeNotifier);
-
-        NoteRangeLimitsImp noteRangeLimits = new NoteRangeLimitsImp(lowerNoteLimit, upperNoteLimit);
         ClefModeModifierImp clefModeState = new ClefModeModifierImp(ClefMode.Grand, modeChangeNotifier);
 
         //KeyReceiver
         KeyNoteReceiverImp keyNoteReceiver = new KeyNoteReceiverImp(keyboardState);
 
         //Trainer
-        SightReadTrainerImp sightReadTrainer = new SightReadTrainerImp(noteRangeLimits, keyboardState, flashcardSatisfiedNotifier, flashcardChangeNotifier);
+        RandomNoteGeneratorImp randomNoteGenerator = new RandomNoteGeneratorImp(lowerNoteLimit, upperNoteLimit);
+        SightReadTrainerImp sightReadTrainer = new SightReadTrainerImp(randomNoteGenerator, keyboardState, flashcardSatisfiedNotifier, flashcardChangeNotifier);
 
         //Selectors
         InstrumentBrowserImp instrumentBrowser = new InstrumentBrowserImp(keyNoteReceiver);
@@ -70,7 +69,7 @@ public class MainGUI {
         //Renderers
         ImageLoaderImp imageLoader = new ImageLoaderImp();
         GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardState, clefModeState, sightReadTrainer, imageLoader);
-        LimitRendererImp rangeRenderer = new LimitRendererImp(noteRangeLimits);
+        LimitRendererImp rangeRenderer = new LimitRendererImp(randomNoteGenerator);
         NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardState);
 
         //Add Observers

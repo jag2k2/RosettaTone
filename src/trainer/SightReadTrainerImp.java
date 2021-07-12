@@ -9,7 +9,7 @@ import utility.NoteCollection;
 public class SightReadTrainerImp implements FlashcardNoteGetter, LimitChangeObserver, KeyboardChangeObserver {
     static private final int targetCount = 8;
 
-    private final NoteRangeLimits noteRangeLimits;
+    private final RandomNoteGenerator randomNoteGenerator;
     private final KeyboardEvaluator keyboardEvaluator;
     private final NoteCollectionList flashcardList = new NoteCollectionListImp();
     private final FlashcardSatisfiedNotifier flashcardSatisfiedNotifier;
@@ -17,9 +17,9 @@ public class SightReadTrainerImp implements FlashcardNoteGetter, LimitChangeObse
 
     private boolean satisfied = false;
 
-    public SightReadTrainerImp(NoteRangeLimits noteRangeLimits, KeyboardEvaluator keyboardEvaluator,
+    public SightReadTrainerImp(RandomNoteGenerator randomNoteGenerator, KeyboardEvaluator keyboardEvaluator,
                                FlashcardSatisfiedNotifier flashcardSatisfiedNotifier, FlashcardChangeNotifier flashcardChangeNotifier){
-        this.noteRangeLimits = noteRangeLimits;
+        this.randomNoteGenerator = randomNoteGenerator;
         this.keyboardEvaluator = keyboardEvaluator;
         this.flashcardSatisfiedNotifier = flashcardSatisfiedNotifier;
         this.flashcardChangeNotifier = flashcardChangeNotifier;
@@ -63,7 +63,7 @@ public class SightReadTrainerImp implements FlashcardNoteGetter, LimitChangeObse
     }
 
     protected void addNewFlashcard(){
-        Note randomNote = noteRangeLimits.generateRandomNote();
+        Note randomNote = randomNoteGenerator.generateSingleNote();
         NoteCollection noteTarget = new NoteCollectionImp();
         noteTarget.add(randomNote);
         flashcardList.add(noteTarget);

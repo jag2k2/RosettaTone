@@ -2,10 +2,12 @@ package statemodels.notelimit;
 
 import music.Note;
 import music.NoteAccidental;
+import trainer.randomnotegenerator.LineNumberable;
 import uicomponents.rangeselector.noteselector.NoteModifier;
 import uicomponents.rangeselector.noteselector.NotePreviewer;
+import uicomponents.renderer.RenderConstants;
 
-public class NoteModifierImp implements NoteModifier, NotePreviewer {
+public class NoteModifierImp implements NoteModifier, NotePreviewer, LineNumberable {
     private Note limit;
     private final LimitChangeNotifier limitChangeNotifier;
 
@@ -40,6 +42,11 @@ public class NoteModifierImp implements NoteModifier, NotePreviewer {
     @Override
     public void decrement() {
         setLimit(limit.getPrevious(NoteAccidental.NATURAL));
+    }
+
+    @Override
+    public int getLineNumber() {
+        return RenderConstants.getLineNumber(limit);
     }
 
     @Override

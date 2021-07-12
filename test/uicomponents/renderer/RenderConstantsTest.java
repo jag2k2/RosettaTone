@@ -40,41 +40,4 @@ class RenderConstantsTest {
         expectedNote = new Note(NoteName.B, 6);
         assertEquals(expectedNote, actualNote);
     }
-
-    @Test
-    void canGenerateRandomKey(){
-        int iterations = 10000;
-        List<Note> octave4 = new ArrayList<>();
-        octave4.add(noteC4);
-        octave4.add(noteD4);
-        octave4.add(noteE4);
-        octave4.add(noteF4);
-        octave4.add(noteG4);
-        octave4.add(noteA4);
-        octave4.add(noteB4);
-        int intervalSize = octave4.size();
-
-        HashMap<Note, Integer> histogram = new HashMap<>();
-
-        Note lowerNote = noteC4;
-        Note upperNote = noteB4;
-        for (int i = 0; i < iterations; i++){
-            Note randomNote = RenderConstants.getRandomNote(lowerNote, upperNote);
-            if (octave4.contains(randomNote)){
-                int noteIndex = octave4.indexOf(randomNote);
-                int count = histogram.getOrDefault(octave4.get(noteIndex), 0);
-                count++;
-                histogram.put(octave4.get(noteIndex), count);
-            }
-        }
-
-        assertEquals(intervalSize, histogram.size());
-
-        for (Note note : octave4){
-            int total = histogram.getOrDefault(note, 0);
-            System.out.println(note + " -> " + total);
-            int minimumCount = (int) ((float) iterations / intervalSize * 0.85);
-            assertTrue(total > minimumCount);
-        }
-    }
 }

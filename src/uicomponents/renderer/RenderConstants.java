@@ -55,14 +55,7 @@ public class RenderConstants {
         return leftMargin + column * noteXSpacing;
     }
 
-    static public Note getRandomNote(Note lowerNote, Note upperNote){
-        int min = getLineNumber(upperNote);
-        int max = getLineNumber(lowerNote);
-        int randomLine = (int) Math.floor(Math.random()*(max-min+1) + min);
-        return getNote(randomLine);
-    }
-
-    static protected Note getNote(int lineNumber){
+    static public Note getNote(int lineNumber){
         int notePosition = (numberOfLines - 1) - lineNumber + 5;
         int octave = notePosition / 7;
         int octavePosition = notePosition % 7;

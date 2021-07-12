@@ -1,16 +1,16 @@
 package uicomponents.renderer;
 
 import notification.LimitChangeObserver;
-import trainer.NoteRangeLimits;
+import trainer.RandomNoteGenerator;
 import uicomponents.UIComponent;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class LimitRendererImp extends Component implements UIComponent, LimitChangeObserver {
-    private final NoteRangeLimits noteRangeModel;
+    private final RandomNoteGenerator noteRangeModel;
 
-    public LimitRendererImp(NoteRangeLimits noteRangeModel){
+    public LimitRendererImp(RandomNoteGenerator noteRangeModel){
         this.noteRangeModel = noteRangeModel;
     }
 

@@ -12,7 +12,7 @@ public class UpperBoundedLimitStateImp extends AbstractBoundedLimitState {
     }
 
     @Override
-    public void rangeChanged() {
+    public void limitChanged() {
         setLowerBound(otherLimit);
     }
 }

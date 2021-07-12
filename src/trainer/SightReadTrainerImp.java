@@ -32,13 +32,13 @@ public class SightReadTrainerImp implements FlashcardNoteGetter, LimitChangeObse
     }
 
     @Override
-    public void rangeChanged() {
+    public void limitChanged() {
         generateAllNewFlashcards();
         flashcardChangeNotifier.notifyFlashcardChanged();
     }
 
     @Override
-    public void notifyKeyboardChanged() {
+    public void KeyboardChanged() {
         for (NoteCollection currentTarget : flashcardList.getFirstItem()){
             if(keyboardEvaluator.contains(currentTarget)){
                 satisfied = true;

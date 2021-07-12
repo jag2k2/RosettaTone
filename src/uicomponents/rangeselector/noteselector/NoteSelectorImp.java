@@ -62,7 +62,7 @@ public class NoteSelectorImp implements UIComponent, ActionListener, PopupMenuLi
     }
 
     @Override
-    public void rangeChanged() {
+    public void limitChanged() {
         boundedNoteModel.refreshJComboBoxOptions(noteComboBox);
     }
 

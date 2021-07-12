@@ -16,7 +16,7 @@ class LimitStateTest implements LimitChangeObserver {
     Boolean notificationFired;
 
     @Override
-    public void rangeChanged() {
+    public void limitChanged() {
         notificationFired = true;
     }
 

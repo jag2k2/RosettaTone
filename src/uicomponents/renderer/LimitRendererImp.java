@@ -27,7 +27,7 @@ public class LimitRendererImp extends Component implements UIComponent, LimitCha
     }
 
     @Override
-    public void rangeChanged() {
+    public void limitChanged() {
         repaint();
     }
 

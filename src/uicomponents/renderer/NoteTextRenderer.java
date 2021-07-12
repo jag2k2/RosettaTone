@@ -24,7 +24,7 @@ public class NoteTextRenderer implements UIComponent, KeyboardChangeObserver {
     }
 
     @Override
-    public void notifyKeyboardChanged() {
+    public void KeyboardChanged() {
         textArea.setText(keyboardStateNoteGetter.getActiveNotes().toString());
     }
 }

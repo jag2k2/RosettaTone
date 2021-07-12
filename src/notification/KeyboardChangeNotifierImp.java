@@ -15,7 +15,7 @@ public class KeyboardChangeNotifierImp implements KeyboardChangeNotifier {
     @Override
     public void notifyKeyboardChanged() {
         for (KeyboardChangeObserver observer : observers) {
-            observer.notifyKeyboardChanged();
+            observer.KeyboardChanged();
         }
     }
 }

@@ -15,7 +15,7 @@ public class LimitChangeNotifierImp implements LimitChangeNotifier {
     @Override
     public void notifyObservers() {
         for (LimitChangeObserver observer : observers){
-            observer.rangeChanged();
+            observer.limitChanged();
         }
     }
 }

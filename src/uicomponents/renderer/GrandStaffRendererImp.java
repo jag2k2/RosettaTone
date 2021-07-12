@@ -34,12 +34,12 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
     }
 
     @Override
-    public void modeChanged() {
+    public void clefModeChanged() {
         repaint();
     }
 
     @Override
-    public void notifyKeyboardChanged() {
+    public void KeyboardChanged() {
         repaint();
     }
 

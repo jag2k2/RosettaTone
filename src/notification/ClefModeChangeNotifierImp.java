@@ -15,7 +15,7 @@ public class ClefModeChangeNotifierImp implements ClefModeChangeNotifier {
     @Override
     public void notifyObservers() {
         for (ClefModeChangeObserver observer : observers) {
-            observer.modeChanged();
+            observer.clefModeChanged();
         }
     }
 }

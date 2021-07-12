@@ -32,7 +32,7 @@ public class AbstractBoundedLimitStateTest implements LimitChangeObserver {
     private boolean notificationFired;
 
     @Override
-    public void rangeChanged() {
+    public void limitChanged() {
         notificationFired = true;
     }
 

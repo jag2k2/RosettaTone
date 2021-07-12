@@ -28,7 +28,7 @@ public class UpperBoundedLimitStateTest implements LimitChangeObserver {
     private int notificationsFired;
 
     @Override
-    public void rangeChanged() {
+    public void limitChanged() {
         notificationsFired++;
     }
 

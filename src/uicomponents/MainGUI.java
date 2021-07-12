@@ -10,15 +10,16 @@ import notification.*;
 import statemodels.ClefModeModifierImp;
 import statemodels.KeyStateManipulatorImp;
 import statemodels.NoteRangeLimitsImp;
+import statemodels.notelimit.LowerBoundedNoteModifierImp;
+import statemodels.notelimit.NoteModifierImp;
+import statemodels.notelimit.UpperBoundedNoteModifierImp;
 import trainer.SightReadTrainerImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.noteselector.NoteSelectorImp;
 import uicomponents.rangeselector.RangeSelectorImp;
-import uicomponents.rangeselector.noteselector.DisplayDirection;
 import uicomponents.renderer.GrandStaffRendererImp;
-import statemodels.NoteLimitModelImp;
 import uicomponents.renderer.NoteTextRenderer;
-import uicomponents.renderer.RangeRendererImp;
+import uicomponents.renderer.LimitRendererImp;
 import uicomponents.clefmode.ClefModeSelectorImp;
 import uicomponents.clefmode.ClefMode;
 
@@ -30,77 +31,88 @@ public class MainGUI {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         //Notifiers
-        KeyboardChangeNotifierImp keyboardChangeNotifierImp = new KeyboardChangeNotifierImp();
-        ClefModeChangeNotifierImp modeChangeNotifierImp = new ClefModeChangeNotifierImp();
-        RangeChangeNotifierImp lowerRangeChangeNotifierImp = new RangeChangeNotifierImp();
-        RangeChangeNotifierImp upperRangeChangeNotifierImp = new RangeChangeNotifierImp();
-        FlashcardSatisfiedNotifierImp flashcardSatisfiedNotifierImp = new FlashcardSatisfiedNotifierImp();
-        FlashcardChangeNotifierImp flashcardChangeNotifierImp = new FlashcardChangeNotifierImp();
+        KeyboardChangeNotifierImp keyboardChangeNotifier = new KeyboardChangeNotifierImp();
+        ClefModeChangeNotifierImp modeChangeNotifier = new ClefModeChangeNotifierImp();
+        LimitChangeNotifierImp lowerLimitChangeNotifier = new LimitChangeNotifierImp();
+        LimitChangeNotifierImp upperLimitChangeNotifier = new LimitChangeNotifierImp();
+        LimitChangeNotifierImp lowerBoundChangeNotifier = new LimitChangeNotifierImp();
+        LimitChangeNotifierImp upperBoundChangeNotifier = new LimitChangeNotifierImp();
+        FlashcardSatisfiedNotifierImp flashcardSatisfiedNotifier = new FlashcardSatisfiedNotifierImp();
+        FlashcardChangeNotifierImp flashcardChangeNotifier = new FlashcardChangeNotifierImp();
 
         //State Models
-        KeyStateManipulatorImp keyboardStateImp = new KeyStateManipulatorImp(keyboardChangeNotifierImp);
+        KeyStateManipulatorImp keyboardState = new KeyStateManipulatorImp(keyboardChangeNotifier);
         Note lowerBoundNote = new Note(NoteName.A, 0);
         Note upperBoundNote = new Note(NoteName.C, 8);
-        Note defaultLowerRangeNote = new Note(NoteName.C, 4);
-        Note defaultUpperRangeNote = new Note(NoteName.C, 5);
-        NoteLimitModelImp lowerNoteLimitModelImp = new NoteLimitModelImp(lowerBoundNote, defaultLowerRangeNote, defaultUpperRangeNote, lowerRangeChangeNotifierImp);
-        NoteLimitModelImp upperNoteLimitModelImp = new NoteLimitModelImp(upperBoundNote, defaultUpperRangeNote, defaultLowerRangeNote, upperRangeChangeNotifierImp);
-        NoteRangeLimitsImp noteRangeLimitsImp = new NoteRangeLimitsImp(lowerNoteLimitModelImp, upperNoteLimitModelImp);
-        ClefModeModifierImp clefModeStateImp = new ClefModeModifierImp(ClefMode.Grand, modeChangeNotifierImp);
+        Note defaultLowerLimitNote = new Note(NoteName.C, 4);
+        Note defaultUpperLimitNote = new Note(NoteName.C, 5);
+        NoteModifierImp lowerNoteLimit = new NoteModifierImp(defaultLowerLimitNote, lowerLimitChangeNotifier);
+        NoteModifierImp upperNoteLimit = new NoteModifierImp(defaultUpperLimitNote, upperLimitChangeNotifier);
+        LowerBoundedNoteModifierImp lowerBoundedNoteLimit = new LowerBoundedNoteModifierImp(lowerNoteLimit, upperNoteLimit, lowerBoundNote, defaultUpperLimitNote, lowerBoundChangeNotifier);
+        UpperBoundedNoteModifierImp upperBoundedNoteLimit = new UpperBoundedNoteModifierImp(upperNoteLimit, lowerNoteLimit, defaultLowerLimitNote, upperBoundNote, upperBoundChangeNotifier);
+
+        NoteRangeLimitsImp noteRangeLimits = new NoteRangeLimitsImp(lowerNoteLimit, upperNoteLimit);
+        ClefModeModifierImp clefModeState = new ClefModeModifierImp(ClefMode.Grand, modeChangeNotifier);
 
         //KeyReceiver
-        KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(keyboardStateImp);
+        KeyNoteReceiverImp keyNoteReceiver = new KeyNoteReceiverImp(keyboardState);
 
         //Trainer
-        SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(noteRangeLimitsImp, keyboardStateImp, flashcardSatisfiedNotifierImp, flashcardChangeNotifierImp);
+        SightReadTrainerImp sightReadTrainer = new SightReadTrainerImp(noteRangeLimits, keyboardState, flashcardSatisfiedNotifier, flashcardChangeNotifier);
 
         //Selectors
-        InstrumentBrowserImp instrumentBrowserImp = new InstrumentBrowserImp(keyNoteReceiverImp);
-        ClefModeSelectorImp modeSelectorImp = new ClefModeSelectorImp(clefModeStateImp);
-        NoteSelectorImp lowerNoteSelectorImp = new NoteSelectorImp(lowerNoteLimitModelImp, upperNoteLimitModelImp, DisplayDirection.HARDBOUND_LOW);
-        NoteSelectorImp upperNoteSelectorImp = new NoteSelectorImp(upperNoteLimitModelImp, lowerNoteLimitModelImp, DisplayDirection.HARDBOUND_HIGH);
-        RangeSelectorImp rangeSelectorImp = new RangeSelectorImp(lowerNoteSelectorImp, upperNoteSelectorImp);
+        InstrumentBrowserImp instrumentBrowser = new InstrumentBrowserImp(keyNoteReceiver);
+        ClefModeSelectorImp modeSelector = new ClefModeSelectorImp(clefModeState);
+        NoteSelectorImp lowerNoteSelector = new NoteSelectorImp(lowerBoundedNoteLimit, lowerNoteLimit);
+        NoteSelectorImp upperNoteSelector = new NoteSelectorImp(upperBoundedNoteLimit, upperNoteLimit);
+        RangeSelectorImp rangeSelector = new RangeSelectorImp(lowerNoteSelector, upperNoteSelector);
 
         //Renderers
-        ImageLoaderImp imageLoaderImp = new ImageLoaderImp();
-        GrandStaffRendererImp grandStaffRendererImp = new GrandStaffRendererImp(keyboardStateImp, clefModeStateImp, sightReadTrainerImp, imageLoaderImp);
-        RangeRendererImp rangeRendererImp = new RangeRendererImp(noteRangeLimitsImp);
-        NoteTextRenderer noteTextRendererImp = new NoteTextRenderer(keyboardStateImp);
+        ImageLoaderImp imageLoader = new ImageLoaderImp();
+        GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardState, clefModeState, sightReadTrainer, imageLoader);
+        LimitRendererImp rangeRenderer = new LimitRendererImp(noteRangeLimits);
+        NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardState);
 
         //Add Observers
-        keyboardChangeNotifierImp.addObserver(grandStaffRendererImp);
-        keyboardChangeNotifierImp.addObserver(noteTextRendererImp);
-        keyboardChangeNotifierImp.addObserver(sightReadTrainerImp);
+        keyboardChangeNotifier.addObserver(grandStaffRenderer);
+        keyboardChangeNotifier.addObserver(noteTextRenderer);
+        keyboardChangeNotifier.addObserver(sightReadTrainer);
 
-        modeChangeNotifierImp.addObserver(grandStaffRendererImp);
+        modeChangeNotifier.addObserver(grandStaffRenderer);
 
-        lowerRangeChangeNotifierImp.addObserver(rangeRendererImp);
-        lowerRangeChangeNotifierImp.addObserver(sightReadTrainerImp);
-        lowerRangeChangeNotifierImp.addObserver(upperNoteSelectorImp);
+        lowerLimitChangeNotifier.addObserver(rangeRenderer);
+        lowerLimitChangeNotifier.addObserver(sightReadTrainer);
+        lowerLimitChangeNotifier.addObserver(lowerNoteSelector);
+        lowerLimitChangeNotifier.addObserver(upperBoundedNoteLimit);
 
-        upperRangeChangeNotifierImp.addObserver(rangeRendererImp);
-        upperRangeChangeNotifierImp.addObserver(sightReadTrainerImp);
-        upperRangeChangeNotifierImp.addObserver(lowerNoteSelectorImp);
+        lowerBoundChangeNotifier.addObserver(lowerNoteSelector);
 
-        flashcardSatisfiedNotifierImp.addObserver(grandStaffRendererImp);
-        flashcardChangeNotifierImp.addObserver(grandStaffRendererImp);
+        upperLimitChangeNotifier.addObserver(rangeRenderer);
+        upperLimitChangeNotifier.addObserver(sightReadTrainer);
+        upperLimitChangeNotifier.addObserver(upperNoteSelector);
+        upperLimitChangeNotifier.addObserver(lowerBoundedNoteLimit);
+
+        upperBoundChangeNotifier.addObserver(upperNoteSelector);
+
+        flashcardSatisfiedNotifier.addObserver(grandStaffRenderer);
+        flashcardChangeNotifier.addObserver(grandStaffRenderer);
 
         //Build Panels
         JPanel verticalPanel = new JPanel();
         verticalPanel.setLayout(new BoxLayout(verticalPanel, BoxLayout.Y_AXIS));
-        verticalPanel.add(instrumentBrowserImp.getComponent());
-        verticalPanel.add(rangeSelectorImp.getComponent());
-        verticalPanel.add(modeSelectorImp.getComponent());
+        verticalPanel.add(instrumentBrowser.getComponent());
+        verticalPanel.add(rangeSelector.getComponent());
+        verticalPanel.add(modeSelector.getComponent());
         JPanel configPanel = new JPanel(new BorderLayout());
         configPanel.add(BorderLayout.NORTH, verticalPanel);
 
         JPanel staffPanel = new JPanel(new BorderLayout());
-        staffPanel.add(BorderLayout.WEST, rangeRendererImp.getComponent());
-        staffPanel.add(BorderLayout.CENTER, grandStaffRendererImp.getComponent());
+        staffPanel.add(BorderLayout.WEST, rangeRenderer.getComponent());
+        staffPanel.add(BorderLayout.CENTER, grandStaffRenderer.getComponent());
         staffPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         mainPanel.add(BorderLayout.WEST, configPanel);
         mainPanel.add(BorderLayout.CENTER, staffPanel);
-        mainPanel.add(BorderLayout.SOUTH, noteTextRendererImp.getComponent());
+        mainPanel.add(BorderLayout.SOUTH, noteTextRenderer.getComponent());
         frame.setTitle("Rosetta Tone");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(mainPanel);

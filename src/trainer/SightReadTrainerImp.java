@@ -2,12 +2,11 @@ package trainer;
 
 import music.*;
 import notification.KeyboardChangeObserver;
-import notification.RangeChangeObserver;
-import uicomponents.renderer.RenderConstants;
+import notification.LimitChangeObserver;
 import uicomponents.renderer.FlashcardNoteGetter;
 import utility.NoteCollection;
 
-public class SightReadTrainerImp implements FlashcardNoteGetter, RangeChangeObserver, KeyboardChangeObserver {
+public class SightReadTrainerImp implements FlashcardNoteGetter, LimitChangeObserver, KeyboardChangeObserver {
     static private final int targetCount = 8;
 
     private final NoteRangeLimits noteRangeLimits;

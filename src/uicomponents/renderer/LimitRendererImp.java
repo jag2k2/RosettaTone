@@ -1,17 +1,16 @@
 package uicomponents.renderer;
 
-import music.Note;
-import notification.RangeChangeObserver;
+import notification.LimitChangeObserver;
 import trainer.NoteRangeLimits;
 import uicomponents.UIComponent;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class RangeRendererImp extends Component implements UIComponent, RangeChangeObserver {
+public class LimitRendererImp extends Component implements UIComponent, LimitChangeObserver {
     private final NoteRangeLimits noteRangeModel;
 
-    public RangeRendererImp(NoteRangeLimits noteRangeModel){
+    public LimitRendererImp(NoteRangeLimits noteRangeModel){
         this.noteRangeModel = noteRangeModel;
     }
 

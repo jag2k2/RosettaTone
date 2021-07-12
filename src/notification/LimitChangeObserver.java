@@ -1,5 +1,5 @@
 package notification;
 
-public interface RangeChangeObserver {
+public interface LimitChangeObserver {
     void rangeChanged();
 }

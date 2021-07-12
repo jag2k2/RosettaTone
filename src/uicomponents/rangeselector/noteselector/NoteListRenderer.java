@@ -1,26 +1,24 @@
 package uicomponents.rangeselector.noteselector;
 
 import music.Note;
-import uicomponents.rangeselector.noteselector.NoteLimitModel;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class NoteListRenderer implements ListCellRenderer<Note> {
     private final ListCellRenderer<? super Note> listCellRenderer;
-    private final NoteLimitModel noteLimitModel;
+    private final NotePreviewer notePreviewer;
 
-    public NoteListRenderer(ListCellRenderer<? super Note> listCellRenderer, NoteLimitModel noteLimitModel){
+    public NoteListRenderer(ListCellRenderer<? super Note> listCellRenderer, NotePreviewer notePreviewer){
         this.listCellRenderer = listCellRenderer;
-        this.noteLimitModel = noteLimitModel;
+        this.notePreviewer = notePreviewer;
     }
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends Note> list, Note value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<? extends Note> list, Note note, int index, boolean isSelected, boolean cellHasFocus) {
         if(isSelected) {
-            noteLimitModel.setActiveLimit(value);
+            notePreviewer.preview(note);
         }
-        Component rendererComponent = listCellRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        Component rendererComponent = listCellRenderer.getListCellRendererComponent(list, note, index, isSelected, cellHasFocus);
         if (rendererComponent instanceof JLabel){
             JLabel rendererLabel = (JLabel) rendererComponent;
             Font oldFont = rendererLabel.getFont();

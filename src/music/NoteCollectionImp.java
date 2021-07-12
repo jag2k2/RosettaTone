@@ -1,7 +1,5 @@
 package music;
 
-import statemodels.NoteLimitModelImp;
-import trainer.KeyboardEvaluator;
 import utility.NoteCollection;
 
 import java.util.Iterator;

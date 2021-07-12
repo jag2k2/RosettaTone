@@ -3,13 +3,13 @@ package statemodels;
 import music.Note;
 import music.NoteName;
 import trainer.NoteRangeLimits;
-import uicomponents.rangeselector.noteselector.NoteLimitModel;
+import uicomponents.rangeselector.noteselector.NoteModifier;
 
 public class NoteRangeLimitsImp implements NoteRangeLimits {
-    private final NoteLimitModel lowerLimitModel;
-    private final NoteLimitModel upperLimitModel;
+    private final NoteModifier lowerLimitModel;
+    private final NoteModifier upperLimitModel;
 
-    public NoteRangeLimitsImp(NoteLimitModel lowerLimitModel, NoteLimitModel upperLimitModel){
+    public NoteRangeLimitsImp(NoteModifier lowerLimitModel, NoteModifier upperLimitModel){
         this.lowerLimitModel = lowerLimitModel;
         this.upperLimitModel = upperLimitModel;
     }

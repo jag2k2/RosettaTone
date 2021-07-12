@@ -1,4 +1,4 @@
-package notelimit;
+package statemodels.limitstate;
 
 import music.Note;
 import music.NoteAccidental;
@@ -11,12 +11,12 @@ import utility.Maybe;
 
 import java.awt.*;
 
-public class NoteLimitImp implements LimitModifier, LimitPreviewer, LineNumberable, MusicDrawable {
+public class LimitStateImp implements LimitModifier, LimitPreviewer, LineNumberable, MusicDrawable {
     private Note limit;
     private Maybe<LimitChangeNotifier> limitChangeNotifier = new Maybe<>();
     private Maybe<LimitChangeNotifier> previewChangeNotifier = new Maybe<>();
 
-    public NoteLimitImp(Note limit){
+    public LimitStateImp(Note limit){
         this.limit = limit;
     }
 
@@ -98,8 +98,8 @@ public class NoteLimitImp implements LimitModifier, LimitPreviewer, LineNumberab
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof NoteLimitImp){
-            NoteLimitImp toCompare = (NoteLimitImp) obj;
+        if (obj instanceof LimitStateImp){
+            LimitStateImp toCompare = (LimitStateImp) obj;
             return limit.equals(toCompare.limit);
         }
         return false;

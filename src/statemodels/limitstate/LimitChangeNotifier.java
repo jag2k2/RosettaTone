@@ -1,4 +1,4 @@
-package notelimit;
+package statemodels.limitstate;
 
 import notification.LimitChangeObserver;
 

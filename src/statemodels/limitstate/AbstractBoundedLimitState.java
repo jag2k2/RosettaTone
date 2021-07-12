@@ -1,4 +1,4 @@
-package notelimit;
+package statemodels.limitstate;
 
 import music.Note;
 import music.NoteAccidental;
@@ -9,13 +9,13 @@ import utility.Maybe;
 
 import javax.swing.*;
 
-abstract public class AbstractBoundedNoteLimit implements BoundedNoteModifier, LimitChangeObserver {
+abstract public class AbstractBoundedLimitState implements BoundedNoteModifier, LimitChangeObserver {
     private final LimitModifier limitModifier;
     private Note lowerBound;
     private Note upperBound;
     private Maybe<LimitChangeNotifier> boundChangeNotifier = new Maybe<>();
 
-    protected AbstractBoundedNoteLimit(LimitModifier limitModifier, Note lowerBound, Note upperBound){
+    protected AbstractBoundedLimitState(LimitModifier limitModifier, Note lowerBound, Note upperBound){
         this.limitModifier = limitModifier;
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
@@ -83,8 +83,8 @@ abstract public class AbstractBoundedNoteLimit implements BoundedNoteModifier, L
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof AbstractBoundedNoteLimit){
-            AbstractBoundedNoteLimit toCompare = (AbstractBoundedNoteLimit) obj;
+        if (obj instanceof AbstractBoundedLimitState){
+            AbstractBoundedLimitState toCompare = (AbstractBoundedLimitState) obj;
             return lowerBound.equals(toCompare.lowerBound)
                     && limitModifier.equals(toCompare.limitModifier)
                     && upperBound.equals(toCompare.upperBound);

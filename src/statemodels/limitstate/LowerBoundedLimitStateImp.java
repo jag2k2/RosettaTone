@@ -1,18 +1,18 @@
-package notelimit;
+package statemodels.limitstate;
 
 import music.Note;
 import uicomponents.rangeselector.noteselector.LimitModifier;
 
-public class UpperBoundedNoteLimitImp extends AbstractBoundedNoteLimit {
+public class LowerBoundedLimitStateImp extends AbstractBoundedLimitState {
     private final LimitModifier otherLimit;
 
-    public UpperBoundedNoteLimitImp(LimitModifier limitModifier, LimitModifier otherLimit, Note lowerBound, Note upperBound) {
+    public LowerBoundedLimitStateImp(LimitModifier limitModifier, LimitModifier otherLimit, Note lowerBound, Note upperBound) {
         super(limitModifier, lowerBound, upperBound);
         this.otherLimit = otherLimit;
     }
 
     @Override
     public void rangeChanged() {
-        setLowerBound(otherLimit);
+        setUpperBound(otherLimit);
     }
 }

@@ -6,14 +6,13 @@ import java.awt.*;
 import imageprocessing.ImageLoaderImp;
 import instrument.*;
 import music.*;
-import notelimit.LimitChangeNotifier;
 import notification.*;
 import statemodels.ClefModeStateImp;
 import statemodels.KeyboardStateImp;
 import trainer.randomnotegenerator.RandomNoteGeneratorImp;
-import notelimit.LowerBoundedNoteLimitImp;
-import notelimit.NoteLimitImp;
-import notelimit.UpperBoundedNoteLimitImp;
+import statemodels.limitstate.LowerBoundedLimitStateImp;
+import statemodels.limitstate.LimitStateImp;
+import statemodels.limitstate.UpperBoundedLimitStateImp;
 import trainer.SightReadTrainerImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.noteselector.NoteSelectorImp;
@@ -50,17 +49,17 @@ public class MainGUI {
         Note defaultLowerLimitNote = new Note(NoteName.C, 4);
         Note defaultUpperLimitNote = new Note(NoteName.C, 5);
 
-        NoteLimitImp lowerNoteLimit = new NoteLimitImp(defaultLowerLimitNote);
+        LimitStateImp lowerNoteLimit = new LimitStateImp(defaultLowerLimitNote);
         lowerNoteLimit.addLimitChangeNotifier(lowerLimitChangeNotifier);
         lowerNoteLimit.addPreviewChangeNotifier(limitPreviewNotifier);
 
-        NoteLimitImp upperNoteLimit = new NoteLimitImp(defaultUpperLimitNote);
+        LimitStateImp upperNoteLimit = new LimitStateImp(defaultUpperLimitNote);
         upperNoteLimit.addLimitChangeNotifier(upperLimitChangeNotifier);
         upperNoteLimit.addPreviewChangeNotifier(limitPreviewNotifier);
 
-        LowerBoundedNoteLimitImp lowerBoundedNoteLimit = new LowerBoundedNoteLimitImp(lowerNoteLimit, upperNoteLimit, lowerBoundNote, defaultUpperLimitNote);
+        LowerBoundedLimitStateImp lowerBoundedNoteLimit = new LowerBoundedLimitStateImp(lowerNoteLimit, upperNoteLimit, lowerBoundNote, defaultUpperLimitNote);
         lowerBoundedNoteLimit.addBoundChangeNotifier(lowerBoundChangeNotifier);
-        UpperBoundedNoteLimitImp upperBoundedNoteLimit = new UpperBoundedNoteLimitImp(upperNoteLimit, lowerNoteLimit, defaultLowerLimitNote, upperBoundNote);
+        UpperBoundedLimitStateImp upperBoundedNoteLimit = new UpperBoundedLimitStateImp(upperNoteLimit, lowerNoteLimit, defaultLowerLimitNote, upperBoundNote);
         upperBoundedNoteLimit.addBoundChangeNotifier(upperBoundChangeNotifier);
         ClefModeStateImp clefModeState = new ClefModeStateImp(ClefMode.Grand, modeChangeNotifier);
 

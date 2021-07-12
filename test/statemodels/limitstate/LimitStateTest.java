@@ -1,4 +1,4 @@
-package notelimit;
+package statemodels.limitstate;
 
 import music.Note;
 import music.NoteName;
@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NoteLimitTest implements LimitChangeObserver {
+class LimitStateTest implements LimitChangeObserver {
     private LimitChangeNotifier limitChangeNotifier;
-    private NoteLimitImp noteLimit;
+    private LimitStateImp noteLimit;
     private final Note note = new Note(NoteName.C, 4);
     Boolean notificationFired;
 
@@ -23,7 +23,7 @@ class NoteLimitTest implements LimitChangeObserver {
     @BeforeEach
     void setup(){
         limitChangeNotifier = new LimitChangeNotifierImp();
-        noteLimit = new NoteLimitImp(note);
+        noteLimit = new LimitStateImp(note);
         noteLimit.addLimitChangeNotifier(limitChangeNotifier);
 
         limitChangeNotifier.addObserver(this);
@@ -32,10 +32,10 @@ class NoteLimitTest implements LimitChangeObserver {
 
     @Test
     void canCheckEquality() {
-        NoteLimitImp modelToCompare = new NoteLimitImp(note);
+        LimitStateImp modelToCompare = new LimitStateImp(note);
         assertEquals(modelToCompare, noteLimit);
 
-        modelToCompare = new NoteLimitImp(new Note(NoteName.A, 2));
+        modelToCompare = new LimitStateImp(new Note(NoteName.A, 2));
         assertNotEquals(modelToCompare, noteLimit);
     }
 
@@ -61,7 +61,7 @@ class NoteLimitTest implements LimitChangeObserver {
     void willSetNewLimit(){
         Note newNote = new Note(NoteName.C, 3);
         noteLimit.setLimit(newNote);
-        NoteLimitImp modelToCompare = new NoteLimitImp(newNote);
+        LimitStateImp modelToCompare = new LimitStateImp(newNote);
         assertEquals(modelToCompare, noteLimit);
         assertTrue(notificationFired);
     }
@@ -70,7 +70,7 @@ class NoteLimitTest implements LimitChangeObserver {
     void wontSetSameLimit(){
         Note newNote = new Note(NoteName.C, 4);
         noteLimit.setLimit(newNote);
-        NoteLimitImp modelToCompare = new NoteLimitImp(newNote);
+        LimitStateImp modelToCompare = new LimitStateImp(newNote);
         assertEquals(modelToCompare, noteLimit);
         assertFalse(notificationFired);
     }
@@ -78,7 +78,7 @@ class NoteLimitTest implements LimitChangeObserver {
     @Test
     void canDecrement(){
         Note newNote = new Note(NoteName.B, 3);
-        NoteLimitImp modelToCompare = new NoteLimitImp(newNote);
+        LimitStateImp modelToCompare = new LimitStateImp(newNote);
         noteLimit.decrement();
         assertEquals(modelToCompare, noteLimit);
         assertTrue(notificationFired);
@@ -87,7 +87,7 @@ class NoteLimitTest implements LimitChangeObserver {
     @Test
     void canIncrement(){
         Note newNote = new Note(NoteName.D, 4);
-        NoteLimitImp modelToCompare = new NoteLimitImp(newNote);
+        LimitStateImp modelToCompare = new LimitStateImp(newNote);
         noteLimit.increment();
         assertEquals(modelToCompare, noteLimit);
         assertTrue(notificationFired);

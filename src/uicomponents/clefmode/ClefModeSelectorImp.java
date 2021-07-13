@@ -16,9 +16,7 @@ public class ClefModeSelectorImp implements UIComponent, ActionListener {
         this.clefComboBox = new JComboBox<>(ClefMode.values());
         this.clefModeModifier = clefModeModifier;
         this.clefComboBox.setRenderer(new ClefModeRenderer(clefComboBox.getRenderer()));
-
         this.clefComboBox.addActionListener(this);
-        this.clefComboBox.setSelectedItem(clefModeModifier.getState());
     }
 
     @Override
@@ -29,6 +27,7 @@ public class ClefModeSelectorImp implements UIComponent, ActionListener {
         Dimension boxSize = new Dimension(100, 40);
         clefComboBox.setPreferredSize(boxSize);
         panel.add(clefComboBox);
+        clefModeModifier.setUISelected(clefComboBox);
         return panel;
     }
 

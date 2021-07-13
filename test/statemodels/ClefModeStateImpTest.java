@@ -1,10 +1,13 @@
 package statemodels;
 
+import imageprocessing.ImageLoaderImp;
+import music.Staff;
 import notification.ClefModeChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uicomponents.clefmode.ClefMode;
-import uicomponents.renderer.RenderConstants;
+import uicomponents.renderer.ImageLoader;
+import uicomponents.renderer.records.RenderConstants;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,26 +16,11 @@ class ClefModeStateImpTest {
 
     @BeforeEach
     void setup(){
-        clefModeState = new ClefModeStateImp(ClefMode.Grand, new ClefModeChangeNotifierImp());
-    }
+        ImageLoader imageLoader = new ImageLoaderImp();
+        Staff trebleStaff = new Staff(imageLoader.getTrebleImage(), RenderConstants.trebleStaff);
+        Staff bassStaff = new Staff(imageLoader.getBassImage(), RenderConstants.bassStaff);
 
-
-    @Test
-    void canGetTrebleEnabledClefs() {
-        clefModeState.setState(ClefMode.Treble);
-        assertTrue(clefModeState.getEnabledStaffs().contains(RenderConstants.trebleStaff));
-
-        clefModeState.setState(ClefMode.Grand);
-        assertTrue(clefModeState.getEnabledStaffs().contains(RenderConstants.trebleStaff));
-    }
-
-    @Test
-    void canGetBassEnabledClefs() {
-        clefModeState.setState(ClefMode.Bass);
-        assertTrue(clefModeState.getEnabledStaffs().contains(RenderConstants.bassStaff));
-
-        clefModeState.setState(ClefMode.Grand);
-        assertTrue(clefModeState.getEnabledStaffs().contains(RenderConstants.bassStaff));
+        clefModeState = new ClefModeStateImp(ClefMode.Grand, trebleStaff, bassStaff);
     }
 
     @Test

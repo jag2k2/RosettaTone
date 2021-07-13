@@ -2,7 +2,7 @@ package trainer.randomnotegenerator;
 
 import music.Note;
 import trainer.RandomNoteGenerator;
-import uicomponents.renderer.RenderConstants;
+import uicomponents.renderer.records.RenderConstants;
 
 public class RandomNoteGeneratorImp implements RandomNoteGenerator {
     private final LineNumberable lowerLimit;

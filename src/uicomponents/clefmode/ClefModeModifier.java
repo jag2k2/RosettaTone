@@ -1,6 +1,8 @@
 package uicomponents.clefmode;
 
+import javax.swing.*;
+
 public interface ClefModeModifier {
-    ClefMode getState();
     void setState(ClefMode clefMode);
+    void setUISelected(JComboBox<ClefMode> comboBox);
 }

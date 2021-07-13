@@ -1,64 +1,62 @@
 package music;
 
-import imageprocessing.StaffImage;
-import uicomponents.renderer.RenderConstants;
+import uicomponents.MusicDrawable;
+import uicomponents.renderer.records.RenderConstants;
+import uicomponents.renderer.records.StaffConstants;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Staff {
+public class Staff implements MusicDrawable {
 
-    public final String imagePath;
-    public final double resizeFactor;
-    private final int clefLineOffset;
-    private final int clefFineTuneYOffset;
-    private final int topVisibleLine;
-    private final int bottomVisibleLine;
+    private final BufferedImage staffImage;
+    private final StaffConstants staffConstants;
 
-    public Staff(String imagePath, double resizeFactor, int clefLineOffset,
-                 int clefFineTuneYOffset, int topVisibleLine, int bottomVisibleLine){
-        this.imagePath = imagePath;
-        this.resizeFactor = resizeFactor;
-        this.clefLineOffset = clefLineOffset;
-        this.clefFineTuneYOffset = clefFineTuneYOffset;
-        this.topVisibleLine = topVisibleLine;
-        this.bottomVisibleLine = bottomVisibleLine;
-    }
-
-    public StaffImage createStaffImage(){
-        StaffImage staffImage = new StaffImage(imagePath);
-        staffImage.resize(resizeFactor);
-        return staffImage;
-    }
-
-    public int getClefYOffset(){
-        return (RenderConstants.lineSpacing * clefLineOffset) + clefFineTuneYOffset;
+    public Staff(BufferedImage staffImage, StaffConstants staffConstants){
+        this.staffImage = staffImage;
+        this.staffConstants = staffConstants;
     }
 
     public boolean isLineVisible(int lineNumber){
-        return (topVisibleLine <= lineNumber) && (lineNumber <= bottomVisibleLine);
+        return (staffConstants.topVisibleLine <= lineNumber) && (lineNumber <= staffConstants.bottomVisibleLine);
     }
 
     public boolean isLineAboveVisible(int lineNumber){
-        return lineNumber < topVisibleLine;
+        return lineNumber < staffConstants.topVisibleLine;
     }
 
     public boolean isLineBelowVisible(int lineNumber){
-        return lineNumber > bottomVisibleLine;
+        return lineNumber > staffConstants.bottomVisibleLine;
     }
 
     public int getClosestVisibleLine(int lineNumber){
-        int distanceFromTop = Math.abs(lineNumber - topVisibleLine);
-        int distanceFromBottom = Math.abs(lineNumber - bottomVisibleLine);
+        int distanceFromTop = Math.abs(lineNumber - staffConstants.topVisibleLine);
+        int distanceFromBottom = Math.abs(lineNumber - staffConstants.bottomVisibleLine);
         if (distanceFromTop < distanceFromBottom)
-            return topVisibleLine;
+            return staffConstants.topVisibleLine;
         else
-            return bottomVisibleLine;
+            return staffConstants.bottomVisibleLine;
     }
 
-    public List<Integer> getVisibleLines(){
+    @Override
+    public void draw(Graphics2D graphics2D) {
+        int clefImageXPos = RenderConstants.getClefXOffset();
+        int clefImageYPos = (RenderConstants.lineSpacing * staffConstants.clefLineOffset) + staffConstants.clefFineTuneYOffset;
+        graphics2D.drawImage(staffImage, null, clefImageXPos, clefImageYPos);
+
+        int lineXPosStart = RenderConstants.getLineXStart();
+        int lineXPosEnd = RenderConstants.getLineXEnd();
+        for (int visibleLine : getVisibleLines()) {
+            int lineYPos = RenderConstants.getLineYOffset(visibleLine);
+            graphics2D.drawLine(lineXPosStart, lineYPos, lineXPosEnd, lineYPos);
+        }
+    }
+
+    protected List<Integer> getVisibleLines(){
         List<Integer> visibleLines = new ArrayList<>();
-        for (int i = topVisibleLine; i <= bottomVisibleLine; i++){
+        for (int i = staffConstants.topVisibleLine; i <= staffConstants.bottomVisibleLine; i++){
             if ((i % 2) == 0){
                 visibleLines.add(i);
             }

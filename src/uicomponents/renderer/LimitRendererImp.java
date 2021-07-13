@@ -1,7 +1,9 @@
 package uicomponents.renderer;
 
 import notification.LimitChangeObserver;
+import uicomponents.MusicDrawable;
 import uicomponents.UIComponent;
+import uicomponents.renderer.records.RenderConstants;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,8 +1,7 @@
-package uicomponents.renderer;
+package uicomponents;
 
 import java.awt.*;
 
 public interface MusicDrawable {
     void draw(Graphics2D graphics2D);
-    Point getPosition();
 }

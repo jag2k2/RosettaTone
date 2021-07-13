@@ -3,47 +3,55 @@ package statemodels;
 import music.Staff;
 import uicomponents.clefmode.ClefMode;
 import uicomponents.clefmode.ClefModeModifier;
-import uicomponents.renderer.StaffDecorator;
-import uicomponents.renderer.RenderConstants;
+import uicomponents.MusicDrawable;
+import utility.Maybe;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClefModeStateImp implements ClefModeModifier, StaffDecorator {
-    private final ClefModeChangeNotifier clefModeChangeNotifier;
+
+public class ClefModeStateImp implements ClefModeModifier, MusicDrawable {
+    private final Staff trebleStaff;
+    private final Staff bassStaff;
+    private Maybe<ClefModeChangeNotifier> clefModeChangeNotifier = new Maybe<>();
     private ClefMode clefMode;
 
-    public ClefModeStateImp(ClefMode clefMode, ClefModeChangeNotifier clefModeChangeNotifier){
+    public ClefModeStateImp(ClefMode clefMode, Staff trebleStaff, Staff bassStaff){
         this.clefMode = clefMode;
-        this.clefModeChangeNotifier = clefModeChangeNotifier;
+        this.trebleStaff = trebleStaff;
+        this.bassStaff = bassStaff;
+    }
+
+    public void addClefModeChangeNotifier(ClefModeChangeNotifier clefModeChangeNotifier){
+        this.clefModeChangeNotifier = new Maybe<>(clefModeChangeNotifier);
     }
 
     @Override
-    public ClefMode getState() {
-        return clefMode;
+    public void setUISelected(JComboBox<ClefMode> comboBox) {
+        comboBox.setSelectedItem(clefMode);
     }
 
     @Override
     public void setState(ClefMode clefMode) {
         if (!this.clefMode.equals(clefMode)){
             this.clefMode = clefMode;
-            clefModeChangeNotifier.notifyObservers();
+            for(ClefModeChangeNotifier notifier : clefModeChangeNotifier)
+                notifier.notifyObservers();
         }
     }
 
     @Override
-    public Set<Staff> getEnabledStaffs() {
-        Set<Staff> enabledStaffs = new HashSet<>();
-
+    public void draw(Graphics2D graphics2D) {
         if (clefMode == ClefMode.Treble || clefMode == ClefMode.Grand){
-            enabledStaffs.add(RenderConstants.trebleStaff);
+            trebleStaff.draw(graphics2D);
         }
         if (clefMode == ClefMode.Bass || clefMode == ClefMode.Grand){
-            enabledStaffs.add(RenderConstants.bassStaff);
+            bassStaff.draw(graphics2D);
         }
-        return enabledStaffs;
     }
 
-    @Override
     public Set<Integer> getHelperLines(int lineNumber) {
         Set<Integer> helperLines = new HashSet<>();
         if (isLineAboveVisible(lineNumber)){
@@ -63,33 +71,33 @@ public class ClefModeStateImp implements ClefModeModifier, StaffDecorator {
 
     protected boolean isLineAboveVisible(int lineNumber) {
         if (clefMode == ClefMode.Grand){
-            boolean aboveTreble = RenderConstants.trebleStaff.isLineAboveVisible(lineNumber);
-            boolean belowTreble = RenderConstants.trebleStaff.isLineBelowVisible(lineNumber);
-            boolean aboveBass = RenderConstants.bassStaff.isLineAboveVisible(lineNumber);
+            boolean aboveTreble = trebleStaff.isLineAboveVisible(lineNumber);
+            boolean belowTreble = trebleStaff.isLineBelowVisible(lineNumber);
+            boolean aboveBass = bassStaff.isLineAboveVisible(lineNumber);
             return aboveTreble || (aboveBass && belowTreble);
         }
         else if (clefMode == ClefMode.Treble)
-            return RenderConstants.trebleStaff.isLineAboveVisible(lineNumber);
+            return trebleStaff.isLineAboveVisible(lineNumber);
         else
-            return RenderConstants.bassStaff.isLineAboveVisible(lineNumber);
+            return bassStaff.isLineAboveVisible(lineNumber);
     }
 
     protected boolean isLineBelowVisible(int lineNumber) {
         if (clefMode == ClefMode.Grand){
-            boolean belowBass = RenderConstants.bassStaff.isLineBelowVisible(lineNumber);
-            boolean belowTreble = RenderConstants.trebleStaff.isLineBelowVisible(lineNumber);
-            boolean aboveBass = RenderConstants.bassStaff.isLineAboveVisible(lineNumber);
+            boolean belowBass = bassStaff.isLineBelowVisible(lineNumber);
+            boolean belowTreble = trebleStaff.isLineBelowVisible(lineNumber);
+            boolean aboveBass = bassStaff.isLineAboveVisible(lineNumber);
             return belowBass || (aboveBass && belowTreble);
         }
         else if (clefMode == ClefMode.Bass)
-            return RenderConstants.bassStaff.isLineBelowVisible(lineNumber);
+            return bassStaff.isLineBelowVisible(lineNumber);
         else
-            return RenderConstants.trebleStaff.isLineBelowVisible(lineNumber);
+            return trebleStaff.isLineBelowVisible(lineNumber);
     }
 
     protected int getClosestVisibleLine(int lineNumber) {
-        int closestTrebleLineNumber = RenderConstants.trebleStaff.getClosestVisibleLine(lineNumber);
-        int closestBassLineNumber = RenderConstants.bassStaff.getClosestVisibleLine(lineNumber);
+        int closestTrebleLineNumber = trebleStaff.getClosestVisibleLine(lineNumber);
+        int closestBassLineNumber = bassStaff.getClosestVisibleLine(lineNumber);
 
         if (clefMode == ClefMode.Grand) {
             int distanceFromClosestTreble = Math.abs(lineNumber - closestTrebleLineNumber);

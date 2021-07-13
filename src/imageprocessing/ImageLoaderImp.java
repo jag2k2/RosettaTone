@@ -1,17 +1,27 @@
 package imageprocessing;
 
 import uicomponents.renderer.ImageLoader;
-import uicomponents.renderer.RenderConstants;
+import uicomponents.renderer.records.RenderConstants;
 
 import java.awt.image.BufferedImage;
 
 public class ImageLoaderImp implements ImageLoader {
+    private final BufferedImage trebleImage;
+    private final BufferedImage bassImage;
     private final BufferedImage noteImage;
     private final BufferedImage sharpImage;
     private final BufferedImage naturalImage;
     private final BufferedImage flatImage;
 
     public ImageLoaderImp(){
+        StaffImage trebleStaffImage = new StaffImage(RenderConstants.trebleClefPath);
+        trebleStaffImage.resize(RenderConstants.trebleResizeFactor);
+        this.trebleImage = trebleStaffImage.getBufferedImage();
+
+        StaffImage bassStaffImage = new StaffImage(RenderConstants.bassClefPath);
+        bassStaffImage.resize(RenderConstants.bassResizeFactor);
+        this.bassImage = bassStaffImage.getBufferedImage();
+
         StaffImage noteStaffImage = new StaffImage(RenderConstants.notePath);
         noteStaffImage.resize(RenderConstants.noteResizeFactor);
         this.noteImage = noteStaffImage.getBufferedImage();
@@ -27,6 +37,16 @@ public class ImageLoaderImp implements ImageLoader {
         StaffImage flatStaffImage = new StaffImage(RenderConstants.flatPath);
         flatStaffImage.resize(RenderConstants.accidentalResizeFactor);
         this.flatImage = flatStaffImage.getBufferedImage();
+    }
+
+    @Override
+    public BufferedImage getTrebleImage() {
+        return trebleImage;
+    }
+
+    @Override
+    public BufferedImage getBassImage() {
+        return bassImage;
     }
 
     @Override

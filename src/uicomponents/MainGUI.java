@@ -18,11 +18,12 @@ import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.noteselector.NoteSelectorImp;
 import uicomponents.rangeselector.RangeSelectorImp;
 import uicomponents.renderer.GrandStaffRendererImp;
-import uicomponents.renderer.NoteLimitDrawerImp;
+import drawers.NoteLimitDrawerImp;
 import uicomponents.renderer.NoteTextRenderer;
 import uicomponents.renderer.LimitRendererImp;
 import uicomponents.clefmode.ClefModeSelectorImp;
 import uicomponents.clefmode.ClefMode;
+import uicomponents.renderer.records.RenderConstants;
 
 public class MainGUI {
     private final JFrame frame;
@@ -30,6 +31,9 @@ public class MainGUI {
     public MainGUI() {
         this.frame = new JFrame();
         JPanel mainPanel = new JPanel(new BorderLayout());
+
+        //ImageLoader
+        ImageLoaderImp imageLoader = new ImageLoaderImp();
 
         //Notifiers
         KeyboardChangeNotifierImp keyboardChangeNotifier = new KeyboardChangeNotifierImp();
@@ -61,7 +65,12 @@ public class MainGUI {
         lowerBoundedNoteLimit.addBoundChangeNotifier(lowerBoundChangeNotifier);
         UpperBoundedLimitStateImp upperBoundedNoteLimit = new UpperBoundedLimitStateImp(upperNoteLimit, lowerNoteLimit, defaultLowerLimitNote, upperBoundNote);
         upperBoundedNoteLimit.addBoundChangeNotifier(upperBoundChangeNotifier);
-        ClefModeStateImp clefModeState = new ClefModeStateImp(ClefMode.Grand, modeChangeNotifier);
+
+        Staff trebleStaff = new Staff(imageLoader.getTrebleImage(), RenderConstants.trebleStaff);
+        Staff bassStaff = new Staff(imageLoader.getBassImage(), RenderConstants.bassStaff);
+
+        ClefModeStateImp clefModeState = new ClefModeStateImp(ClefMode.Grand, trebleStaff, bassStaff);
+        clefModeState.addClefModeChangeNotifier(modeChangeNotifier);
 
         //KeyReceiver
         KeyNoteReceiverImp keyNoteReceiver = new KeyNoteReceiverImp(keyboardState);
@@ -78,7 +87,6 @@ public class MainGUI {
         RangeSelectorImp rangeSelector = new RangeSelectorImp(lowerNoteSelector, upperNoteSelector);
 
         //Renderers
-        ImageLoaderImp imageLoader = new ImageLoaderImp();
         NoteLimitDrawerImp noteLimitDrawer = new NoteLimitDrawerImp(lowerNoteLimit, upperNoteLimit);
         GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardState, clefModeState, sightReadTrainer, imageLoader);
         LimitRendererImp rangeRenderer = new LimitRendererImp(noteLimitDrawer);

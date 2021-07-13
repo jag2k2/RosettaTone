@@ -4,7 +4,9 @@ import notification.FlashcardSatisfiedObserver;
 import notification.KeyboardChangeObserver;
 import notification.ClefModeChangeObserver;
 import notification.FlashcardChangeObserver;
+import uicomponents.MusicDrawable;
 import uicomponents.UIComponent;
+import uicomponents.renderer.records.RenderConstants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,15 +14,15 @@ import java.awt.*;
 public class GrandStaffRendererImp extends JComponent implements UIComponent, ClefModeChangeObserver,
         KeyboardChangeObserver, FlashcardSatisfiedObserver, FlashcardChangeObserver, Runnable {
     private final KeyboardStateNoteGetter keyboardStateNoteGetter;
-    private final StaffDecorator staffDecorator;
+    private final MusicDrawable clefMode;
     private final FlashcardNoteGetter flashcardNoteGetter;
     private final ImageLoader imageLoader;
     private int xTraveled = RenderConstants.noteXSpacing;
     private boolean drawName = false;
 
-    public GrandStaffRendererImp(KeyboardStateNoteGetter keyboardStateNoteGetter, StaffDecorator staffDecorator, FlashcardNoteGetter flashcardNoteGetter, ImageLoader imageLoader){
+    public GrandStaffRendererImp(KeyboardStateNoteGetter keyboardStateNoteGetter, MusicDrawable clefMode, FlashcardNoteGetter flashcardNoteGetter, ImageLoader imageLoader){
         this.keyboardStateNoteGetter = keyboardStateNoteGetter;
-        this.staffDecorator = staffDecorator;
+        this.clefMode = clefMode;
         this.flashcardNoteGetter = flashcardNoteGetter;
         this.imageLoader = imageLoader;
     }
@@ -64,10 +66,14 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D)g;
-        NoteDrawer noteDrawer = new NoteDrawer(graphics2D, staffDecorator, imageLoader);
-        noteDrawer.drawEnabledStaffs();
+        NoteDrawer noteDrawer = new NoteDrawer(graphics2D, imageLoader);
+        clefMode.draw(graphics2D);
         noteDrawer.drawKeyboardNotes(keyboardStateNoteGetter.getActiveNotes());
         noteDrawer.drawFlashcardNotes(flashcardNoteGetter.getFlashcardNotes(), xTraveled, drawName);
+
+        /*keyboardState.draw(graphics2D);
+        flashCards.draw(graphics2D);
+         */
     }
 
     @Override

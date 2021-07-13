@@ -1,7 +1,7 @@
 package uicomponents.renderer;
 
-import imageprocessing.StaffImage;
 import music.*;
+import uicomponents.renderer.records.RenderConstants;
 import utility.NoteCollection;
 import trainer.NoteCollectionList;
 import java.awt.*;
@@ -9,40 +9,15 @@ import java.awt.image.BufferedImage;
 
 public class NoteDrawer {
     private final Graphics2D graphics2D;
-    private final StaffDecorator staffDecorator;
     private final ImageLoader imageLoader;
 
-    public NoteDrawer(Graphics2D graphics2D, StaffDecorator staffDecorator, ImageLoader imageLoader){
+    public NoteDrawer(Graphics2D graphics2D, ImageLoader imageLoader){
         this.graphics2D = graphics2D;
-        this.staffDecorator = staffDecorator;
         this.imageLoader = imageLoader;
 
         graphics2D.setColor(Color.BLACK);
         int lineThickness = 2;
         graphics2D.setStroke(new BasicStroke(lineThickness));
-    }
-
-    public void drawEnabledStaffs(){
-        for (Staff staff : staffDecorator.getEnabledStaffs()){
-            drawClef(staff);
-            drawStaffLines(staff);
-        }
-    }
-
-    protected void drawClef(Staff staff){
-        int clefImageXPos = RenderConstants.getClefXOffset();
-        int clefImageYPos = staff.getClefYOffset();
-        StaffImage staffImage = staff.createStaffImage();
-        graphics2D.drawImage(staffImage.getBufferedImage(), null, clefImageXPos, clefImageYPos);
-    }
-
-    protected void drawStaffLines(Staff staff){
-        int lineXPosStart = RenderConstants.getLineXStart();
-        int lineXPosEnd = RenderConstants.getLineXEnd();
-        for (int visibleLine : staff.getVisibleLines()) {
-            int lineYPos = RenderConstants.getLineYOffset(visibleLine);
-            graphics2D.drawLine(lineXPosStart, lineYPos, lineXPosEnd, lineYPos);
-        }
     }
 
     public void drawKeyboardNotes(NoteCollection noteCollection){
@@ -66,7 +41,7 @@ public class NoteDrawer {
         for (Note note : noteCollection){
             drawNote(note, noteCollection, xPosition, drawName);
             drawAccidentals(note, xPosition);
-            drawHelperLines(note, xPosition);
+            //drawHelperLines(note, xPosition);
         }
     }
 
@@ -108,7 +83,7 @@ public class NoteDrawer {
         }
     }
 
-    protected void drawHelperLines(Note note, int xPos) {
+    /*protected void drawHelperLines(Note note, int xPos) {
         int lineNumber = RenderConstants.getLineNumber(note);
         for (int helperLineNumber : staffDecorator.getHelperLines(lineNumber)) {
             int helperLineYPos = RenderConstants.getLineYOffset(helperLineNumber);
@@ -117,5 +92,5 @@ public class NoteDrawer {
             int lineXPosEnd = lineXPosStart + noteImage.getWidth() + 2;
             graphics2D.drawLine(lineXPosStart, helperLineYPos, lineXPosEnd, helperLineYPos);
         }
-    }
+    }*/
 }

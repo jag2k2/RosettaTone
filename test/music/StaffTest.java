@@ -1,13 +1,23 @@
 package music;
 
+import imageprocessing.ImageLoaderImp;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uicomponents.renderer.RenderConstants;
+import uicomponents.renderer.ImageLoader;
+import uicomponents.renderer.records.RenderConstants;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StaffTest {
-    private final Staff trebleStaff = RenderConstants.trebleStaff;
-    private final Staff bassStaff = RenderConstants.bassStaff;
+    private Staff trebleStaff;
+    private Staff bassStaff;
+
+    @BeforeEach
+    void setup(){
+        ImageLoader imageLoader = new ImageLoaderImp();
+        trebleStaff = new Staff(imageLoader.getTrebleImage(), RenderConstants.trebleStaff);
+        bassStaff = new Staff(imageLoader.getBassImage(), RenderConstants.bassStaff);
+    }
 
     @Test
     void isLineVisible() {

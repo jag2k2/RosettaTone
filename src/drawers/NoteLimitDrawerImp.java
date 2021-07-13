@@ -1,12 +1,14 @@
-package uicomponents.renderer;
+package drawers;
+
+import uicomponents.MusicDrawable;
 
 import java.awt.*;
 
-public class NoteLimitDrawerImp implements MusicDrawable{
-    private final MusicDrawable lowerNoteLimit;
-    private final MusicDrawable upperNoteLimit;
+public class NoteLimitDrawerImp implements MusicDrawable {
+    private final MusicDrawConnectable lowerNoteLimit;
+    private final MusicDrawConnectable upperNoteLimit;
 
-    public NoteLimitDrawerImp(MusicDrawable lowerNoteLimit, MusicDrawable upperNoteLimit) {
+    public NoteLimitDrawerImp(MusicDrawConnectable lowerNoteLimit, MusicDrawConnectable upperNoteLimit) {
         this.lowerNoteLimit = lowerNoteLimit;
         this.upperNoteLimit = upperNoteLimit;
     }
@@ -26,10 +28,5 @@ public class NoteLimitDrawerImp implements MusicDrawable{
 
         graphics2D.setStroke(new BasicStroke(lineThickness));
         graphics2D.drawLine(connX1, connY1, connX2, connY2);
-    }
-
-    @Override
-    public Point getPosition() {
-        return upperNoteLimit.getPosition();
     }
 }

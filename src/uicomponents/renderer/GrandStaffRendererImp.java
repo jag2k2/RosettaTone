@@ -16,7 +16,7 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
         KeyboardChangeObserver, FlashcardSatisfiedObserver, FlashcardChangeObserver, Runnable {
     private final KeyStateDrawable keyboardState;
     private final StaffModeDrawable staffMode;
-    private final FlashcardNoteGetter flashcardNoteGetter;
+    private final FlashcardDrawable flashcards;
     private final BufferedImage trebleImage = ImageLoaderImp.createTrebleImage();
     private final BufferedImage bassImage = ImageLoaderImp.createBassImage();
     private final BufferedImage noteImage = ImageLoaderImp.createNoteImage();
@@ -27,10 +27,10 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
     private int xTraveled = RenderConstants.noteXSpacing;
     private boolean drawName = false;
 
-    public GrandStaffRendererImp(KeyStateDrawable keyboardState, StaffModeDrawable staffMode, FlashcardNoteGetter flashcardNoteGetter){
+    public GrandStaffRendererImp(KeyStateDrawable keyboardState, StaffModeDrawable staffMode, FlashcardDrawable flashcards){
         this.keyboardState = keyboardState;
         this.staffMode = staffMode;
-        this.flashcardNoteGetter = flashcardNoteGetter;
+        this.flashcards = flashcards;
     }
 
     @Override
@@ -74,11 +74,7 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
         Graphics2D graphics2D = (Graphics2D)g;
         staffMode.draw(graphics2D, trebleImage, bassImage);
         keyboardState.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, staffMode);
-        //noteDrawer.drawFlashcardNotes(flashcardNoteGetter.getFlashcardNotes(), xTraveled, drawName);
-
-        /*keyboardState.getActiveNotes().draw(graphics2D);
-        flashCards.draw(graphics2D);
-         */
+        flashcards.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, staffMode, xTraveled);
     }
 
     @Override

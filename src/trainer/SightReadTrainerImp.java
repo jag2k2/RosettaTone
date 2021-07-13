@@ -5,10 +5,15 @@ import collections.NoteCollectionListImp;
 import music.*;
 import notification.KeyboardChangeObserver;
 import notification.LimitChangeObserver;
-import uicomponents.renderer.FlashcardNoteGetter;
+import uicomponents.renderer.FlashcardDrawable;
+import uicomponents.renderer.StaffModeDrawable;
+import uicomponents.renderer.records.RenderConstants;
 import utility.NoteCollection;
 
-public class SightReadTrainerImp implements FlashcardNoteGetter, LimitChangeObserver, KeyboardChangeObserver {
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+public class SightReadTrainerImp implements FlashcardDrawable, LimitChangeObserver, KeyboardChangeObserver {
     static private final int targetCount = 8;
 
     private final RandomNoteGenerator randomNoteGenerator;
@@ -25,11 +30,6 @@ public class SightReadTrainerImp implements FlashcardNoteGetter, LimitChangeObse
         this.flashcardSatisfiedNotifier = flashcardSatisfiedNotifier;
         this.flashcardChangeNotifier = flashcardChangeNotifier;
         generateAllNewFlashcards();
-    }
-
-    @Override
-    public NoteCollectionList getFlashcardNotes() {
-        return flashcardList;
     }
 
     @Override
@@ -52,6 +52,20 @@ public class SightReadTrainerImp implements FlashcardNoteGetter, LimitChangeObse
                 flashcardChangeNotifier.notifyFlashcardChanged();
             }
         }*/
+    }
+
+    @Override
+    public void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage, StaffModeDrawable staffMode, int xTraveled) {
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+        int i = 0;
+        for (NoteCollection flashcard : flashcardList){
+            i++;
+            int noteX = RenderConstants.getNoteXOffset(i) + RenderConstants.noteXSpacing - xTraveled;
+            for (Note note : flashcard){
+                int lineNumber = RenderConstants.getLineNumber(note);
+                note.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, flashcard,  noteX, staffMode.getLedgerLines(lineNumber));
+            }
+        }
     }
 
     protected void generateAllNewFlashcards(

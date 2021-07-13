@@ -4,6 +4,8 @@ import music.Note;
 import music.NoteAccidental;
 import music.NoteName;
 
+import java.util.Set;
+
 public class Key {
     private final int midiNumber;
 
@@ -79,6 +81,18 @@ public class Key {
 
     public boolean isNatural(){
         return (isCDorE() && isEven()) || (!isCDorE() && !isEven());
+    }
+
+    public boolean sharpExistsAlso(Set<Key> keys){
+        if (getNaturalIndex() == 2 || getNaturalIndex() == 6)
+            return false;
+        Key nextKey = getNext();
+        return keys.contains(nextKey);
+    }
+
+    public boolean naturalExistsAlso(Set<Key> keys){
+        Key previousKey = getPrevious();
+        return keys.contains(previousKey);
     }
 
     @Override

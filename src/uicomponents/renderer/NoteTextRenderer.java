@@ -8,10 +8,10 @@ import java.awt.*;
 
 public class NoteTextRenderer implements UIComponent, KeyboardChangeObserver {
     private final JTextArea textArea;
-    private final KeyboardStateNoteGetter keyboardStateNoteGetter;
+    private final Object keyboardState;
 
-    public NoteTextRenderer(KeyboardStateNoteGetter keyboardStateNoteGetter){
-        this.keyboardStateNoteGetter = keyboardStateNoteGetter;
+    public NoteTextRenderer(Object keyboardState){
+        this.keyboardState = keyboardState;
         this.textArea = new JTextArea();
 
     }
@@ -25,6 +25,6 @@ public class NoteTextRenderer implements UIComponent, KeyboardChangeObserver {
 
     @Override
     public void KeyboardChanged() {
-        textArea.setText(keyboardStateNoteGetter.getActiveNotes().toString());
+        textArea.setText(keyboardState.toString());
     }
 }

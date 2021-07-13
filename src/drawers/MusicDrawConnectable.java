@@ -1,8 +1,9 @@
 package drawers;
 
-import uicomponents.MusicDrawable;
+import uicomponents.renderer.RangeDrawable;
+
 import java.awt.*;
 
-public interface MusicDrawConnectable extends MusicDrawable {
+public interface MusicDrawConnectable extends RangeDrawable {
     Point getPosition();
 }

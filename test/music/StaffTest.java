@@ -1,9 +1,7 @@
 package music;
 
-import imageprocessing.ImageLoaderImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uicomponents.renderer.ImageLoader;
 import uicomponents.renderer.records.RenderConstants;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,9 +12,8 @@ class StaffTest {
 
     @BeforeEach
     void setup(){
-        ImageLoader imageLoader = new ImageLoaderImp();
-        trebleStaff = new Staff(imageLoader.getTrebleImage(), RenderConstants.trebleStaff);
-        bassStaff = new Staff(imageLoader.getBassImage(), RenderConstants.bassStaff);
+        trebleStaff = new Staff(RenderConstants.trebleStaff);
+        bassStaff = new Staff(RenderConstants.bassStaff);
     }
 
     @Test

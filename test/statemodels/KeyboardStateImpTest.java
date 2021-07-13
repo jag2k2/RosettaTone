@@ -3,7 +3,7 @@ package statemodels;
 import instrument.Key;
 import music.Note;
 import music.NoteAccidental;
-import music.NoteCollectionImp;
+import collections.NoteCollectionImp;
 import music.NoteName;
 import notification.KeyboardChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;

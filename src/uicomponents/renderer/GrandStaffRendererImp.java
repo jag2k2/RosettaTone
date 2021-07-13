@@ -1,30 +1,36 @@
 package uicomponents.renderer;
 
+import imageprocessing.ImageLoaderImp;
 import notification.FlashcardSatisfiedObserver;
 import notification.KeyboardChangeObserver;
 import notification.ClefModeChangeObserver;
 import notification.FlashcardChangeObserver;
-import uicomponents.MusicDrawable;
 import uicomponents.UIComponent;
 import uicomponents.renderer.records.RenderConstants;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class GrandStaffRendererImp extends JComponent implements UIComponent, ClefModeChangeObserver,
         KeyboardChangeObserver, FlashcardSatisfiedObserver, FlashcardChangeObserver, Runnable {
-    private final KeyboardStateNoteGetter keyboardStateNoteGetter;
-    private final MusicDrawable clefMode;
+    private final KeyStateDrawable keyboardState;
+    private final StaffModeDrawable staffMode;
     private final FlashcardNoteGetter flashcardNoteGetter;
-    private final ImageLoader imageLoader;
+    private final BufferedImage trebleImage = ImageLoaderImp.createTrebleImage();
+    private final BufferedImage bassImage = ImageLoaderImp.createBassImage();
+    private final BufferedImage noteImage = ImageLoaderImp.createNoteImage();
+    private final BufferedImage naturalImage = ImageLoaderImp.createNaturalImage();
+    private final BufferedImage sharpImage = ImageLoaderImp.createSharpImage();
+    private final BufferedImage flatImage = ImageLoaderImp.createFlatImage();
+
     private int xTraveled = RenderConstants.noteXSpacing;
     private boolean drawName = false;
 
-    public GrandStaffRendererImp(KeyboardStateNoteGetter keyboardStateNoteGetter, MusicDrawable clefMode, FlashcardNoteGetter flashcardNoteGetter, ImageLoader imageLoader){
-        this.keyboardStateNoteGetter = keyboardStateNoteGetter;
-        this.clefMode = clefMode;
+    public GrandStaffRendererImp(KeyStateDrawable keyboardState, StaffModeDrawable staffMode, FlashcardNoteGetter flashcardNoteGetter){
+        this.keyboardState = keyboardState;
+        this.staffMode = staffMode;
         this.flashcardNoteGetter = flashcardNoteGetter;
-        this.imageLoader = imageLoader;
     }
 
     @Override
@@ -66,12 +72,11 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D)g;
-        NoteDrawer noteDrawer = new NoteDrawer(graphics2D, imageLoader);
-        clefMode.draw(graphics2D);
-        noteDrawer.drawKeyboardNotes(keyboardStateNoteGetter.getActiveNotes());
-        noteDrawer.drawFlashcardNotes(flashcardNoteGetter.getFlashcardNotes(), xTraveled, drawName);
+        staffMode.draw(graphics2D, trebleImage, bassImage);
+        keyboardState.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, staffMode);
+        //noteDrawer.drawFlashcardNotes(flashcardNoteGetter.getFlashcardNotes(), xTraveled, drawName);
 
-        /*keyboardState.draw(graphics2D);
+        /*keyboardState.getActiveNotes().draw(graphics2D);
         flashCards.draw(graphics2D);
          */
     }

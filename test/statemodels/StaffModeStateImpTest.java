@@ -1,26 +1,22 @@
 package statemodels;
 
-import imageprocessing.ImageLoaderImp;
 import music.Staff;
-import notification.ClefModeChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uicomponents.clefmode.ClefMode;
-import uicomponents.renderer.ImageLoader;
 import uicomponents.renderer.records.RenderConstants;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ClefModeStateImpTest {
-    private ClefModeStateImp clefModeState;
+class StaffModeStateImpTest {
+    private StaffModeStateImp clefModeState;
 
     @BeforeEach
     void setup(){
-        ImageLoader imageLoader = new ImageLoaderImp();
-        Staff trebleStaff = new Staff(imageLoader.getTrebleImage(), RenderConstants.trebleStaff);
-        Staff bassStaff = new Staff(imageLoader.getBassImage(), RenderConstants.bassStaff);
+        Staff trebleStaff = new Staff(RenderConstants.trebleStaff);
+        Staff bassStaff = new Staff(RenderConstants.bassStaff);
 
-        clefModeState = new ClefModeStateImp(ClefMode.Grand, trebleStaff, bassStaff);
+        clefModeState = new StaffModeStateImp(ClefMode.Grand, trebleStaff, bassStaff);
     }
 
     @Test

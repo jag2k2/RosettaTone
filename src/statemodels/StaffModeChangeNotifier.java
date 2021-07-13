@@ -2,7 +2,7 @@ package statemodels;
 
 import notification.ClefModeChangeObserver;
 
-public interface ClefModeChangeNotifier {
+public interface StaffModeChangeNotifier {
     void addObserver(ClefModeChangeObserver observer);
     void notifyObservers();
 }

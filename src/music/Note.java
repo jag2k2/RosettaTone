@@ -1,9 +1,15 @@
 package music;
 
+import statemodels.NoteDrawable;
+import uicomponents.renderer.records.RenderConstants;
+import utility.NoteCollection;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Set;
 import java.util.HashSet;
 
-public class Note implements Comparable<Note> {
+public class Note implements Comparable<Note>, NoteDrawable {
 
     private final NoteName noteName;
     private final int octave;
@@ -84,6 +90,59 @@ public class Note implements Comparable<Note> {
 
     protected int noteValue(){
         return octave * 10 + noteName.getPosition();
+    }
+
+    @Override
+    public void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage,
+                     NoteCollection notes, int xPos, Set<Integer> ledgerLines) {
+
+        int lineNumber = RenderConstants.getLineNumber(this);
+        int noteWidth = noteImage.getWidth();
+        int noteHeight = noteImage.getHeight();
+        int noteY = RenderConstants.getLineYOffset(lineNumber) - (noteHeight / 2);
+
+        for (NoteAccidental accidental : getActiveAccidentals()) {
+            if (accidental == NoteAccidental.SHARP) {
+                int sharpXPos = xPos - (int) (sharpImage.getWidth() * 1.3);
+                int sharpYPos = noteY - (sharpImage.getHeight() / 3);
+                graphics2D.drawImage(sharpImage, null, sharpXPos, sharpYPos);
+            }
+        }
+
+        int lineThickness = RenderConstants.lineThickness;
+        graphics2D.setStroke(new BasicStroke(lineThickness));
+
+        for (int ledgerLineNumber : ledgerLines) {
+            int helperLineYPos = RenderConstants.getLineYOffset(ledgerLineNumber);
+            int lineXPosStart = xPos - 2;
+            int lineXPosEnd = lineXPosStart + noteWidth + 2;
+            graphics2D.drawLine(lineXPosStart, helperLineYPos, lineXPosEnd, helperLineYPos);
+        }
+
+        if (isSqueezed(notes)) {
+            xPos += noteWidth;
+        }
+        graphics2D.drawImage(noteImage, null, xPos, noteY);
+
+        /*if(drawName){
+            NoteName noteName = note.getNoteName();
+            graphics2D.setFont(new Font("Dialog", Font.BOLD, RenderConstants.nameFontSize));
+            int nameY = RenderConstants.getLineYOffset(lineNumber) - 2;
+            //if ((RenderConstants.getLineNumber(note) % 2) == 1)
+            //nameY += noteHeight / 2;
+            //graphics2D.drawString(noteName.toString(), xPos + noteWidth, nameY);
+        }*/
+    }
+
+
+    public boolean isSqueezed(NoteCollection notes){
+        Note adjacentNote = getPrevious(NoteAccidental.NATURAL);
+        for (Note noteInSet : notes){
+            if (noteInSet.noteHeadEquals(adjacentNote)){
+                return !adjacentNote.isSqueezed(notes);
+            }
+        }
+        return false;
     }
 
     @Override

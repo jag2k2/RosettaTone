@@ -3,29 +3,30 @@ package statemodels;
 import music.Staff;
 import uicomponents.clefmode.ClefMode;
 import uicomponents.clefmode.ClefModeModifier;
-import uicomponents.MusicDrawable;
+import uicomponents.renderer.StaffModeDrawable;
 import utility.Maybe;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.HashSet;
 import java.util.Set;
 
 
-public class ClefModeStateImp implements ClefModeModifier, MusicDrawable {
+public class StaffModeStateImp implements ClefModeModifier, StaffModeDrawable {
     private final Staff trebleStaff;
     private final Staff bassStaff;
-    private Maybe<ClefModeChangeNotifier> clefModeChangeNotifier = new Maybe<>();
+    private Maybe<StaffModeChangeNotifier> clefModeChangeNotifier = new Maybe<>();
     private ClefMode clefMode;
 
-    public ClefModeStateImp(ClefMode clefMode, Staff trebleStaff, Staff bassStaff){
+    public StaffModeStateImp(ClefMode clefMode, Staff trebleStaff, Staff bassStaff){
         this.clefMode = clefMode;
         this.trebleStaff = trebleStaff;
         this.bassStaff = bassStaff;
     }
 
-    public void addClefModeChangeNotifier(ClefModeChangeNotifier clefModeChangeNotifier){
-        this.clefModeChangeNotifier = new Maybe<>(clefModeChangeNotifier);
+    public void addClefModeChangeNotifier(StaffModeChangeNotifier staffModeChangeNotifier){
+        this.clefModeChangeNotifier = new Maybe<>(staffModeChangeNotifier);
     }
 
     @Override
@@ -37,22 +38,23 @@ public class ClefModeStateImp implements ClefModeModifier, MusicDrawable {
     public void setState(ClefMode clefMode) {
         if (!this.clefMode.equals(clefMode)){
             this.clefMode = clefMode;
-            for(ClefModeChangeNotifier notifier : clefModeChangeNotifier)
+            for(StaffModeChangeNotifier notifier : clefModeChangeNotifier)
                 notifier.notifyObservers();
         }
     }
 
     @Override
-    public void draw(Graphics2D graphics2D) {
+    public void draw(Graphics2D graphics2D, BufferedImage trebleImage, BufferedImage bassImage) {
         if (clefMode == ClefMode.Treble || clefMode == ClefMode.Grand){
-            trebleStaff.draw(graphics2D);
+            trebleStaff.draw(graphics2D, trebleImage);
         }
         if (clefMode == ClefMode.Bass || clefMode == ClefMode.Grand){
-            bassStaff.draw(graphics2D);
+            bassStaff.draw(graphics2D, bassImage);
         }
     }
 
-    public Set<Integer> getHelperLines(int lineNumber) {
+    @Override
+    public Set<Integer> getLedgerLines(int lineNumber) {
         Set<Integer> helperLines = new HashSet<>();
         if (isLineAboveVisible(lineNumber)){
             for (int i = lineNumber; i < getClosestVisibleLine(lineNumber); i++){

@@ -1,5 +1,6 @@
 package music;
 
+import collections.NoteCollectionImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utility.NoteCollection;
@@ -58,15 +59,6 @@ class NoteCollectionImpTest {
         System.out.println(activeNotes);
         activeNotes.add(otherNoteD4);
         System.out.println(activeNotes);
-    }
-
-    @Test
-    void canCheckSqueezed() {
-        assertFalse(activeNotes.isSqueezed(noteC4));
-        assertTrue(activeNotes.isSqueezed(noteD4));
-        assertFalse(activeNotes.isSqueezed(noteE4));
-        assertTrue(activeNotes.isSqueezed(noteF4));
-        assertFalse(activeNotes.isSqueezed(noteA4));
     }
 
     @Test

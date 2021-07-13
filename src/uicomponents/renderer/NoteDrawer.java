@@ -9,11 +9,9 @@ import java.awt.image.BufferedImage;
 
 public class NoteDrawer {
     private final Graphics2D graphics2D;
-    private final ImageLoader imageLoader;
 
-    public NoteDrawer(Graphics2D graphics2D, ImageLoader imageLoader){
+    public NoteDrawer(Graphics2D graphics2D){
         this.graphics2D = graphics2D;
-        this.imageLoader = imageLoader;
 
         graphics2D.setColor(Color.BLACK);
         int lineThickness = 2;
@@ -46,39 +44,39 @@ public class NoteDrawer {
     }
 
     protected void drawNote(Note note, NoteCollection noteCollection, int xPos, boolean drawName){
-        int lineNumber = RenderConstants.getLineNumber(note);
-        BufferedImage noteImage = imageLoader.getNoteImage();
-        int noteWidth = noteImage.getWidth();
-        int noteHeight = noteImage.getHeight();
-        int noteY = RenderConstants.getLineYOffset(lineNumber) - (noteHeight / 2);
+        /*int lineNumber = RenderConstants.getLineNumber(note);
+        //BufferedImage noteImage = imageLoader.getNoteImage();
+        //int noteWidth = noteImage.getWidth();
+        //int noteHeight = noteImage.getHeight();
+        //int noteY = RenderConstants.getLineYOffset(lineNumber) - (noteHeight / 2);
 
         if (noteCollection.isSqueezed(note)) {
-            xPos += noteWidth;
+            //xPos += noteWidth;
         }
-        graphics2D.drawImage(noteImage, null, xPos, noteY);
+        //graphics2D.drawImage(noteImage, null, xPos, noteY);
 
         if(drawName){
             NoteName noteName = note.getNoteName();
             graphics2D.setFont(new Font("Dialog", Font.BOLD, RenderConstants.nameFontSize));
             int nameY = RenderConstants.getLineYOffset(lineNumber) - 2;
-            if ((RenderConstants.getLineNumber(note) % 2) == 1)
-                nameY += noteHeight / 2;
-            graphics2D.drawString(noteName.toString(), xPos + noteWidth, nameY);
-        }
+            //if ((RenderConstants.getLineNumber(note) % 2) == 1)
+                //nameY += noteHeight / 2;
+            //graphics2D.drawString(noteName.toString(), xPos + noteWidth, nameY);
+        }*/
     }
 
 
     protected void drawAccidentals(Note note, int xPos) {
         int lineNumber = RenderConstants.getLineNumber(note);
-        BufferedImage noteImage = imageLoader.getNoteImage();
-        int noteHeight = noteImage.getHeight();
-        int noteY = RenderConstants.getLineYOffset(lineNumber) - (noteHeight / 2);
+        //BufferedImage noteImage = imageLoader.getNoteImage();
+        //int noteHeight = noteImage.getHeight();
+        //int noteY = RenderConstants.getLineYOffset(lineNumber) - (noteHeight / 2);
         for (NoteAccidental accidental : note.getActiveAccidentals()) {
             if (accidental == NoteAccidental.SHARP) {
-                BufferedImage sharpImage = imageLoader.getSharpImage();
-                int sharpXPos = xPos - (int) (sharpImage.getWidth() * 1.3);
-                int sharpYPos = noteY - (sharpImage.getHeight() / 3);
-                graphics2D.drawImage(sharpImage, null, sharpXPos, sharpYPos);
+                //BufferedImage sharpImage = imageLoader.getSharpImage();
+                //int sharpXPos = xPos - (int) (sharpImage.getWidth() * 1.3);
+                //int sharpYPos = noteY - (sharpImage.getHeight() / 3);
+                //graphics2D.drawImage(sharpImage, null, sharpXPos, sharpYPos);
             }
         }
     }

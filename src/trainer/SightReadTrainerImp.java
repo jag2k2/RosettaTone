@@ -1,5 +1,7 @@
 package trainer;
 
+import collections.NoteCollectionImp;
+import collections.NoteCollectionListImp;
 import music.*;
 import notification.KeyboardChangeObserver;
 import notification.LimitChangeObserver;
@@ -10,17 +12,16 @@ public class SightReadTrainerImp implements FlashcardNoteGetter, LimitChangeObse
     static private final int targetCount = 8;
 
     private final RandomNoteGenerator randomNoteGenerator;
-    private final KeyboardEvaluator keyboardEvaluator;
+    //private final KeyboardEvaluator keyboardEvaluator;
     private final NoteCollectionList flashcardList = new NoteCollectionListImp();
     private final FlashcardSatisfiedNotifier flashcardSatisfiedNotifier;
     private final FlashcardChangeNotifier flashcardChangeNotifier;
 
     private boolean satisfied = false;
 
-    public SightReadTrainerImp(RandomNoteGenerator randomNoteGenerator, KeyboardEvaluator keyboardEvaluator,
-                               FlashcardSatisfiedNotifier flashcardSatisfiedNotifier, FlashcardChangeNotifier flashcardChangeNotifier){
+    public SightReadTrainerImp(RandomNoteGenerator randomNoteGenerator, FlashcardSatisfiedNotifier flashcardSatisfiedNotifier, FlashcardChangeNotifier flashcardChangeNotifier){
         this.randomNoteGenerator = randomNoteGenerator;
-        this.keyboardEvaluator = keyboardEvaluator;
+        //this.keyboardEvaluator = keyboardEvaluator;
         this.flashcardSatisfiedNotifier = flashcardSatisfiedNotifier;
         this.flashcardChangeNotifier = flashcardChangeNotifier;
         generateAllNewFlashcards();
@@ -39,7 +40,7 @@ public class SightReadTrainerImp implements FlashcardNoteGetter, LimitChangeObse
 
     @Override
     public void KeyboardChanged() {
-        for (NoteCollection currentFlashcard : flashcardList.getFirstItem()){
+        /*for (NoteCollection currentFlashcard : flashcardList.getFirstItem()){
             if(keyboardEvaluator.contains(currentFlashcard)){
                 satisfied = true;
                 flashcardSatisfiedNotifier.notifyFlashcardSatisfied();
@@ -50,7 +51,7 @@ public class SightReadTrainerImp implements FlashcardNoteGetter, LimitChangeObse
                 addNewFlashcard();
                 flashcardChangeNotifier.notifyFlashcardChanged();
             }
-        }
+        }*/
     }
 
     protected void generateAllNewFlashcards(

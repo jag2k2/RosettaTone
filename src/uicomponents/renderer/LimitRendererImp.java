@@ -1,7 +1,6 @@
 package uicomponents.renderer;
 
 import notification.LimitChangeObserver;
-import uicomponents.MusicDrawable;
 import uicomponents.UIComponent;
 import uicomponents.renderer.records.RenderConstants;
 
@@ -9,9 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LimitRendererImp extends Component implements UIComponent, LimitChangeObserver {
-    private final MusicDrawable noteLimitInterval;
+    private final RangeDrawable noteLimitInterval;
 
-    public LimitRendererImp(MusicDrawable noteLimitInterval){
+    public LimitRendererImp(RangeDrawable noteLimitInterval){
         this.noteLimitInterval = noteLimitInterval;
     }
 

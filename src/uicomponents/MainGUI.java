@@ -7,7 +7,7 @@ import imageprocessing.ImageLoaderImp;
 import instrument.*;
 import music.*;
 import notification.*;
-import statemodels.ClefModeStateImp;
+import statemodels.StaffModeStateImp;
 import statemodels.KeyboardStateImp;
 import trainer.randomnotegenerator.RandomNoteGeneratorImp;
 import statemodels.limitstate.LowerBoundedLimitStateImp;
@@ -32,12 +32,9 @@ public class MainGUI {
         this.frame = new JFrame();
         JPanel mainPanel = new JPanel(new BorderLayout());
 
-        //ImageLoader
-        ImageLoaderImp imageLoader = new ImageLoaderImp();
-
         //Notifiers
         KeyboardChangeNotifierImp keyboardChangeNotifier = new KeyboardChangeNotifierImp();
-        ClefModeChangeNotifierImp modeChangeNotifier = new ClefModeChangeNotifierImp();
+        StaffModeChangeNotifierImp modeChangeNotifier = new StaffModeChangeNotifierImp();
         LimitChangeNotifierImp lowerLimitChangeNotifier = new LimitChangeNotifierImp();
         LimitChangeNotifierImp upperLimitChangeNotifier = new LimitChangeNotifierImp();
         LimitChangeNotifierImp lowerBoundChangeNotifier = new LimitChangeNotifierImp();
@@ -66,29 +63,29 @@ public class MainGUI {
         UpperBoundedLimitStateImp upperBoundedNoteLimit = new UpperBoundedLimitStateImp(upperNoteLimit, lowerNoteLimit, defaultLowerLimitNote, upperBoundNote);
         upperBoundedNoteLimit.addBoundChangeNotifier(upperBoundChangeNotifier);
 
-        Staff trebleStaff = new Staff(imageLoader.getTrebleImage(), RenderConstants.trebleStaff);
-        Staff bassStaff = new Staff(imageLoader.getBassImage(), RenderConstants.bassStaff);
+        Staff trebleStaff = new Staff(RenderConstants.trebleStaff);
+        Staff bassStaff = new Staff(RenderConstants.bassStaff);
 
-        ClefModeStateImp clefModeState = new ClefModeStateImp(ClefMode.Grand, trebleStaff, bassStaff);
-        clefModeState.addClefModeChangeNotifier(modeChangeNotifier);
+        StaffModeStateImp staffModeStateImp = new StaffModeStateImp(ClefMode.Grand, trebleStaff, bassStaff);
+        staffModeStateImp.addClefModeChangeNotifier(modeChangeNotifier);
 
         //KeyReceiver
         KeyNoteReceiverImp keyNoteReceiver = new KeyNoteReceiverImp(keyboardState);
 
         //Trainer
         RandomNoteGeneratorImp randomNoteGenerator = new RandomNoteGeneratorImp(lowerNoteLimit, upperNoteLimit);
-        SightReadTrainerImp sightReadTrainer = new SightReadTrainerImp(randomNoteGenerator, keyboardState, flashcardSatisfiedNotifier, flashcardChangeNotifier);
+        SightReadTrainerImp sightReadTrainer = new SightReadTrainerImp(randomNoteGenerator, flashcardSatisfiedNotifier, flashcardChangeNotifier);
 
         //Selectors
         InstrumentBrowserImp instrumentBrowser = new InstrumentBrowserImp(keyNoteReceiver);
-        ClefModeSelectorImp modeSelector = new ClefModeSelectorImp(clefModeState);
+        ClefModeSelectorImp modeSelector = new ClefModeSelectorImp(staffModeStateImp);
         NoteSelectorImp lowerNoteSelector = new NoteSelectorImp(lowerBoundedNoteLimit, lowerNoteLimit);
         NoteSelectorImp upperNoteSelector = new NoteSelectorImp(upperBoundedNoteLimit, upperNoteLimit);
         RangeSelectorImp rangeSelector = new RangeSelectorImp(lowerNoteSelector, upperNoteSelector);
 
         //Renderers
         NoteLimitDrawerImp noteLimitDrawer = new NoteLimitDrawerImp(lowerNoteLimit, upperNoteLimit);
-        GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardState, clefModeState, sightReadTrainer, imageLoader);
+        GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardState, staffModeStateImp, sightReadTrainer);
         LimitRendererImp rangeRenderer = new LimitRendererImp(noteLimitDrawer);
         NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardState);
 

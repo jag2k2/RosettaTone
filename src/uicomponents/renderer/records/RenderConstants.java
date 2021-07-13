@@ -34,6 +34,8 @@ public class RenderConstants {
 
     public static final int numberOfLines = 52;
     public static final int lineSpacing = 15;
+    public static final int lineThickness = 2;
+
     public static final int leftMargin = 10;
     public static final int noteXSpacing = 135;
     public static final int nameFontSize = 35;

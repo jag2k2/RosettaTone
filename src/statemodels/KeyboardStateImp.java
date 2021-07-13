@@ -1,16 +1,20 @@
 package statemodels;
 
+import collections.NoteCollectionFactory;
 import instrument.Key;
 import instrument.KeyStateManipulator;
-import music.*;
-import trainer.KeyboardEvaluator;
-import uicomponents.renderer.KeyboardStateNoteGetter;
+import music.Note;
+import uicomponents.renderer.KeyStateDrawable;
+import uicomponents.renderer.StaffModeDrawable;
+import uicomponents.renderer.records.RenderConstants;
 import utility.NoteCollection;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.HashSet;
 import java.util.Set;
 
-public class KeyboardStateImp implements KeyStateManipulator, KeyboardEvaluator, KeyboardStateNoteGetter {
+public class KeyboardStateImp implements KeyStateManipulator, KeyStateDrawable {
     private final Set<Key> keys;
     private final KeyboardChangeNotifier keyboardChangeNotifier;
 
@@ -31,43 +35,20 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyboardEvaluator,
         keyboardChangeNotifier.notifyKeyboardChanged();
     }
 
-    @Override
+    /*@Override
     public boolean contains(NoteCollection noteCollection) {
         return getActiveNotes().contains(noteCollection);
-    }
+    }*/
 
     @Override
-    public NoteCollection getActiveNotes() {
-        NoteCollection pressedNotes = new NoteCollectionImp();
-        for (Key key : keys){
-            Set<NoteAccidental> accidentals = new HashSet<>();
-            if (key.isNatural()){
-                accidentals.add(NoteAccidental.NATURAL);
-                if (sharpExistsAlso(key)){
-                    accidentals.add(NoteAccidental.SHARP);
-                }
-            } else {
-                accidentals.add(NoteAccidental.SHARP);
-                if (naturalExistsAlso(key)){
-                    accidentals.add(NoteAccidental.NATURAL);
-                }
-            }
-            Note noteToAdd = new Note(NoteName.values()[key.getNaturalIndex()], key.getOctave(), accidentals);
-            pressedNotes.add(noteToAdd);
+    public void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage, StaffModeDrawable staffMode) {
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        NoteCollection activeNotes = NoteCollectionFactory.createFromKeys(keys);
+        for (Note note : activeNotes){
+            int lineNumber = RenderConstants.getLineNumber(note);
+            int xPos = RenderConstants.getNoteXOffset(1);
+            note.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, activeNotes, xPos, staffMode.getLedgerLines(lineNumber));
         }
-        return pressedNotes;
-    }
-
-    protected boolean sharpExistsAlso(Key key){
-        if (key.getNaturalIndex() == 2 || key.getNaturalIndex() == 6)
-            return false;
-        Key nextKey = key.getNext();
-        return keys.contains(nextKey);
-    }
-
-    protected boolean naturalExistsAlso(Key key){
-        Key previousKey = key.getPrevious();
-        return keys.contains(previousKey);
     }
 
     @Override
@@ -77,5 +58,15 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyboardEvaluator,
             return keys.equals(compare.keys);
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder outputString = new StringBuilder();
+        for (Key key : keys){
+            outputString.append(key.getNote().toString());
+            outputString.append(", ");
+        }
+        return outputString.toString();
     }
 }

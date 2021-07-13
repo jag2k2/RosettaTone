@@ -1,4 +1,4 @@
-package music;
+package collections;
 
 import utility.Maybe;
 import utility.NoteCollection;

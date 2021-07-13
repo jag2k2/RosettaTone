@@ -1,7 +1,11 @@
-package music;
+package collections;
 
+import music.Note;
+import music.NoteAccidental;
+import statemodels.NoteDrawable;
 import utility.NoteCollection;
 
+import java.awt.*;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.HashSet;
@@ -31,17 +35,6 @@ public class NoteCollectionImp implements NoteCollection {
             }
         }
         return true;
-    }
-
-    @Override
-    public boolean isSqueezed(Note note){
-        Note adjacentNote = note.getPrevious(NoteAccidental.NATURAL);
-        for (Note noteInSet : notes){
-            if (noteInSet.noteHeadEquals(adjacentNote)){
-                return !isSqueezed(adjacentNote);
-            }
-        }
-        return false;
     }
 
     @Override

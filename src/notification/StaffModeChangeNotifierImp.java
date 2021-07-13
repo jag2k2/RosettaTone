@@ -1,10 +1,10 @@
 package notification;
 
-import statemodels.ClefModeChangeNotifier;
+import statemodels.StaffModeChangeNotifier;
 
 import java.util.ArrayList;
 
-public class ClefModeChangeNotifierImp implements ClefModeChangeNotifier {
+public class StaffModeChangeNotifierImp implements StaffModeChangeNotifier {
     private final ArrayList<ClefModeChangeObserver> observers = new ArrayList<>();
 
     @Override

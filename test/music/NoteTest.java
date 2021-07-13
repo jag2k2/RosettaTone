@@ -1,8 +1,10 @@
 package music;
 
+import collections.NoteCollectionImp;
 import instrument.Key;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
+import utility.NoteCollection;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +14,11 @@ class NoteTest {
     private Note noteC3;
     private Note noteC4;
     private Note noteD4;
+    private Note noteE4;
     private Note noteESharp4;
+    private Note noteF4;
+    private Note noteG4;
+    private Note noteA4;
     private Note noteB4;
     private Note noteC5;
     private Note noteD5;
@@ -39,7 +45,10 @@ class NoteTest {
         noteB3 = new Note(NoteName.B, 3);
         noteC4 = new Note(NoteName.C, 4);
         noteD4 = new Note(NoteName.D, 4);
+        noteE4 = new Note(NoteName.E, 4);
         noteESharp4 = new Note(NoteName.E, 4, NoteAccidental.SHARP);
+        noteF4 = new Note(NoteName.F, 4);
+        noteA4 = new Note(NoteName.A, 4);
         noteB4 = new Note(NoteName.B, 4);
         noteC5 = new Note(NoteName.C, 5);
         noteD5 = new Note(NoteName.D, 5);
@@ -152,5 +161,21 @@ class NoteTest {
     void canDisplayAllAccidentals(){
         Note noteCNatSharpFlat5 = new Note(NoteName.C, 5, naturalSharpFlat);
         assertEquals("Cn#b5", noteCNatSharpFlat5.toString());
+    }
+
+    @Test
+    void canCheckSqueezed() {
+        NoteCollection notes = new NoteCollectionImp();
+        notes.add(noteC4);
+        notes.add(noteD4);
+        notes.add(noteE4);
+        notes.add(noteF4);
+        notes.add(noteA4);
+
+        assertFalse(noteC4.isSqueezed(notes));
+        assertTrue(noteD4.isSqueezed(notes));
+        assertFalse(noteE4.isSqueezed(notes));
+        assertTrue(noteF4.isSqueezed(notes));
+        assertFalse(noteA4.isSqueezed(notes));
     }
 }

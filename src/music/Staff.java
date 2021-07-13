@@ -1,6 +1,6 @@
 package music;
 
-import uicomponents.MusicDrawable;
+import statemodels.ClefDrawable;
 import uicomponents.renderer.records.RenderConstants;
 import uicomponents.renderer.records.StaffConstants;
 
@@ -9,13 +9,11 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Staff implements MusicDrawable {
+public class Staff implements ClefDrawable {
 
-    private final BufferedImage staffImage;
     private final StaffConstants staffConstants;
 
-    public Staff(BufferedImage staffImage, StaffConstants staffConstants){
-        this.staffImage = staffImage;
+    public Staff(StaffConstants staffConstants){
         this.staffConstants = staffConstants;
     }
 
@@ -41,10 +39,13 @@ public class Staff implements MusicDrawable {
     }
 
     @Override
-    public void draw(Graphics2D graphics2D) {
+    public void draw(Graphics2D graphics2D, BufferedImage image) {
         int clefImageXPos = RenderConstants.getClefXOffset();
         int clefImageYPos = (RenderConstants.lineSpacing * staffConstants.clefLineOffset) + staffConstants.clefFineTuneYOffset;
-        graphics2D.drawImage(staffImage, null, clefImageXPos, clefImageYPos);
+        graphics2D.drawImage(image, null, clefImageXPos, clefImageYPos);
+
+        int lineThickness = RenderConstants.lineThickness;
+        graphics2D.setStroke(new BasicStroke(lineThickness));
 
         int lineXPosStart = RenderConstants.getLineXStart();
         int lineXPosEnd = RenderConstants.getLineXEnd();

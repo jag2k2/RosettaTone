@@ -1,10 +1,10 @@
 package drawers;
 
-import uicomponents.MusicDrawable;
+import uicomponents.renderer.RangeDrawable;
 
 import java.awt.*;
 
-public class NoteLimitDrawerImp implements MusicDrawable {
+public class NoteLimitDrawerImp implements RangeDrawable {
     private final MusicDrawConnectable lowerNoteLimit;
     private final MusicDrawConnectable upperNoteLimit;
 

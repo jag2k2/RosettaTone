@@ -1,32 +1,35 @@
 package trainer;
 
 import collections.NoteCollectionImp;
-import collections.NoteCollectionListImp;
 import music.*;
 import notification.KeyboardChangeObserver;
 import notification.LimitChangeObserver;
 import uicomponents.renderer.FlashcardDrawable;
 import uicomponents.renderer.StaffModeDrawable;
 import uicomponents.renderer.records.RenderConstants;
+import utility.Maybe;
 import utility.NoteCollection;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.List;
+import java.util.ArrayList;
 
 public class SightReadTrainerImp implements FlashcardDrawable, LimitChangeObserver, KeyboardChangeObserver {
     static private final int targetCount = 8;
 
+    private final KeyStateEvaluator keyboardState;
     private final RandomNoteGenerator randomNoteGenerator;
-    //private final KeyboardEvaluator keyboardEvaluator;
-    private final NoteCollectionList flashcardList = new NoteCollectionListImp();
+    private final List<NoteCollection> flashcardList;
     private final FlashcardSatisfiedNotifier flashcardSatisfiedNotifier;
     private final FlashcardChangeNotifier flashcardChangeNotifier;
 
     private boolean satisfied = false;
 
-    public SightReadTrainerImp(RandomNoteGenerator randomNoteGenerator, FlashcardSatisfiedNotifier flashcardSatisfiedNotifier, FlashcardChangeNotifier flashcardChangeNotifier){
+    public SightReadTrainerImp(KeyStateEvaluator keyboardState, RandomNoteGenerator randomNoteGenerator, FlashcardSatisfiedNotifier flashcardSatisfiedNotifier, FlashcardChangeNotifier flashcardChangeNotifier){
+        this.keyboardState = keyboardState;
         this.randomNoteGenerator = randomNoteGenerator;
-        //this.keyboardEvaluator = keyboardEvaluator;
+        this.flashcardList  = new ArrayList<>();
         this.flashcardSatisfiedNotifier = flashcardSatisfiedNotifier;
         this.flashcardChangeNotifier = flashcardChangeNotifier;
         generateAllNewFlashcards();
@@ -40,18 +43,19 @@ public class SightReadTrainerImp implements FlashcardDrawable, LimitChangeObserv
 
     @Override
     public void KeyboardChanged() {
-        /*for (NoteCollection currentFlashcard : flashcardList.getFirstItem()){
-            if(keyboardEvaluator.contains(currentFlashcard)){
+        for (NoteCollection currentFlashcard : getTopFlashcard()){
+            if(keyboardState.containsAll(currentFlashcard)){
                 satisfied = true;
                 flashcardSatisfiedNotifier.notifyFlashcardSatisfied();
             }
-            if(!keyboardEvaluator.contains(currentFlashcard) && satisfied){
+            if(!keyboardState.containsAll(currentFlashcard) && satisfied){
                 satisfied = false;
-                flashcardList.removeFirstItem();
+                if (flashcardList.size() > 0)
+                    flashcardList.remove(0);
                 addNewFlashcard();
                 flashcardChangeNotifier.notifyFlashcardChanged();
             }
-        }*/
+        }
     }
 
     @Override
@@ -84,4 +88,10 @@ public class SightReadTrainerImp implements FlashcardDrawable, LimitChangeObserv
         flashcardList.add(noteTarget);
     }
 
+    protected Maybe<NoteCollection> getTopFlashcard(){
+        if (flashcardList.size() > 0){
+            return new Maybe<>(flashcardList.get(0));
+        }
+        return new Maybe<>();
+    }
 }

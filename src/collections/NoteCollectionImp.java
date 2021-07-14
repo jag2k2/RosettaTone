@@ -28,7 +28,7 @@ public class NoteCollectionImp implements NoteCollection {
     }
 
     @Override
-    public boolean contains(NoteCollection noteCollection) {
+    public boolean containsAll(NoteCollection noteCollection) {
         for (Note note : noteCollection){
             if (!notes.contains(note)){
                 return false;

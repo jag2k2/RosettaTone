@@ -4,6 +4,7 @@ import collections.NoteCollectionFactory;
 import instrument.Key;
 import instrument.KeyStateManipulator;
 import music.Note;
+import trainer.KeyStateEvaluator;
 import uicomponents.renderer.KeyStateDrawable;
 import uicomponents.renderer.StaffModeDrawable;
 import uicomponents.renderer.records.RenderConstants;
@@ -14,7 +15,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashSet;
 import java.util.Set;
 
-public class KeyboardStateImp implements KeyStateManipulator, KeyStateDrawable {
+public class KeyboardStateImp implements KeyStateManipulator, KeyStateEvaluator, KeyStateDrawable {
     private final Set<Key> keys;
     private final KeyboardChangeNotifier keyboardChangeNotifier;
 
@@ -35,10 +36,11 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyStateDrawable {
         keyboardChangeNotifier.notifyKeyboardChanged();
     }
 
-    /*@Override
-    public boolean contains(NoteCollection noteCollection) {
-        return getActiveNotes().contains(noteCollection);
-    }*/
+    @Override
+    public boolean containsAll(NoteCollection noteCollection) {
+        NoteCollection activeNotes = NoteCollectionFactory.createFromKeys(keys);
+        return activeNotes.containsAll(noteCollection);
+    }
 
     @Override
     public void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage, StaffModeDrawable staffMode) {

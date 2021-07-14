@@ -65,10 +65,10 @@ class NoteCollectionImpTest {
     void canCheckForContains(){
         NoteCollection checkList = new NoteCollectionImp();
         checkList.add(new Note(NoteName.C, 4, accidentals));
-        assertTrue(activeNotes.contains(checkList));
+        assertTrue(activeNotes.containsAll(checkList));
         checkList.add(new Note(NoteName.E, 4));
-        assertTrue(activeNotes.contains(checkList));
+        assertTrue(activeNotes.containsAll(checkList));
         checkList.add(new Note(NoteName.C, 2));
-        assertFalse(activeNotes.contains(checkList));
+        assertFalse(activeNotes.containsAll(checkList));
     }
 }

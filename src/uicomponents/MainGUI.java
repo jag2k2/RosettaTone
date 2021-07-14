@@ -44,7 +44,7 @@ public class MainGUI {
         FlashcardChangeNotifierImp flashcardChangeNotifier = new FlashcardChangeNotifierImp();
 
         //State Models
-        KeyboardStateImp keyboardState = new KeyboardStateImp(keyboardChangeNotifier);
+        KeyboardStateImp keyboardStateImp = new KeyboardStateImp(keyboardChangeNotifier);
         Note lowerBoundNote = new Note(NoteName.A, 0);
         Note upperBoundNote = new Note(NoteName.C, 8);
         Note defaultLowerLimitNote = new Note(NoteName.C, 4);
@@ -70,11 +70,11 @@ public class MainGUI {
         staffModeStateImp.addClefModeChangeNotifier(modeChangeNotifier);
 
         //KeyReceiver
-        KeyNoteReceiverImp keyNoteReceiver = new KeyNoteReceiverImp(keyboardState);
+        KeyNoteReceiverImp keyNoteReceiver = new KeyNoteReceiverImp(keyboardStateImp);
 
         //Trainer
         RandomNoteGeneratorImp randomNoteGenerator = new RandomNoteGeneratorImp(lowerNoteLimit, upperNoteLimit);
-        SightReadTrainerImp sightReadTrainer = new SightReadTrainerImp(randomNoteGenerator, flashcardSatisfiedNotifier, flashcardChangeNotifier);
+        SightReadTrainerImp sightReadTrainer = new SightReadTrainerImp(keyboardStateImp, randomNoteGenerator, flashcardSatisfiedNotifier, flashcardChangeNotifier);
 
         //Selectors
         InstrumentBrowserImp instrumentBrowser = new InstrumentBrowserImp(keyNoteReceiver);
@@ -85,9 +85,9 @@ public class MainGUI {
 
         //Renderers
         NoteLimitDrawerImp noteLimitDrawer = new NoteLimitDrawerImp(lowerNoteLimit, upperNoteLimit);
-        GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardState, staffModeStateImp, sightReadTrainer);
+        GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardStateImp, staffModeStateImp, sightReadTrainer);
         LimitRendererImp rangeRenderer = new LimitRendererImp(noteLimitDrawer);
-        NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardState);
+        NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardStateImp);
 
         //Add Observers
         keyboardChangeNotifier.addObserver(grandStaffRenderer);

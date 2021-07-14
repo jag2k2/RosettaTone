@@ -4,7 +4,7 @@ import uicomponents.renderer.records.RenderConstants;
 
 import java.awt.image.BufferedImage;
 
-public class ImageLoaderImp {
+public class ImageFactory {
 
     static public BufferedImage createTrebleImage() {
         StaffImage trebleStaffImage = new StaffImage(RenderConstants.trebleClefPath);

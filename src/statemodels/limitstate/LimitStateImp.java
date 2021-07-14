@@ -1,9 +1,9 @@
 package statemodels.limitstate;
 
-import drawers.MusicDrawConnectable;
+import uicomponents.renderer.LimitDrawable;
 import music.Note;
 import music.NoteAccidental;
-import trainer.randomnotegenerator.LineNumberable;
+import trainer.randomnotegenerator.LineNumerable;
 import uicomponents.rangeselector.noteselector.LimitModifier;
 import uicomponents.rangeselector.noteselector.LimitPreviewer;
 import uicomponents.renderer.records.RenderConstants;
@@ -11,7 +11,7 @@ import utility.Maybe;
 
 import java.awt.*;
 
-public class LimitStateImp implements LimitModifier, LimitPreviewer, LineNumberable, MusicDrawConnectable {
+public class LimitStateImp implements LimitModifier, LimitPreviewer, LineNumerable, LimitDrawable {
     private Note limit;
     private Maybe<LimitChangeNotifier> limitChangeNotifier = new Maybe<>();
     private Maybe<LimitChangeNotifier> previewChangeNotifier = new Maybe<>();

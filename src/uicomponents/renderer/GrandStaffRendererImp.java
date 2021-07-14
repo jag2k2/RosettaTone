@@ -1,6 +1,6 @@
 package uicomponents.renderer;
 
-import imageprocessing.ImageLoaderImp;
+import imageprocessing.ImageFactory;
 import notification.FlashcardSatisfiedObserver;
 import notification.KeyboardChangeObserver;
 import notification.ClefModeChangeObserver;
@@ -18,12 +18,12 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
     private final StaffModeDrawable staffMode;
     private final FlashcardDrawable flashcards;
 
-    private final BufferedImage trebleImage = ImageLoaderImp.createTrebleImage();
-    private final BufferedImage bassImage = ImageLoaderImp.createBassImage();
-    private final BufferedImage noteImage = ImageLoaderImp.createNoteImage();
-    private final BufferedImage naturalImage = ImageLoaderImp.createNaturalImage();
-    private final BufferedImage sharpImage = ImageLoaderImp.createSharpImage();
-    private final BufferedImage flatImage = ImageLoaderImp.createFlatImage();
+    private final BufferedImage trebleImage = ImageFactory.createTrebleImage();
+    private final BufferedImage bassImage = ImageFactory.createBassImage();
+    private final BufferedImage noteImage = ImageFactory.createNoteImage();
+    private final BufferedImage naturalImage = ImageFactory.createNaturalImage();
+    private final BufferedImage sharpImage = ImageFactory.createSharpImage();
+    private final BufferedImage flatImage = ImageFactory.createFlatImage();
 
     private boolean drawName = false;
 

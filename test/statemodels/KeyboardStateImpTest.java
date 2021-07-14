@@ -3,18 +3,16 @@ package statemodels;
 import instrument.Key;
 import music.Note;
 import music.NoteAccidental;
-import collections.NoteCollectionImp;
+import collections.NoteSetImp;
 import music.NoteName;
-import notification.KeyboardChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashSet;
+import utility.NoteSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class KeyboardStateImpTest {
-    KeyboardStateImp keyboardState = new KeyboardStateImp(new KeyboardChangeNotifierImp());
+    KeyboardStateImp keyboardState = new KeyboardStateImp();
     Key keyB3 = new Key (59);
     Key keyC4 = new Key(60);
     Key keyCSharp4 = new Key(61);
@@ -27,26 +25,22 @@ class KeyboardStateImpTest {
     Note noteC4 = new Note(NoteName.C, 4);
     Note noteE4 = new Note(NoteName.E, 4);
     Note noteF4 = new Note(NoteName.F, 4);
-    Note noteCnatSharp4;
+    Note noteCSharp4 = new Note(NoteName.C, 4, NoteAccidental.SHARP);
     Note noteGSharp2;
     Note noteDSharp7;
-    NoteCollectionImp expected;
+    NoteSetImp expected;
 
     @BeforeEach
     void setup(){
-        HashSet<NoteAccidental> accidentals = new HashSet<>();
-        accidentals.add(NoteAccidental.NATURAL);
-        accidentals.add(NoteAccidental.SHARP);
-        noteCnatSharp4 = new Note(NoteName.C, 4, accidentals);
         noteGSharp2 = new Note(NoteName.G, 2, NoteAccidental.SHARP);
         noteDSharp7 = new Note(NoteName.D, 7, NoteAccidental.SHARP);
 
-        expected = new NoteCollectionImp();
+        expected = new NoteSetImp();
     }
 
     @Test
     void checkEquals(){
-        KeyboardStateImp compare = new KeyboardStateImp(new KeyboardChangeNotifierImp());
+        KeyboardStateImp compare = new KeyboardStateImp();
 
         keyboardState.keyPressed(keyC4);
         compare.keyPressed(keyC4);
@@ -54,5 +48,30 @@ class KeyboardStateImpTest {
 
         keyboardState.keyReleased(keyC4);
         assertNotEquals(keyboardState, compare);
+    }
+
+    @Test
+    void canDisplayAsString(){
+        keyboardState.keyPressed(keyC4);
+        keyboardState.keyPressed(keyCSharp4);
+        keyboardState.keyPressed(keyE4);
+
+        String expected = "[C4, C#4, E4]";
+        assertEquals(expected, keyboardState.toString());
+    }
+
+    @Test
+    void canConvertToNotes(){
+        keyboardState.keyPressed(keyC4);
+        keyboardState.keyPressed(keyCSharp4);
+        keyboardState.keyPressed(keyE4);
+
+        NoteSet expected = new NoteSetImp();
+        expected.add(noteC4);
+        expected.add(noteCSharp4);
+        expected.add(noteE4);
+
+        assertEquals(expected, keyboardState.convertToNotes());
+
     }
 }

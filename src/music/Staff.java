@@ -44,7 +44,7 @@ public class Staff implements ClefDrawable {
         int clefImageYPos = (RenderConstants.lineSpacing * staffConstants.clefLineOffset) + staffConstants.clefFineTuneYOffset;
         graphics2D.drawImage(image, null, clefImageXPos, clefImageYPos);
 
-        int lineThickness = RenderConstants.lineThickness;
+        int lineThickness = RenderConstants.ledgerLineThickness;
         graphics2D.setStroke(new BasicStroke(lineThickness));
 
         int lineXPosStart = RenderConstants.getLineXStart();

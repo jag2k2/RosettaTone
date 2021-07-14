@@ -1,7 +1,7 @@
 package trainer;
 
-import utility.NoteCollection;
+import utility.NoteSet;
 
 public interface KeyStateEvaluator {
-    boolean containsAll(NoteCollection noteCollection);
+    boolean containsAll(NoteSet noteSet);
 }

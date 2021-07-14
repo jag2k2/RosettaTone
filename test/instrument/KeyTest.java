@@ -9,63 +9,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class KeyTest {
     Key keyDSharp2 = new Key(39);
     Key keyC4 = new Key(60);
-    Key keyCSharp4 = new Key(61);
-    Key keyD4 = new Key(62);
-    Key keyDSharp4 = new Key(63);
-    Key keyE4 = new Key(64);
-    Key keyF4 = new Key(65);
-    Key keyFSharp4 = new Key(66);
     Key keyG4 = new Key(67);
     Key keyGSharp4 = new Key(68);
     Key keyA4 = new Key(69);
-    Key keyASharp4 = new Key(70);
-    Key keyB4 = new Key(71);
     Key keyGSharp5 = new Key(80);
-
-    @Test
-    void canConstructFromNoteInfo(){
-        Key compareC4 = new Key(4, NoteName.C, NoteAccidental.NATURAL);
-        assertEquals(keyC4, compareC4);
-
-        Key compareCSharp4 = new Key(4, NoteName.C, NoteAccidental.SHARP);
-        assertEquals(keyCSharp4, compareCSharp4);
-
-        Key compareD4 = new Key(4, NoteName.D, NoteAccidental.NATURAL);
-        assertEquals(keyD4, compareD4);
-
-        Key compareDSharp4 = new Key(4, NoteName.D, NoteAccidental.SHARP);
-        assertEquals(keyDSharp4, compareDSharp4);
-
-        Key compareE4 = new Key(4, NoteName.E, NoteAccidental.NATURAL);
-        assertEquals(keyE4, compareE4);
-
-        Key compareF4 = new Key(4, NoteName.F, NoteAccidental.NATURAL);
-        assertEquals(keyF4, compareF4);
-
-        Key compareFSharp4 = new Key(4, NoteName.F, NoteAccidental.SHARP);
-        assertEquals(keyFSharp4, compareFSharp4);
-
-        Key compareG4 = new Key(4, NoteName.G, NoteAccidental.NATURAL);
-        assertEquals(keyG4, compareG4);
-
-        Key compareGSharp4 = new Key(4, NoteName.G, NoteAccidental.SHARP);
-        assertEquals(keyGSharp4, compareGSharp4);
-
-        Key compareA4 = new Key(4, NoteName.A, NoteAccidental.NATURAL);
-        assertEquals(keyA4, compareA4);
-
-        Key compareASharp4 = new Key(4, NoteName.A, NoteAccidental.SHARP);
-        assertEquals(keyASharp4, compareASharp4);
-
-        Key compareB4 = new Key(4, NoteName.B, NoteAccidental.NATURAL);
-        assertEquals(keyB4, compareB4);
-
-        Key compareDFlat4 = new Key(4, NoteName.D, NoteAccidental.FLAT);
-        assertEquals(keyCSharp4, compareDFlat4);
-
-        Key compareGFlat4 = new Key(4, NoteName.G, NoteAccidental.FLAT);
-        assertEquals(keyFSharp4, compareGFlat4);
-    }
 
     @Test
     void getOctaves() {

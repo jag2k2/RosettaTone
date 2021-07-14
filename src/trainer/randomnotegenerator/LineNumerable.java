@@ -1,5 +1,5 @@
 package trainer.randomnotegenerator;
 
-public interface LineNumberable {
+public interface LineNumerable {
     int getLineNumber();
 }

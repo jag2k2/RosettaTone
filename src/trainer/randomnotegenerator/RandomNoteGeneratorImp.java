@@ -5,10 +5,10 @@ import trainer.RandomNoteGenerator;
 import uicomponents.renderer.records.RenderConstants;
 
 public class RandomNoteGeneratorImp implements RandomNoteGenerator {
-    private final LineNumberable lowerLimit;
-    private final LineNumberable upperLimit;
+    private final LineNumerable lowerLimit;
+    private final LineNumerable upperLimit;
 
-    public RandomNoteGeneratorImp(LineNumberable lowerLimit, LineNumberable upperLimit){
+    public RandomNoteGeneratorImp(LineNumerable lowerLimit, LineNumerable upperLimit){
         this.lowerLimit = lowerLimit;
         this.upperLimit = upperLimit;
     }

@@ -1,19 +1,14 @@
 package collections;
 
 import music.Note;
-import music.NoteAccidental;
-import statemodels.NoteDrawable;
-import utility.NoteCollection;
+import utility.NoteSet;
 
-import java.awt.*;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
-public class NoteCollectionImp implements NoteCollection {
+public class NoteSetImp implements NoteSet {
     private final Set<Note> notes;
 
-    public NoteCollectionImp(){
+    public NoteSetImp(){
         notes = new HashSet<>();
     }
 
@@ -28,8 +23,8 @@ public class NoteCollectionImp implements NoteCollection {
     }
 
     @Override
-    public boolean containsAll(NoteCollection noteCollection) {
-        for (Note note : noteCollection){
+    public boolean containsAll(NoteSet noteSet) {
+        for (Note note : noteSet){
             if (!notes.contains(note)){
                 return false;
             }
@@ -39,8 +34,8 @@ public class NoteCollectionImp implements NoteCollection {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof NoteCollectionImp){
-            NoteCollectionImp compareTo = (NoteCollectionImp) obj;
+        if (obj instanceof NoteSetImp){
+            NoteSetImp compareTo = (NoteSetImp) obj;
             return notes.equals(compareTo.notes);
         }
         return false;
@@ -48,6 +43,12 @@ public class NoteCollectionImp implements NoteCollection {
 
     @Override
     public String toString() {
-        return notes.toString();
+        List<Note> noteList = new ArrayList<>(notes);
+        Collections.sort(noteList);
+        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
+        for (Note note : noteList){
+            stringJoiner.add(note.toString());
+        }
+        return stringJoiner.toString();
     }
 }

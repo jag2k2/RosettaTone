@@ -25,8 +25,8 @@ class RandomNoteGeneratorImpTest {
 
     @BeforeEach
     void setUp() {
-        LineNumberable lowerLimit = new LimitStateImp(noteC4);
-        LineNumberable upperLimit = new LimitStateImp(noteB4);
+        LineNumerable lowerLimit = new LimitStateImp(noteC4);
+        LineNumerable upperLimit = new LimitStateImp(noteB4);
         randomNoteGenerator = new RandomNoteGeneratorImp(lowerLimit, upperLimit);
     }
 
@@ -59,7 +59,7 @@ class RandomNoteGeneratorImpTest {
             int total = histogram.getOrDefault(note, 0);
             System.out.println(note + " -> " + total);
             int minimumCount = (int) ((float) iterations / intervalSize * 0.85);
-            //assertTrue(total > minimumCount);
+            assertTrue(total > minimumCount);
         }
 
         assertEquals(intervalSize, histogram.size());

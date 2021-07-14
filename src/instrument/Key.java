@@ -13,25 +13,26 @@ public class Key {
         this.midiNumber = midiNumber;
     }
 
-    public Key(int octave, NoteName noteName, NoteAccidental noteAccidental) {
-        int midiSum = 12 + (octave * 12);
-        int notePosition = noteName.getPosition();
+    public Key(Note note){
+        int midiSum = 12 + (note.getOctave() * 12);
+        int notePosition = note.getNoteName().getPosition();
         if (notePosition >= 3) {
             midiSum--;
         }
         midiSum += 2 * notePosition;
 
-        if (noteAccidental.equals(NoteAccidental.SHARP)){
+        NoteAccidental accidental = note.getAccidental();
+        if (accidental == NoteAccidental.SHARP){
             midiSum++;
         }
 
-        if (noteAccidental.equals(NoteAccidental.FLAT)){
+        if (accidental == NoteAccidental.FLAT){
             midiSum--;
         }
         this.midiNumber = midiSum;
     }
 
-    public Note getNote(){
+    public Note convertToNote(){
         return new Note(NoteName.values()[getNaturalIndex()], getOctave(), getAccidental());
     }
 
@@ -46,7 +47,7 @@ public class Key {
            return (1 + getOctavePosition()) / 2;
     }
 
-    public NoteAccidental getAccidental(){
+    protected NoteAccidental getAccidental(){
         if (isCDorE())
             if (getOctavePosition() % 2 == 1)
                 return NoteAccidental.SHARP;

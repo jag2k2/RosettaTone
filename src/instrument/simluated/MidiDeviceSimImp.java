@@ -29,11 +29,9 @@ public class MidiDeviceSimImp implements MidiDevice {
     }
 
     @Override
-    public void open() throws MidiUnavailableException {
+    public void open() {
         component.addKeyListener(keyListener);
         component.setFocusable(true);
-        //component.setRequestFocusEnabled(true);
-        //component.requestFocusInWindow();
         open = true;
         System.out.println("Opening Simulated Device");
     }
@@ -66,7 +64,7 @@ public class MidiDeviceSimImp implements MidiDevice {
     }
 
     @Override
-    public Receiver getReceiver() throws MidiUnavailableException {
+    public Receiver getReceiver() {
         return null;
     }
 
@@ -76,7 +74,7 @@ public class MidiDeviceSimImp implements MidiDevice {
     }
 
     @Override
-    public Transmitter getTransmitter() throws MidiUnavailableException {
+    public Transmitter getTransmitter() {
         return midiTransmitter;
     }
 

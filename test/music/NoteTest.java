@@ -1,12 +1,11 @@
 package music;
 
-import collections.NoteCollectionImp;
+import collections.NoteSetImp;
 import instrument.Key;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
-import utility.NoteCollection;
+import utility.NoteSet;
 
-import java.util.HashSet;
 import java.util.Set;
 
 class NoteTest {
@@ -29,19 +28,6 @@ class NoteTest {
 
     @BeforeEach
     void setup(){
-        this.naturalSharp = new HashSet<>();
-        naturalSharp.add(NoteAccidental.NATURAL);
-        naturalSharp.add(NoteAccidental.SHARP);
-
-        this.naturalFlat = new HashSet<>();
-        naturalFlat.add(NoteAccidental.NATURAL);
-        naturalFlat.add(NoteAccidental.FLAT);
-
-        this.naturalSharpFlat = new HashSet<>();
-        naturalSharpFlat.add(NoteAccidental.NATURAL);
-        naturalSharpFlat.add(NoteAccidental.SHARP);
-        naturalSharpFlat.add(NoteAccidental.FLAT);
-
         noteB3 = new Note(NoteName.B, 3);
         noteC4 = new Note(NoteName.C, 4);
         noteD4 = new Note(NoteName.D, 4);
@@ -54,13 +40,13 @@ class NoteTest {
         noteD5 = new Note(NoteName.D, 5);
 
         Key key48 = new Key(48);
-        noteC3 = key48.getNote();
+        noteC3 = key48.convertToNote();
     }
 
     @Test
     void canConstructFromKey(){
         Key key60 = new Key(60);
-        noteCompare = key60.getNote();
+        noteCompare = key60.convertToNote();
         assertEquals(noteCompare, noteC4);
     }
 
@@ -77,23 +63,6 @@ class NoteTest {
 
         noteCompare = new Note(NoteName.C, 3);
         assertEquals(noteC3, noteCompare);
-    }
-
-    @Test
-    void canDetectAdjacent(){
-        assertTrue(noteB3.isAdjacent(noteC4));
-        assertTrue(noteC4.isAdjacent(noteB3));
-        assertTrue(noteC4.isAdjacent(noteD4));
-        assertTrue(noteD4.isAdjacent(noteC4));
-        assertTrue(noteB4.isAdjacent(noteC5));
-        assertTrue(noteC5.isAdjacent(noteB4));
-    }
-
-    @Test
-    void canDetectNotAdjacent() {
-        assertFalse(noteC4.isAdjacent(noteESharp4));
-        assertFalse(noteC5.isAdjacent(noteD4));
-        assertFalse(noteB3.isAdjacent(noteC5));
     }
 
     @Test
@@ -146,26 +115,8 @@ class NoteTest {
     }
 
     @Test
-    void canDisplayNaturalAndSharp(){
-        Note noteCNatSharp5 = new Note(NoteName.C, 5, naturalSharp);
-        assertEquals("Cn#5", noteCNatSharp5.toString());
-    }
-
-    @Test
-    void canDisplayNaturalAndFlat(){
-        Note noteCNatFlat5 = new Note(NoteName.C, 5, naturalFlat);
-        assertEquals("Cnb5", noteCNatFlat5.toString());
-    }
-
-    @Test
-    void canDisplayAllAccidentals(){
-        Note noteCNatSharpFlat5 = new Note(NoteName.C, 5, naturalSharpFlat);
-        assertEquals("Cn#b5", noteCNatSharpFlat5.toString());
-    }
-
-    @Test
     void canCheckSqueezed() {
-        NoteCollection notes = new NoteCollectionImp();
+        NoteSet notes = new NoteSetImp();
         notes.add(noteC4);
         notes.add(noteD4);
         notes.add(noteE4);

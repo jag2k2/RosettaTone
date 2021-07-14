@@ -2,37 +2,36 @@ package music;
 
 import statemodels.NoteDrawable;
 import uicomponents.renderer.records.RenderConstants;
-import utility.NoteCollection;
+import utility.NoteSet;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Set;
-import java.util.HashSet;
 
 public class Note implements Comparable<Note>, NoteDrawable {
 
     private final NoteName noteName;
     private final int octave;
-    private final Set<NoteAccidental> accidentals = new HashSet<>();
+    private final NoteAccidental accidental;
 
     public Note(NoteName noteName, int octave) {
         this.noteName = noteName;
         this.octave = octave;
-        accidentals.add(NoteAccidental.NATURAL);
+        accidental = NoteAccidental.NATURAL;
     }
 
     public Note(NoteName noteName, int octave, NoteAccidental noteAccidental) {
         this.noteName = noteName;
         this.octave = octave;
-        accidentals.add(noteAccidental);
+        accidental = noteAccidental;
 
     }
 
-    public Note(NoteName noteName, int octave, Set<NoteAccidental> noteAccidentals){
+    /*public Note(NoteName noteName, int octave, Set<NoteAccidental> noteAccidentals){
         this.noteName = noteName;
         this.octave = octave;
         accidentals.addAll(noteAccidentals);
-    }
+    }*/
 
     public int getOctave() {
         return octave;
@@ -42,18 +41,8 @@ public class Note implements Comparable<Note>, NoteDrawable {
         return noteName;
     }
 
-    public Set<NoteAccidental> getActiveAccidentals() {
-        return accidentals;
-    }
-
-    public boolean isAdjacent(Note otherNote) {
-        int notePosition = noteName.getPosition();
-        int otherNotePosition = otherNote.noteName.getPosition();
-        int positionDifference = Math.abs(notePosition - otherNotePosition);
-        int octaveDifference = Math.abs(octave - otherNote.octave);
-        boolean sameOctaveAdjacent = (positionDifference == 1)  && (octaveDifference == 0);
-        boolean noteBCAdjacent = (positionDifference == 6) && (octaveDifference == 1);
-        return sameOctaveAdjacent || noteBCAdjacent;
+    public NoteAccidental getAccidental() {
+        return accidental;
     }
 
     public boolean noteHeadEquals(Note note){
@@ -88,28 +77,26 @@ public class Note implements Comparable<Note>, NoteDrawable {
         return new Note(newNoteName, newOctave, noteAccidental);
     }
 
-    protected int noteValue(){
-        return octave * 10 + noteName.getPosition();
+    public int noteValue(){
+        return octave * 7 + noteName.getPosition();
     }
 
     @Override
     public void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage,
-                     NoteCollection notes, int xPos, Set<Integer> ledgerLines) {
+                     NoteSet notes, int xPos, Set<Integer> ledgerLines) {
 
         int lineNumber = RenderConstants.getLineNumber(this);
         int noteWidth = noteImage.getWidth();
         int noteHeight = noteImage.getHeight();
         int noteY = RenderConstants.getLineYOffset(lineNumber) - (noteHeight / 2);
 
-        for (NoteAccidental accidental : getActiveAccidentals()) {
-            if (accidental == NoteAccidental.SHARP) {
-                int sharpXPos = xPos - (int) (sharpImage.getWidth() * 1.3);
-                int sharpYPos = noteY - (sharpImage.getHeight() / 3);
-                graphics2D.drawImage(sharpImage, null, sharpXPos, sharpYPos);
+        if (accidental == NoteAccidental.SHARP) {
+            int sharpXPos = xPos - (int) (sharpImage.getWidth() * 1.3);
+            int sharpYPos = noteY - (sharpImage.getHeight() / 3);
+            graphics2D.drawImage(sharpImage, null, sharpXPos, sharpYPos);
             }
-        }
 
-        int lineThickness = RenderConstants.lineThickness;
+        int lineThickness = RenderConstants.ledgerLineThickness;
         graphics2D.setStroke(new BasicStroke(lineThickness));
 
         for (int ledgerLineNumber : ledgerLines) {
@@ -135,7 +122,7 @@ public class Note implements Comparable<Note>, NoteDrawable {
     }
 
 
-    public boolean isSqueezed(NoteCollection notes){
+    protected boolean isSqueezed(NoteSet notes){
         Note adjacentNote = getPrevious(NoteAccidental.NATURAL);
         for (Note noteInSet : notes){
             if (noteInSet.noteHeadEquals(adjacentNote)){
@@ -159,13 +146,13 @@ public class Note implements Comparable<Note>, NoteDrawable {
     @Override
     public String toString() {
         String noteString = noteName.toString();
-        if (accidentals.contains(NoteAccidental.NATURAL) && (accidentals.contains(NoteAccidental.FLAT) || accidentals.contains(NoteAccidental.SHARP))){
+        /*if (accidentals.contains(NoteAccidental.NATURAL) && (accidentals.contains(NoteAccidental.FLAT) || accidentals.contains(NoteAccidental.SHARP))){
             noteString += "n";
-        }
-        if (accidentals.contains(NoteAccidental.SHARP)) {
+        }*/
+        if (accidental == NoteAccidental.SHARP) {
             noteString += "#";
         }
-        if (accidentals.contains(NoteAccidental.FLAT)) {
+        if (accidental == NoteAccidental.FLAT) {
             noteString += "b";
         }
         noteString += Integer.toString(octave);
@@ -178,7 +165,7 @@ public class Note implements Comparable<Note>, NoteDrawable {
             Note noteCompare = (Note) obj;
             return this.noteName == noteCompare.noteName
                     && this.octave == noteCompare.octave
-                    && this.accidentals.equals(noteCompare.accidentals);
+                    && this.accidental.equals(noteCompare.accidental);
         }
         return false;
     }

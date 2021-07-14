@@ -1,7 +1,7 @@
 package statemodels.limitstate;
 
 import music.Note;
-import collections.NoteCollectionImp;
+import collections.NoteSetImp;
 import music.NoteName;
 import notification.LimitChangeNotifierImp;
 import notification.LimitChangeObserver;
@@ -9,7 +9,7 @@ import notification.LimitChangeObserver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uicomponents.rangeselector.noteselector.LimitModifier;
-import utility.NoteCollection;
+import utility.NoteSet;
 
 import javax.swing.*;
 
@@ -147,7 +147,7 @@ public class AbstractBoundedLimitStateTest implements LimitChangeObserver {
 
     @Test
     void canUpdateComboBoxOptions() {
-        NoteCollection expectedOptions = new NoteCollectionImp();
+        NoteSet expectedOptions = new NoteSetImp();
         expectedOptions.add(new Note(NoteName.B, 4));
         expectedOptions.add(new Note(NoteName.A, 4));
         expectedOptions.add(new Note(NoteName.G, 4));
@@ -161,7 +161,7 @@ public class AbstractBoundedLimitStateTest implements LimitChangeObserver {
 
         boundedNoteLimit.refreshJComboBoxOptions(comboBox);
         ComboBoxModel<Note> comboBoxModel = comboBox.getModel();
-        NoteCollection comboBoxOptions = new NoteCollectionImp();
+        NoteSet comboBoxOptions = new NoteSetImp();
         for (int i = 0; i < comboBoxModel.getSize(); i++) {
             comboBoxOptions.add(comboBoxModel.getElementAt(i));
         }

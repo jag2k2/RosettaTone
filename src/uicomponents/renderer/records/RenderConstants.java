@@ -34,7 +34,7 @@ public class RenderConstants {
 
     public static final int numberOfLines = 52;
     public static final int lineSpacing = 15;
-    public static final int lineThickness = 2;
+    public static final int ledgerLineThickness = 2;
 
     public static final int leftMargin = 10;
     public static final int noteXSpacing = 135;
@@ -42,9 +42,12 @@ public class RenderConstants {
 
     public static final int limitRenderXOffset = 50;
     public static final int limitDotDiameter = 20;
+    public static final int limitLineThickness = 5;
+
+    public static final int flashcardCount = 8;
 
     static public int getLineNumber(Note note){
-        return (numberOfLines - 1) - ((note.getNoteName().getPosition() + (note.getOctave() * 7)) - 5);
+        return (numberOfLines - 1) - (note.noteValue() - 5);
     }
     
     static public int getLineXStart() { return leftMargin; }

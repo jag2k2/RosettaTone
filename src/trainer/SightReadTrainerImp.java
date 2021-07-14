@@ -1,6 +1,7 @@
 package trainer;
 
 import notification.KeyboardChangeObserver;
+import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
 import utility.NoteSet;
 
@@ -16,6 +17,7 @@ public class SightReadTrainerImp implements KeyboardChangeObserver {
     public SightReadTrainerImp(KeyStateEvaluator keyboardState, FlashcardGenerator flashcardGenerator){
         this.keyboardState = keyboardState;
         this.flashcardGenerator = flashcardGenerator;
+        flashcardGenerator.generateAllNewFlashcards(RenderConstants.flashcardCount);
     }
 
     public void addFlashcardSatisfiedNotifier(FlashcardSatisfiedNotifier flashcardSatisfiedNotifier){

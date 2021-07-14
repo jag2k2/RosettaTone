@@ -6,6 +6,7 @@ import java.awt.*;
 import instrument.*;
 import music.*;
 import notification.*;
+import statemodels.AlphabetModeStateImp;
 import statemodels.FlashcardsImp;
 import statemodels.StaffModeStateImp;
 import statemodels.KeyboardStateImp;
@@ -14,15 +15,16 @@ import statemodels.limitstate.LowerBoundedLimitStateImp;
 import statemodels.limitstate.LimitStateImp;
 import statemodels.limitstate.UpperBoundedLimitStateImp;
 import trainer.SightReadTrainerImp;
+import uicomponents.alphabetmode.AlphabetMode;
+import uicomponents.alphabetmode.AlphabetModeSelectorImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.noteselector.NoteSelectorImp;
 import uicomponents.rangeselector.RangeSelectorImp;
 import uicomponents.renderer.GrandStaffRendererImp;
 import uicomponents.renderer.NoteTextRenderer;
 import uicomponents.renderer.LimitRendererImp;
-import uicomponents.clefmode.ClefModeSelectorImp;
-import uicomponents.clefmode.ClefMode;
-import uicomponents.renderer.records.RenderConstants;
+import uicomponents.staffmode.StaffModeSelectorImp;
+import uicomponents.staffmode.StaffMode;
 
 public class MainGUI {
     private final JFrame frame;
@@ -32,93 +34,95 @@ public class MainGUI {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         //Notifiers
-        KeyboardChangeNotifierImp keyboardChangeNotifier = new KeyboardChangeNotifierImp();
-        StaffModeChangeNotifierImp modeChangeNotifier = new StaffModeChangeNotifierImp();
-        LimitChangeNotifierImp lowerLimitChangeNotifier = new LimitChangeNotifierImp();
-        LimitChangeNotifierImp upperLimitChangeNotifier = new LimitChangeNotifierImp();
-        LimitChangeNotifierImp lowerBoundChangeNotifier = new LimitChangeNotifierImp();
-        LimitChangeNotifierImp upperBoundChangeNotifier = new LimitChangeNotifierImp();
-        LimitChangeNotifierImp limitPreviewNotifier = new LimitChangeNotifierImp();
-        FlashcardSatisfiedNotifierImp flashcardSatisfiedNotifier = new FlashcardSatisfiedNotifierImp();
-        FlashcardChangeNotifierImp flashcardChangeNotifier = new FlashcardChangeNotifierImp();
+        KeyboardChangeNotifierImp keyboardChangeNotifierImp = new KeyboardChangeNotifierImp();
+        StaffModeChangeNotifierImp staffModeChangeNotifierImp = new StaffModeChangeNotifierImp();
+        AlphabetModeChangeNotifierImp alphabetModeChangeNotifierImp = new AlphabetModeChangeNotifierImp();
+        LimitChangeNotifierImp lowerLimitChangeNotifierImp = new LimitChangeNotifierImp();
+        LimitChangeNotifierImp upperLimitChangeNotifierImp = new LimitChangeNotifierImp();
+        LimitChangeNotifierImp lowerBoundChangeNotifierImp = new LimitChangeNotifierImp();
+        LimitChangeNotifierImp upperBoundChangeNotifierImp = new LimitChangeNotifierImp();
+        LimitChangeNotifierImp limitPreviewNotifierImp = new LimitChangeNotifierImp();
+        FlashcardSatisfiedNotifierImp flashcardSatisfiedNotifierImp = new FlashcardSatisfiedNotifierImp();
+        FlashcardChangeNotifierImp flashcardChangeNotifierImp = new FlashcardChangeNotifierImp();
 
         //State Models
         KeyboardStateImp keyboardStateImp = new KeyboardStateImp();
-        keyboardStateImp.addKeyboardChangeNotifier(keyboardChangeNotifier);
+        keyboardStateImp.addKeyboardChangeNotifier(keyboardChangeNotifierImp);
 
         Note lowerBoundNote = new Note(NoteName.A, 0);
         Note upperBoundNote = new Note(NoteName.C, 8);
         Note defaultLowerLimitNote = new Note(NoteName.C, 4);
         Note defaultUpperLimitNote = new Note(NoteName.C, 5);
 
-        LimitStateImp lowerNoteLimit = new LimitStateImp(defaultLowerLimitNote);
-        lowerNoteLimit.addLimitChangeNotifier(lowerLimitChangeNotifier);
-        lowerNoteLimit.addPreviewChangeNotifier(limitPreviewNotifier);
+        LimitStateImp lowerNoteLimitImp = new LimitStateImp(defaultLowerLimitNote);
+        lowerNoteLimitImp.addLimitChangeNotifier(lowerLimitChangeNotifierImp);
+        lowerNoteLimitImp.addPreviewChangeNotifier(limitPreviewNotifierImp);
 
-        LimitStateImp upperNoteLimit = new LimitStateImp(defaultUpperLimitNote);
-        upperNoteLimit.addLimitChangeNotifier(upperLimitChangeNotifier);
-        upperNoteLimit.addPreviewChangeNotifier(limitPreviewNotifier);
+        LimitStateImp upperNoteLimitImp = new LimitStateImp(defaultUpperLimitNote);
+        upperNoteLimitImp.addLimitChangeNotifier(upperLimitChangeNotifierImp);
+        upperNoteLimitImp.addPreviewChangeNotifier(limitPreviewNotifierImp);
 
-        LowerBoundedLimitStateImp lowerBoundedNoteLimit = new LowerBoundedLimitStateImp(lowerNoteLimit, upperNoteLimit, lowerBoundNote, defaultUpperLimitNote);
-        lowerBoundedNoteLimit.addBoundChangeNotifier(lowerBoundChangeNotifier);
-        UpperBoundedLimitStateImp upperBoundedNoteLimit = new UpperBoundedLimitStateImp(upperNoteLimit, lowerNoteLimit, defaultLowerLimitNote, upperBoundNote);
-        upperBoundedNoteLimit.addBoundChangeNotifier(upperBoundChangeNotifier);
+        LowerBoundedLimitStateImp lowerBoundedNoteLimit = new LowerBoundedLimitStateImp(lowerNoteLimitImp, upperNoteLimitImp, lowerBoundNote, defaultUpperLimitNote);
+        lowerBoundedNoteLimit.addBoundChangeNotifier(lowerBoundChangeNotifierImp);
+        UpperBoundedLimitStateImp upperBoundedNoteLimit = new UpperBoundedLimitStateImp(upperNoteLimitImp, lowerNoteLimitImp, defaultLowerLimitNote, upperBoundNote);
+        upperBoundedNoteLimit.addBoundChangeNotifier(upperBoundChangeNotifierImp);
 
-        Staff trebleStaff = new Staff(RenderConstants.trebleStaff);
-        Staff bassStaff = new Staff(RenderConstants.bassStaff);
+        StaffModeStateImp staffModeStateImp = new StaffModeStateImp(StaffMode.Grand);
+        staffModeStateImp.addStaffModeChangeNotifier(staffModeChangeNotifierImp);
 
-        StaffModeStateImp staffModeStateImp = new StaffModeStateImp(ClefMode.Grand, trebleStaff, bassStaff);
-        staffModeStateImp.addClefModeChangeNotifier(modeChangeNotifier);
+        AlphabetModeStateImp alphabetModeStateImp = new AlphabetModeStateImp(AlphabetMode.Off);
+        alphabetModeStateImp.addAlphabetModeChangeNotifier(alphabetModeChangeNotifierImp);
 
         //KeyReceiver
-        KeyNoteReceiverImp keyNoteReceiver = new KeyNoteReceiverImp(keyboardStateImp);
+        KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(keyboardStateImp);
 
         //Trainer
-        RandomNoteGeneratorImp randomNoteGenerator = new RandomNoteGeneratorImp(lowerNoteLimit, upperNoteLimit);
-        FlashcardsImp flashcardsImp = new FlashcardsImp(randomNoteGenerator);
-        flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifier);
+        RandomNoteGeneratorImp randomNoteGeneratorImp = new RandomNoteGeneratorImp(lowerNoteLimitImp, upperNoteLimitImp);
+        FlashcardsImp flashcardsImp = new FlashcardsImp(randomNoteGeneratorImp);
+        flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifierImp);
         SightReadTrainerImp sightReadTrainer = new SightReadTrainerImp(keyboardStateImp, flashcardsImp);
-        sightReadTrainer.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifier);
+        sightReadTrainer.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifierImp);
 
         //Selectors
-        InstrumentBrowserImp instrumentBrowser = new InstrumentBrowserImp(keyNoteReceiver);
-        ClefModeSelectorImp modeSelector = new ClefModeSelectorImp(staffModeStateImp);
-        NoteSelectorImp lowerNoteSelector = new NoteSelectorImp(lowerBoundedNoteLimit, lowerNoteLimit);
-        NoteSelectorImp upperNoteSelector = new NoteSelectorImp(upperBoundedNoteLimit, upperNoteLimit);
+        InstrumentBrowserImp instrumentBrowser = new InstrumentBrowserImp(keyNoteReceiverImp);
+        StaffModeSelectorImp modeSelector = new StaffModeSelectorImp(staffModeStateImp);
+        NoteSelectorImp lowerNoteSelector = new NoteSelectorImp(lowerBoundedNoteLimit, lowerNoteLimitImp);
+        NoteSelectorImp upperNoteSelector = new NoteSelectorImp(upperBoundedNoteLimit, upperNoteLimitImp);
         RangeSelectorImp rangeSelector = new RangeSelectorImp(lowerNoteSelector, upperNoteSelector);
+        AlphabetModeSelectorImp alphabetModeSelectorImp = new AlphabetModeSelectorImp(alphabetModeStateImp);
 
         //Renderers
-        GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardStateImp, staffModeStateImp, flashcardsImp);
-        LimitRendererImp rangeRenderer = new LimitRendererImp(lowerNoteLimit, upperNoteLimit);
+        GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardStateImp, flashcardsImp, staffModeStateImp, alphabetModeStateImp);
+        LimitRendererImp rangeRenderer = new LimitRendererImp(lowerNoteLimitImp, upperNoteLimitImp);
         NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardStateImp);
 
 
         //Add Observers
-        keyboardChangeNotifier.addObserver(grandStaffRenderer);
-        keyboardChangeNotifier.addObserver(noteTextRenderer);
-        keyboardChangeNotifier.addObserver(sightReadTrainer);
+        keyboardChangeNotifierImp.addObserver(grandStaffRenderer);
+        keyboardChangeNotifierImp.addObserver(noteTextRenderer);
+        keyboardChangeNotifierImp.addObserver(sightReadTrainer);
 
-        modeChangeNotifier.addObserver(grandStaffRenderer);
+        staffModeChangeNotifierImp.addObserver(grandStaffRenderer);
+        alphabetModeChangeNotifierImp.addObserver(grandStaffRenderer);
 
-        lowerLimitChangeNotifier.addObserver(rangeRenderer);
-        lowerLimitChangeNotifier.addObserver(flashcardsImp);
-        lowerLimitChangeNotifier.addObserver(lowerNoteSelector);
-        lowerLimitChangeNotifier.addObserver(upperBoundedNoteLimit);
+        lowerLimitChangeNotifierImp.addObserver(rangeRenderer);
+        lowerLimitChangeNotifierImp.addObserver(flashcardsImp);
+        lowerLimitChangeNotifierImp.addObserver(lowerNoteSelector);
+        lowerLimitChangeNotifierImp.addObserver(upperBoundedNoteLimit);
 
-        lowerBoundChangeNotifier.addObserver(lowerNoteSelector);
+        lowerBoundChangeNotifierImp.addObserver(lowerNoteSelector);
 
-        upperLimitChangeNotifier.addObserver(rangeRenderer);
-        upperLimitChangeNotifier.addObserver(flashcardsImp);
-        upperLimitChangeNotifier.addObserver(upperNoteSelector);
-        upperLimitChangeNotifier.addObserver(lowerBoundedNoteLimit);
+        upperLimitChangeNotifierImp.addObserver(rangeRenderer);
+        upperLimitChangeNotifierImp.addObserver(flashcardsImp);
+        upperLimitChangeNotifierImp.addObserver(upperNoteSelector);
+        upperLimitChangeNotifierImp.addObserver(lowerBoundedNoteLimit);
 
-        upperBoundChangeNotifier.addObserver(upperNoteSelector);
+        upperBoundChangeNotifierImp.addObserver(upperNoteSelector);
 
-        limitPreviewNotifier.addObserver(rangeRenderer);
-        limitPreviewNotifier.addObserver(flashcardsImp);
+        limitPreviewNotifierImp.addObserver(rangeRenderer);
+        limitPreviewNotifierImp.addObserver(flashcardsImp);
 
-        flashcardSatisfiedNotifier.addObserver(grandStaffRenderer);
-        flashcardChangeNotifier.addObserver(grandStaffRenderer);
+        flashcardChangeNotifierImp.addObserver(grandStaffRenderer);
 
         //Build Panels
         JPanel verticalPanel = new JPanel();
@@ -126,6 +130,7 @@ public class MainGUI {
         verticalPanel.add(instrumentBrowser.getComponent());
         verticalPanel.add(rangeSelector.getComponent());
         verticalPanel.add(modeSelector.getComponent());
+        verticalPanel.add(alphabetModeSelectorImp.getComponent());
         JPanel configPanel = new JPanel(new BorderLayout());
         configPanel.add(BorderLayout.NORTH, verticalPanel);
 

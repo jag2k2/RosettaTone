@@ -68,11 +68,11 @@ class SightReadTrainerImpTest implements FlashcardSatisfiedObserver, FlashcardCh
             for (Note flashcardNote : topFlashcard){
                 Key rightKey = new Key(flashcardNote);
                 keyboardState.keyPressed(rightKey);
-                assertTrue(satisfiedNotified);
                 keyboardState.keyReleased(rightKey);
-                assertTrue(flashcardChangedNotified);
             }
         }
+        assertTrue(satisfiedNotified);
+        assertTrue(flashcardChangedNotified);
     }
 
     @Test
@@ -82,15 +82,14 @@ class SightReadTrainerImpTest implements FlashcardSatisfiedObserver, FlashcardCh
             Key wrongKey2 = new Key(22);
             keyboardState.keyPressed(wrongKey);
             keyboardState.keyPressed(wrongKey2);
-            assertFalse(satisfiedNotified);
 
             for (Note flashcardNote : topFlashcard){
                 Key rightKey = new Key(flashcardNote);
                 keyboardState.keyPressed(rightKey);
-                assertTrue(satisfiedNotified);
                 keyboardState.keyReleased(rightKey);
-                assertTrue(flashcardChangedNotified);
             }
         }
+        assertTrue(satisfiedNotified);
+        assertTrue(flashcardChangedNotified);
     }
 }

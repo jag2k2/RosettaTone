@@ -66,6 +66,13 @@ class NoteTest {
     }
 
     @Test
+    void canGetMidiNumber(){
+        assertEquals(60, noteC4.getMidiNumber());
+        assertEquals(65, noteF4.getMidiNumber());
+        assertEquals(65, noteESharp4.getMidiNumber());
+    }
+
+    @Test
     void canIncrement(){
         Note noteTest = noteC4.getNext(NoteAccidental.NATURAL);
         assertEquals(noteTest, noteD4);

@@ -27,22 +27,22 @@ public class Note implements Comparable<Note>, NoteDrawable {
 
     }
 
-    /*public Note(NoteName noteName, int octave, Set<NoteAccidental> noteAccidentals){
-        this.noteName = noteName;
-        this.octave = octave;
-        accidentals.addAll(noteAccidentals);
-    }*/
+    public int getMidiNumber(){
+        int midiSum = 12 + (octave * 12);
+        int notePosition = noteName.getPosition();
+        if (notePosition >= 3) {
+            midiSum--;
+        }
+        midiSum += 2 * notePosition;
 
-    public int getOctave() {
-        return octave;
-    }
+        if (accidental == NoteAccidental.SHARP){
+            midiSum++;
+        }
 
-    public NoteName getNoteName(){
-        return noteName;
-    }
-
-    public NoteAccidental getAccidental() {
-        return accidental;
+        if (accidental == NoteAccidental.FLAT){
+            midiSum--;
+        }
+        return midiSum;
     }
 
     public boolean noteHeadEquals(Note note){
@@ -83,7 +83,7 @@ public class Note implements Comparable<Note>, NoteDrawable {
 
     @Override
     public void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage,
-                     NoteSet notes, int xPos, Set<Integer> ledgerLines) {
+                     NoteSet notes, int xPos, Set<Integer> ledgerLines, boolean drawName) {
 
         int lineNumber = RenderConstants.getLineNumber(this);
         int noteWidth = noteImage.getWidth();
@@ -111,14 +111,13 @@ public class Note implements Comparable<Note>, NoteDrawable {
         }
         graphics2D.drawImage(noteImage, null, xPos, noteY);
 
-        /*if(drawName){
-            NoteName noteName = note.getNoteName();
+        if(drawName){
             graphics2D.setFont(new Font("Dialog", Font.BOLD, RenderConstants.nameFontSize));
             int nameY = RenderConstants.getLineYOffset(lineNumber) - 2;
-            //if ((RenderConstants.getLineNumber(note) % 2) == 1)
-            //nameY += noteHeight / 2;
-            //graphics2D.drawString(noteName.toString(), xPos + noteWidth, nameY);
-        }*/
+            if ((lineNumber % 2) == 1)
+            nameY += noteHeight / 2;
+            graphics2D.drawString(noteName.toString(), xPos + noteWidth, nameY);
+        }
     }
 
 
@@ -146,9 +145,6 @@ public class Note implements Comparable<Note>, NoteDrawable {
     @Override
     public String toString() {
         String noteString = noteName.toString();
-        /*if (accidentals.contains(NoteAccidental.NATURAL) && (accidentals.contains(NoteAccidental.FLAT) || accidentals.contains(NoteAccidental.SHARP))){
-            noteString += "n";
-        }*/
         if (accidental == NoteAccidental.SHARP) {
             noteString += "#";
         }

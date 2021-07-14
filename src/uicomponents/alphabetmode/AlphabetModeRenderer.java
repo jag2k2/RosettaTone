@@ -1,17 +1,17 @@
-package uicomponents.clefmode;
+package uicomponents.alphabetmode;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ClefModeRenderer implements ListCellRenderer<ClefMode> {
-    private final ListCellRenderer<? super ClefMode> listCellRenderer;
+public class AlphabetModeRenderer implements ListCellRenderer<AlphabetMode> {
+    private final ListCellRenderer<? super AlphabetMode> listCellRenderer;
 
-    public ClefModeRenderer(ListCellRenderer<? super ClefMode> listCellRenderer){
+    public AlphabetModeRenderer(ListCellRenderer<? super AlphabetMode> listCellRenderer){
         this.listCellRenderer = listCellRenderer;
     }
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends ClefMode> list, ClefMode value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<? extends AlphabetMode> list, AlphabetMode value, int index, boolean isSelected, boolean cellHasFocus) {
         Component rendererComponent = listCellRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         if (rendererComponent instanceof JLabel){
             JLabel rendererLabel = (JLabel) rendererComponent;

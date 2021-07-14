@@ -14,22 +14,7 @@ public class Key {
     }
 
     public Key(Note note){
-        int midiSum = 12 + (note.getOctave() * 12);
-        int notePosition = note.getNoteName().getPosition();
-        if (notePosition >= 3) {
-            midiSum--;
-        }
-        midiSum += 2 * notePosition;
-
-        NoteAccidental accidental = note.getAccidental();
-        if (accidental == NoteAccidental.SHARP){
-            midiSum++;
-        }
-
-        if (accidental == NoteAccidental.FLAT){
-            midiSum--;
-        }
-        this.midiNumber = midiSum;
+        this.midiNumber = note.getMidiNumber();
     }
 
     public Note convertToNote(){

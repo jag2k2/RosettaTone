@@ -1,8 +1,8 @@
 package statemodels;
 
-import notification.ClefModeChangeObserver;
+import notification.StaffModeChangeObserver;
 
 public interface StaffModeChangeNotifier {
-    void addObserver(ClefModeChangeObserver observer);
+    void addObserver(StaffModeChangeObserver observer);
     void notifyObservers();
 }

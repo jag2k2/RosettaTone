@@ -1,9 +1,9 @@
 package uicomponents.renderer;
 
 import imageprocessing.ImageFactory;
-import notification.FlashcardSatisfiedObserver;
+import notification.AlphabetModeChangeObserver;
 import notification.KeyboardChangeObserver;
-import notification.ClefModeChangeObserver;
+import notification.StaffModeChangeObserver;
 import notification.FlashcardChangeObserver;
 import uicomponents.UIComponent;
 import uicomponents.renderer.records.RenderConstants;
@@ -12,11 +12,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class GrandStaffRendererImp extends JComponent implements UIComponent, ClefModeChangeObserver,
-        KeyboardChangeObserver, FlashcardSatisfiedObserver, FlashcardChangeObserver {
+public class GrandStaffRendererImp extends JComponent implements UIComponent, StaffModeChangeObserver,
+        AlphabetModeChangeObserver, KeyboardChangeObserver, FlashcardChangeObserver {
     private final KeyStateDrawable keyboardState;
     private final StaffModeDrawable staffMode;
     private final FlashcardDrawable flashcards;
+    private final AlphabetDrawable alphabetMode;
 
     private final BufferedImage trebleImage = ImageFactory.createTrebleImage();
     private final BufferedImage bassImage = ImageFactory.createBassImage();
@@ -27,10 +28,12 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
 
     private boolean drawName = false;
 
-    public GrandStaffRendererImp(KeyStateDrawable keyboardState, StaffModeDrawable staffMode, FlashcardDrawable flashcards){
+    public GrandStaffRendererImp(KeyStateDrawable keyboardState, FlashcardDrawable flashcards,
+                                 StaffModeDrawable staffMode, AlphabetDrawable alphabetMode){
         this.keyboardState = keyboardState;
         this.staffMode = staffMode;
         this.flashcards = flashcards;
+        this.alphabetMode = alphabetMode;
     }
 
     @Override
@@ -42,7 +45,12 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
     }
 
     @Override
-    public void clefModeChanged() {
+    public void staffModeChanged() {
+        repaint();
+    }
+
+    @Override
+    public void alphabetModeChanged() {
         repaint();
     }
 
@@ -52,13 +60,7 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
     }
 
     @Override
-    public void flashcardSatisfied() {
-        drawName = true;
-    }
-
-    @Override
     public void flashcardChanged() {
-        drawName = false;
         Thread thread = new Thread(flashcards);
         flashcards.setScrollableComponent(this);
         thread.start();
@@ -75,6 +77,6 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
         Graphics2D graphics2D = (Graphics2D)g;
         staffMode.draw(graphics2D, trebleImage, bassImage);
         keyboardState.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, staffMode);
-        flashcards.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, staffMode);
+        flashcards.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, staffMode, alphabetMode);
     }
 }

@@ -4,7 +4,6 @@ import collections.NoteSetImp;
 import instrument.Key;
 import instrument.KeyStateManipulator;
 import music.Note;
-import music.NoteAccidental;
 import trainer.KeyStateEvaluator;
 import uicomponents.renderer.KeyStateDrawable;
 import uicomponents.renderer.StaffModeDrawable;
@@ -59,7 +58,7 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyStateEvaluator,
         for (Note note : activeNotes){
             int lineNumber = RenderConstants.getLineNumber(note);
             int xPos = RenderConstants.getNoteXOffset(1);
-            note.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, activeNotes, xPos, staffMode.getLedgerLines(lineNumber));
+            note.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, activeNotes, xPos, staffMode.getLedgerLines(lineNumber), false);
         }
     }
 

@@ -1,85 +1,123 @@
 package statemodels;
 
-import music.Staff;
+import notification.StaffModeChangeObserver;
+import notification.StaffModeChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uicomponents.clefmode.ClefMode;
-import uicomponents.renderer.records.RenderConstants;
+import uicomponents.staffmode.StaffMode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StaffModeStateImpTest {
-    private StaffModeStateImp clefModeState;
+class StaffModeStateImpTest implements StaffModeChangeObserver {
+    private StaffModeStateImp staffModeStateImp;
+    private boolean staffModeChanged = false;
+
+    @Override
+    public void staffModeChanged() {
+        staffModeChanged = true;
+    }
 
     @BeforeEach
     void setup(){
-        Staff trebleStaff = new Staff(RenderConstants.trebleStaff);
-        Staff bassStaff = new Staff(RenderConstants.bassStaff);
+        StaffModeChangeNotifier staffModeChangeNotifier = new StaffModeChangeNotifierImp();
+        staffModeStateImp = new StaffModeStateImp(StaffMode.Grand);
+        staffModeStateImp.addStaffModeChangeNotifier(staffModeChangeNotifier);
 
-        clefModeState = new StaffModeStateImp(ClefMode.Grand, trebleStaff, bassStaff);
+        staffModeChangeNotifier.addObserver(this);
+        staffModeChanged = false;
+    }
+
+    @Test
+    void canCheckEquality() {
+        StaffModeStateImp expected = new StaffModeStateImp(StaffMode.Grand);
+        assertEquals(expected, staffModeStateImp);
+
+        expected = new StaffModeStateImp(StaffMode.Treble);
+        assertNotEquals(expected, staffModeStateImp);
+    }
+
+    @Test
+    void canDisplayAsString(){
+        assertEquals("Grand", staffModeStateImp.toString());
+    }
+
+    @Test
+    void canChangeStaffMode(){
+        StaffModeStateImp expected = new StaffModeStateImp(StaffMode.Treble);
+        staffModeStateImp.setMode(StaffMode.Treble);
+        assertEquals(expected, staffModeStateImp);
+        assertTrue(staffModeChanged);
+    }
+
+    @Test
+    void wontChangeStaffModeIfSame(){
+        StaffModeStateImp expected = new StaffModeStateImp(StaffMode.Grand);
+        staffModeStateImp.setMode(StaffMode.Grand);
+        assertEquals(expected, staffModeStateImp);
+        assertFalse(staffModeChanged);
     }
 
     @Test
     void canDetectAboveVisible() {
         int lineNumber = 22;
-        clefModeState.setState(ClefMode.Grand);
-        assertFalse(clefModeState.isLineAboveVisible(lineNumber));
-        clefModeState.setState(ClefMode.Treble);
-        assertFalse(clefModeState.isLineAboveVisible(lineNumber));
-        clefModeState.setState(ClefMode.Bass);
-        assertTrue(clefModeState.isLineAboveVisible(lineNumber));
+        staffModeStateImp.setMode(StaffMode.Grand);
+        assertFalse(staffModeStateImp.isLineAboveVisible(lineNumber));
+        staffModeStateImp.setMode(StaffMode.Treble);
+        assertFalse(staffModeStateImp.isLineAboveVisible(lineNumber));
+        staffModeStateImp.setMode(StaffMode.Bass);
+        assertTrue(staffModeStateImp.isLineAboveVisible(lineNumber));
 
-        clefModeState.setState(ClefMode.Grand);
+        staffModeStateImp.setMode(StaffMode.Grand);
         lineNumber = 14;
-        assertTrue(clefModeState.isLineAboveVisible(lineNumber));
+        assertTrue(staffModeStateImp.isLineAboveVisible(lineNumber));
         lineNumber = 28;
-        assertTrue(clefModeState.isLineAboveVisible(lineNumber));
+        assertTrue(staffModeStateImp.isLineAboveVisible(lineNumber));
     }
 
     @Test
     void canDetectBelowVisible() {
         int lineNumber = 34;
-        clefModeState.setState(ClefMode.Grand);
-        assertFalse(clefModeState.isLineBelowVisible(lineNumber));
-        clefModeState.setState(ClefMode.Treble);
-        assertTrue(clefModeState.isLineBelowVisible(lineNumber));
-        clefModeState.setState(ClefMode.Bass);
-        assertFalse(clefModeState.isLineBelowVisible(lineNumber));
+        staffModeStateImp.setMode(StaffMode.Grand);
+        assertFalse(staffModeStateImp.isLineBelowVisible(lineNumber));
+        staffModeStateImp.setMode(StaffMode.Treble);
+        assertTrue(staffModeStateImp.isLineBelowVisible(lineNumber));
+        staffModeStateImp.setMode(StaffMode.Bass);
+        assertFalse(staffModeStateImp.isLineBelowVisible(lineNumber));
 
-        clefModeState.setState(ClefMode.Grand);
+        staffModeStateImp.setMode(StaffMode.Grand);
         lineNumber = 42;
-        assertTrue(clefModeState.isLineBelowVisible(lineNumber));
+        assertTrue(staffModeStateImp.isLineBelowVisible(lineNumber));
         lineNumber = 28;
-        assertTrue(clefModeState.isLineBelowVisible(lineNumber));
+        assertTrue(staffModeStateImp.isLineBelowVisible(lineNumber));
     }
 
     @Test
     void canDetectIfBetweenStaffs() {
         int lineNumber = 28;
-        clefModeState.setState(ClefMode.Grand);
-        assertTrue(clefModeState.isLineAboveVisible(lineNumber));
-        assertTrue(clefModeState.isLineBelowVisible(lineNumber));
+        staffModeStateImp.setMode(StaffMode.Grand);
+        assertTrue(staffModeStateImp.isLineAboveVisible(lineNumber));
+        assertTrue(staffModeStateImp.isLineBelowVisible(lineNumber));
     }
 
     @Test
     void canFindClosestVisibleLineHigh() {
         int lineNumber = 16;
-        clefModeState.setState(ClefMode.Grand);
-        assertEquals(18, clefModeState.getClosestVisibleLine(lineNumber));
-        clefModeState.setState(ClefMode.Treble);
-        assertEquals(18, clefModeState.getClosestVisibleLine(lineNumber));
-        clefModeState.setState(ClefMode.Bass);
-        assertEquals(30, clefModeState.getClosestVisibleLine(lineNumber));
+        staffModeStateImp.setMode(StaffMode.Grand);
+        assertEquals(18, staffModeStateImp.getClosestVisibleLine(lineNumber));
+        staffModeStateImp.setMode(StaffMode.Treble);
+        assertEquals(18, staffModeStateImp.getClosestVisibleLine(lineNumber));
+        staffModeStateImp.setMode(StaffMode.Bass);
+        assertEquals(30, staffModeStateImp.getClosestVisibleLine(lineNumber));
     }
 
     @Test
     void canFindClosestVisibleLineLow(){
         int lineNumber = 40;
-        clefModeState.setState(ClefMode.Grand);
-        assertEquals(38, clefModeState.getClosestVisibleLine(lineNumber));
-        clefModeState.setState(ClefMode.Treble);
-        assertEquals(26, clefModeState.getClosestVisibleLine(lineNumber));
-        clefModeState.setState(ClefMode.Bass);
-        assertEquals(38, clefModeState.getClosestVisibleLine(lineNumber));
+        staffModeStateImp.setMode(StaffMode.Grand);
+        assertEquals(38, staffModeStateImp.getClosestVisibleLine(lineNumber));
+        staffModeStateImp.setMode(StaffMode.Treble);
+        assertEquals(26, staffModeStateImp.getClosestVisibleLine(lineNumber));
+        staffModeStateImp.setMode(StaffMode.Bass);
+        assertEquals(38, staffModeStateImp.getClosestVisibleLine(lineNumber));
     }
 }

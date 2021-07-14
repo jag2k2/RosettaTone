@@ -3,7 +3,6 @@ package uicomponents;
 import javax.swing.*;
 import java.awt.*;
 
-import imageprocessing.ImageLoaderImp;
 import instrument.*;
 import music.*;
 import notification.*;
@@ -88,6 +87,7 @@ public class MainGUI {
         GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardStateImp, staffModeStateImp, sightReadTrainer);
         LimitRendererImp rangeRenderer = new LimitRendererImp(noteLimitDrawer);
         NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardStateImp);
+
 
         //Add Observers
         keyboardChangeNotifier.addObserver(grandStaffRenderer);

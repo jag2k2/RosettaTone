@@ -13,10 +13,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class GrandStaffRendererImp extends JComponent implements UIComponent, ClefModeChangeObserver,
-        KeyboardChangeObserver, FlashcardSatisfiedObserver, FlashcardChangeObserver, Runnable {
+        KeyboardChangeObserver, FlashcardSatisfiedObserver, FlashcardChangeObserver {
     private final KeyStateDrawable keyboardState;
     private final StaffModeDrawable staffMode;
     private final FlashcardDrawable flashcards;
+
     private final BufferedImage trebleImage = ImageLoaderImp.createTrebleImage();
     private final BufferedImage bassImage = ImageLoaderImp.createBassImage();
     private final BufferedImage noteImage = ImageLoaderImp.createNoteImage();
@@ -24,7 +25,6 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
     private final BufferedImage sharpImage = ImageLoaderImp.createSharpImage();
     private final BufferedImage flatImage = ImageLoaderImp.createFlatImage();
 
-    private int xTraveled = RenderConstants.noteXSpacing;
     private boolean drawName = false;
 
     public GrandStaffRendererImp(KeyStateDrawable keyboardState, StaffModeDrawable staffMode, FlashcardDrawable flashcards){
@@ -59,7 +59,8 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
     @Override
     public void flashcardChanged() {
         drawName = false;
-        Thread thread = new Thread(this);
+        Thread thread = new Thread(flashcards);
+        flashcards.setScrollableComponent(this);
         thread.start();
     }
 
@@ -74,38 +75,6 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, Cl
         Graphics2D graphics2D = (Graphics2D)g;
         staffMode.draw(graphics2D, trebleImage, bassImage);
         keyboardState.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, staffMode);
-        flashcards.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, staffMode, xTraveled);
-    }
-
-    @Override
-    public void run() {
-
-        int deltaX = 5;
-        int delay = 5;
-        xTraveled = 0;
-
-        long beforeTime, timeDiff, sleepTime;
-        beforeTime = System.currentTimeMillis();
-
-        while (xTraveled < RenderConstants.noteXSpacing){
-
-            xTraveled += deltaX;
-            repaint();
-
-            timeDiff = System.currentTimeMillis() - beforeTime;
-            sleepTime = delay - timeDiff;
-
-            if (sleepTime < 0) {
-                sleepTime = 2;
-            }
-
-            try {
-                Thread.sleep(sleepTime);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            beforeTime = System.currentTimeMillis();
-        }
+        flashcards.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, staffMode);
     }
 }

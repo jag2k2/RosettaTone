@@ -10,6 +10,7 @@ import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
 import utility.NoteCollection;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -24,7 +25,9 @@ public class SightReadTrainerImp implements FlashcardDrawable, LimitChangeObserv
     private final FlashcardSatisfiedNotifier flashcardSatisfiedNotifier;
     private final FlashcardChangeNotifier flashcardChangeNotifier;
 
+    private Maybe<JComponent> flashcardDisplay = new Maybe<JComponent>();
     private boolean satisfied = false;
+    private int xTraveled = RenderConstants.noteXSpacing;
 
     public SightReadTrainerImp(KeyStateEvaluator keyboardState, RandomNoteGenerator randomNoteGenerator, FlashcardSatisfiedNotifier flashcardSatisfiedNotifier, FlashcardChangeNotifier flashcardChangeNotifier){
         this.keyboardState = keyboardState;
@@ -59,7 +62,12 @@ public class SightReadTrainerImp implements FlashcardDrawable, LimitChangeObserv
     }
 
     @Override
-    public void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage, StaffModeDrawable staffMode, int xTraveled) {
+    public void setScrollableComponent(JComponent flashcardDisplay) {
+        this.flashcardDisplay = new Maybe<>(flashcardDisplay);
+    }
+
+    @Override
+    public void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage, StaffModeDrawable staffMode) {
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         int i = 0;
         for (NoteCollection flashcard : flashcardList){
@@ -93,5 +101,39 @@ public class SightReadTrainerImp implements FlashcardDrawable, LimitChangeObserv
             return new Maybe<>(flashcardList.get(0));
         }
         return new Maybe<>();
+    }
+
+    @Override
+    public void run() {
+
+        int deltaX = 5;
+        int delay = 5;
+        xTraveled = 0;
+
+        for (JComponent component : flashcardDisplay) {
+            long beforeTime, timeDiff, sleepTime;
+            beforeTime = System.currentTimeMillis();
+
+            while (xTraveled < RenderConstants.noteXSpacing) {
+
+                xTraveled += deltaX;
+                component.repaint();
+
+                timeDiff = System.currentTimeMillis() - beforeTime;
+                sleepTime = delay - timeDiff;
+
+                if (sleepTime < 0) {
+                    sleepTime = 2;
+                }
+
+                try {
+                    Thread.sleep(sleepTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                beforeTime = System.currentTimeMillis();
+            }
+        }
     }
 }

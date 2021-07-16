@@ -26,7 +26,7 @@ public class RenderConstants {
     public static final StaffConstants bassStaff = new StaffConstants(0.4, 30, 0, 30, 38);
 
     private static final int canvasWidth = 1200;
-    private static final int canvasHeight = 750;
+    private static final int canvasHeight = 800;
     public static final Dimension canvasSize = new Dimension(canvasWidth, canvasHeight);
 
     private static final int rangeIndicatorWidth = 100;
@@ -36,6 +36,7 @@ public class RenderConstants {
     public static final int lineSpacing = 15;
     public static final int ledgerLineThickness = 2;
 
+    public static final int topMargin = 10;
     public static final int leftMargin = 10;
     public static final int noteXSpacing = 135;
     public static final int nameFontSize = 35;
@@ -57,7 +58,7 @@ public class RenderConstants {
     }
 
     static public int getLineYOffset(int lineNumber){
-        return lineNumber * lineSpacing;
+        return topMargin + lineNumber * lineSpacing;
     }
 
     static public int getClefXOffset(){

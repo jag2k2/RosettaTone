@@ -35,11 +35,9 @@ public class LimitStateImp implements LimitModifier, LimitPreviewer, LineNumerab
 
     @Override
     public void setLimit(Note note){
-        if (!limit.equals(note)) {
-            limit = note;
-            for (LimitChangeNotifier notifier : limitChangeNotifier){
-                notifier.notifyObservers();
-            }
+        limit = note;
+        for (LimitChangeNotifier notifier : limitChangeNotifier){
+            notifier.notifyObservers();
         }
     }
 

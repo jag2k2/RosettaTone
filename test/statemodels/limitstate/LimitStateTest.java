@@ -67,15 +67,6 @@ class LimitStateTest implements LimitChangeObserver {
     }
 
     @Test
-    void wontSetSameLimit(){
-        Note newNote = new Note(NoteName.C, 4);
-        noteLimit.setLimit(newNote);
-        LimitStateImp modelToCompare = new LimitStateImp(newNote);
-        assertEquals(modelToCompare, noteLimit);
-        assertFalse(notificationFired);
-    }
-
-    @Test
     void canDecrement(){
         Note newNote = new Note(NoteName.B, 3);
         LimitStateImp modelToCompare = new LimitStateImp(newNote);

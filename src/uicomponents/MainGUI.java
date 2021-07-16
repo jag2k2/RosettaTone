@@ -147,7 +147,7 @@ public class MainGUI {
         frame.setTitle("Rosetta Tone");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(mainPanel);
-        frame.setLocation(300, 100);
+        frame.setLocation(10, 10);
         frame.setMinimumSize(new Dimension(500, 500));
         frame.pack();
     }

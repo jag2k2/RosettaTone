@@ -37,6 +37,8 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, St
     @Override
     public Component getComponent() {
         JPanel panel = new JPanel();
+        BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.X_AXIS);
+        panel.setLayout(boxLayout);
         panel.add(this);
         panel.setBackground(Color.WHITE);
         return panel;

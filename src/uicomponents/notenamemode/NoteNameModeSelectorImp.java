@@ -21,12 +21,22 @@ public class NoteNameModeSelectorImp implements UIComponent, ActionListener {
 
     @Override
     public Component getComponent() {
-        JPanel panel = new JPanel();
-        Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-        panel.setBorder(border);
+        JPanel labelPanel = new JPanel();
+        BoxLayout boxLayout = new BoxLayout(labelPanel, BoxLayout.Y_AXIS);
+        labelPanel.setLayout(boxLayout);
+        labelPanel.add(Box.createRigidArea(new Dimension(10,1)));
+        labelPanel.add(new JLabel("NAME ASSIST"));
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(labelPanel, BorderLayout.NORTH);
         Dimension boxSize = new Dimension(100, 40);
         comboBox.setPreferredSize(boxSize);
-        panel.add(comboBox);
+        panel.add(comboBox, BorderLayout.CENTER);
+        panel.add(Box.createRigidArea(new Dimension(10,1)), BorderLayout.WEST);
+        panel.add(Box.createRigidArea(new Dimension(10,1)), BorderLayout.EAST);
+        panel.add(Box.createRigidArea(new Dimension(1,5)), BorderLayout.SOUTH);
+        Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+        panel.setBorder(border);
         return panel;
     }
 

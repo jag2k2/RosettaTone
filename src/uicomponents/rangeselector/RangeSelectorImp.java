@@ -17,9 +17,20 @@ public class RangeSelectorImp implements UIComponent {
 
     @Override
     public Component getComponent() {
-        JPanel panel = new JPanel(new FlowLayout());
-        panel.add(lowerNoteSelector.getComponent());
-        panel.add(upperNoteSelector.getComponent());
+        JPanel labelPanel = new JPanel();
+        BoxLayout layout = new BoxLayout(labelPanel, BoxLayout.Y_AXIS);
+        labelPanel.setLayout(layout);
+        labelPanel.add(Box.createRigidArea(new Dimension(16, 1)));
+        labelPanel.add(new JLabel("GENERATOR"));
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(labelPanel, BorderLayout.NORTH);
+        JPanel rangePanel = new JPanel(new FlowLayout());
+        rangePanel.add(lowerNoteSelector.getComponent());
+        rangePanel.add(upperNoteSelector.getComponent());
+        panel.add(rangePanel, BorderLayout.CENTER);
+        panel.add(Box.createRigidArea(new Dimension(1,5)), BorderLayout.SOUTH);
+
         Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
         panel.setBorder(border);
         return panel;

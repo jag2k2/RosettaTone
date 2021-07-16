@@ -1,4 +1,4 @@
-package uicomponents.alphabetmode;
+package uicomponents.notenamemode;
 
 import uicomponents.UIComponent;
 import javax.swing.*;
@@ -8,14 +8,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AlphabetModeSelectorImp implements UIComponent, ActionListener {
-    private final JComboBox<AlphabetMode> comboBox;
-    private final AlphabetModeModifier alphabetModeModifier;
+public class NoteNameModeSelectorImp implements UIComponent, ActionListener {
+    private final JComboBox<NoteNameMode> comboBox;
+    private final NoteNameModeModifier noteNameModeModifier;
 
-    public AlphabetModeSelectorImp(AlphabetModeModifier alphabetModeModifier){
-        this.comboBox = new JComboBox<>(AlphabetMode.values());
-        this.alphabetModeModifier = alphabetModeModifier;
-        this.comboBox.setRenderer(new AlphabetModeRenderer(comboBox.getRenderer()));
+    public NoteNameModeSelectorImp(NoteNameModeModifier noteNameModeModifier){
+        this.comboBox = new JComboBox<>(NoteNameMode.values());
+        this.noteNameModeModifier = noteNameModeModifier;
+        this.comboBox.setRenderer(new NoteNameModeRenderer(comboBox.getRenderer()));
         comboBox.addActionListener(this);
     }
 
@@ -33,7 +33,7 @@ public class AlphabetModeSelectorImp implements UIComponent, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         int selectedIndex = comboBox.getSelectedIndex();
-        AlphabetMode selectedMode = comboBox.getItemAt(selectedIndex);
-        alphabetModeModifier.setMode(selectedMode);
+        NoteNameMode selectedMode = comboBox.getItemAt(selectedIndex);
+        noteNameModeModifier.setMode(selectedMode);
     }
 }

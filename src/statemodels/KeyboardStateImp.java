@@ -57,7 +57,7 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyStateEvaluator,
         NoteSet activeNotes = convertToNotes();
         for (Note note : activeNotes){
             int lineNumber = RenderConstants.getLineNumber(note);
-            int xPos = RenderConstants.getNoteXOffset(1);
+            int xPos = RenderConstants.getNoteXOffset(0);
             note.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, activeNotes, xPos, staffMode.getLedgerLines(lineNumber), false);
         }
     }

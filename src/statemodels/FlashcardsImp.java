@@ -6,7 +6,7 @@ import notification.LimitChangeObserver;
 import trainer.FlashcardChangeNotifier;
 import trainer.FlashcardGenerator;
 import trainer.RandomNoteGenerator;
-import uicomponents.renderer.AlphabetDrawable;
+import uicomponents.renderer.NoteNameDrawable;
 import uicomponents.renderer.FlashcardDrawable;
 import uicomponents.renderer.StaffModeDrawable;
 import uicomponents.renderer.records.RenderConstants;
@@ -90,16 +90,17 @@ public class FlashcardsImp implements NoteSetList, FlashcardGenerator, Flashcard
     }
 
     @Override
-    public void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage, StaffModeDrawable staffMode, AlphabetDrawable alphabetMode) {
+    public void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage, StaffModeDrawable staffMode, NoteNameDrawable alphabetMode) {
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         int i = 0;
         for (NoteSet flashcard : flashcardList){
-            i++;
             int noteX = RenderConstants.getNoteXOffset(i) + RenderConstants.noteXSpacing - xTraveled;
             for (Note note : flashcard){
                 int lineNumber = RenderConstants.getLineNumber(note);
-                note.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, flashcard,  noteX, staffMode.getLedgerLines(lineNumber), alphabetMode.isEnabled());
+                boolean drawNoteName = alphabetMode.isEnabled(i);
+                note.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, flashcard,  noteX, staffMode.getLedgerLines(lineNumber), drawNoteName);
             }
+            i++;
         }
     }
 

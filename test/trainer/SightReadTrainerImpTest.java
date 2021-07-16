@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Test;
 import statemodels.FlashcardsImp;
 import statemodels.KeyboardChangeNotifier;
 import statemodels.KeyboardStateImp;
+import statemodels.NoteNameModeStateImp;
 import statemodels.limitstate.LimitStateImp;
 import trainer.randomnotegenerator.LineNumerable;
 import trainer.randomnotegenerator.RandomNoteGeneratorImp;
+import uicomponents.notenamemode.NoteNameMode;
 import utility.NoteSet;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,6 +44,7 @@ class SightReadTrainerImpTest implements FlashcardSatisfiedObserver, FlashcardCh
         KeyboardChangeNotifier keyboardChangeNotifier = new KeyboardChangeNotifierImp();
         FlashcardSatisfiedNotifier flashcardSatisfiedNotifier = new FlashcardSatisfiedNotifierImp();
         FlashcardChangeNotifier flashcardChangeNotifier = new FlashcardChangeNotifierImp();
+        NoteNameModeStateImp noteNameMode = new NoteNameModeStateImp(NoteNameMode.Off);
 
         keyboardState = new KeyboardStateImp();
         keyboardState.addKeyboardChangeNotifier(keyboardChangeNotifier);
@@ -51,7 +54,7 @@ class SightReadTrainerImpTest implements FlashcardSatisfiedObserver, FlashcardCh
         flashcardsImp = new FlashcardsImp(randomNoteGenerator);
         flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifier);
 
-        sightReadTrainer = new SightReadTrainerImp(keyboardState, flashcardsImp);
+        sightReadTrainer = new SightReadTrainerImp(keyboardState, flashcardsImp, noteNameMode);
         sightReadTrainer.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifier);
 
         keyboardChangeNotifier.addObserver(sightReadTrainer);

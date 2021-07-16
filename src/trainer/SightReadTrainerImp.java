@@ -8,15 +8,13 @@ import utility.NoteSet;
 public class SightReadTrainerImp implements KeyboardChangeObserver {
     private final KeyStateEvaluator keyboardState;
     private final FlashcardGenerator flashcardGenerator;
+    private final FlashcardAdvancer flashcardAdvancer;
     private Maybe<FlashcardSatisfiedNotifier> flashcardSatisfiedNotifier = new Maybe<>();
 
-
-    private boolean satisfied = false;
-
-
-    public SightReadTrainerImp(KeyStateEvaluator keyboardState, FlashcardGenerator flashcardGenerator){
+    public SightReadTrainerImp(KeyStateEvaluator keyboardState, FlashcardGenerator flashcardGenerator, FlashcardAdvancer flashcardAdvancer){
         this.keyboardState = keyboardState;
         this.flashcardGenerator = flashcardGenerator;
+        this.flashcardAdvancer = flashcardAdvancer;
         flashcardGenerator.generateAllNewFlashcards(RenderConstants.flashcardCount);
     }
 
@@ -28,16 +26,21 @@ public class SightReadTrainerImp implements KeyboardChangeObserver {
     public void KeyboardChanged() {
         for (NoteSet currentFlashcard : flashcardGenerator.peekAtTopFlashcard()){
             if(keyboardState.containsAll(currentFlashcard)){
-                satisfied = true;
                 for (FlashcardSatisfiedNotifier notifier : flashcardSatisfiedNotifier){
                     notifier.notifyFlashcardSatisfied();
                 }
+                if(flashcardAdvancer.immediatelyAdvance()){
+                    advanceFlashcards();
+                }
             }
-            if(!keyboardState.containsAll(currentFlashcard) && satisfied){
-                satisfied = false;
-                flashcardGenerator.removeTopFlashcard();
-                flashcardGenerator.addNewGeneratedFlashcard();
+            if(!keyboardState.containsAll(currentFlashcard) && flashcardAdvancer.readyToAdvance()){
+                advanceFlashcards();
             }
         }
+    }
+
+    protected void advanceFlashcards(){
+        flashcardGenerator.removeTopFlashcard();
+        flashcardGenerator.addNewGeneratedFlashcard();
     }
 }

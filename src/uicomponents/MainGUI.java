@@ -6,7 +6,7 @@ import java.awt.*;
 import instrument.*;
 import music.*;
 import notification.*;
-import statemodels.AlphabetModeStateImp;
+import statemodels.NoteNameModeStateImp;
 import statemodels.FlashcardsImp;
 import statemodels.StaffModeStateImp;
 import statemodels.KeyboardStateImp;
@@ -15,8 +15,8 @@ import statemodels.limitstate.LowerBoundedLimitStateImp;
 import statemodels.limitstate.LimitStateImp;
 import statemodels.limitstate.UpperBoundedLimitStateImp;
 import trainer.SightReadTrainerImp;
-import uicomponents.alphabetmode.AlphabetMode;
-import uicomponents.alphabetmode.AlphabetModeSelectorImp;
+import uicomponents.notenamemode.NoteNameMode;
+import uicomponents.notenamemode.NoteNameModeSelectorImp;
 import uicomponents.browser.InstrumentBrowserImp;
 import uicomponents.rangeselector.noteselector.NoteSelectorImp;
 import uicomponents.rangeselector.RangeSelectorImp;
@@ -36,7 +36,7 @@ public class MainGUI {
         //Notifiers
         KeyboardChangeNotifierImp keyboardChangeNotifierImp = new KeyboardChangeNotifierImp();
         StaffModeChangeNotifierImp staffModeChangeNotifierImp = new StaffModeChangeNotifierImp();
-        AlphabetModeChangeNotifierImp alphabetModeChangeNotifierImp = new AlphabetModeChangeNotifierImp();
+        NoteNameModeChangeNotifierImp alphabetModeChangeNotifierImp = new NoteNameModeChangeNotifierImp();
         LimitChangeNotifierImp lowerLimitChangeNotifierImp = new LimitChangeNotifierImp();
         LimitChangeNotifierImp upperLimitChangeNotifierImp = new LimitChangeNotifierImp();
         LimitChangeNotifierImp lowerBoundChangeNotifierImp = new LimitChangeNotifierImp();
@@ -70,8 +70,8 @@ public class MainGUI {
         StaffModeStateImp staffModeStateImp = new StaffModeStateImp(StaffMode.Grand);
         staffModeStateImp.addStaffModeChangeNotifier(staffModeChangeNotifierImp);
 
-        AlphabetModeStateImp alphabetModeStateImp = new AlphabetModeStateImp(AlphabetMode.Off);
-        alphabetModeStateImp.addAlphabetModeChangeNotifier(alphabetModeChangeNotifierImp);
+        NoteNameModeStateImp noteNameModeStateImp = new NoteNameModeStateImp(NoteNameMode.Off);
+        noteNameModeStateImp.addAlphabetModeChangeNotifier(alphabetModeChangeNotifierImp);
 
         //KeyReceiver
         KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(keyboardStateImp);
@@ -80,7 +80,7 @@ public class MainGUI {
         RandomNoteGeneratorImp randomNoteGeneratorImp = new RandomNoteGeneratorImp(lowerNoteLimitImp, upperNoteLimitImp);
         FlashcardsImp flashcardsImp = new FlashcardsImp(randomNoteGeneratorImp);
         flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifierImp);
-        SightReadTrainerImp sightReadTrainer = new SightReadTrainerImp(keyboardStateImp, flashcardsImp);
+        SightReadTrainerImp sightReadTrainer = new SightReadTrainerImp(keyboardStateImp, flashcardsImp, noteNameModeStateImp);
         sightReadTrainer.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifierImp);
 
         //Selectors
@@ -89,10 +89,10 @@ public class MainGUI {
         NoteSelectorImp lowerNoteSelector = new NoteSelectorImp(lowerBoundedNoteLimit, lowerNoteLimitImp);
         NoteSelectorImp upperNoteSelector = new NoteSelectorImp(upperBoundedNoteLimit, upperNoteLimitImp);
         RangeSelectorImp rangeSelector = new RangeSelectorImp(lowerNoteSelector, upperNoteSelector);
-        AlphabetModeSelectorImp alphabetModeSelectorImp = new AlphabetModeSelectorImp(alphabetModeStateImp);
+        NoteNameModeSelectorImp noteNameModeSelectorImp = new NoteNameModeSelectorImp(noteNameModeStateImp);
 
         //Renderers
-        GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardStateImp, flashcardsImp, staffModeStateImp, alphabetModeStateImp);
+        GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardStateImp, flashcardsImp, staffModeStateImp, noteNameModeStateImp);
         LimitRendererImp rangeRenderer = new LimitRendererImp(lowerNoteLimitImp, upperNoteLimitImp);
         NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardStateImp);
 
@@ -122,7 +122,10 @@ public class MainGUI {
         limitPreviewNotifierImp.addObserver(rangeRenderer);
         limitPreviewNotifierImp.addObserver(flashcardsImp);
 
+        flashcardSatisfiedNotifierImp.addObserver(noteNameModeStateImp);
+
         flashcardChangeNotifierImp.addObserver(grandStaffRenderer);
+        flashcardChangeNotifierImp.addObserver(noteNameModeStateImp);
 
         //Build Panels
         JPanel verticalPanel = new JPanel();
@@ -130,7 +133,7 @@ public class MainGUI {
         verticalPanel.add(instrumentBrowser.getComponent());
         verticalPanel.add(rangeSelector.getComponent());
         verticalPanel.add(modeSelector.getComponent());
-        verticalPanel.add(alphabetModeSelectorImp.getComponent());
+        verticalPanel.add(noteNameModeSelectorImp.getComponent());
         JPanel configPanel = new JPanel(new BorderLayout());
         configPanel.add(BorderLayout.NORTH, verticalPanel);
 

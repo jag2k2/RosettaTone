@@ -1,17 +1,17 @@
-package uicomponents.alphabetmode;
+package uicomponents.notenamemode;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class AlphabetModeRenderer implements ListCellRenderer<AlphabetMode> {
-    private final ListCellRenderer<? super AlphabetMode> listCellRenderer;
+public class NoteNameModeRenderer implements ListCellRenderer<NoteNameMode> {
+    private final ListCellRenderer<? super NoteNameMode> listCellRenderer;
 
-    public AlphabetModeRenderer(ListCellRenderer<? super AlphabetMode> listCellRenderer){
+    public NoteNameModeRenderer(ListCellRenderer<? super NoteNameMode> listCellRenderer){
         this.listCellRenderer = listCellRenderer;
     }
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends AlphabetMode> list, AlphabetMode value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<? extends NoteNameMode> list, NoteNameMode value, int index, boolean isSelected, boolean cellHasFocus) {
         Component rendererComponent = listCellRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         if (rendererComponent instanceof JLabel){
             JLabel rendererLabel = (JLabel) rendererComponent;

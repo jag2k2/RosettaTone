@@ -65,7 +65,7 @@ public class RenderConstants {
     }
 
     static public int getNoteXOffset(int column){
-        return leftMargin + column * noteXSpacing;
+        return leftMargin + (column + 1) * noteXSpacing;
     }
 
     static public Note getNote(int lineNumber){

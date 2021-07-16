@@ -1,7 +1,6 @@
 package statemodels;
 
 import music.Staff;
-import uicomponents.alphabetmode.AlphabetModeChangeNotifier;
 import uicomponents.renderer.records.RenderConstants;
 import uicomponents.staffmode.StaffMode;
 import uicomponents.staffmode.StaffModeModifier;

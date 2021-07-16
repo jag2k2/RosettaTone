@@ -1,5 +1,5 @@
 package notification;
 
-public interface AlphabetModeChangeObserver {
+public interface NoteNameModeChangeObserver {
     void alphabetModeChanged();
 }

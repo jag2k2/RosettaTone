@@ -41,7 +41,7 @@ public class Staff implements ClefDrawable {
     @Override
     public void draw(Graphics2D graphics2D, BufferedImage image) {
         int clefImageXPos = RenderConstants.getClefXOffset();
-        int clefImageYPos = (RenderConstants.lineSpacing * staffConstants.clefLineOffset) + staffConstants.clefFineTuneYOffset;
+        int clefImageYPos = RenderConstants.topMargin + (RenderConstants.lineSpacing * staffConstants.clefLineOffset) + staffConstants.clefFineTuneYOffset;
         graphics2D.drawImage(image, null, clefImageXPos, clefImageYPos);
 
         int lineThickness = RenderConstants.ledgerLineThickness;

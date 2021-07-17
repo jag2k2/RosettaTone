@@ -13,9 +13,6 @@ public class SightReadTrainerImp implements KeyboardChangeObserver {
     private final ScoreKeepable score;
     private Maybe<FlashcardSatisfiedNotifier> flashcardSatisfiedNotifier = new Maybe<>();
 
-    private int hits = 0;
-    private int misses = 0;
-
     public SightReadTrainerImp(KeyStateEvaluator keyboardState, FlashcardGenerator flashcardGenerator, FlashcardAdvancer flashcardAdvancer, ScoreKeepable score){
         this.keyboardState = keyboardState;
         this.flashcardGenerator = flashcardGenerator;
@@ -42,7 +39,6 @@ public class SightReadTrainerImp implements KeyboardChangeObserver {
             } else
                 score.addMiss();
         }
-        System.out.println("Hits: " + hits + ", Misses: " + misses);
     }
 
     @Override

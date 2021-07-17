@@ -13,9 +13,16 @@ public class KeyboardChangeNotifierImp implements KeyboardChangeNotifier {
     }
 
     @Override
-    public void notifyKeyboardChanged() {
+    public void notifyKeyDown() {
         for (KeyboardChangeObserver observer : observers) {
-            observer.KeyboardChanged();
+            observer.boardChangedWithKeyDown();
+        }
+    }
+
+    @Override
+    public void notifyKeyUp() {
+        for (KeyboardChangeObserver observer : observers) {
+            observer.boardChangedWithKeyUp();
         }
     }
 }

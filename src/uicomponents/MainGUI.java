@@ -6,10 +6,7 @@ import java.awt.*;
 import instrument.*;
 import music.*;
 import notification.*;
-import statemodels.NoteNameModeStateImp;
-import statemodels.FlashcardsImp;
-import statemodels.StaffModeStateImp;
-import statemodels.KeyboardStateImp;
+import statemodels.*;
 import trainer.randomnotegenerator.RandomNoteGeneratorImp;
 import statemodels.limitstate.LowerBoundedLimitStateImp;
 import statemodels.limitstate.LimitStateImp;
@@ -73,6 +70,8 @@ public class MainGUI {
         NoteNameModeStateImp noteNameModeStateImp = new NoteNameModeStateImp(NoteNameMode.Off);
         noteNameModeStateImp.addAlphabetModeChangeNotifier(alphabetModeChangeNotifierImp);
 
+        ScoreImp scoreImp = new ScoreImp();
+
         //KeyReceiver
         KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(keyboardStateImp);
 
@@ -80,7 +79,7 @@ public class MainGUI {
         RandomNoteGeneratorImp randomNoteGeneratorImp = new RandomNoteGeneratorImp(lowerNoteLimitImp, upperNoteLimitImp);
         FlashcardsImp flashcardsImp = new FlashcardsImp(randomNoteGeneratorImp);
         flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifierImp);
-        SightReadTrainerImp sightReadTrainer = new SightReadTrainerImp(keyboardStateImp, flashcardsImp, noteNameModeStateImp);
+        SightReadTrainerImp sightReadTrainer = new SightReadTrainerImp(keyboardStateImp, flashcardsImp, noteNameModeStateImp, scoreImp);
         sightReadTrainer.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifierImp);
 
         //Selectors
@@ -92,7 +91,7 @@ public class MainGUI {
         NoteNameModeSelectorImp noteNameModeSelectorImp = new NoteNameModeSelectorImp(noteNameModeStateImp);
 
         //Renderers
-        GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardStateImp, flashcardsImp, staffModeStateImp, noteNameModeStateImp);
+        GrandStaffRendererImp grandStaffRenderer = new GrandStaffRendererImp(keyboardStateImp, flashcardsImp, staffModeStateImp, noteNameModeStateImp, scoreImp);
         LimitRendererImp rangeRenderer = new LimitRendererImp(lowerNoteLimitImp, upperNoteLimitImp);
         NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardStateImp);
 
@@ -109,6 +108,7 @@ public class MainGUI {
         lowerLimitChangeNotifierImp.addObserver(flashcardsImp);
         lowerLimitChangeNotifierImp.addObserver(lowerNoteSelector);
         lowerLimitChangeNotifierImp.addObserver(upperBoundedNoteLimit);
+        lowerLimitChangeNotifierImp.addObserver(scoreImp);
 
         lowerBoundChangeNotifierImp.addObserver(lowerNoteSelector);
 
@@ -116,6 +116,7 @@ public class MainGUI {
         upperLimitChangeNotifierImp.addObserver(flashcardsImp);
         upperLimitChangeNotifierImp.addObserver(upperNoteSelector);
         upperLimitChangeNotifierImp.addObserver(lowerBoundedNoteLimit);
+        upperLimitChangeNotifierImp.addObserver(scoreImp);
 
         upperBoundChangeNotifierImp.addObserver(upperNoteSelector);
 

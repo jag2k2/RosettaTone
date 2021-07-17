@@ -1,5 +1,6 @@
 package notification;
 
 public interface KeyboardChangeObserver {
-    void KeyboardChanged();
+    void boardChangedWithKeyDown();
+    void boardChangedWithKeyUp();
 }

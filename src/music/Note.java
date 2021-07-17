@@ -1,15 +1,14 @@
 package music;
 
 import imageprocessing.StaffImage;
-import statemodels.NoteDrawable;
+import uicomponents.renderer.records.NoteImages;
 import uicomponents.renderer.records.RenderConstants;
 import utility.NoteSet;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Set;
 
-public class Note implements Comparable<Note>, NoteDrawable {
+public class Note implements Comparable<Note> {
 
     private final NoteName noteName;
     private final int octave;
@@ -18,14 +17,22 @@ public class Note implements Comparable<Note>, NoteDrawable {
     public Note(NoteName noteName, int octave) {
         this.noteName = noteName;
         this.octave = octave;
-        accidental = NoteAccidental.NATURAL;
+        this.accidental = NoteAccidental.NATURAL;
     }
 
     public Note(NoteName noteName, int octave, NoteAccidental noteAccidental) {
         this.noteName = noteName;
         this.octave = octave;
-        accidental = noteAccidental;
+        this.accidental = noteAccidental;
 
+    }
+
+    public Note (int lineNumber){
+        int notePosition = (RenderConstants.numberOfLines - 1) - lineNumber + 5;
+
+        this.noteName = NoteName.values()[notePosition % 7];
+        this.octave = notePosition / 7;
+        this.accidental = NoteAccidental.NATURAL;
     }
 
     public int getMidiNumber(){
@@ -44,6 +51,10 @@ public class Note implements Comparable<Note>, NoteDrawable {
             midiSum--;
         }
         return midiSum;
+    }
+
+    public int getLineNumber(){
+        return (RenderConstants.numberOfLines - 1) - (noteValue() - 5);
     }
 
     public boolean noteHeadEquals(Note note){
@@ -82,11 +93,12 @@ public class Note implements Comparable<Note>, NoteDrawable {
         return octave * 7 + noteName.getPosition();
     }
 
-    @Override
-    public void draw(Graphics2D graphics2D, StaffImage noteImage, StaffImage sharpImage, StaffImage naturalImage, StaffImage flatImage,
-                     NoteSet notes, int xPos, Set<Integer> ledgerLines, boolean drawName) {
+    public void draw(Graphics2D graphics2D, NoteImages noteImages, NoteSet notes, int xPos, Set<Integer> ledgerLines, boolean drawName) {
 
-        int lineNumber = RenderConstants.getLineNumber(this);
+        int lineNumber = getLineNumber();
+        StaffImage noteImage = noteImages.noteImage;
+        StaffImage sharpImage = noteImages.sharpImage;
+
         int noteWidth = noteImage.getWidth();
         int noteHeight = noteImage.getHeight();
         int noteY = RenderConstants.getLineYOffset(lineNumber) - (noteHeight / 2);

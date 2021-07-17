@@ -1,13 +1,13 @@
 package statemodels;
 
 import collections.NoteSetImp;
-import imageprocessing.StaffImage;
 import instrument.Key;
 import instrument.KeyStateManipulator;
 import music.Note;
 import trainer.KeyStateEvaluator;
 import uicomponents.renderer.KeyStateDrawable;
 import uicomponents.renderer.StaffModeDrawable;
+import uicomponents.renderer.records.NoteImages;
 import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
 import utility.NoteSet;
@@ -33,7 +33,7 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyStateEvaluator,
     public void keyPressed(Key key) {
         keys.add(key);
         for (KeyboardChangeNotifier notifier : keyboardChangeNotifier){
-            notifier.notifyKeyboardChanged();
+            notifier.notifyKeyDown();
         }
     }
 
@@ -41,7 +41,7 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyStateEvaluator,
     public void keyReleased(Key key) {
         keys.remove(key);
         for (KeyboardChangeNotifier notifier : keyboardChangeNotifier){
-            notifier.notifyKeyboardChanged();
+            notifier.notifyKeyUp();
         }
     }
 
@@ -52,13 +52,13 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyStateEvaluator,
     }
 
     @Override
-    public void draw(Graphics2D graphics2D, StaffImage noteImage, StaffImage sharpImage, StaffImage naturalImage, StaffImage flatImage, StaffModeDrawable staffMode) {
+    public void draw(Graphics2D graphics2D, NoteImages noteImages, StaffModeDrawable staffMode) {
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
         NoteSet activeNotes = convertToNotes();
         for (Note note : activeNotes){
-            int lineNumber = RenderConstants.getLineNumber(note);
+            int lineNumber = note.getLineNumber();
             int xPos = RenderConstants.getNoteXOffset(0);
-            note.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, activeNotes, xPos, staffMode.getLedgerLines(lineNumber), false);
+            note.draw(graphics2D, noteImages, activeNotes, xPos, staffMode.getLedgerLines(lineNumber), false);
         }
     }
 

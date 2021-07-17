@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 import utility.NoteSet;
 
-import java.util.Set;
-
 class NoteTest {
     private Note noteB3;
     private Note noteC3;
@@ -22,9 +20,6 @@ class NoteTest {
     private Note noteC5;
     private Note noteD5;
     private Note noteCompare;
-    private Set<NoteAccidental> naturalSharp;
-    private Set<NoteAccidental> naturalFlat;
-    private Set<NoteAccidental> naturalSharpFlat;
 
     @BeforeEach
     void setup(){
@@ -70,6 +65,11 @@ class NoteTest {
         assertEquals(60, noteC4.getMidiNumber());
         assertEquals(65, noteF4.getMidiNumber());
         assertEquals(65, noteESharp4.getMidiNumber());
+    }
+
+    @Test
+    void getLineNumber() {
+        assertEquals(28, noteC4.getLineNumber());
     }
 
     @Test

@@ -4,5 +4,6 @@ import notification.KeyboardChangeObserver;
 
 public interface KeyboardChangeNotifier {
     void addObserver(KeyboardChangeObserver observer);
-    void notifyKeyboardChanged();
+    void notifyKeyDown();
+    void notifyKeyUp();
 }

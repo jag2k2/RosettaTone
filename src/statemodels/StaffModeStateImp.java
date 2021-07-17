@@ -2,6 +2,7 @@ package statemodels;
 
 import imageprocessing.StaffImage;
 import music.Staff;
+import uicomponents.renderer.records.ClefImages;
 import uicomponents.renderer.records.RenderConstants;
 import uicomponents.renderer.records.StaffConstants;
 import uicomponents.staffmode.StaffMode;
@@ -44,12 +45,12 @@ public class StaffModeStateImp implements StaffModeModifier, StaffModeDrawable {
     }
 
     @Override
-    public void draw(Graphics2D graphics2D, StaffImage trebleImage, StaffImage bassImage) {
+    public void draw(Graphics2D graphics2D, ClefImages clefImages) {
         if (staffMode == StaffMode.Treble || staffMode == StaffMode.Grand){
-            trebleStaff.draw(graphics2D, trebleImage);
+            trebleStaff.draw(graphics2D, clefImages.trebleImage);
         }
         if (staffMode == StaffMode.Bass || staffMode == StaffMode.Grand){
-            bassStaff.draw(graphics2D, bassImage);
+            bassStaff.draw(graphics2D, clefImages.bassImage);
         }
     }
 

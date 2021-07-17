@@ -6,10 +6,7 @@ import music.NoteName;
 import notification.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import statemodels.FlashcardsImp;
-import statemodels.KeyboardChangeNotifier;
-import statemodels.KeyboardStateImp;
-import statemodels.NoteNameModeStateImp;
+import statemodels.*;
 import statemodels.limitstate.LimitStateImp;
 import trainer.randomnotegenerator.LineNumerable;
 import trainer.randomnotegenerator.RandomNoteGeneratorImp;
@@ -19,6 +16,7 @@ import utility.NoteSet;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SightReadTrainerImpTest implements FlashcardSatisfiedObserver, FlashcardChangeObserver {
+    private NoteNameModeStateImp noteNameMode;
     private KeyboardStateImp keyboardState;
     private LineNumerable lowerLineNumerable;
     private LineNumerable upperLineNumerable;
@@ -44,8 +42,8 @@ class SightReadTrainerImpTest implements FlashcardSatisfiedObserver, FlashcardCh
         KeyboardChangeNotifier keyboardChangeNotifier = new KeyboardChangeNotifierImp();
         FlashcardSatisfiedNotifier flashcardSatisfiedNotifier = new FlashcardSatisfiedNotifierImp();
         FlashcardChangeNotifier flashcardChangeNotifier = new FlashcardChangeNotifierImp();
-        NoteNameModeStateImp noteNameMode = new NoteNameModeStateImp(NoteNameMode.Off);
 
+        noteNameMode = new NoteNameModeStateImp(NoteNameMode.Off);
         keyboardState = new KeyboardStateImp();
         keyboardState.addKeyboardChangeNotifier(keyboardChangeNotifier);
         lowerLineNumerable = new LimitStateImp(new Note(NoteName.C, 4));
@@ -54,7 +52,7 @@ class SightReadTrainerImpTest implements FlashcardSatisfiedObserver, FlashcardCh
         flashcardsImp = new FlashcardsImp(randomNoteGenerator);
         flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifier);
 
-        sightReadTrainer = new SightReadTrainerImp(keyboardState, flashcardsImp, noteNameMode);
+        sightReadTrainer = new SightReadTrainerImp(keyboardState, flashcardsImp, noteNameMode, new ScoreImp());
         sightReadTrainer.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifier);
 
         keyboardChangeNotifier.addObserver(sightReadTrainer);

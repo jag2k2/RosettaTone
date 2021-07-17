@@ -65,12 +65,12 @@ public class LimitStateImp implements LimitModifier, LimitPreviewer, LineNumerab
 
     @Override
     public int getLineNumber() {
-        return RenderConstants.getLineNumber(limit);
+        return limit.getLineNumber();
     }
 
     @Override
     public void draw(Graphics2D graphics2D) {
-        int lineNumber = RenderConstants.getLineNumber(limit);
+        int lineNumber = limit.getLineNumber();
         int circleXPos = RenderConstants.limitRenderXOffset;
         int circleDiameter = RenderConstants.limitDotDiameter;
         int circleYPos = RenderConstants.getLineYOffset(lineNumber) - (circleDiameter/2);

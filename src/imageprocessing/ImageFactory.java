@@ -1,5 +1,7 @@
 package imageprocessing;
 
+import uicomponents.renderer.records.ClefImages;
+import uicomponents.renderer.records.NoteImages;
 import uicomponents.renderer.records.RenderConstants;
 
 public class ImageFactory {
@@ -38,5 +40,13 @@ public class ImageFactory {
         StaffImage flatStaffImage = new StaffImage(RenderConstants.flatPath);
         flatStaffImage.resize(RenderConstants.accidentalResizeFactor);
         return flatStaffImage;
+    }
+
+    static public ClefImages createClefImages() {
+        return new ClefImages(createTrebleImage(), createBassImage());
+    }
+
+    static public NoteImages createNoteImages() {
+        return new NoteImages(createNoteImage(), createSharpImage(), createNaturalImage(), createFlatImage());
     }
 }

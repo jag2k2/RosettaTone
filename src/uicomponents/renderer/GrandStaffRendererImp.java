@@ -7,6 +7,8 @@ import notification.KeyboardChangeObserver;
 import notification.StaffModeChangeObserver;
 import notification.FlashcardChangeObserver;
 import uicomponents.UIComponent;
+import uicomponents.renderer.records.ClefImages;
+import uicomponents.renderer.records.NoteImages;
 import uicomponents.renderer.records.RenderConstants;
 
 import javax.swing.*;
@@ -18,20 +20,18 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, St
     private final StaffModeDrawable staffMode;
     private final FlashcardDrawable flashcards;
     private final NoteNameDrawable noteNameMode;
+    private final ScoreDrawable scoreDrawable;
 
-    private final StaffImage trebleImage = ImageFactory.createTrebleImage();
-    private final StaffImage bassImage = ImageFactory.createBassImage();
-    private final StaffImage noteImage = ImageFactory.createNoteImage();
-    private final StaffImage naturalImage = ImageFactory.createNaturalImage();
-    private final StaffImage sharpImage = ImageFactory.createSharpImage();
-    private final StaffImage flatImage = ImageFactory.createFlatImage();
+    private final ClefImages clefImages = ImageFactory.createClefImages();
+    private final NoteImages noteImages = ImageFactory.createNoteImages();
 
     public GrandStaffRendererImp(KeyStateDrawable keyboardState, FlashcardDrawable flashcards,
-                                 StaffModeDrawable staffMode, NoteNameDrawable noteNameMode){
+                                 StaffModeDrawable staffMode, NoteNameDrawable noteNameMode, ScoreDrawable scoreDrawable){
         this.keyboardState = keyboardState;
         this.staffMode = staffMode;
         this.flashcards = flashcards;
         this.noteNameMode = noteNameMode;
+        this.scoreDrawable = scoreDrawable;
     }
 
     @Override
@@ -55,7 +55,12 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, St
     }
 
     @Override
-    public void KeyboardChanged() {
+    public void boardChangedWithKeyDown() {
+        repaint();
+    }
+
+    @Override
+    public void boardChangedWithKeyUp() {
         repaint();
     }
 
@@ -75,8 +80,9 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, St
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D)g;
-        staffMode.draw(graphics2D, trebleImage, bassImage);
-        keyboardState.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, staffMode);
-        flashcards.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, staffMode, noteNameMode);
+        staffMode.draw(graphics2D, clefImages);
+        keyboardState.draw(graphics2D, noteImages, staffMode);
+        flashcards.draw(graphics2D, noteImages, staffMode, noteNameMode);
+        scoreDrawable.draw(graphics2D);
     }
 }

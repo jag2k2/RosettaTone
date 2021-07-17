@@ -2,7 +2,6 @@ package trainer.randomnotegenerator;
 
 import music.Note;
 import trainer.RandomNoteGenerator;
-import uicomponents.renderer.records.RenderConstants;
 
 public class RandomNoteGeneratorImp implements RandomNoteGenerator {
     private final LineNumerable lowerLimit;
@@ -18,6 +17,6 @@ public class RandomNoteGeneratorImp implements RandomNoteGenerator {
         int max = Math.max(lowerLimit.getLineNumber(), upperLimit.getLineNumber());
         int min = Math.min(lowerLimit.getLineNumber(), upperLimit.getLineNumber());
         int randomLine = (int) Math.floor(Math.random()*(max-min+1) + min);
-        return RenderConstants.getNote(randomLine);
+        return new Note(randomLine);
     }
 }

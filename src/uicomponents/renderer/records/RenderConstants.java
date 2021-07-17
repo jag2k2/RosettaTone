@@ -1,10 +1,6 @@
 package uicomponents.renderer.records;
 
-import music.Note;
-import music.NoteName;
-
 import java.awt.*;
-
 
 public class RenderConstants {
     public static final String notePath = "/images/Whole-Note.png";
@@ -25,8 +21,8 @@ public class RenderConstants {
     public static final StaffConstants trebleStaff = new StaffConstants(0.5, 15, 3, 18, 26);
     public static final StaffConstants bassStaff = new StaffConstants(0.4, 30, 0, 30, 38);
 
-    private static final int canvasWidth = 1200;
-    private static final int canvasHeight = 800;
+    public static final int canvasWidth = 1200;
+    public static final int canvasHeight = 800;
     public static final Dimension canvasSize = new Dimension(canvasWidth, canvasHeight);
 
     private static final int rangeIndicatorWidth = 100;
@@ -38,6 +34,7 @@ public class RenderConstants {
 
     public static final int topMargin = 10;
     public static final int leftMargin = 10;
+    public static final int rightMargin = 10;
     public static final int noteXSpacing = 135;
     public static final int nameFontSize = 35;
 
@@ -47,32 +44,16 @@ public class RenderConstants {
 
     public static final int flashcardCount = 8;
 
-    static public int getLineNumber(Note note){
-        return (numberOfLines - 1) - (note.noteValue() - 5);
-    }
-    
-    static public int getLineXStart() { return leftMargin; }
-
-    static public int getLineXEnd(){
-        return canvasWidth - leftMargin - 20;
-    }
+    public static final int hitXOffset = 850;
+    public static final int missXOffset = 900;
+    public static final int hitYOffset = 50;
+    public static final int missYOffset = 110;
 
     static public int getLineYOffset(int lineNumber){
         return topMargin + lineNumber * lineSpacing;
     }
 
-    static public int getClefXOffset(){
-        return leftMargin;
-    }
-
     static public int getNoteXOffset(int column){
         return leftMargin + (column + 1) * noteXSpacing;
-    }
-
-    static public Note getNote(int lineNumber){
-        int notePosition = (numberOfLines - 1) - lineNumber + 5;
-        int octave = notePosition / 7;
-        int octavePosition = notePosition % 7;
-        return new Note(NoteName.values()[octavePosition], octave);
     }
 }

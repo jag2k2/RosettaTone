@@ -37,15 +37,15 @@ public class Staff {
             return staffConstants.bottomVisibleLine;
     }
     public void draw(Graphics2D graphics2D, StaffImage clefImage) {
-        int clefImageXPos = RenderConstants.getClefXOffset();
+        int clefImageXPos = RenderConstants.leftMargin;
         int clefImageYPos = RenderConstants.topMargin + (RenderConstants.lineSpacing * staffConstants.clefLineOffset) + staffConstants.clefFineTuneYOffset;
         clefImage.draw(graphics2D, clefImageXPos, clefImageYPos);
 
         int lineThickness = RenderConstants.ledgerLineThickness;
         graphics2D.setStroke(new BasicStroke(lineThickness));
 
-        int lineXPosStart = RenderConstants.getLineXStart();
-        int lineXPosEnd = RenderConstants.getLineXEnd();
+        int lineXPosStart = RenderConstants.leftMargin;
+        int lineXPosEnd = RenderConstants.canvasWidth - RenderConstants.rightMargin;
         for (int visibleLine : getVisibleLines()) {
             int lineYPos = RenderConstants.getLineYOffset(visibleLine);
             graphics2D.drawLine(lineXPosStart, lineYPos, lineXPosEnd, lineYPos);

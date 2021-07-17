@@ -1,6 +1,7 @@
 package statemodels;
 
 import collections.NoteSetImp;
+import imageprocessing.StaffImage;
 import music.Note;
 import notification.LimitChangeObserver;
 import trainer.FlashcardChangeNotifier;
@@ -90,14 +91,14 @@ public class FlashcardsImp implements NoteSetList, FlashcardGenerator, Flashcard
     }
 
     @Override
-    public void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage, StaffModeDrawable staffMode, NoteNameDrawable alphabetMode) {
+    public void draw(Graphics2D graphics2D, StaffImage noteImage, StaffImage sharpImage, StaffImage naturalImage, StaffImage flatImage, StaffModeDrawable staffMode, NoteNameDrawable noteNameMode) {
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         int i = 0;
         for (NoteSet flashcard : flashcardList){
             int noteX = RenderConstants.getNoteXOffset(i) + RenderConstants.noteXSpacing - xTraveled;
             for (Note note : flashcard){
                 int lineNumber = RenderConstants.getLineNumber(note);
-                boolean drawNoteName = alphabetMode.isEnabled(i);
+                boolean drawNoteName = noteNameMode.isEnabled(i);
                 note.draw(graphics2D, noteImage, sharpImage, naturalImage, flatImage, flashcard,  noteX, staffMode.getLedgerLines(lineNumber), drawNoteName);
             }
             i++;

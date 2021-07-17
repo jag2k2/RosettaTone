@@ -17,17 +17,9 @@ class StaffImageTest {
     }
 
     @Test
-    void getBufferedImage() {
-        BufferedImage bufferedImage = staffImage.getBufferedImage();
-        assertEquals(156, bufferedImage.getWidth());
-        assertEquals(426, bufferedImage.getHeight());
-    }
-
-    @Test
     void testResize() {
         staffImage.resize(0.5);
-        BufferedImage bufferedImage = staffImage.getBufferedImage();
-        assertEquals(78, bufferedImage.getWidth());
-        assertEquals(213, bufferedImage.getHeight());
+        assertEquals(78, staffImage.getWidth());
+        assertEquals(213, staffImage.getHeight());
     }
 }

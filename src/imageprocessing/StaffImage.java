@@ -1,5 +1,7 @@
 package imageprocessing;
 
+import music.ImageDrawable;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.*;
@@ -7,7 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
-public class StaffImage {
+public class StaffImage implements Resizeable, ImageDrawable {
     private BufferedImage bufferedImage;
 
     public StaffImage(String path){
@@ -19,8 +21,19 @@ public class StaffImage {
         }
     }
 
-    public BufferedImage getBufferedImage(){
-        return bufferedImage;
+    @Override
+    public void draw(Graphics2D graphics2D, int xPos, int yPos) {
+        graphics2D.drawImage(bufferedImage, null, xPos, yPos);
+    }
+
+    @Override
+    public int getWidth() {
+        return bufferedImage.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return bufferedImage.getHeight();
     }
 
     public void resize(double scaleFactor){

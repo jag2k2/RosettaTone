@@ -1,7 +1,9 @@
 package statemodels;
 
+import imageprocessing.StaffImage;
 import music.Staff;
 import uicomponents.renderer.records.RenderConstants;
+import uicomponents.renderer.records.StaffConstants;
 import uicomponents.staffmode.StaffMode;
 import uicomponents.staffmode.StaffModeModifier;
 import uicomponents.renderer.StaffModeDrawable;
@@ -9,7 +11,6 @@ import utility.Maybe;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,7 +44,7 @@ public class StaffModeStateImp implements StaffModeModifier, StaffModeDrawable {
     }
 
     @Override
-    public void draw(Graphics2D graphics2D, BufferedImage trebleImage, BufferedImage bassImage) {
+    public void draw(Graphics2D graphics2D, StaffImage trebleImage, StaffImage bassImage) {
         if (staffMode == StaffMode.Treble || staffMode == StaffMode.Grand){
             trebleStaff.draw(graphics2D, trebleImage);
         }

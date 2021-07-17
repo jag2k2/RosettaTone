@@ -9,37 +9,37 @@ class ImageFactoryTest {
 
     @Test
     void createTrebleImage() {
-        BufferedImage image = ImageFactory.createTrebleImage();
+        StaffImage image = ImageFactory.createTrebleImage();
         assertTrue(image.getWidth() > 0);
     }
 
     @Test
     void createBassImage() {
-        BufferedImage image = ImageFactory.createBassImage();
+        StaffImage image = ImageFactory.createBassImage();
         assertTrue(image.getWidth() > 0);
     }
 
     @Test
     void createNoteImage() {
-        BufferedImage image = ImageFactory.createNoteImage();
+        StaffImage image = ImageFactory.createNoteImage();
         assertTrue(image.getWidth() > 0);
     }
 
     @Test
     void createSharpImage() {
-        BufferedImage image = ImageFactory.createSharpImage();
+        StaffImage image = ImageFactory.createSharpImage();
         assertTrue(image.getWidth() > 0);
     }
 
     @Test
     void createNaturalImage() {
-        BufferedImage image = ImageFactory.createNaturalImage();
+        StaffImage image = ImageFactory.createNaturalImage();
         assertTrue(image.getWidth() > 0);
     }
 
     @Test
     void createFlatImage() {
-        BufferedImage image = ImageFactory.createFlatImage();
+        StaffImage image = ImageFactory.createFlatImage();
         assertTrue(image.getWidth() > 0);
     }
 }

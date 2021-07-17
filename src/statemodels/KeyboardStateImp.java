@@ -1,6 +1,7 @@
 package statemodels;
 
 import collections.NoteSetImp;
+import imageprocessing.StaffImage;
 import instrument.Key;
 import instrument.KeyStateManipulator;
 import music.Note;
@@ -12,7 +13,6 @@ import utility.Maybe;
 import utility.NoteSet;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.StringJoiner;
@@ -52,7 +52,7 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyStateEvaluator,
     }
 
     @Override
-    public void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage, StaffModeDrawable staffMode) {
+    public void draw(Graphics2D graphics2D, StaffImage noteImage, StaffImage sharpImage, StaffImage naturalImage, StaffImage flatImage, StaffModeDrawable staffMode) {
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
         NoteSet activeNotes = convertToNotes();
         for (Note note : activeNotes){

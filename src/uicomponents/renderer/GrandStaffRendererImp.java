@@ -1,6 +1,7 @@
 package uicomponents.renderer;
 
 import imageprocessing.ImageFactory;
+import imageprocessing.StaffImage;
 import notification.NoteNameModeChangeObserver;
 import notification.KeyboardChangeObserver;
 import notification.StaffModeChangeObserver;
@@ -10,7 +11,6 @@ import uicomponents.renderer.records.RenderConstants;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class GrandStaffRendererImp extends JComponent implements UIComponent, StaffModeChangeObserver,
         NoteNameModeChangeObserver, KeyboardChangeObserver, FlashcardChangeObserver {
@@ -19,12 +19,12 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, St
     private final FlashcardDrawable flashcards;
     private final NoteNameDrawable noteNameMode;
 
-    private final BufferedImage trebleImage = ImageFactory.createTrebleImage();
-    private final BufferedImage bassImage = ImageFactory.createBassImage();
-    private final BufferedImage noteImage = ImageFactory.createNoteImage();
-    private final BufferedImage naturalImage = ImageFactory.createNaturalImage();
-    private final BufferedImage sharpImage = ImageFactory.createSharpImage();
-    private final BufferedImage flatImage = ImageFactory.createFlatImage();
+    private final StaffImage trebleImage = ImageFactory.createTrebleImage();
+    private final StaffImage bassImage = ImageFactory.createBassImage();
+    private final StaffImage noteImage = ImageFactory.createNoteImage();
+    private final StaffImage naturalImage = ImageFactory.createNaturalImage();
+    private final StaffImage sharpImage = ImageFactory.createSharpImage();
+    private final StaffImage flatImage = ImageFactory.createFlatImage();
 
     public GrandStaffRendererImp(KeyStateDrawable keyboardState, FlashcardDrawable flashcards,
                                  StaffModeDrawable staffMode, NoteNameDrawable noteNameMode){

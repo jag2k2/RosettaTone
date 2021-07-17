@@ -1,8 +1,9 @@
 package uicomponents.renderer;
 
+import imageprocessing.StaffImage;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+
 
 public interface KeyStateDrawable {
-    void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage, StaffModeDrawable staffMode);
+    void draw(Graphics2D graphics2D, StaffImage noteImage, StaffImage sharpImage, StaffImage naturalImage, StaffImage flatImage, StaffModeDrawable staffMode);
 }

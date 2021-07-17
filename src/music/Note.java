@@ -1,5 +1,6 @@
 package music;
 
+import imageprocessing.StaffImage;
 import statemodels.NoteDrawable;
 import uicomponents.renderer.records.RenderConstants;
 import utility.NoteSet;
@@ -82,7 +83,7 @@ public class Note implements Comparable<Note>, NoteDrawable {
     }
 
     @Override
-    public void draw(Graphics2D graphics2D, BufferedImage noteImage, BufferedImage sharpImage, BufferedImage naturalImage, BufferedImage flatImage,
+    public void draw(Graphics2D graphics2D, StaffImage noteImage, StaffImage sharpImage, StaffImage naturalImage, StaffImage flatImage,
                      NoteSet notes, int xPos, Set<Integer> ledgerLines, boolean drawName) {
 
         int lineNumber = RenderConstants.getLineNumber(this);
@@ -93,7 +94,7 @@ public class Note implements Comparable<Note>, NoteDrawable {
         if (accidental == NoteAccidental.SHARP) {
             int sharpXPos = xPos - (int) (sharpImage.getWidth() * 1.3);
             int sharpYPos = noteY - (sharpImage.getHeight() / 3);
-            graphics2D.drawImage(sharpImage, null, sharpXPos, sharpYPos);
+            sharpImage.draw(graphics2D, sharpXPos, sharpYPos);
             }
 
         int lineThickness = RenderConstants.ledgerLineThickness;
@@ -109,7 +110,8 @@ public class Note implements Comparable<Note>, NoteDrawable {
         if (isSqueezed(notes)) {
             xPos += noteWidth;
         }
-        graphics2D.drawImage(noteImage, null, xPos, noteY);
+
+        noteImage.draw(graphics2D, xPos, noteY);
 
         if(drawName){
             graphics2D.setFont(new Font("Dialog", Font.BOLD, RenderConstants.nameFontSize));

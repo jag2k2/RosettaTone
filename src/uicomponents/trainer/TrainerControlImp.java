@@ -53,6 +53,7 @@ public class TrainerControlImp implements UIComponent, ActionListener {
             }
             else if (buttonName.equals(stopButtonName)){
                 trainerState.disable();
+                score.reset();
             }
             else if (buttonName.equals(resetButtonName)){
                 score.reset();

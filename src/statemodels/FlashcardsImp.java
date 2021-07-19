@@ -1,15 +1,14 @@
 package statemodels;
 
 import collections.NoteSetImp;
-import imageprocessing.StaffImage;
 import music.Note;
 import notification.LimitChangeObserver;
 import trainer.FlashcardChangeNotifier;
 import trainer.FlashcardGenerator;
 import trainer.RandomNoteGenerator;
-import uicomponents.renderer.NoteNameDrawable;
-import uicomponents.renderer.FlashcardDrawable;
-import uicomponents.renderer.StaffModeDrawable;
+import uicomponents.renderer.grandstaff.NoteNameDrawable;
+import uicomponents.renderer.grandstaff.FlashcardDrawable;
+import uicomponents.renderer.grandstaff.StaffModeDrawable;
 import uicomponents.renderer.records.NoteImages;
 import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
@@ -18,7 +17,6 @@ import utility.NoteSetList;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.ArrayList;
 

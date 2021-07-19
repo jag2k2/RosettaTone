@@ -1,7 +1,7 @@
 package statemodels;
 
-import notification.NoteNameModeChangeNotifierImp;
-import notification.NoteNameModeChangeObserver;
+import notification.ConfigChangeNotifierImp;
+import notification.ConfigChangeObserver;
 import notification.FlashcardChangeNotifierImp;
 import notification.FlashcardSatisfiedNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,32 +12,32 @@ import uicomponents.notenamemode.NoteNameMode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NoteNameModeStateImpTest implements NoteNameModeChangeObserver {
+class NoteNameModeStateImpTest implements ConfigChangeObserver {
     private NoteNameModeStateImp noteNameModeStateImp;
     private FlashcardSatisfiedNotifier flashcardSatisfiedNotifier;
     private FlashcardChangeNotifier flashcardChangeNotifier;
 
-    private boolean alphabetModeChanged = false;
+    private boolean configChanged = false;
 
     @Override
-    public void alphabetModeChanged() {
-        alphabetModeChanged = true;
+    public void configChanged() {
+        configChanged = true;
     }
 
     @BeforeEach
     void setup(){
-        NoteNameModeChangeNotifierImp alphabetModeChangeNotifierImp = new NoteNameModeChangeNotifierImp();
+        ConfigChangeNotifierImp alphabetModeChangeNotifierImp = new ConfigChangeNotifierImp();
         flashcardSatisfiedNotifier = new FlashcardSatisfiedNotifierImp();
         flashcardChangeNotifier = new FlashcardChangeNotifierImp();
 
         noteNameModeStateImp = new NoteNameModeStateImp(NoteNameMode.Off);
-        noteNameModeStateImp.addAlphabetModeChangeNotifier(alphabetModeChangeNotifierImp);
+        noteNameModeStateImp.addConfigChangeNotifier(alphabetModeChangeNotifierImp);
 
         alphabetModeChangeNotifierImp.addObserver(this);
         flashcardSatisfiedNotifier.addObserver(noteNameModeStateImp);
         flashcardChangeNotifier.addObserver(noteNameModeStateImp);
 
-        alphabetModeChanged = false;
+        configChanged = false;
     }
 
     @Test
@@ -59,7 +59,7 @@ class NoteNameModeStateImpTest implements NoteNameModeChangeObserver {
         NoteNameModeStateImp expected = new NoteNameModeStateImp(NoteNameMode.Correct);
         noteNameModeStateImp.setMode(NoteNameMode.Correct);
         assertEquals(expected, noteNameModeStateImp);
-        assertTrue(alphabetModeChanged);
+        assertTrue(configChanged);
     }
 
     @Test
@@ -67,7 +67,7 @@ class NoteNameModeStateImpTest implements NoteNameModeChangeObserver {
         NoteNameModeStateImp expected = new NoteNameModeStateImp(NoteNameMode.Off);
         noteNameModeStateImp.setMode(NoteNameMode.Off);
         assertEquals(expected, noteNameModeStateImp);
-        assertFalse(alphabetModeChanged);
+        assertFalse(configChanged);
     }
 
     @Test

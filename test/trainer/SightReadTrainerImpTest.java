@@ -54,6 +54,7 @@ class SightReadTrainerImpTest implements FlashcardSatisfiedObserver, FlashcardCh
 
         sightReadTrainer = new SightReadTrainerImp(keyboardState, flashcardsImp, noteNameMode, new ScoreImp());
         sightReadTrainer.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifier);
+        sightReadTrainer.enable();
 
         keyboardChangeNotifier.addObserver(sightReadTrainer);
         flashcardSatisfiedNotifier.addObserver(this);
@@ -69,7 +70,6 @@ class SightReadTrainerImpTest implements FlashcardSatisfiedObserver, FlashcardCh
             for (Note flashcardNote : topFlashcard){
                 Key rightKey = new Key(flashcardNote);
                 keyboardState.keyPressed(rightKey);
-                keyboardState.keyReleased(rightKey);
             }
         }
         assertTrue(satisfiedNotified);

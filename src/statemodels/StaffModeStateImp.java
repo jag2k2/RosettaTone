@@ -1,13 +1,11 @@
 package statemodels;
 
-import imageprocessing.StaffImage;
 import music.Staff;
 import uicomponents.renderer.records.ClefImages;
 import uicomponents.renderer.records.RenderConstants;
-import uicomponents.renderer.records.StaffConstants;
 import uicomponents.staffmode.StaffMode;
 import uicomponents.staffmode.StaffModeModifier;
-import uicomponents.renderer.StaffModeDrawable;
+import uicomponents.renderer.grandstaff.StaffModeDrawable;
 import utility.Maybe;
 
 import javax.swing.*;
@@ -19,15 +17,15 @@ import java.util.Set;
 public class StaffModeStateImp implements StaffModeModifier, StaffModeDrawable {
     private final Staff trebleStaff = new Staff(RenderConstants.trebleStaff);
     private final Staff bassStaff = new Staff(RenderConstants.bassStaff);
-    private Maybe<StaffModeChangeNotifier> staffModeChangeNotifier = new Maybe<>();
+    private Maybe<ConfigChangeNotifier> staffModeChangeNotifier = new Maybe<>();
     private StaffMode staffMode;
 
     public StaffModeStateImp(StaffMode staffMode){
         this.staffMode = staffMode;
     }
 
-    public void addStaffModeChangeNotifier(StaffModeChangeNotifier staffModeChangeNotifier){
-        this.staffModeChangeNotifier = new Maybe<>(staffModeChangeNotifier);
+    public void addConfigChangeNotifier(ConfigChangeNotifier configChangeNotifier){
+        this.staffModeChangeNotifier = new Maybe<>(configChangeNotifier);
     }
 
     @Override
@@ -39,7 +37,7 @@ public class StaffModeStateImp implements StaffModeModifier, StaffModeDrawable {
     public void setMode(StaffMode staffMode) {
         if (!this.staffMode.equals(staffMode)){
             this.staffMode = staffMode;
-            for(StaffModeChangeNotifier notifier : staffModeChangeNotifier)
+            for(ConfigChangeNotifier notifier : staffModeChangeNotifier)
                 notifier.notifyObservers();
         }
     }

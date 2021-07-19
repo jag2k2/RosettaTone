@@ -1,4 +1,4 @@
-package uicomponents.renderer;
+package uicomponents.renderer.text;
 
 import notification.KeyboardChangeObserver;
 import uicomponents.UIComponent;

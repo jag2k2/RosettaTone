@@ -1,29 +1,29 @@
 package statemodels;
 
-import notification.StaffModeChangeObserver;
-import notification.StaffModeChangeNotifierImp;
+import notification.ConfigChangeObserver;
+import notification.ConfigChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uicomponents.staffmode.StaffMode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StaffModeStateImpTest implements StaffModeChangeObserver {
+class ConfigStateImpTest implements ConfigChangeObserver {
     private StaffModeStateImp staffModeStateImp;
     private boolean staffModeChanged = false;
 
     @Override
-    public void staffModeChanged() {
+    public void configChanged() {
         staffModeChanged = true;
     }
 
     @BeforeEach
     void setup(){
-        StaffModeChangeNotifier staffModeChangeNotifier = new StaffModeChangeNotifierImp();
+        ConfigChangeNotifier configChangeNotifier = new ConfigChangeNotifierImp();
         staffModeStateImp = new StaffModeStateImp(StaffMode.Grand);
-        staffModeStateImp.addStaffModeChangeNotifier(staffModeChangeNotifier);
+        staffModeStateImp.addConfigChangeNotifier(configChangeNotifier);
 
-        staffModeChangeNotifier.addObserver(this);
+        configChangeNotifier.addObserver(this);
         staffModeChanged = false;
     }
 

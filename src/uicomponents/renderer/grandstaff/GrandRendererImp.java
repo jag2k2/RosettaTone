@@ -1,11 +1,7 @@
-package uicomponents.renderer;
+package uicomponents.renderer.grandstaff;
 
 import imageprocessing.ImageFactory;
-import imageprocessing.StaffImage;
-import notification.NoteNameModeChangeObserver;
-import notification.KeyboardChangeObserver;
-import notification.StaffModeChangeObserver;
-import notification.FlashcardChangeObserver;
+import notification.*;
 import uicomponents.UIComponent;
 import uicomponents.renderer.records.ClefImages;
 import uicomponents.renderer.records.NoteImages;
@@ -14,24 +10,26 @@ import uicomponents.renderer.records.RenderConstants;
 import javax.swing.*;
 import java.awt.*;
 
-public class GrandStaffRendererImp extends JComponent implements UIComponent, StaffModeChangeObserver,
-        NoteNameModeChangeObserver, KeyboardChangeObserver, FlashcardChangeObserver {
+public class GrandRendererImp extends JComponent implements UIComponent, ConfigChangeObserver, KeyboardChangeObserver,
+        FlashcardChangeObserver {
     private final KeyStateDrawable keyboardState;
     private final StaffModeDrawable staffMode;
     private final FlashcardDrawable flashcards;
     private final NoteNameDrawable noteNameMode;
     private final ScoreDrawable scoreDrawable;
+    private final Enableable trainer;
 
     private final ClefImages clefImages = ImageFactory.createClefImages();
     private final NoteImages noteImages = ImageFactory.createNoteImages();
 
-    public GrandStaffRendererImp(KeyStateDrawable keyboardState, FlashcardDrawable flashcards,
-                                 StaffModeDrawable staffMode, NoteNameDrawable noteNameMode, ScoreDrawable scoreDrawable){
+    public GrandRendererImp(KeyStateDrawable keyboardState, FlashcardDrawable flashcards,
+                            StaffModeDrawable staffMode, NoteNameDrawable noteNameMode, ScoreDrawable scoreDrawable, Enableable trainer){
         this.keyboardState = keyboardState;
         this.staffMode = staffMode;
         this.flashcards = flashcards;
         this.noteNameMode = noteNameMode;
         this.scoreDrawable = scoreDrawable;
+        this.trainer = trainer;
     }
 
     @Override
@@ -45,12 +43,7 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, St
     }
 
     @Override
-    public void staffModeChanged() {
-        repaint();
-    }
-
-    @Override
-    public void alphabetModeChanged() {
+    public void configChanged() {
         repaint();
     }
 
@@ -82,7 +75,9 @@ public class GrandStaffRendererImp extends JComponent implements UIComponent, St
         Graphics2D graphics2D = (Graphics2D)g;
         staffMode.draw(graphics2D, clefImages);
         keyboardState.draw(graphics2D, noteImages, staffMode);
-        flashcards.draw(graphics2D, noteImages, staffMode, noteNameMode);
-        scoreDrawable.draw(graphics2D);
+        if (trainer.isEnabled()){
+            flashcards.draw(graphics2D, noteImages, staffMode, noteNameMode);
+            scoreDrawable.draw(graphics2D);
+        }
     }
 }

@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
-public class InstrumentBrowserImp implements UIComponent, InstrumentBrowser, ListSelectionListener, ActionListener {
+public class InstrumentBrowserImp implements UIComponent, ListSelectionListener, ActionListener {
     private final Receiver midiReceiver;
     private final JList<MidiDevice> deviceList;
     private final DefaultListModel<MidiDevice> listModel;
@@ -97,7 +97,6 @@ public class InstrumentBrowserImp implements UIComponent, InstrumentBrowser, Lis
         refreshTransmitterDevices();
     }
 
-    @Override
     public void refreshTransmitterDevices() {
         listModel.clear();
         MidiDevice simDevice = new MidiDeviceSimImp(deviceList);

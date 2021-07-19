@@ -2,14 +2,21 @@ package statemodels;
 
 import notification.LimitChangeObserver;
 import trainer.ScoreKeepable;
-import uicomponents.renderer.ScoreDrawable;
+import uicomponents.renderer.grandstaff.ScoreDrawable;
 import uicomponents.renderer.records.RenderConstants;
+import uicomponents.trainer.Resettable;
+import utility.Maybe;
 
 import java.awt.*;
 
-public class ScoreImp implements ScoreKeepable, ScoreDrawable, LimitChangeObserver {
+public class ScoreImp implements ScoreKeepable, Resettable, ScoreDrawable, LimitChangeObserver {
     private int hits = 0;
     private int misses = 0;
+    private Maybe<ConfigChangeNotifier> configChangeNotifier = new Maybe<>();
+
+    public void addConfigChangeNotifier(ConfigChangeNotifier configChangeNotifier){
+        this.configChangeNotifier = new Maybe<>(configChangeNotifier);
+    }
 
     @Override
     public void addHit() {
@@ -25,6 +32,9 @@ public class ScoreImp implements ScoreKeepable, ScoreDrawable, LimitChangeObserv
     public void reset() {
         hits = 0;
         misses = 0;
+        for(ConfigChangeNotifier notifier : configChangeNotifier){
+            notifier.notifyObservers();
+        }
     }
 
     @Override

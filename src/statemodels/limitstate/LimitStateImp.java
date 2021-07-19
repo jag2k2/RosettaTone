@@ -1,20 +1,18 @@
 package statemodels.limitstate;
 
-import uicomponents.renderer.LimitDrawable;
+import uicomponents.renderer.limit.LimitDrawable;
 import music.Note;
 import music.NoteAccidental;
 import trainer.randomnotegenerator.LineNumerable;
 import uicomponents.rangeselector.noteselector.LimitModifier;
-import uicomponents.rangeselector.noteselector.LimitPreviewer;
 import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
 
 import java.awt.*;
 
-public class LimitStateImp implements LimitModifier, LimitPreviewer, LineNumerable, LimitDrawable {
+public class LimitStateImp implements LimitModifier, LineNumerable, LimitDrawable {
     private Note limit;
     private Maybe<LimitChangeNotifier> limitChangeNotifier = new Maybe<>();
-    private Maybe<LimitChangeNotifier> previewChangeNotifier = new Maybe<>();
 
     public LimitStateImp(Note limit){
         this.limit = limit;
@@ -22,10 +20,6 @@ public class LimitStateImp implements LimitModifier, LimitPreviewer, LineNumerab
 
     public void addLimitChangeNotifier(LimitChangeNotifier limitChangeNotifier){
         this.limitChangeNotifier = new Maybe<>(limitChangeNotifier);
-    }
-
-    public void addPreviewChangeNotifier(LimitChangeNotifier previewChangeNotifier){
-        this.previewChangeNotifier = new Maybe<>(previewChangeNotifier);
     }
 
     @Override
@@ -38,16 +32,6 @@ public class LimitStateImp implements LimitModifier, LimitPreviewer, LineNumerab
         if(!limit.equals(note)) {
             limit = note;
             for (LimitChangeNotifier notifier : limitChangeNotifier) {
-                notifier.notifyObservers();
-            }
-        }
-    }
-
-    @Override
-    public void preview(Note note) {
-        if (!limit.equals(note)) {
-            limit = note;
-            for (LimitChangeNotifier notifier : previewChangeNotifier){
                 notifier.notifyObservers();
             }
         }
@@ -83,14 +67,27 @@ public class LimitStateImp implements LimitModifier, LimitPreviewer, LineNumerab
         graphics2D.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         graphics2D.drawString(limit.toString(), fontXPos, fontYPos);
     }
-
     @Override
-    public Point getPosition() {
+    public void drawConnection(Graphics2D graphics2D, LimitDrawable otherLimit){
+        if(otherLimit instanceof LimitStateImp){
+            LimitStateImp connectingLimit = (LimitStateImp) otherLimit;
+
+            int connX1 = getPosition().x;
+            int connX2 = connectingLimit.getPosition().x;
+            int connY1 = getPosition().y;
+            int connY2 = connectingLimit.getPosition().y;
+
+            graphics2D.setColor(Color.BLACK);
+
+            graphics2D.setStroke(new BasicStroke(RenderConstants.limitLineThickness));
+            graphics2D.drawLine(connX1, connY1, connX2, connY2);
+        }
+    }
+
+    protected Point getPosition() {
         int x = RenderConstants.limitRenderXOffset + (RenderConstants.limitDotDiameter / 2);
         int y = RenderConstants.getLineYOffset(getLineNumber());
         return new Point(x,y);
-
-
     }
 
     @Override

@@ -1,6 +1,5 @@
-package uicomponents.renderer;
+package uicomponents.renderer.grandstaff;
 
-import imageprocessing.StaffImage;
 import uicomponents.renderer.records.NoteImages;
 
 import java.awt.*;

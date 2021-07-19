@@ -1,4 +1,4 @@
-package uicomponents.renderer;
+package uicomponents.renderer.grandstaff;
 
 import uicomponents.renderer.records.NoteImages;
 import javax.swing.*;

@@ -6,9 +6,9 @@ import java.awt.*;
 
 public class NoteListRenderer implements ListCellRenderer<Note> {
     private final ListCellRenderer<? super Note> listCellRenderer;
-    private final LimitPreviewer limitPreviewer;
+    private final LimitModifier limitPreviewer;
 
-    public NoteListRenderer(ListCellRenderer<? super Note> listCellRenderer, LimitPreviewer limitPreviewer){
+    public NoteListRenderer(ListCellRenderer<? super Note> listCellRenderer, LimitModifier limitPreviewer){
         this.listCellRenderer = listCellRenderer;
         this.limitPreviewer = limitPreviewer;
     }
@@ -16,7 +16,7 @@ public class NoteListRenderer implements ListCellRenderer<Note> {
     @Override
     public Component getListCellRendererComponent(JList<? extends Note> list, Note note, int index, boolean isSelected, boolean cellHasFocus) {
         if(isSelected) {
-            limitPreviewer.preview(note);
+            limitPreviewer.setLimit(note);
         }
         Component rendererComponent = listCellRenderer.getListCellRendererComponent(list, note, index, isSelected, cellHasFocus);
         if (rendererComponent instanceof JLabel){

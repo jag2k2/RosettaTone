@@ -17,14 +17,16 @@ public class NoteSelectorImp implements UIComponent, ActionListener, PopupMenuLi
     private static final String upButtonName = "upButton";
     private static final String downButtonName = "downButton";
     private final BoundedNoteModifier boundedNoteModel;
+    private final LimitModifier previewLimit;
     private final JComboBox<Note> noteComboBox;
     private JButton upButton;
     private JButton downButton;
 
-    public NoteSelectorImp(BoundedNoteModifier boundedNoteModel, LimitPreviewer limitPreviewer){
+    public NoteSelectorImp(BoundedNoteModifier boundedNoteModel, NoteListRenderer noteListRenderer, LimitModifier previewLimit){
         this.boundedNoteModel = boundedNoteModel;
+        this.previewLimit = previewLimit;
         this.noteComboBox = new JComboBox<>();
-        this.noteComboBox.setRenderer(new NoteListRenderer(noteComboBox.getRenderer(), limitPreviewer));
+        this.noteComboBox.setRenderer(noteListRenderer);
         try{
             URL upArrowURL = getClass().getResource("/images/UpArrow.png");
             URL downArrowURL = getClass().getResource("/images/DownArrow.png");
@@ -78,10 +80,12 @@ public class NoteSelectorImp implements UIComponent, ActionListener, PopupMenuLi
             JButton pushedButton = (JButton) e.getSource();
             if (pushedButton.getName().equals(upButtonName)){
                 boundedNoteModel.increment();
+
             }
             else if (pushedButton.getName().equals(downButtonName)){
                 boundedNoteModel.decrement();
             }
+            previewLimit.setLimit(boundedNoteModel.getLimit());
         }
     }
 
@@ -100,5 +104,6 @@ public class NoteSelectorImp implements UIComponent, ActionListener, PopupMenuLi
         ComboBoxModel<Note> listModel = noteComboBox.getModel();
         Note selectedNote = listModel.getElementAt(noteComboBox.getSelectedIndex());
         boundedNoteModel.setLimit(selectedNote);
+        previewLimit.setLimit(boundedNoteModel.getLimit());
     }
 }

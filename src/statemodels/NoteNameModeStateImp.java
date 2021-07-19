@@ -4,29 +4,28 @@ import notification.FlashcardChangeObserver;
 import notification.FlashcardSatisfiedObserver;
 import trainer.FlashcardAdvancer;
 import uicomponents.notenamemode.NoteNameMode;
-import uicomponents.notenamemode.NoteNameModeChangeNotifier;
 import uicomponents.notenamemode.NoteNameModeModifier;
-import uicomponents.renderer.NoteNameDrawable;
+import uicomponents.renderer.grandstaff.NoteNameDrawable;
 import utility.Maybe;
 
 public class NoteNameModeStateImp implements NoteNameModeModifier, NoteNameDrawable, FlashcardAdvancer, FlashcardSatisfiedObserver, FlashcardChangeObserver {
     private NoteNameMode noteNameMode;
     private boolean flashcardSatisfied = false;
-    private Maybe<NoteNameModeChangeNotifier> alphabetModeChangeNotifier = new Maybe<>();
+    private Maybe<ConfigChangeNotifier> configChangeNotifier = new Maybe<>();
 
     public NoteNameModeStateImp(NoteNameMode defaultMode) {
         this.noteNameMode = defaultMode;
     }
 
-    public void addAlphabetModeChangeNotifier(NoteNameModeChangeNotifier noteNameModeChangeNotifier){
-        this.alphabetModeChangeNotifier = new Maybe<>(noteNameModeChangeNotifier);
+    public void addConfigChangeNotifier(ConfigChangeNotifier configChangeNotifier){
+        this.configChangeNotifier = new Maybe<>(configChangeNotifier);
     }
 
     @Override
     public void setMode(NoteNameMode noteNameMode) {
         if(!this.noteNameMode.equals(noteNameMode)) {
             this.noteNameMode = noteNameMode;
-            for (NoteNameModeChangeNotifier notifier : alphabetModeChangeNotifier) {
+            for (ConfigChangeNotifier notifier : configChangeNotifier) {
                 notifier.notifyObservers();
             }
         }

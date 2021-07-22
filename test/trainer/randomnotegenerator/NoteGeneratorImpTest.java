@@ -12,8 +12,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RandomNoteGeneratorImpTest {
-    private RandomNoteGeneratorImp randomNoteGenerator;
+class NoteGeneratorImpTest {
+    private NoteGeneratorImp randomNoteGenerator;
 
     private Note noteC4 = new Note(NoteName.C, 4);
     private Note noteD4 = new Note(NoteName.D, 4);
@@ -25,9 +25,9 @@ class RandomNoteGeneratorImpTest {
 
     @BeforeEach
     void setUp() {
-        LineNumerable lowerLimit = new LimitStateImp(noteC4);
-        LineNumerable upperLimit = new LimitStateImp(noteB4);
-        randomNoteGenerator = new RandomNoteGeneratorImp(lowerLimit, upperLimit);
+        BoundedNoteGenerator lowerLimit = new LimitStateImp(noteC4);
+        BoundedNoteGenerator upperLimit = new LimitStateImp(noteB4);
+        randomNoteGenerator = new NoteGeneratorImp(lowerLimit, upperLimit);
     }
 
     @Test

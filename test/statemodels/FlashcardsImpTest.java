@@ -1,6 +1,6 @@
 package statemodels;
 
-import collections.NoteSetImp;
+import tuples.NoteSetImp;
 import music.Note;
 import music.NoteName;
 import notification.*;
@@ -10,9 +10,8 @@ import statemodels.limitstate.LimitChangeNotifier;
 import statemodels.limitstate.LimitStateImp;
 import trainer.FlashcardChangeNotifier;
 import trainer.FlashcardSatisfiedNotifier;
-import trainer.RandomNoteGenerator;
 import trainer.SightReadTrainerImp;
-import trainer.randomnotegenerator.RandomNoteGeneratorImp;
+import trainer.randomnotegenerator.NoteGeneratorImp;
 import utility.NoteSet;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,7 +49,7 @@ class FlashcardsImpTest implements FlashcardSatisfiedObserver, FlashcardChangeOb
         upperLimit = new LimitStateImp(new Note(NoteName.C, 5));
         upperLimit.addLimitChangeNotifier(upperLimitChangeNotifier);
 
-        randomNoteGenerator = new RandomNoteGeneratorImp(lowerLimit, upperLimit);
+        randomNoteGenerator = new NoteGeneratorImp(lowerLimit, upperLimit);
 
         flashcardsImp = new FlashcardsImp(randomNoteGenerator);
         flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifier);

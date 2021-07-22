@@ -1,6 +1,6 @@
 package music;
 
-import collections.NoteSetImp;
+import tuples.NoteSetImp;
 import instrument.Key;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
@@ -69,7 +69,7 @@ class NoteTest {
 
     @Test
     void getLineNumber() {
-        assertEquals(28, noteC4.getLineNumber());
+        assertEquals(new Line(28), noteC4.getCenterLine());
     }
 
     @Test

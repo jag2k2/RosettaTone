@@ -8,8 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import statemodels.*;
 import statemodels.limitstate.LimitStateImp;
-import trainer.randomnotegenerator.LineNumerable;
-import trainer.randomnotegenerator.RandomNoteGeneratorImp;
+import trainer.randomnotegenerator.BoundedNoteGenerator;
+import trainer.randomnotegenerator.NoteGeneratorImp;
 import uicomponents.notenamemode.NoteNameMode;
 import utility.NoteSet;
 
@@ -18,8 +18,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class SightReadTrainerImpTest implements FlashcardSatisfiedObserver, FlashcardChangeObserver {
     private NoteNameModeStateImp noteNameMode;
     private KeyboardStateImp keyboardState;
-    private LineNumerable lowerLineNumerable;
-    private LineNumerable upperLineNumerable;
+    private BoundedNoteGenerator lowerLimit;
+    private BoundedNoteGenerator upperLimit;
     private RandomNoteGenerator randomNoteGenerator;
     private FlashcardsImp flashcardsImp;
     private SightReadTrainerImp sightReadTrainer;
@@ -46,9 +46,9 @@ class SightReadTrainerImpTest implements FlashcardSatisfiedObserver, FlashcardCh
         noteNameMode = new NoteNameModeStateImp(NoteNameMode.Off);
         keyboardState = new KeyboardStateImp();
         keyboardState.addKeyboardChangeNotifier(keyboardChangeNotifier);
-        lowerLineNumerable = new LimitStateImp(new Note(NoteName.C, 4));
-        upperLineNumerable = new LimitStateImp(new Note(NoteName.C, 5));
-        randomNoteGenerator = new RandomNoteGeneratorImp(lowerLineNumerable, upperLineNumerable);
+        lowerLimit = new LimitStateImp(new Note(NoteName.C, 4));
+        upperLimit = new LimitStateImp(new Note(NoteName.C, 5));
+        randomNoteGenerator = new NoteGeneratorImp(lowerLimit, upperLimit);
         flashcardsImp = new FlashcardsImp(randomNoteGenerator);
         flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifier);
 

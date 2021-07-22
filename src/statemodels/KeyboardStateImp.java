@@ -1,12 +1,12 @@
 package statemodels;
 
-import collections.NoteSetImp;
+import tuples.NoteSetImp;
 import instrument.Key;
 import instrument.KeyStateManipulator;
 import music.Note;
+import uicomponents.renderer.grandstaff.StaffModeEvaluator;
 import trainer.KeyStateEvaluator;
 import uicomponents.renderer.grandstaff.KeyStateDrawable;
-import uicomponents.renderer.grandstaff.StaffModeDrawable;
 import uicomponents.renderer.records.NoteImages;
 import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
@@ -52,13 +52,12 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyStateEvaluator,
     }
 
     @Override
-    public void draw(Graphics2D graphics2D, NoteImages noteImages, StaffModeDrawable staffMode) {
+    public void draw(Graphics2D graphics2D, NoteImages noteImages, StaffModeEvaluator staffMode) {
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
         NoteSet activeNotes = convertToNotes();
-        for (Note note : activeNotes){
-            int lineNumber = note.getLineNumber();
+        for (NoteDrawable note : activeNotes){
             int xPos = RenderConstants.getNoteXOffset(0);
-            note.draw(graphics2D, noteImages, activeNotes, xPos, staffMode.getLedgerLines(lineNumber), false);
+            note.draw(graphics2D, noteImages, activeNotes, xPos, staffMode, false);
         }
     }
 

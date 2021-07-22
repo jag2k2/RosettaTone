@@ -1,6 +1,7 @@
 package uicomponents.renderer.grandstaff;
 
 import imageprocessing.ImageFactory;
+import music.Staff;
 import notification.*;
 import uicomponents.UIComponent;
 import uicomponents.renderer.records.ClefImages;
@@ -13,7 +14,7 @@ import java.awt.*;
 public class GrandRendererImp extends JComponent implements UIComponent, ConfigChangeObserver, KeyboardChangeObserver,
         FlashcardChangeObserver {
     private final KeyStateDrawable keyboardState;
-    private final StaffModeDrawable staffMode;
+    private final StaffModeEvaluator staffMode;
     private final FlashcardDrawable flashcards;
     private final NoteNameDrawable noteNameMode;
     private final ScoreDrawable scoreDrawable;
@@ -22,8 +23,11 @@ public class GrandRendererImp extends JComponent implements UIComponent, ConfigC
     private final ClefImages clefImages = ImageFactory.createClefImages();
     private final NoteImages noteImages = ImageFactory.createNoteImages();
 
+    private final StaffDrawable trebleStaff = new Staff(RenderConstants.trebleStaff);
+    private final StaffDrawable bassStaff = new Staff(RenderConstants.bassStaff);
+
     public GrandRendererImp(KeyStateDrawable keyboardState, FlashcardDrawable flashcards,
-                            StaffModeDrawable staffMode, NoteNameDrawable noteNameMode, ScoreDrawable scoreDrawable, Enableable trainer){
+                            StaffModeEvaluator staffMode, NoteNameDrawable noteNameMode, ScoreDrawable scoreDrawable, Enableable trainer){
         this.keyboardState = keyboardState;
         this.staffMode = staffMode;
         this.flashcards = flashcards;
@@ -73,7 +77,12 @@ public class GrandRendererImp extends JComponent implements UIComponent, ConfigC
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D)g;
-        staffMode.draw(graphics2D, clefImages);
+        if (staffMode.isTrebleOnly() || staffMode.isGrand()){
+            trebleStaff.draw(graphics2D, clefImages.trebleImage);
+        }
+        if (staffMode.isBassOnly() || staffMode.isGrand()){
+            bassStaff.draw(graphics2D, clefImages.bassImage);
+        }
         keyboardState.draw(graphics2D, noteImages, staffMode);
         if (trainer.isEnabled()){
             flashcards.draw(graphics2D, noteImages, staffMode, noteNameMode);

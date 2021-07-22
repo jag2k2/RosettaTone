@@ -49,10 +49,6 @@ public class RenderConstants {
     public static final int hitYOffset = 50;
     public static final int missYOffset = 110;
 
-    static public int getLineYOffset(int lineNumber){
-        return topMargin + lineNumber * lineSpacing;
-    }
-
     static public int getNoteXOffset(int column){
         return leftMargin + (column + 1) * noteXSpacing;
     }

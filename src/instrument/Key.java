@@ -4,8 +4,6 @@ import music.Note;
 import music.NoteAccidental;
 import music.NoteName;
 
-import java.util.Set;
-
 public class Key {
     private final int midiNumber;
 
@@ -45,14 +43,6 @@ public class Key {
                 return NoteAccidental.NATURAL;
     }
 
-    public Key getNext(){
-        return new Key(midiNumber + 1);
-    }
-
-    public Key getPrevious(){
-        return new Key(midiNumber - 1);
-    }
-
     protected int getOctavePosition(){
         return midiNumber % 12;
     }
@@ -63,22 +53,6 @@ public class Key {
 
     protected boolean isEven(){
         return ((midiNumber % 2) == 0);
-    }
-
-    public boolean isNatural(){
-        return (isCDorE() && isEven()) || (!isCDorE() && !isEven());
-    }
-
-    public boolean sharpExistsAlso(Set<Key> keys){
-        if (getNaturalIndex() == 2 || getNaturalIndex() == 6)
-            return false;
-        Key nextKey = getNext();
-        return keys.contains(nextKey);
-    }
-
-    public boolean naturalExistsAlso(Set<Key> keys){
-        Key previousKey = getPrevious();
-        return keys.contains(previousKey);
     }
 
     @Override

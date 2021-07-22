@@ -1,4 +1,4 @@
-package trainer;
+package statemodels;
 
 import music.Note;
 

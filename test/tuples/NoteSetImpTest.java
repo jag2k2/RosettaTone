@@ -1,4 +1,4 @@
-package collections;
+package tuples;
 
 import music.Note;
 import music.NoteAccidental;

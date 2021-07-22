@@ -1,14 +1,13 @@
 package statemodels;
 
-import collections.NoteSetImp;
+import tuples.NoteSetImp;
 import music.Note;
+import uicomponents.renderer.grandstaff.StaffModeEvaluator;
 import notification.LimitChangeObserver;
 import trainer.FlashcardChangeNotifier;
 import trainer.FlashcardGenerator;
-import trainer.RandomNoteGenerator;
 import uicomponents.renderer.grandstaff.NoteNameDrawable;
 import uicomponents.renderer.grandstaff.FlashcardDrawable;
-import uicomponents.renderer.grandstaff.StaffModeDrawable;
 import uicomponents.renderer.records.NoteImages;
 import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
@@ -90,15 +89,14 @@ public class FlashcardsImp implements NoteSetList, FlashcardGenerator, Flashcard
     }
 
     @Override
-    public void draw(Graphics2D graphics2D, NoteImages noteImages, StaffModeDrawable staffMode, NoteNameDrawable noteNameMode) {
+    public void draw(Graphics2D graphics2D, NoteImages noteImages, StaffModeEvaluator staffMode, NoteNameDrawable noteNameMode) {
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         int i = 0;
         for (NoteSet flashcard : flashcardList){
             int noteX = RenderConstants.getNoteXOffset(i) + RenderConstants.noteXSpacing - xTraveled;
-            for (Note note : flashcard){
-                int lineNumber = note.getLineNumber();
+            for (NoteDrawable note : flashcard){
                 boolean drawNoteName = noteNameMode.isEnabled(i);
-                note.draw(graphics2D, noteImages, flashcard,  noteX, staffMode.getLedgerLines(lineNumber), drawNoteName);
+                note.draw(graphics2D, noteImages, flashcard,  noteX, staffMode, drawNoteName);
             }
             i++;
         }

@@ -1,14 +1,15 @@
 package music;
 
 import imageprocessing.StaffImage;
+import statemodels.NoteDrawable;
+import uicomponents.renderer.grandstaff.StaffModeEvaluator;
 import uicomponents.renderer.records.NoteImages;
 import uicomponents.renderer.records.RenderConstants;
 import utility.NoteSet;
 
 import java.awt.*;
-import java.util.Set;
 
-public class Note implements Comparable<Note> {
+public class Note implements NoteDrawable, Comparable<Note> {
 
     private final NoteName noteName;
     private final int octave;
@@ -27,13 +28,13 @@ public class Note implements Comparable<Note> {
 
     }
 
-    public Note (int lineNumber){
+    /*public Note (int lineNumber){
         int notePosition = (RenderConstants.numberOfLines - 1) - lineNumber + 5;
 
         this.noteName = NoteName.values()[notePosition % 7];
         this.octave = notePosition / 7;
         this.accidental = NoteAccidental.NATURAL;
-    }
+    }*/
 
     public int getMidiNumber(){
         int midiSum = 12 + (octave * 12);
@@ -53,12 +54,21 @@ public class Note implements Comparable<Note> {
         return midiSum;
     }
 
-    public int getLineNumber(){
-        return (RenderConstants.numberOfLines - 1) - (noteValue() - 5);
+    public Line getCenterLine(){
+        return new Line((RenderConstants.numberOfLines - 1) - (getNoteValue() - 5));
     }
 
-    public boolean noteHeadEquals(Note note){
-        return this.noteName == note.noteName && this.octave == note.octave;
+    public Note generateRandom(Note otherNote){
+        int max = Math.max(getNoteValue(), otherNote.getNoteValue());
+        int min = Math.min(getNoteValue(), otherNote.getNoteValue());
+        int randomLine = (int) Math.floor(Math.random()*(max-min+1) + min);
+        NoteName noteName = NoteName.values()[randomLine % 7];
+        int octave = randomLine / 7;
+        return new Note(noteName, octave);
+    }
+
+    protected int getNoteValue(){
+        return octave * 7 + noteName.getPosition();
     }
 
     public Note getNext(NoteAccidental noteAccidental) {
@@ -89,19 +99,14 @@ public class Note implements Comparable<Note> {
         return new Note(newNoteName, newOctave, noteAccidental);
     }
 
-    public int noteValue(){
-        return octave * 7 + noteName.getPosition();
-    }
-
-    public void draw(Graphics2D graphics2D, NoteImages noteImages, NoteSet notes, int xPos, Set<Integer> ledgerLines, boolean drawName) {
-
-        int lineNumber = getLineNumber();
+    public void draw(Graphics2D graphics2D, NoteImages noteImages, NoteSet notes, int xPos, StaffModeEvaluator staffMode, boolean drawName) {
         StaffImage noteImage = noteImages.noteImage;
         StaffImage sharpImage = noteImages.sharpImage;
 
         int noteWidth = noteImage.getWidth();
         int noteHeight = noteImage.getHeight();
-        int noteY = RenderConstants.getLineYOffset(lineNumber) - (noteHeight / 2);
+        Line centerLine = getCenterLine();
+        int noteY = centerLine.getYOffset() - (noteHeight / 2);
 
         if (accidental == NoteAccidental.SHARP) {
             int sharpXPos = xPos - (int) (sharpImage.getWidth() * 1.3);
@@ -109,14 +114,8 @@ public class Note implements Comparable<Note> {
             sharpImage.draw(graphics2D, sharpXPos, sharpYPos);
             }
 
-        int lineThickness = RenderConstants.ledgerLineThickness;
-        graphics2D.setStroke(new BasicStroke(lineThickness));
-
-        for (int ledgerLineNumber : ledgerLines) {
-            int helperLineYPos = RenderConstants.getLineYOffset(ledgerLineNumber);
-            int lineXPosStart = xPos - 2;
-            int lineXPosEnd = lineXPosStart + noteWidth + 2;
-            graphics2D.drawLine(lineXPosStart, helperLineYPos, lineXPosEnd, helperLineYPos);
+        for (LineDrawable ledgerLine : centerLine.getLedgerLines(staffMode, xPos, noteWidth)) {
+            ledgerLine.draw(graphics2D);
         }
 
         if (isSqueezed(notes)) {
@@ -127,13 +126,12 @@ public class Note implements Comparable<Note> {
 
         if(drawName){
             graphics2D.setFont(new Font("Dialog", Font.BOLD, RenderConstants.nameFontSize));
-            int nameY = RenderConstants.getLineYOffset(lineNumber) - 2;
-            if ((lineNumber % 2) == 1)
+            int nameY = centerLine.getYOffset() - 2;
+            if (!centerLine.isEven())
             nameY += noteHeight / 2;
             graphics2D.drawString(noteName.toString(), xPos + noteWidth, nameY);
         }
     }
-
 
     protected boolean isSqueezed(NoteSet notes){
         Note adjacentNote = getPrevious(NoteAccidental.NATURAL);
@@ -145,9 +143,13 @@ public class Note implements Comparable<Note> {
         return false;
     }
 
+    protected boolean noteHeadEquals(Note note){
+        return this.noteName == note.noteName && this.octave == note.octave;
+    }
+
     @Override
     public int compareTo(Note o) {
-        return noteValue() - o.noteValue();
+        return getNoteValue() - o.getNoteValue();
     }
 
     @Override

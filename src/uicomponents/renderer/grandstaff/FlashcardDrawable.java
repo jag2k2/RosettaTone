@@ -5,6 +5,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public interface FlashcardDrawable extends Runnable {
-    void draw(Graphics2D graphics2D, NoteImages noteImages, StaffModeDrawable staffMode, NoteNameDrawable noteNameMode);
+    void draw(Graphics2D graphics2D, NoteImages noteImages, StaffModeEvaluator staffMode, NoteNameDrawable noteNameMode);
     void setScrollableComponent(JComponent flashcardDisplay);
 }

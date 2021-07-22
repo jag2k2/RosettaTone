@@ -83,11 +83,4 @@ class LimitStateTest implements LimitChangeObserver {
         assertEquals(modelToCompare, noteLimit);
         assertTrue(notificationFired);
     }
-
-    @Test
-    void canGetLineNumber(){
-        assertEquals(28, noteLimit.getLineNumber());
-        noteLimit.setLimit(new Note(NoteName.B, 2));
-        assertEquals(36, noteLimit.getLineNumber());
-    }
 }

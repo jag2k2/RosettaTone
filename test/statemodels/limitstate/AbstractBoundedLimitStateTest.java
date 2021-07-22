@@ -1,7 +1,7 @@
 package statemodels.limitstate;
 
 import music.Note;
-import collections.NoteSetImp;
+import tuples.NoteSetImp;
 import music.NoteName;
 import notification.LimitChangeNotifierImp;
 import notification.LimitChangeObserver;
@@ -18,9 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AbstractBoundedLimitStateTest implements LimitChangeObserver {
 
     private LowerBoundedLimitStateImp boundedNoteLimit;
-    private LimitChangeNotifier limitChangeNotifier;
-    private LimitChangeNotifier otherLimitChangeNotifier;
-    private LimitChangeNotifier boundChangeNotifier;
 
     private LimitModifier otherLimit;
 
@@ -38,9 +35,9 @@ public class AbstractBoundedLimitStateTest implements LimitChangeObserver {
 
     @BeforeEach
     void setup(){
-        limitChangeNotifier = new LimitChangeNotifierImp();
-        otherLimitChangeNotifier = new LimitChangeNotifierImp();
-        boundChangeNotifier = new LimitChangeNotifierImp();
+        LimitChangeNotifier limitChangeNotifier = new LimitChangeNotifierImp();
+        LimitChangeNotifier otherLimitChangeNotifier = new LimitChangeNotifierImp();
+        LimitChangeNotifier boundChangeNotifier = new LimitChangeNotifierImp();
         LimitStateImp noteLimit = new LimitStateImp(lowerLimit);
         noteLimit.addLimitChangeNotifier(limitChangeNotifier);
         otherLimit = new LimitStateImp(otherLimitNote);

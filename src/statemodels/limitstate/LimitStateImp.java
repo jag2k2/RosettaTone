@@ -1,16 +1,17 @@
 package statemodels.limitstate;
 
+import music.Line;
+import trainer.randomnotegenerator.BoundedNoteGenerator;
 import uicomponents.renderer.limit.LimitDrawable;
 import music.Note;
 import music.NoteAccidental;
-import trainer.randomnotegenerator.LineNumerable;
 import uicomponents.rangeselector.noteselector.LimitModifier;
 import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
 
 import java.awt.*;
 
-public class LimitStateImp implements LimitModifier, LineNumerable, LimitDrawable {
+public class LimitStateImp implements LimitModifier, LimitDrawable, BoundedNoteGenerator {
     private Note limit;
     private Maybe<LimitChangeNotifier> limitChangeNotifier = new Maybe<>();
 
@@ -48,21 +49,22 @@ public class LimitStateImp implements LimitModifier, LineNumerable, LimitDrawabl
     }
 
     @Override
-    public int getLineNumber() {
-        return limit.getLineNumber();
+    public Note generateRandomNote(BoundedNoteGenerator upperLimit) {
+        LimitStateImp otherLimit = (LimitStateImp) upperLimit;
+        return limit.generateRandom(otherLimit.limit);
     }
 
     @Override
     public void draw(Graphics2D graphics2D) {
-        int lineNumber = limit.getLineNumber();
+        Line line = limit.getCenterLine();
         int circleXPos = RenderConstants.limitRenderXOffset;
         int circleDiameter = RenderConstants.limitDotDiameter;
-        int circleYPos = RenderConstants.getLineYOffset(lineNumber) - (circleDiameter/2);
+        int circleYPos = line.getYOffset() - (circleDiameter/2);
         graphics2D.setColor(Color.BLACK);
         graphics2D.fillOval(circleXPos, circleYPos, circleDiameter, circleDiameter);
 
         int fontXPos = 20;
-        int fontYPos = RenderConstants.getLineYOffset(lineNumber) + (circleDiameter/2) - 2;
+        int fontYPos = line.getYOffset() + (circleDiameter/2) - 2;
 
         graphics2D.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         graphics2D.drawString(limit.toString(), fontXPos, fontYPos);
@@ -86,7 +88,7 @@ public class LimitStateImp implements LimitModifier, LineNumerable, LimitDrawabl
 
     protected Point getPosition() {
         int x = RenderConstants.limitRenderXOffset + (RenderConstants.limitDotDiameter / 2);
-        int y = RenderConstants.getLineYOffset(getLineNumber());
+        int y = limit.getCenterLine().getYOffset();
         return new Point(x,y);
     }
 

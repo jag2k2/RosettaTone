@@ -7,7 +7,7 @@ import instrument.*;
 import music.*;
 import notification.*;
 import statemodels.*;
-import trainer.randomnotegenerator.RandomNoteGeneratorImp;
+import trainer.randomnotegenerator.NoteGeneratorImp;
 import statemodels.limitstate.LowerBoundedLimitStateImp;
 import statemodels.limitstate.LimitStateImp;
 import statemodels.limitstate.UpperBoundedLimitStateImp;
@@ -29,7 +29,6 @@ public class MainGUI {
     private final JFrame frame;
 
     public MainGUI() {
-        this.frame = new JFrame();
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         //Notifiers
@@ -85,8 +84,8 @@ public class MainGUI {
         KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(keyboardStateImp);
 
         //Trainer
-        RandomNoteGeneratorImp randomNoteGeneratorImp = new RandomNoteGeneratorImp(lowerLimitImp, upperLimitImp);
-        FlashcardsImp flashcardsImp = new FlashcardsImp(randomNoteGeneratorImp);
+        NoteGeneratorImp noteGeneratorImp = new NoteGeneratorImp(lowerLimitImp, upperLimitImp);
+        FlashcardsImp flashcardsImp = new FlashcardsImp(noteGeneratorImp);
         flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifierImp);
         SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(keyboardStateImp, flashcardsImp, noteNameModeStateImp, scoreImp);
         sightReadTrainerImp.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifierImp);
@@ -157,6 +156,8 @@ public class MainGUI {
         mainPanel.add(BorderLayout.WEST, configPanel);
         mainPanel.add(BorderLayout.CENTER, staffPanel);
         mainPanel.add(BorderLayout.SOUTH, noteTextRenderer.getComponent());
+
+        this.frame = new JFrame();
         frame.setTitle("Rosetta Tone");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(mainPanel);

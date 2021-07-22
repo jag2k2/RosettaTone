@@ -3,7 +3,7 @@ package statemodels;
 import instrument.Key;
 import music.Note;
 import music.NoteAccidental;
-import collections.NoteSetImp;
+import tuples.NoteSetImp;
 import music.NoteName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -49,8 +49,8 @@ public class Line implements Comparable<Line>{
         return RenderConstants.topMargin + RenderConstants.lineSpacing * lineNumber;
     }
 
-    public LineSet<LedgerLine> getLedgerLines(StaffModeEvaluator staffMode, int xPos, int noteWidth) {
-        LineSet<LedgerLine> helperLines = new LineSetImp<>();
+    public LineSet getLedgerLines(StaffModeEvaluator staffMode, int xPos, int noteWidth) {
+        LineSet helperLines = new LineSetImp();
         int closestVisibleLine = getClosestVisibleLine(staffMode);
         if (isAboveVisible(staffMode)){
             for (int i = lineNumber; i < closestVisibleLine; i++){

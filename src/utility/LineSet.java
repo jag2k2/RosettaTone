@@ -1,7 +1,10 @@
 package utility;
 
-import music.line.Line;
+import music.LineDrawable;
 
-public interface LineSet<T extends Line> extends Iterable<T>{
-    void add(T line);
+import java.awt.*;
+
+public interface LineSet {
+    void add(LineDrawable line);
+    void draw(Graphics2D graphics2D);
 }

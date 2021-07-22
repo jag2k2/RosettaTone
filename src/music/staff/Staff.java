@@ -24,13 +24,12 @@ public class Staff implements StaffDrawable {
         int clefImageYPos = RenderConstants.topMargin + (RenderConstants.lineSpacing * staffConstants.clefLineOffset) + staffConstants.clefFineTuneYOffset;
         clefImage.draw(graphics2D, clefImageXPos, clefImageYPos);
 
-        for (LineDrawable visibleLine : getVisibleLines()) {
-            visibleLine.draw(graphics2D);
-        }
+        LineSet visibleLines = getVisibleLines();
+        visibleLines.draw(graphics2D);
     }
 
-    protected LineSet<StaffLine> getVisibleLines(){
-        LineSet<StaffLine> visibleLines = new LineSetImp<>();
+    protected LineSet getVisibleLines(){
+        LineSet visibleLines = new LineSetImp();
         for (int i = staffConstants.topVisibleLine; i <= staffConstants.bottomVisibleLine; i++){
             if ((i % 2) == 0){
                 visibleLines.add(new StaffLine(i));

@@ -1,12 +1,12 @@
 package music.note;
 
 import imageprocessing.StaffImage;
-import music.LineDrawable;
 import music.line.Line;
 import statemodels.NoteDrawable;
 import uicomponents.renderer.grandstaff.StaffModeEvaluator;
 import uicomponents.renderer.records.NoteImages;
 import uicomponents.renderer.records.RenderConstants;
+import utility.LineSet;
 import utility.NoteSet;
 
 import java.awt.*;
@@ -29,14 +29,6 @@ public class Note implements NoteDrawable, Comparable<Note> {
         this.accidental = noteAccidental;
 
     }
-
-    /*public Note (int lineNumber){
-        int notePosition = (RenderConstants.numberOfLines - 1) - lineNumber + 5;
-
-        this.noteName = NoteName.values()[notePosition % 7];
-        this.octave = notePosition / 7;
-        this.accidental = NoteAccidental.NATURAL;
-    }*/
 
     public int getMidiNumber(){
         int midiSum = 12 + (octave * 12);
@@ -114,11 +106,10 @@ public class Note implements NoteDrawable, Comparable<Note> {
             int sharpXPos = xPos - (int) (sharpImage.getWidth() * 1.3);
             int sharpYPos = noteY - (sharpImage.getHeight() / 3);
             sharpImage.draw(graphics2D, sharpXPos, sharpYPos);
-            }
-
-        for (LineDrawable ledgerLine : centerLine.getLedgerLines(staffMode, xPos, noteWidth)) {
-            ledgerLine.draw(graphics2D);
         }
+
+        LineSet ledgerLines =  centerLine.getLedgerLines(staffMode, xPos, noteWidth);
+        ledgerLines.draw(graphics2D);
 
         if (isSqueezed(notes)) {
             xPos += noteWidth;

@@ -1,20 +1,20 @@
 package tuples;
 
-import music.line.Line;
+import music.line.LedgerLine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LineSetImpTest {
-    private LineSetImp<Line> lineSet;
+    private LineSetImp lineSet;
 
     @BeforeEach
     void setup(){
-        lineSet = new LineSetImp<>();
-        lineSet.add(new Line(20));
-        lineSet.add(new Line(21));
-        lineSet.add(new Line(25));
+        lineSet = new LineSetImp();
+        lineSet.add(new LedgerLine(20, 0 ,0));
+        lineSet.add(new LedgerLine(21, 0, 0));
+        lineSet.add(new LedgerLine(25, 0, 0));
     }
 
     @Test
@@ -24,10 +24,10 @@ class LineSetImpTest {
 
     @Test
     void canCheckEquality() {
-        LineSetImp<Line> expected = new LineSetImp<>();
-        expected.add(new Line(20));
-        expected.add(new Line(21));
-        expected.add(new Line(25));
+        LineSetImp expected = new LineSetImp();
+        expected.add(new LedgerLine(20, 0 ,0));
+        expected.add(new LedgerLine(21, 0, 0));
+        expected.add(new LedgerLine(25, 0, 0));
 
         assertEquals(expected, lineSet);
     }

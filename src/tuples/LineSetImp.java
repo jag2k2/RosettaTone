@@ -1,31 +1,35 @@
 package tuples;
 
-import music.line.Line;
+import music.LineDrawable;
 import utility.LineSet;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
-public class LineSetImp<T extends Line> implements LineSet<T>{
-    private final Set<T> lines;
+public class LineSetImp implements LineSet{
+    private final Set<LineDrawable> lines;
 
     public LineSetImp() {
         this.lines = new HashSet<>();
     }
 
     @Override
-    public void add(T line) {
+    public void add(LineDrawable line) {
         lines.add(line);
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return lines.iterator();
+    public void draw(Graphics2D graphics2D) {
+        for (LineDrawable line : lines){
+            line.draw(graphics2D);
+        }
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof LineSetImp<?>){
-            LineSetImp<?> compareTo = (LineSetImp<?>) obj;
+        if (obj instanceof LineSetImp){
+            LineSetImp compareTo = (LineSetImp) obj;
             return lines.equals(compareTo.lines);
         }
         return false;
@@ -33,10 +37,10 @@ public class LineSetImp<T extends Line> implements LineSet<T>{
 
     @Override
     public String toString() {
-        List<T> lineList = new ArrayList<>(lines);
-        Collections.sort(lineList);
+        //List<LineDrawable> lineList = new ArrayList<>(lines);
+        //Collections.sort(lineList);
         StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
-        for (T line : lineList){
+        for (LineDrawable line : lines){
             stringJoiner.add(line.toString());
         }
         return stringJoiner.toString();

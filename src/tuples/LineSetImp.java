@@ -1,6 +1,6 @@
 package tuples;
 
-import music.Line;
+import music.line.Line;
 import utility.LineSet;
 
 import java.util.*;

@@ -1,4 +1,4 @@
-package music;
+package music.line;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,32 +27,6 @@ class LineTest {
         Line line = new Line(22);
         Line expected = new Line(22);
         assertEquals(expected, line);
-    }
-
-    @Test
-    void isLineAboveVisible() {
-        staffMode.setMode(StaffMode.Grand);
-        Line line = new Line(22);
-        assertFalse(line.isAboveVisible(staffMode));
-
-        staffMode.setMode(StaffMode.Treble);
-        assertFalse(line.isAboveVisible(staffMode));
-
-        staffMode.setMode(StaffMode.Bass);
-        assertTrue(line.isAboveVisible(staffMode));
-    }
-
-    @Test
-    void isLineBelowVisible() {
-        staffMode.setMode(StaffMode.Grand);
-        Line line = new Line(34);
-        assertFalse(line.isBelowVisible(staffMode));
-
-        staffMode.setMode(StaffMode.Treble);
-        assertTrue(line.isBelowVisible(staffMode));
-
-        staffMode.setMode(StaffMode.Bass);
-        assertFalse(line.isBelowVisible(staffMode));
     }
 
     @Test

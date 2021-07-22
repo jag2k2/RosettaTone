@@ -1,5 +1,7 @@
-package music;
+package music.staff;
 
+import music.line.StaffLine;
+import music.LineDrawable;
 import tuples.LineSetImp;
 import imageprocessing.StaffImage;
 import uicomponents.renderer.grandstaff.StaffDrawable;

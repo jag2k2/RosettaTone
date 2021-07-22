@@ -1,6 +1,6 @@
 package trainer.randomnotegenerator;
 
-import music.Note;
+import music.note.Note;
 import statemodels.RandomNoteGenerator;
 
 public class NoteGeneratorImp implements RandomNoteGenerator {

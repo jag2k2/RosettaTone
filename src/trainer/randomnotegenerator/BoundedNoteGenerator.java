@@ -1,6 +1,6 @@
 package trainer.randomnotegenerator;
 
-import music.Note;
+import music.note.Note;
 
 public interface BoundedNoteGenerator {
     Note generateRandomNote(BoundedNoteGenerator upperLimit);

@@ -1,8 +1,8 @@
 package tuples;
 
-import music.Note;
-import music.NoteAccidental;
-import music.NoteName;
+import music.note.Note;
+import music.note.NoteAccidental;
+import music.note.NoteName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utility.NoteSet;

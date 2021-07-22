@@ -1,4 +1,4 @@
-package music;
+package music.line;
 
 import tuples.LineSetImp;
 import uicomponents.renderer.grandstaff.StaffModeEvaluator;

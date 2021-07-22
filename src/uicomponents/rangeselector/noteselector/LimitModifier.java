@@ -1,6 +1,6 @@
 package uicomponents.rangeselector.noteselector;
 
-import music.Note;
+import music.note.Note;
 
 public interface LimitModifier extends Comparable<Note> {
     void setLimit(Note note);

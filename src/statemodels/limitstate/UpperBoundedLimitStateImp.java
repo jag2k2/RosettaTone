@@ -1,6 +1,6 @@
 package statemodels.limitstate;
 
-import music.Note;
+import music.note.Note;
 import uicomponents.rangeselector.noteselector.LimitModifier;
 
 public class UpperBoundedLimitStateImp extends AbstractBoundedLimitState {

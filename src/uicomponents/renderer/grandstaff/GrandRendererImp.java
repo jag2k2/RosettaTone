@@ -1,7 +1,7 @@
 package uicomponents.renderer.grandstaff;
 
 import imageprocessing.ImageFactory;
-import music.Staff;
+import music.staff.Staff;
 import notification.*;
 import uicomponents.UIComponent;
 import uicomponents.renderer.records.ClefImages;

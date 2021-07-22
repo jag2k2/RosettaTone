@@ -1,7 +1,7 @@
 package statemodels;
 
 import tuples.NoteSetImp;
-import music.Note;
+import music.note.Note;
 import uicomponents.renderer.grandstaff.StaffModeEvaluator;
 import notification.LimitChangeObserver;
 import trainer.FlashcardChangeNotifier;

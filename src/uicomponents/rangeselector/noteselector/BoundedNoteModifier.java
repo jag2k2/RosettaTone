@@ -1,6 +1,6 @@
 package uicomponents.rangeselector.noteselector;
 
-import music.Note;
+import music.note.Note;
 
 import javax.swing.*;
 

@@ -1,8 +1,8 @@
 package instrument;
 
-import music.Note;
-import music.NoteAccidental;
-import music.NoteName;
+import music.note.Note;
+import music.note.NoteAccidental;
+import music.note.NoteName;
 
 public class Key {
     private final int midiNumber;

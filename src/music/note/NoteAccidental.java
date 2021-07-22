@@ -1,4 +1,4 @@
-package music;
+package music.note;
 
 public enum NoteAccidental {
     NATURAL, SHARP, FLAT;

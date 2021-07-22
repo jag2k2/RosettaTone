@@ -1,9 +1,10 @@
-package music;
+package music.line;
 
+import music.LineDrawable;
 import uicomponents.renderer.records.RenderConstants;
 import java.awt.*;
 
-public class StaffLine extends Line implements LineDrawable{
+public class StaffLine extends Line implements LineDrawable {
     private final int xStart;
     private final int xEnd;
 

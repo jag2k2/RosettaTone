@@ -1,7 +1,7 @@
 package statemodels.limitstate;
 
-import music.Note;
-import music.NoteAccidental;
+import music.note.Note;
+import music.note.NoteAccidental;
 import notification.LimitChangeObserver;
 import uicomponents.rangeselector.noteselector.LimitModifier;
 import uicomponents.rangeselector.noteselector.BoundedNoteModifier;

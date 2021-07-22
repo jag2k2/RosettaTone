@@ -1,10 +1,10 @@
 package statemodels;
 
 import instrument.Key;
-import music.Note;
-import music.NoteAccidental;
+import music.note.Note;
+import music.note.NoteAccidental;
 import tuples.NoteSetImp;
-import music.NoteName;
+import music.note.NoteName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utility.NoteSet;

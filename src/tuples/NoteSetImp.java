@@ -1,6 +1,6 @@
 package tuples;
 
-import music.Note;
+import music.note.Note;
 import utility.NoteSet;
 
 import java.util.*;

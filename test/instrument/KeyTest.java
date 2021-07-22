@@ -1,7 +1,6 @@
 package instrument;
 
-import music.NoteAccidental;
-import music.NoteName;
+import music.note.NoteAccidental;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

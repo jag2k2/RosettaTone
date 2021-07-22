@@ -1,10 +1,10 @@
 package statemodels.limitstate;
 
-import music.Line;
+import music.line.Line;
 import trainer.randomnotegenerator.BoundedNoteGenerator;
 import uicomponents.renderer.limit.LimitDrawable;
-import music.Note;
-import music.NoteAccidental;
+import music.note.Note;
+import music.note.NoteAccidental;
 import uicomponents.rangeselector.noteselector.LimitModifier;
 import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;

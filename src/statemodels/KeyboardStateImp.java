@@ -3,7 +3,7 @@ package statemodels;
 import tuples.NoteSetImp;
 import instrument.Key;
 import instrument.KeyStateManipulator;
-import music.Note;
+import music.note.Note;
 import uicomponents.renderer.grandstaff.StaffModeEvaluator;
 import trainer.KeyStateEvaluator;
 import uicomponents.renderer.grandstaff.KeyStateDrawable;

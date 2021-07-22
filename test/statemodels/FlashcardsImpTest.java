@@ -1,8 +1,8 @@
 package statemodels;
 
 import tuples.NoteSetImp;
-import music.Note;
-import music.NoteName;
+import music.note.Note;
+import music.note.NoteName;
 import notification.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

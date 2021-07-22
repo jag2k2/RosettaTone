@@ -1,7 +1,7 @@
 package trainer.randomnotegenerator;
 
-import music.Note;
-import music.NoteName;
+import music.note.Note;
+import music.note.NoteName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import statemodels.limitstate.LimitStateImp;

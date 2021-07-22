@@ -4,7 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 import instrument.*;
-import music.*;
+import music.note.Note;
+import music.note.NoteName;
 import notification.*;
 import statemodels.*;
 import trainer.randomnotegenerator.NoteGeneratorImp;

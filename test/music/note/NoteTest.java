@@ -1,5 +1,6 @@
-package music;
+package music.note;
 
+import music.line.Line;
 import tuples.NoteSetImp;
 import instrument.Key;
 import static org.junit.jupiter.api.Assertions.*;

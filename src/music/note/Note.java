@@ -1,6 +1,8 @@
-package music;
+package music.note;
 
 import imageprocessing.StaffImage;
+import music.LineDrawable;
+import music.line.Line;
 import statemodels.NoteDrawable;
 import uicomponents.renderer.grandstaff.StaffModeEvaluator;
 import uicomponents.renderer.records.NoteImages;

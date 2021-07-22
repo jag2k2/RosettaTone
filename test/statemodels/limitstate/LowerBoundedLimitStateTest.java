@@ -1,7 +1,7 @@
 package statemodels.limitstate;
 
-import music.Note;
-import music.NoteName;
+import music.note.Note;
+import music.note.NoteName;
 import notification.LimitChangeNotifierImp;
 import notification.LimitChangeObserver;
 

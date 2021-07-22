@@ -1,4 +1,6 @@
-package music;
+package music.line;
+
+import music.LineDrawable;
 
 import java.awt.*;
 

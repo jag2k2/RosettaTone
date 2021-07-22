@@ -1,6 +1,6 @@
 package statemodels;
 
-import music.Note;
+import music.note.Note;
 
 public interface RandomNoteGenerator {
     Note generateSingleNote();

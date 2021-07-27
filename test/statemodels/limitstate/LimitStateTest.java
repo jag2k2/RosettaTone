@@ -53,7 +53,7 @@ class LimitStateTest implements LimitChangeObserver {
 
     @Test
     void canDisplayAsString(){
-        String compareString = "active: C4";
+        String compareString = "C4";
         assertEquals(compareString, noteLimit.toString());
     }
 

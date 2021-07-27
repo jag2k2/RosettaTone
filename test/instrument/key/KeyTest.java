@@ -1,6 +1,8 @@
-package instrument;
+package instrument.key;
 
+import instrument.key.Key;
 import music.note.NoteAccidental;
+import music.note.NoteName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,10 +33,10 @@ class KeyTest {
 
     @Test
     void getNaturalIndexes() {
-        assertEquals(0, keyC4.getNaturalIndex());
-        assertEquals(1, keyDSharp2.getNaturalIndex());
-        assertEquals(4, keyGSharp5.getNaturalIndex());
-        assertEquals(5, keyA4.getNaturalIndex());
+        assertEquals(NoteName.C, keyC4.getNoteName());
+        assertEquals(NoteName.D, keyDSharp2.getNoteName());
+        assertEquals(NoteName.G, keyGSharp5.getNoteName());
+        assertEquals(NoteName.A, keyA4.getNoteName());
     }
 
     @Test

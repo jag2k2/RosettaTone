@@ -1,5 +1,7 @@
 package instrument;
 
+import instrument.key.Key;
+
 import javax.sound.midi.*;
 
 public class KeyNoteReceiverImp implements Receiver {

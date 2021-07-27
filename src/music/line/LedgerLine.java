@@ -9,8 +9,8 @@ public class LedgerLine implements LineDrawable {
     private final int xStart;
     private final int xEnd;
 
-    public LedgerLine(int lineNumber, int noteXPos, int noteWidth) {
-        this.line = new Line(lineNumber);
+    public LedgerLine(Line line, int noteXPos, int noteWidth) {
+        this.line = line;
         this.xStart = noteXPos - 2;
         this.xEnd = noteXPos + noteWidth + 2;
     }

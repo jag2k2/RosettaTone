@@ -1,36 +1,36 @@
-package instrument;
+package instrument.key;
 
-import music.note.Note;
 import music.note.NoteAccidental;
+import music.note.NoteDescribable;
 import music.note.NoteName;
 
-public class Key {
+public class Key implements NoteDescribable {
     private final int midiNumber;
 
     public Key(int midiNumber){
         this.midiNumber = midiNumber;
     }
 
-    public Key(Note note){
+    public Key(MidiEnumerable note){
         this.midiNumber = note.getMidiNumber();
-    }
-
-    public Note convertToNote(){
-        return new Note(NoteName.values()[getNaturalIndex()], getOctave(), getAccidental());
     }
 
     public int getOctave(){
         return (midiNumber / 12) - 1;
     }
 
-    public int getNaturalIndex(){
-       if (isCDorE())
-           return getOctavePosition() / 2;
-       else
-           return (1 + getOctavePosition()) / 2;
+    public NoteName getNoteName(){
+       if (isCDorE()) {
+           int naturalPosition = getOctavePosition() / 2;
+           return NoteName.values()[naturalPosition];
+       }
+       else {
+           int naturalPosition = (1 + getOctavePosition()) / 2;
+           return NoteName.values()[naturalPosition];
+       }
     }
 
-    protected NoteAccidental getAccidental(){
+    public NoteAccidental getAccidental(){
         if (isCDorE())
             if (getOctavePosition() % 2 == 1)
                 return NoteAccidental.SHARP;

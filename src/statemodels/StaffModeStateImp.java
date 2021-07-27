@@ -6,11 +6,17 @@ import uicomponents.staffmode.StaffModeModifier;
 import utility.Maybe;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
-public class StaffModeStateImp implements StaffModeModifier, StaffModeEvaluator {
+public class StaffModeStateImp implements StaffModeModifier, StaffModeEvaluator, ActionListener {
     private Maybe<ConfigChangeNotifier> staffModeChangeNotifier = new Maybe<>();
     private StaffMode staffMode;
+
+    public StaffModeStateImp(){
+        this.staffMode = StaffMode.Treble;
+    }
 
     public StaffModeStateImp(StaffMode staffMode){
         this.staffMode = staffMode;
@@ -36,8 +42,15 @@ public class StaffModeStateImp implements StaffModeModifier, StaffModeEvaluator 
     }
 
     @Override
-    public void setUISelected(JComboBox<StaffMode> comboBox) {
-        comboBox.setSelectedItem(staffMode);
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() instanceof JComboBox<?>){
+            JComboBox<?> comboBox = (JComboBox<?>) e.getSource();
+            Object selected = comboBox.getSelectedItem();
+            if (selected instanceof StaffMode){
+                StaffMode selectedStaffMode = (StaffMode) selected;
+                setMode(selectedStaffMode);
+            }
+        }
     }
 
     @Override

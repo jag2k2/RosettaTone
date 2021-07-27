@@ -1,10 +1,16 @@
 package music.note;
 
+import music.line.LedgerLine;
 import music.line.Line;
+import statemodels.StaffModeStateImp;
+import tuples.LineSetImp;
 import tuples.NoteSetImp;
-import instrument.Key;
+import instrument.key.Key;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
+import uicomponents.renderer.grandstaff.StaffModeEvaluator;
+import uicomponents.staffmode.StaffMode;
+import utility.LineSet;
 import utility.NoteSet;
 
 class NoteTest {
@@ -36,13 +42,13 @@ class NoteTest {
         noteD5 = new Note(NoteName.D, 5);
 
         Key key48 = new Key(48);
-        noteC3 = key48.convertToNote();
+        noteC3 = new Note(key48);
     }
 
     @Test
     void canConstructFromKey(){
         Key key60 = new Key(60);
-        noteCompare = key60.convertToNote();
+        noteCompare = new Note(key60);
         assertEquals(noteCompare, noteC4);
     }
 
@@ -70,7 +76,7 @@ class NoteTest {
 
     @Test
     void getLineNumber() {
-        assertEquals(new Line(28), noteC4.getCenterLine());
+        assertEquals(new Line(28), new Line(noteC4));
     }
 
     @Test
@@ -136,5 +142,53 @@ class NoteTest {
         assertFalse(noteE4.isSqueezed(notes));
         assertTrue(noteF4.isSqueezed(notes));
         assertFalse(noteA4.isSqueezed(notes));
+    }
+
+    @Test
+    void canGenerateLedgerLinesToTopVisible(){
+        StaffModeEvaluator staffMode = new StaffModeStateImp(StaffMode.Bass);
+        LineSet ledgerLines = noteC5.getLedgerLines(staffMode, 0, 0);
+        LineSet expected = new LineSetImp();
+        expected.add(new LedgerLine(new Line(22), 0, 0));
+        expected.add(new LedgerLine(new Line(24), 0, 0));
+        expected.add(new LedgerLine(new Line(26), 0, 0));
+        expected.add(new LedgerLine(new Line(28), 0, 0));
+        assertEquals(expected, ledgerLines);
+
+        staffMode = new StaffModeStateImp(StaffMode.Treble);
+        ledgerLines = noteC5.getLedgerLines(staffMode, 0, 0);
+        expected = new LineSetImp();
+        assertEquals(expected, ledgerLines);
+
+        staffMode = new StaffModeStateImp(StaffMode.Grand);
+        ledgerLines = noteC5.getLedgerLines(staffMode, 0, 0);
+        expected = new LineSetImp();
+        assertEquals(expected, ledgerLines);
+    }
+
+    @Test
+    void canGenerateLedgerLinesToBottomVisible(){
+        StaffModeEvaluator staffMode = new StaffModeStateImp(StaffMode.Treble);
+        LineSet ledgerLines = noteB3.getLedgerLines(staffMode, 0, 0);
+        LineSet expected = new LineSetImp();
+        expected.add(new LedgerLine(new Line(28), 0, 0));
+        assertEquals(expected, ledgerLines);
+
+        staffMode = new StaffModeStateImp(StaffMode.Bass);
+        ledgerLines = noteB3.getLedgerLines(staffMode, 0, 0);
+        expected = new LineSetImp();
+        assertEquals(expected, ledgerLines);
+
+        staffMode = new StaffModeStateImp(StaffMode.Grand);
+        ledgerLines = noteB3.getLedgerLines(staffMode, 0, 0);
+        expected = new LineSetImp();
+        assertEquals(expected, ledgerLines);
+    }
+
+    @Test
+    void canGetStaffPlacement(){
+        assertEquals(27, noteB3.getOctavePlusPosition());
+        assertEquals(28, noteC4.getOctavePlusPosition());
+        assertEquals(36, noteD5.getOctavePlusPosition());
     }
 }

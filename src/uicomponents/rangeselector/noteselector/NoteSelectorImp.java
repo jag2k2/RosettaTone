@@ -16,14 +16,14 @@ import java.util.Objects;
 public class NoteSelectorImp implements UIComponent, ActionListener, PopupMenuListener, LimitChangeObserver {
     private static final String upButtonName = "upButton";
     private static final String downButtonName = "downButton";
-    private final BoundedNoteModifier boundedNoteModel;
+    private final BoundedNoteModifier boundedNoteLimit;
     private final LimitModifier previewLimit;
     private final JComboBox<Note> noteComboBox;
     private JButton upButton;
     private JButton downButton;
 
-    public NoteSelectorImp(BoundedNoteModifier boundedNoteModel, NoteListRenderer noteListRenderer, LimitModifier previewLimit){
-        this.boundedNoteModel = boundedNoteModel;
+    public NoteSelectorImp(BoundedNoteModifier boundedNoteLimit, NoteListRenderer noteListRenderer, LimitModifier previewLimit){
+        this.boundedNoteLimit = boundedNoteLimit;
         this.previewLimit = previewLimit;
         this.noteComboBox = new JComboBox<>();
         this.noteComboBox.setRenderer(noteListRenderer);
@@ -59,13 +59,13 @@ public class NoteSelectorImp implements UIComponent, ActionListener, PopupMenuLi
         panel.add(BorderLayout.NORTH, upButton);
         panel.add(BorderLayout.CENTER, noteComboBox);
         panel.add(BorderLayout.SOUTH, downButton);
-        boundedNoteModel.refreshJComboBoxOptions(noteComboBox);
+        boundedNoteLimit.refreshJComboBoxOptions(noteComboBox);
         return panel;
     }
 
     @Override
     public void limitChanged() {
-        boundedNoteModel.refreshJComboBoxOptions(noteComboBox);
+        boundedNoteLimit.refreshJComboBoxOptions(noteComboBox);
     }
 
     @Override
@@ -73,19 +73,19 @@ public class NoteSelectorImp implements UIComponent, ActionListener, PopupMenuLi
         if (e.getActionCommand().equals("comboBoxChanged")){
             if (noteComboBox.getSelectedIndex() > 0) {
                 Note selectedNote = (Note) noteComboBox.getSelectedItem();
-                boundedNoteModel.setLimit(selectedNote);
+                boundedNoteLimit.setLimit(selectedNote);
             }
         }
         else if (e.getSource() instanceof JButton){
             JButton pushedButton = (JButton) e.getSource();
             if (pushedButton.getName().equals(upButtonName)){
-                boundedNoteModel.increment();
+                boundedNoteLimit.increment();
 
             }
             else if (pushedButton.getName().equals(downButtonName)){
-                boundedNoteModel.decrement();
+                boundedNoteLimit.decrement();
             }
-            previewLimit.setLimit(boundedNoteModel.getLimit());
+            previewLimit.setLimit(boundedNoteLimit.getLimit());
         }
     }
 
@@ -103,7 +103,7 @@ public class NoteSelectorImp implements UIComponent, ActionListener, PopupMenuLi
     public void popupMenuCanceled(PopupMenuEvent e) {
         ComboBoxModel<Note> listModel = noteComboBox.getModel();
         Note selectedNote = listModel.getElementAt(noteComboBox.getSelectedIndex());
-        boundedNoteModel.setLimit(selectedNote);
-        previewLimit.setLimit(boundedNoteModel.getLimit());
+        boundedNoteLimit.setLimit(selectedNote);
+        previewLimit.setLimit(boundedNoteLimit.getLimit());
     }
 }

@@ -1,6 +1,6 @@
 package statemodels;
 
-import instrument.Key;
+import instrument.key.Key;
 import music.note.Note;
 import music.note.NoteAccidental;
 import tuples.NoteSetImp;

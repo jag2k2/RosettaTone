@@ -51,6 +51,7 @@ public class MainGUI {
         Note upperBoundNote = new Note(NoteName.C, 8);
         Note defaultLowerLimitNote = new Note(NoteName.C, 4);
         Note defaultUpperLimitNote = new Note(NoteName.C, 5);
+        StaffMode defaultStaffMode = StaffMode.Grand;
 
         LimitStateImp lowerLimitImp = new LimitStateImp(defaultLowerLimitNote);
         lowerLimitImp.addLimitChangeNotifier(lowerLimitChangeNotifierImp);
@@ -72,7 +73,7 @@ public class MainGUI {
         UpperBoundedLimitStateImp upperBoundedNoteLimitImp = new UpperBoundedLimitStateImp(upperLimitImp, lowerLimitImp, defaultLowerLimitNote, upperBoundNote);
         upperBoundedNoteLimitImp.addBoundChangeNotifier(upperBoundChangeNotifierImp);
 
-        StaffModeStateImp staffModeStateImp = new StaffModeStateImp(StaffMode.Grand);
+        StaffModeStateImp staffModeStateImp = new StaffModeStateImp();
         staffModeStateImp.addConfigChangeNotifier(configChangeNotifierImp);
 
         NoteNameModeStateImp noteNameModeStateImp = new NoteNameModeStateImp(NoteNameMode.Off);
@@ -95,7 +96,7 @@ public class MainGUI {
         //Selectors
         InstrumentBrowserImp instrumentBrowser = new InstrumentBrowserImp(keyNoteReceiverImp);
         TrainerControlImp trainerControlImp = new TrainerControlImp(sightReadTrainerImp, scoreImp);
-        StaffModeSelectorImp modeSelector = new StaffModeSelectorImp(staffModeStateImp);
+        StaffModeSelectorImp staffModeSelectorImp = new StaffModeSelectorImp(staffModeStateImp, defaultStaffMode);
         NoteListRenderer lowerListRenderer = new NoteListRenderer(new DefaultListCellRenderer(), lowerPreviewLimitImp);
         NoteSelectorImp lowerNoteSelector = new NoteSelectorImp(lowerBoundedNoteLimitImp, lowerListRenderer, lowerPreviewLimitImp);
         NoteListRenderer upperListRenderer = new NoteListRenderer(new DefaultListCellRenderer(), upperPreviewLimitImp);
@@ -145,7 +146,7 @@ public class MainGUI {
         verticalPanel.add(instrumentBrowser.getComponent());
         verticalPanel.add(trainerControlImp.getComponent());
         verticalPanel.add(rangeSelector.getComponent());
-        verticalPanel.add(modeSelector.getComponent());
+        verticalPanel.add(staffModeSelectorImp.getComponent());
         verticalPanel.add(noteNameModeSelectorImp.getComponent());
         JPanel configPanel = new JPanel(new BorderLayout());
         configPanel.add(BorderLayout.NORTH, verticalPanel);

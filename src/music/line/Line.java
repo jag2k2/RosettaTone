@@ -1,10 +1,8 @@
 package music.line;
 
-import tuples.LineSetImp;
 import uicomponents.renderer.grandstaff.StaffModeEvaluator;
 import uicomponents.renderer.records.RenderConstants;
 import uicomponents.renderer.records.StaffConstants;
-import utility.LineSet;
 import java.awt.*;
 
 public class Line implements Comparable<Line>{
@@ -13,6 +11,11 @@ public class Line implements Comparable<Line>{
     public Line(int lineNumber){
         this.lineNumber = lineNumber;
     }
+
+    public Line(StaffPlaceable staffPlaceable){
+        this.lineNumber = 4 + RenderConstants.numberOfLines - staffPlaceable.getOctavePlusPosition();
+    }
+
 
     protected void draw(Graphics2D graphics2D, int xStart, int xEnd) {
         int lineThickness = RenderConstants.ledgerLineThickness;
@@ -49,30 +52,11 @@ public class Line implements Comparable<Line>{
         return RenderConstants.topMargin + RenderConstants.lineSpacing * lineNumber;
     }
 
-    public LineSet getLedgerLines(StaffModeEvaluator staffMode, int xPos, int noteWidth) {
-        LineSet helperLines = new LineSetImp();
-        int closestVisibleLine = getClosestVisibleLine(staffMode);
-        if (isAboveVisible(staffMode)){
-            for (int i = lineNumber; i < closestVisibleLine; i++){
-                if(i % 2 == 0)
-                    helperLines.add(new LedgerLine(i, xPos, noteWidth));
-            }
-        }
-        if (isBelowVisible(staffMode)){
-            for (int i = lineNumber; i > closestVisibleLine; i--){
-                if(i % 2 == 0) {
-                    helperLines.add(new LedgerLine(i, xPos, noteWidth));
-                }
-            }
-        }
-        return helperLines;
-    }
-
     public boolean isEven(){
         return ((lineNumber % 2) == 0);
     }
 
-    protected boolean isAboveVisible(StaffModeEvaluator staffMode) {
+    public boolean isAboveVisible(StaffModeEvaluator staffMode) {
         boolean aboveTreble = lineNumber < RenderConstants.trebleStaff.topVisibleLine;
         boolean belowTreble = lineNumber > RenderConstants.trebleStaff.bottomVisibleLine;
         boolean aboveBass = lineNumber < RenderConstants.bassStaff.topVisibleLine;
@@ -86,7 +70,7 @@ public class Line implements Comparable<Line>{
             return aboveBass;
     }
 
-    protected boolean isBelowVisible(StaffModeEvaluator staffMode) {
+    public boolean isBelowVisible(StaffModeEvaluator staffMode) {
         boolean belowBass = lineNumber > RenderConstants.bassStaff.bottomVisibleLine;
         boolean belowTreble = lineNumber > RenderConstants.trebleStaff.bottomVisibleLine;
         boolean aboveBass = lineNumber < RenderConstants.bassStaff.topVisibleLine;
@@ -99,7 +83,7 @@ public class Line implements Comparable<Line>{
             return belowTreble;
     }
 
-    protected int getClosestVisibleLine(StaffModeEvaluator staffMode) {
+    public Line getClosestVisibleLine(StaffModeEvaluator staffMode) {
         int closestTrebleLineNumber = getClosestVisibleLineNumber(RenderConstants.trebleStaff);
         int closestBassLineNumber = getClosestVisibleLineNumber(RenderConstants.bassStaff);
 
@@ -107,14 +91,14 @@ public class Line implements Comparable<Line>{
             int distanceFromClosestTreble = Math.abs(lineNumber - closestTrebleLineNumber);
             int distanceFromClosestBass = Math.abs(lineNumber - closestBassLineNumber);
             if (distanceFromClosestTreble < distanceFromClosestBass)
-                return closestTrebleLineNumber;
+                return new Line(closestTrebleLineNumber);
             else
-                return closestBassLineNumber;
+                return new Line(closestBassLineNumber);
         }
         else if(staffMode.isTrebleOnly())
-            return closestTrebleLineNumber;
+            return new Line(closestTrebleLineNumber);
         else
-            return closestBassLineNumber;
+            return new Line(closestBassLineNumber);
     }
 
     protected int getClosestVisibleLineNumber(StaffConstants staffConstants){
@@ -124,5 +108,13 @@ public class Line implements Comparable<Line>{
             return staffConstants.topVisibleLine;
         else
             return staffConstants.bottomVisibleLine;
+    }
+
+    public Line getNext(){
+        return new Line(lineNumber + 1);
+    }
+
+    public Line getPrevious(){
+        return new Line(lineNumber - 1);
     }
 }

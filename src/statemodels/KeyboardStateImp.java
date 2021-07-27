@@ -1,7 +1,7 @@
 package statemodels;
 
 import tuples.NoteSetImp;
-import instrument.Key;
+import instrument.key.Key;
 import instrument.KeyStateManipulator;
 import music.note.Note;
 import uicomponents.renderer.grandstaff.StaffModeEvaluator;
@@ -55,7 +55,7 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyStateEvaluator,
     public void draw(Graphics2D graphics2D, NoteImages noteImages, StaffModeEvaluator staffMode) {
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
         NoteSet activeNotes = convertToNotes();
-        for (NoteDrawable note : activeNotes){
+        for (NoteDrawable note : activeNotes) {
             int xPos = RenderConstants.getNoteXOffset(0);
             note.draw(graphics2D, noteImages, activeNotes, xPos, staffMode, false);
         }
@@ -64,7 +64,7 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyStateEvaluator,
     protected NoteSet convertToNotes(){
         NoteSetImp pressedNotes = new NoteSetImp();
         for (Key key : keys){
-            Note noteToAdd = key.convertToNote();
+            Note noteToAdd = new Note(key);
             pressedNotes.add(noteToAdd);
         }
         return pressedNotes;
@@ -83,7 +83,8 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyStateEvaluator,
     public String toString() {
         StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
         for (Key key : keys){
-            stringJoiner.add(key.convertToNote().toString());
+            Note note = new Note(key);
+            stringJoiner.add(note.toString());
         }
         return stringJoiner.toString();
     }

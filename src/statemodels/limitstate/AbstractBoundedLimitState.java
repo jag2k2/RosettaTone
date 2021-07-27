@@ -10,13 +10,13 @@ import utility.Maybe;
 import javax.swing.*;
 
 abstract public class AbstractBoundedLimitState implements BoundedNoteModifier, LimitChangeObserver {
-    private final LimitModifier limitModifier;
+    private final LimitModifier limit;
     private Note lowerBound;
     private Note upperBound;
     private Maybe<LimitChangeNotifier> boundChangeNotifier = new Maybe<>();
 
-    protected AbstractBoundedLimitState(LimitModifier limitModifier, Note lowerBound, Note upperBound){
-        this.limitModifier = limitModifier;
+    protected AbstractBoundedLimitState(LimitModifier limit, Note lowerBound, Note upperBound){
+        this.limit = limit;
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
     }
@@ -47,27 +47,27 @@ abstract public class AbstractBoundedLimitState implements BoundedNoteModifier, 
 
     @Override
     public Note getLimit() {
-        return limitModifier.getLimit();
+        return limit.getLimit();
     }
 
     @Override
     public void setLimit(Note note){
         if ((note.compareTo(lowerBound) >= 0) && (note.compareTo(upperBound) <= 0)) {
-            limitModifier.setLimit(note);
+            limit.setLimit(note);
         }
     }
 
     @Override
     public void increment() {
-        if (limitModifier.compareTo(upperBound) < 0){
-            limitModifier.increment();
+        if (limit.compareTo(upperBound) < 0){
+            limit.increment();
         }
     }
 
     @Override
     public void decrement() {
-        if (limitModifier.compareTo(lowerBound) > 0){
-            limitModifier.decrement();
+        if (limit.compareTo(lowerBound) > 0){
+            limit.decrement();
         }
     }
 
@@ -76,7 +76,7 @@ abstract public class AbstractBoundedLimitState implements BoundedNoteModifier, 
         comboBox.removeAllItems();
         for (Note noteIterator = upperBound; noteIterator.compareTo(lowerBound) >= 0; noteIterator = noteIterator.getPrevious(NoteAccidental.NATURAL)){
             comboBox.addItem(noteIterator);
-            if (limitModifier.compareTo(noteIterator) == 0)
+            if (limit.compareTo(noteIterator) == 0)
                 comboBox.setSelectedItem(noteIterator);
         }
     }
@@ -86,7 +86,7 @@ abstract public class AbstractBoundedLimitState implements BoundedNoteModifier, 
         if (obj instanceof AbstractBoundedLimitState){
             AbstractBoundedLimitState toCompare = (AbstractBoundedLimitState) obj;
             return lowerBound.equals(toCompare.lowerBound)
-                    && limitModifier.equals(toCompare.limitModifier)
+                    && limit.equals(toCompare.limit)
                     && upperBound.equals(toCompare.upperBound);
         }
         return false;
@@ -94,11 +94,11 @@ abstract public class AbstractBoundedLimitState implements BoundedNoteModifier, 
 
     @Override
     public String toString() {
-        return "[lower: " + lowerBound + ", limit: " + getLimit().toString() + ", upper: " + upperBound + "]";
+        return "[lower: " + lowerBound + ", limit: " + limit + ", upper: " + upperBound + "]";
     }
 
     @Override
     public int compareTo(Note note) {
-        return limitModifier.compareTo(note);
+        return limit.compareTo(note);
     }
 }

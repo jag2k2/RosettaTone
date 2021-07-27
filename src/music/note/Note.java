@@ -1,8 +1,12 @@
 package music.note;
 
 import imageprocessing.StaffImage;
+import instrument.key.MidiEnumerable;
+import music.line.LedgerLine;
 import music.line.Line;
+import music.line.StaffPlaceable;
 import statemodels.NoteDrawable;
+import tuples.LineSetImp;
 import uicomponents.renderer.grandstaff.StaffModeEvaluator;
 import uicomponents.renderer.records.NoteImages;
 import uicomponents.renderer.records.RenderConstants;
@@ -11,7 +15,7 @@ import utility.NoteSet;
 
 import java.awt.*;
 
-public class Note implements NoteDrawable, Comparable<Note> {
+public class Note implements MidiEnumerable, StaffPlaceable, NoteDrawable, Comparable<Note> {
 
     private final NoteName noteName;
     private final int octave;
@@ -30,6 +34,13 @@ public class Note implements NoteDrawable, Comparable<Note> {
 
     }
 
+    public Note(NoteDescribable key){
+        this.noteName = key.getNoteName();
+        this.octave = key.getOctave();
+        this.accidental = key.getAccidental();
+    }
+
+    @Override
     public int getMidiNumber(){
         int midiSum = 12 + (octave * 12);
         int notePosition = noteName.getPosition();
@@ -48,20 +59,17 @@ public class Note implements NoteDrawable, Comparable<Note> {
         return midiSum;
     }
 
-    public Line getCenterLine(){
-        return new Line((RenderConstants.numberOfLines - 1) - (getNoteValue() - 5));
-    }
-
-    public Note generateRandom(Note otherNote){
-        int max = Math.max(getNoteValue(), otherNote.getNoteValue());
-        int min = Math.min(getNoteValue(), otherNote.getNoteValue());
-        int randomLine = (int) Math.floor(Math.random()*(max-min+1) + min);
-        NoteName noteName = NoteName.values()[randomLine % 7];
-        int octave = randomLine / 7;
+    public Note generateRandomNote(Note otherNote){
+        int max = Math.max(getOctavePlusPosition(), otherNote.getOctavePlusPosition());
+        int min = Math.min(getOctavePlusPosition(), otherNote.getOctavePlusPosition());
+        int randomPlacement = (int) Math.floor(Math.random()*(max-min+1) + min);
+        NoteName noteName = NoteName.values()[randomPlacement % 7];
+        int octave = randomPlacement / 7;
         return new Note(noteName, octave);
     }
 
-    protected int getNoteValue(){
+    @Override
+    public int getOctavePlusPosition(){
         return octave * 7 + noteName.getPosition();
     }
 
@@ -93,13 +101,14 @@ public class Note implements NoteDrawable, Comparable<Note> {
         return new Note(newNoteName, newOctave, noteAccidental);
     }
 
+    @Override
     public void draw(Graphics2D graphics2D, NoteImages noteImages, NoteSet notes, int xPos, StaffModeEvaluator staffMode, boolean drawName) {
         StaffImage noteImage = noteImages.noteImage;
         StaffImage sharpImage = noteImages.sharpImage;
 
         int noteWidth = noteImage.getWidth();
         int noteHeight = noteImage.getHeight();
-        Line centerLine = getCenterLine();
+        Line centerLine = new Line(this);
         int noteY = centerLine.getYOffset() - (noteHeight / 2);
 
         if (accidental == NoteAccidental.SHARP) {
@@ -108,7 +117,7 @@ public class Note implements NoteDrawable, Comparable<Note> {
             sharpImage.draw(graphics2D, sharpXPos, sharpYPos);
         }
 
-        LineSet ledgerLines =  centerLine.getLedgerLines(staffMode, xPos, noteWidth);
+        LineSet ledgerLines =  getLedgerLines(staffMode, xPos, noteWidth);
         ledgerLines.draw(graphics2D);
 
         if (isSqueezed(notes)) {
@@ -140,9 +149,29 @@ public class Note implements NoteDrawable, Comparable<Note> {
         return this.noteName == note.noteName && this.octave == note.octave;
     }
 
+    protected LineSet getLedgerLines(StaffModeEvaluator staffMode, int xPos, int noteWidth) {
+        LineSet ledgerLines = new LineSetImp();
+        Line centerLine = new Line(this);
+        Line closestVisibleLine = centerLine.getClosestVisibleLine(staffMode);
+        if (centerLine.isAboveVisible(staffMode)){
+            for (Line line = centerLine; line.compareTo(closestVisibleLine) < 0; line = line.getNext()){
+                if(line.isEven())
+                    ledgerLines.add(new LedgerLine(line, xPos, noteWidth));
+            }
+        }
+        if (centerLine.isBelowVisible(staffMode)){
+            for (Line line = centerLine; line.compareTo(closestVisibleLine) > 0; line = line.getPrevious()){
+                if(line.isEven()) {
+                    ledgerLines.add(new LedgerLine(line, xPos, noteWidth));
+                }
+            }
+        }
+        return ledgerLines;
+    }
+
     @Override
     public int compareTo(Note o) {
-        return getNoteValue() - o.getNoteValue();
+        return getOctavePlusPosition() - o.getOctavePlusPosition();
     }
 
     @Override

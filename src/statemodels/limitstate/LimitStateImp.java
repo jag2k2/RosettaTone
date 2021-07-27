@@ -51,12 +51,12 @@ public class LimitStateImp implements LimitModifier, LimitDrawable, BoundedNoteG
     @Override
     public Note generateRandomNote(BoundedNoteGenerator upperLimit) {
         LimitStateImp otherLimit = (LimitStateImp) upperLimit;
-        return limit.generateRandom(otherLimit.limit);
+        return limit.generateRandomNote(otherLimit.limit);
     }
 
     @Override
     public void draw(Graphics2D graphics2D) {
-        Line line = limit.getCenterLine();
+        Line line = new Line(limit);
         int circleXPos = RenderConstants.limitRenderXOffset;
         int circleDiameter = RenderConstants.limitDotDiameter;
         int circleYPos = line.getYOffset() - (circleDiameter/2);
@@ -88,7 +88,8 @@ public class LimitStateImp implements LimitModifier, LimitDrawable, BoundedNoteG
 
     protected Point getPosition() {
         int x = RenderConstants.limitRenderXOffset + (RenderConstants.limitDotDiameter / 2);
-        int y = limit.getCenterLine().getYOffset();
+        Line line = new Line(limit);
+        int y = line.getYOffset();
         return new Point(x,y);
     }
 
@@ -108,6 +109,6 @@ public class LimitStateImp implements LimitModifier, LimitDrawable, BoundedNoteG
 
     @Override
     public String toString() {
-        return "active: " + limit;
+        return limit.toString();
     }
 }

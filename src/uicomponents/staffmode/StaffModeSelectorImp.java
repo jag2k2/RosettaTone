@@ -1,6 +1,5 @@
 package uicomponents.staffmode;
 
-import javafx.scene.text.TextAlignment;
 import uicomponents.UIComponent;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -13,11 +12,12 @@ public class StaffModeSelectorImp implements UIComponent, ActionListener {
     private final JComboBox<StaffMode> comboBox;
     private final StaffModeModifier staffModeModifier;
 
-    public StaffModeSelectorImp(StaffModeModifier staffModeModifier){
+    public StaffModeSelectorImp(StaffModeModifier staffModeModifier, StaffMode defaultMode){
         this.comboBox = new JComboBox<>(StaffMode.values());
         this.staffModeModifier = staffModeModifier;
         this.comboBox.setRenderer(new StaffModeRenderer(comboBox.getRenderer()));
         this.comboBox.addActionListener(this);
+        this.comboBox.setSelectedItem(defaultMode);
     }
 
     @Override
@@ -38,8 +38,6 @@ public class StaffModeSelectorImp implements UIComponent, ActionListener {
         panel.add(Box.createRigidArea(new Dimension(1,5)), BorderLayout.SOUTH);
         Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
         panel.setBorder(border);
-
-        staffModeModifier.setUISelected(comboBox);
         return panel;
     }
 

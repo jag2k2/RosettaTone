@@ -77,8 +77,8 @@ class LineTest {
     @Test
     void getClosestVisibleLineTreble() {
         staffMode.setMode(StaffMode.Treble);
-        int topTrebleLine = RenderConstants.trebleStaff.topVisibleLine;
-        int bottomTrebleLine = RenderConstants.trebleStaff.bottomVisibleLine;
+        Line topTrebleLine = new Line(RenderConstants.trebleStaff.topVisibleLine);
+        Line bottomTrebleLine = new Line(RenderConstants.trebleStaff.bottomVisibleLine);
 
         Line line = new Line(16);
         assertEquals(topTrebleLine, line.getClosestVisibleLine(staffMode));
@@ -99,8 +99,8 @@ class LineTest {
     @Test
     void getClosestVisibleLineBass() {
         staffMode.setMode(StaffMode.Bass);
-        int topBassLine = RenderConstants.bassStaff.topVisibleLine;
-        int bottomBassLine = RenderConstants.bassStaff.bottomVisibleLine;
+        Line topBassLine = new Line(RenderConstants.bassStaff.topVisibleLine);
+        Line bottomBassLine = new Line(RenderConstants.bassStaff.bottomVisibleLine);
 
         Line line = new Line(28);
         assertEquals(topBassLine, line.getClosestVisibleLine(staffMode));
@@ -122,21 +122,26 @@ class LineTest {
     void canFindClosestVisibleLineHigh() {
         Line line = new Line(16);
         staffMode.setMode(StaffMode.Grand);
-        assertEquals(18, line.getClosestVisibleLine(staffMode));
+        Line expected = new Line(18);
+        assertEquals(expected, line.getClosestVisibleLine(staffMode));
         staffMode.setMode(StaffMode.Treble);
-        assertEquals(18, line.getClosestVisibleLine(staffMode));
+        assertEquals(expected, line.getClosestVisibleLine(staffMode));
         staffMode.setMode(StaffMode.Bass);
-        assertEquals(30, line.getClosestVisibleLine(staffMode));
+        expected = new Line(30);
+        assertEquals(expected, line.getClosestVisibleLine(staffMode));
     }
 
     @Test
     void canFindClosestVisibleLineLow(){
         Line line = new Line(40);
         staffMode.setMode(StaffMode.Grand);
-        assertEquals(38, line.getClosestVisibleLine(staffMode));
+        Line expected = new Line(38);
+        assertEquals(expected, line.getClosestVisibleLine(staffMode));
         staffMode.setMode(StaffMode.Treble);
-        assertEquals(26, line.getClosestVisibleLine(staffMode));
+        expected = new Line(26);
+        assertEquals(expected, line.getClosestVisibleLine(staffMode));
         staffMode.setMode(StaffMode.Bass);
-        assertEquals(38, line.getClosestVisibleLine(staffMode));
+        expected = new Line(38);
+        assertEquals(expected, line.getClosestVisibleLine(staffMode));
     }
 }

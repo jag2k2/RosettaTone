@@ -22,6 +22,7 @@ class SightReadTrainerImpTest implements FlashcardSatisfiedObserver, FlashcardCh
     private BoundedNoteGenerator upperLimit;
     private RandomNoteGenerator randomNoteGenerator;
     private FlashcardsImp flashcardsImp;
+    private TrainerStateImp trainerStateImp;
     private SightReadTrainerImp sightReadTrainer;
 
     private boolean satisfiedNotified;
@@ -51,10 +52,11 @@ class SightReadTrainerImpTest implements FlashcardSatisfiedObserver, FlashcardCh
         randomNoteGenerator = new NoteGeneratorImp(lowerLimit, upperLimit);
         flashcardsImp = new FlashcardsImp(randomNoteGenerator);
         flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifier);
+        trainerStateImp = new TrainerStateImp();
 
-        sightReadTrainer = new SightReadTrainerImp(keyboardState, flashcardsImp, noteNameMode, new ScoreImp());
+        sightReadTrainer = new SightReadTrainerImp(keyboardState, flashcardsImp, noteNameMode, new ScoreImp(), trainerStateImp);
         sightReadTrainer.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifier);
-        sightReadTrainer.enable();
+        trainerStateImp.enable();
 
         keyboardChangeNotifier.addObserver(sightReadTrainer);
         flashcardSatisfiedNotifier.addObserver(this);

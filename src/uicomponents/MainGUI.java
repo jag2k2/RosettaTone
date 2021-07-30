@@ -82,6 +82,9 @@ public class MainGUI {
         ScoreImp scoreImp = new ScoreImp();
         scoreImp.addConfigChangeNotifier(configChangeNotifierImp);
 
+        TrainerStateImp trainerStateImp = new TrainerStateImp();
+        trainerStateImp.addConfigChangeNotifier(configChangeNotifierImp);
+
         //KeyReceiver
         KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(keyboardStateImp);
 
@@ -89,13 +92,12 @@ public class MainGUI {
         NoteGeneratorImp noteGeneratorImp = new NoteGeneratorImp(lowerLimitImp, upperLimitImp);
         FlashcardsImp flashcardsImp = new FlashcardsImp(noteGeneratorImp);
         flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifierImp);
-        SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(keyboardStateImp, flashcardsImp, noteNameModeStateImp, scoreImp);
+        SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(keyboardStateImp, flashcardsImp, noteNameModeStateImp, scoreImp, trainerStateImp);
         sightReadTrainerImp.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifierImp);
-        sightReadTrainerImp.addConfigChangeNotifier(configChangeNotifierImp);
 
         //Selectors
         InstrumentBrowserImp instrumentBrowser = new InstrumentBrowserImp(keyNoteReceiverImp);
-        TrainerControlImp trainerControlImp = new TrainerControlImp(sightReadTrainerImp, scoreImp);
+        TrainerControlImp trainerControlImp = new TrainerControlImp(trainerStateImp, scoreImp);
         StaffModeSelectorImp staffModeSelectorImp = new StaffModeSelectorImp(staffModeStateImp, defaultStaffMode);
         NoteListRenderer lowerListRenderer = new NoteListRenderer(new DefaultListCellRenderer(), lowerPreviewLimitImp);
         NoteSelectorImp lowerNoteSelector = new NoteSelectorImp(lowerBoundedNoteLimitImp, lowerListRenderer, lowerPreviewLimitImp);
@@ -105,7 +107,7 @@ public class MainGUI {
         NoteNameModeSelectorImp noteNameModeSelectorImp = new NoteNameModeSelectorImp(noteNameModeStateImp);
 
         //Renderers
-        GrandRendererImp grandStaffRenderer = new GrandRendererImp(keyboardStateImp, flashcardsImp, staffModeStateImp, noteNameModeStateImp, scoreImp, sightReadTrainerImp);
+        GrandRendererImp grandStaffRenderer = new GrandRendererImp(keyboardStateImp, flashcardsImp, staffModeStateImp, noteNameModeStateImp, scoreImp, trainerStateImp);
         RangeRendererImp rangeRenderer = new RangeRendererImp(limitRangeStateImp, previewRangeStateImp);
         NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardStateImp);
 

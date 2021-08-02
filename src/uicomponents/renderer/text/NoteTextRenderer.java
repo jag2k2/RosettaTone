@@ -17,7 +17,7 @@ public class NoteTextRenderer implements UIComponent, KeyboardChangeObserver {
     }
 
     @Override
-    public Component getComponent() {
+    public Component makeComponent() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(BorderLayout.CENTER, textArea);
         return panel;

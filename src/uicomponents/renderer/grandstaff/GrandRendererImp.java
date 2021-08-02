@@ -37,7 +37,7 @@ public class GrandRendererImp extends JComponent implements UIComponent, ConfigC
     }
 
     @Override
-    public Component getComponent() {
+    public Component makeComponent() {
         JPanel panel = new JPanel();
         BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.X_AXIS);
         panel.setLayout(boxLayout);

@@ -2,6 +2,7 @@ package uicomponents.browser;
 
 import instrument.simluated.MidiDeviceSimImp;
 import uicomponents.UIComponent;
+import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
 
 import javax.imageio.ImageIO;
@@ -18,39 +19,36 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
-public class InstrumentBrowserImp implements UIComponent, ListSelectionListener, ActionListener {
+public class InstrumentBrowserImp implements UIComponent, ActionListener, ListSelectionListener {
     private final Receiver midiReceiver;
-    private final JList<MidiDevice> deviceList;
     private final DefaultListModel<MidiDevice> listModel;
-
-    private JButton refreshButton;
+    private final JList<MidiDevice> deviceList;
     private Maybe<MidiDevice> selectedDevice = new Maybe<>();
 
     public InstrumentBrowserImp(Receiver midiReceiver){
         this.midiReceiver = midiReceiver;
         listModel = new DefaultListModel<>();
         deviceList = new JList<>(listModel);
-        deviceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        deviceList.addListSelectionListener(this);
-        deviceList.setCellRenderer(new InstrumentRenderer(deviceList.getCellRenderer()));
-
-        try{
-            URL fileURL = getClass().getResource("/images/refresh.png");
-            Image refreshImage = ImageIO.read(Objects.requireNonNull(fileURL));
-            ImageIcon refreshIcon = new ImageIcon(refreshImage);
-            refreshButton = new JButton(refreshIcon);
-
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-
-        refreshButton.addActionListener(this);
         refreshTransmitterDevices();
     }
 
     @Override
-    public Component getComponent() {
+    public Component makeComponent() {
+        deviceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        deviceList.setCellRenderer(new InstrumentRenderer(deviceList.getCellRenderer()));
+
+        JButton refreshButton = new JButton();
+        try{
+            URL fileURL = getClass().getResource(RenderConstants.refreshIconPath);
+            Image refreshImage = ImageIO.read(Objects.requireNonNull(fileURL));
+            ImageIcon refreshIcon = new ImageIcon(refreshImage);
+            refreshButton.setIcon(refreshIcon);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
         refreshButton.setPreferredSize(new Dimension(20, 20));
+
         FlowLayout buttonPanelLayout = new FlowLayout(FlowLayout.LEFT);
         buttonPanelLayout.setVgap(1);
         JPanel buttonPanel = new JPanel(buttonPanelLayout);
@@ -63,30 +61,38 @@ public class InstrumentBrowserImp implements UIComponent, ListSelectionListener,
         Border border = BorderFactory.createLineBorder(Color.GRAY);
         listScrollPane.setBorder(border);
         Dimension listSize = new Dimension(200, 100);
+
         deviceList.setPreferredSize(listSize);
         deviceList.setMaximumSize(listSize);
         deviceList.setMinimumSize(listSize);
+
+        refreshButton.addActionListener(this);
+        deviceList.addListSelectionListener(this);
+
         return listScrollPane;
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (!e.getValueIsAdjusting()) {
-            for(MidiDevice device : selectedDevice){
-                if(device.isOpen()){
-                    device.close();
+        if (e.getSource() instanceof JList<?>){
+            JList<MidiDevice> deviceList = (JList<MidiDevice>) e.getSource();
+            if (!e.getValueIsAdjusting()) {
+                for(MidiDevice device : selectedDevice){
+                    if(device.isOpen()){
+                        device.close();
+                    }
                 }
-            }
-            int selectedIndex = deviceList.getSelectedIndex();
-            MidiDevice device = deviceList.getSelectedValue();
-            if (selectedIndex >= 0){
-                try {
-                    device.open();
-                    Transmitter transmitter = device.getTransmitter();
-                    transmitter.setReceiver(midiReceiver);
-                    selectedDevice = new Maybe<>(device);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                int selectedIndex = deviceList.getSelectedIndex();
+                MidiDevice device = deviceList.getSelectedValue();
+                if (selectedIndex >= 0){
+                    try {
+                        device.open();
+                        Transmitter transmitter = device.getTransmitter();
+                        transmitter.setReceiver(midiReceiver);
+                        selectedDevice = new Maybe<>(device);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         }

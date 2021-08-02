@@ -3,6 +3,8 @@ package application;
 import javax.swing.*;
 import uicomponents.*;
 
+import java.awt.*;
+
 public class RosettaTone {
     public static void main(String[] args) {
         try {
@@ -21,7 +23,15 @@ public class RosettaTone {
         @Override
         public void run() {
             MainGUI mainGui = new MainGUI();
-            mainGui.launch();
+
+            JFrame frame = new JFrame();
+            frame.setTitle("Rosetta Tone");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setContentPane(mainGui.makePanel());
+            frame.setLocation(10, 10);
+            frame.setMinimumSize(new Dimension(500, 500));
+            frame.pack();
+            frame.setVisible(true);
         }
     }
 }

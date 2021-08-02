@@ -17,7 +17,7 @@ public class RangeRendererImp extends Component implements UIComponent, LimitCha
     }
 
     @Override
-    public Component getComponent() {
+    public Component makeComponent() {
         JPanel panel = new JPanel();
         panel.add(this);
         panel.setBackground(Color.WHITE);

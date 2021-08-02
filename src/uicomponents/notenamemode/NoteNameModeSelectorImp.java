@@ -9,18 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NoteNameModeSelectorImp implements UIComponent, ActionListener {
-    private final JComboBox<NoteNameMode> comboBox;
     private final NoteNameModeModifier noteNameModeModifier;
 
     public NoteNameModeSelectorImp(NoteNameModeModifier noteNameModeModifier){
-        this.comboBox = new JComboBox<>(NoteNameMode.values());
         this.noteNameModeModifier = noteNameModeModifier;
-        this.comboBox.setRenderer(new NoteNameModeRenderer(comboBox.getRenderer()));
-        comboBox.addActionListener(this);
     }
 
     @Override
-    public Component getComponent() {
+    public Component makeComponent() {
         JPanel labelPanel = new JPanel();
         BoxLayout boxLayout = new BoxLayout(labelPanel, BoxLayout.Y_AXIS);
         labelPanel.setLayout(boxLayout);
@@ -30,7 +26,12 @@ public class NoteNameModeSelectorImp implements UIComponent, ActionListener {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(labelPanel, BorderLayout.NORTH);
         Dimension boxSize = new Dimension(100, 40);
+
+        JComboBox<NoteNameMode> comboBox = new JComboBox<>(NoteNameMode.values());
+        comboBox.setRenderer(new NoteNameModeRenderer(new DefaultListCellRenderer()));
         comboBox.setPreferredSize(boxSize);
+        comboBox.addActionListener(this);
+
         panel.add(comboBox, BorderLayout.CENTER);
         panel.add(Box.createRigidArea(new Dimension(10,1)), BorderLayout.WEST);
         panel.add(Box.createRigidArea(new Dimension(10,1)), BorderLayout.EAST);
@@ -42,8 +43,14 @@ public class NoteNameModeSelectorImp implements UIComponent, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int selectedIndex = comboBox.getSelectedIndex();
-        NoteNameMode selectedMode = comboBox.getItemAt(selectedIndex);
-        noteNameModeModifier.setMode(selectedMode);
+        if (e.getSource() instanceof JComboBox<?>){
+            JComboBox<?> comboBox = (JComboBox<?>) e.getSource();
+            int selectedIndex = comboBox.getSelectedIndex();
+            Object selected = comboBox.getItemAt(selectedIndex);
+            if (selected instanceof NoteNameMode){
+                NoteNameMode selectedMode = (NoteNameMode) selected;
+                noteNameModeModifier.setMode(selectedMode);
+            }
+        }
     }
 }

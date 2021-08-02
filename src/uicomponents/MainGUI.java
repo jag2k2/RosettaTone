@@ -16,7 +16,6 @@ import trainer.SightReadTrainerImp;
 import uicomponents.notenamemode.NoteNameMode;
 import uicomponents.notenamemode.NoteNameModeSelectorImp;
 import uicomponents.browser.InstrumentBrowserImp;
-import uicomponents.rangeselector.noteselector.NoteListRenderer;
 import uicomponents.rangeselector.noteselector.NoteSelectorImp;
 import uicomponents.rangeselector.RangeSelectorImp;
 import uicomponents.renderer.grandstaff.GrandRendererImp;
@@ -27,9 +26,8 @@ import uicomponents.staffmode.StaffMode;
 import uicomponents.trainer.TrainerControlImp;
 
 public class MainGUI {
-    private final JFrame frame;
 
-    public MainGUI() {
+    public Container makePanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         //Notifiers
@@ -97,12 +95,10 @@ public class MainGUI {
 
         //Selectors
         InstrumentBrowserImp instrumentBrowser = new InstrumentBrowserImp(keyNoteReceiverImp);
-        TrainerControlImp trainerControlImp = new TrainerControlImp(trainerStateImp, scoreImp);
-        StaffModeSelectorImp staffModeSelectorImp = new StaffModeSelectorImp(staffModeStateImp, defaultStaffMode);
-        NoteListRenderer lowerListRenderer = new NoteListRenderer(new DefaultListCellRenderer(), lowerPreviewLimitImp);
-        NoteSelectorImp lowerNoteSelector = new NoteSelectorImp(lowerBoundedNoteLimitImp, lowerListRenderer, lowerPreviewLimitImp);
-        NoteListRenderer upperListRenderer = new NoteListRenderer(new DefaultListCellRenderer(), upperPreviewLimitImp);
-        NoteSelectorImp upperNoteSelector = new NoteSelectorImp(upperBoundedNoteLimitImp, upperListRenderer, upperPreviewLimitImp);
+        TrainerControlImp trainerControl = new TrainerControlImp(trainerStateImp, scoreImp);
+        StaffModeSelectorImp staffModeSelector = new StaffModeSelectorImp(staffModeStateImp, defaultStaffMode);
+        NoteSelectorImp lowerNoteSelector = new NoteSelectorImp(lowerBoundedNoteLimitImp, lowerPreviewLimitImp);
+        NoteSelectorImp upperNoteSelector = new NoteSelectorImp(upperBoundedNoteLimitImp, upperPreviewLimitImp);
         RangeSelectorImp rangeSelector = new RangeSelectorImp(lowerNoteSelector, upperNoteSelector);
         NoteNameModeSelectorImp noteNameModeSelectorImp = new NoteNameModeSelectorImp(noteNameModeStateImp);
 
@@ -145,32 +141,22 @@ public class MainGUI {
         //Build Panels
         JPanel verticalPanel = new JPanel();
         verticalPanel.setLayout(new BoxLayout(verticalPanel, BoxLayout.Y_AXIS));
-        verticalPanel.add(instrumentBrowser.getComponent());
-        verticalPanel.add(trainerControlImp.getComponent());
-        verticalPanel.add(rangeSelector.getComponent());
-        verticalPanel.add(staffModeSelectorImp.getComponent());
-        verticalPanel.add(noteNameModeSelectorImp.getComponent());
+        verticalPanel.add(instrumentBrowser.makeComponent());
+        verticalPanel.add(trainerControl.makeComponent());
+        verticalPanel.add(rangeSelector.makeComponent());
+        verticalPanel.add(staffModeSelector.makeComponent());
+        verticalPanel.add(noteNameModeSelectorImp.makeComponent());
         JPanel configPanel = new JPanel(new BorderLayout());
         configPanel.add(BorderLayout.NORTH, verticalPanel);
 
         JPanel staffPanel = new JPanel(new BorderLayout());
-        staffPanel.add(BorderLayout.WEST, rangeRenderer.getComponent());
-        staffPanel.add(BorderLayout.CENTER, grandStaffRenderer.getComponent());
+        staffPanel.add(BorderLayout.WEST, rangeRenderer.makeComponent());
+        staffPanel.add(BorderLayout.CENTER, grandStaffRenderer.makeComponent());
         staffPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         mainPanel.add(BorderLayout.WEST, configPanel);
         mainPanel.add(BorderLayout.CENTER, staffPanel);
-        mainPanel.add(BorderLayout.SOUTH, noteTextRenderer.getComponent());
+        mainPanel.add(BorderLayout.SOUTH, noteTextRenderer.makeComponent());
 
-        this.frame = new JFrame();
-        frame.setTitle("Rosetta Tone");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(mainPanel);
-        frame.setLocation(10, 10);
-        frame.setMinimumSize(new Dimension(500, 500));
-        frame.pack();
-    }
-
-    public void launch(){
-        frame.setVisible(true);
+        return mainPanel;
     }
 }

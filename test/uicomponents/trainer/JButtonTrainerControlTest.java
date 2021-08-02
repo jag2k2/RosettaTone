@@ -4,9 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import statemodels.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class TrainerControlImpTest {
+class JButtonTrainerControlTest {
     private TrainerControlImp trainerControl;
     private TrainerStateModifier trainerState;
     private ScoreImp score;

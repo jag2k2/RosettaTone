@@ -1,45 +1,44 @@
 package uicomponents.trainer;
 
 import uicomponents.UIComponent;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TrainerControlImp implements UIComponent, ActionListener {
-    private static final String startButtonName = "start";
-    private static final String stopButtonName = "stop";
-    private static final String resetButtonName = "reset";
+    private static final String startButtonName = "Start";
+    private static final String stopButtonName = "Stop";
+    private static final String resetButtonName = "Reset";
 
     private final TrainerStateModifier trainerState;
     private final Resettable score;
-    private final JButton startButton;
-    private final JButton stopButton;
-    private final JButton resetButton;
 
     public TrainerControlImp(TrainerStateModifier trainerState, Resettable score){
         this.trainerState = trainerState;
         this.score = score;
-        startButton = new JButton("Start");
-        stopButton = new JButton("Stop");
-        resetButton = new JButton("Reset");
+    }
+
+    @Override
+    public Component makeComponent() {
+        JPanel panel = new JPanel();
+
+        AbstractButton startButton = new JButton(startButtonName);
+        AbstractButton stopButton = new JButton(stopButtonName);
+        AbstractButton resetButton = new JButton(resetButtonName);
 
         startButton.setName(startButtonName);
         stopButton.setName(stopButtonName);
         resetButton.setName(resetButtonName);
 
-        startButton.addActionListener(this);
-        stopButton.addActionListener(this);
-        resetButton.addActionListener(this);
-    }
-
-    @Override
-    public Component getComponent() {
-        JPanel panel = new JPanel();
         panel.add(startButton);
         panel.add(stopButton);
         panel.add(resetButton);
+
+        startButton.addActionListener(this);
+        stopButton.addActionListener(this);
+        resetButton.addActionListener(this);
+
         return panel;
     }
 

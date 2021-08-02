@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MidiDeviceSimImp implements MidiDevice {
-    private Transmitter midiTransmitter;
-    private KeyListener keyListener;
+    private final Transmitter midiTransmitter;
+    private final KeyListener keyListener;
     private final List<Transmitter> transmitters;
     private JComponent component;
     private boolean open;

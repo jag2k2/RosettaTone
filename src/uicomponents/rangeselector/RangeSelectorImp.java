@@ -16,7 +16,7 @@ public class RangeSelectorImp implements UIComponent {
     }
 
     @Override
-    public Component getComponent() {
+    public Component makeComponent() {
         JPanel labelPanel = new JPanel();
         BoxLayout layout = new BoxLayout(labelPanel, BoxLayout.Y_AXIS);
         labelPanel.setLayout(layout);
@@ -26,8 +26,8 @@ public class RangeSelectorImp implements UIComponent {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(labelPanel, BorderLayout.NORTH);
         JPanel rangePanel = new JPanel(new FlowLayout());
-        rangePanel.add(lowerNoteSelector.getComponent());
-        rangePanel.add(upperNoteSelector.getComponent());
+        rangePanel.add(lowerNoteSelector.makeComponent());
+        rangePanel.add(upperNoteSelector.makeComponent());
         panel.add(rangePanel, BorderLayout.CENTER);
         panel.add(Box.createRigidArea(new Dimension(1,5)), BorderLayout.SOUTH);
 

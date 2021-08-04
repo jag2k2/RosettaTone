@@ -1,5 +1,5 @@
 package uicomponents.renderer.grandstaff;
 
-public interface Enableable {
+public interface CanCheckEnabled {
     boolean isEnabled();
 }

@@ -1,6 +1,6 @@
 package trainer;
 
-public interface ScoreKeepable {
+public interface CanIncrementScore {
     void addHit();
     void addMiss();
 }

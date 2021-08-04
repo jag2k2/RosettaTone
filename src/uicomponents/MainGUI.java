@@ -23,7 +23,9 @@ import uicomponents.renderer.text.NoteTextRenderer;
 import uicomponents.renderer.limit.RangeRendererImp;
 import uicomponents.staffmode.StaffModeSelectorImp;
 import uicomponents.staffmode.StaffMode;
+import uicomponents.trainer.GameController;
 import uicomponents.trainer.TrainerControlImp;
+import uicomponents.trainer.statechangers.GameControllerImp;
 
 public class MainGUI {
 
@@ -92,10 +94,11 @@ public class MainGUI {
         flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifierImp);
         SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(keyboardStateImp, flashcardsImp, noteNameModeStateImp, scoreImp, trainerStateImp);
         sightReadTrainerImp.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifierImp);
+        GameController gameController = new GameControllerImp(trainerStateImp, scoreImp);
 
         //Selectors
         InstrumentBrowserImp instrumentBrowser = new InstrumentBrowserImp(keyNoteReceiverImp);
-        TrainerControlImp trainerControl = new TrainerControlImp(trainerStateImp, scoreImp);
+        TrainerControlImp trainerControl = new TrainerControlImp(gameController);
         StaffModeSelectorImp staffModeSelector = new StaffModeSelectorImp(staffModeStateImp, defaultStaffMode);
         NoteSelectorImp lowerNoteSelector = new NoteSelectorImp(lowerBoundedNoteLimitImp, lowerPreviewLimitImp);
         NoteSelectorImp upperNoteSelector = new NoteSelectorImp(upperBoundedNoteLimitImp, upperPreviewLimitImp);
@@ -142,7 +145,7 @@ public class MainGUI {
         JPanel verticalPanel = new JPanel();
         verticalPanel.setLayout(new BoxLayout(verticalPanel, BoxLayout.Y_AXIS));
         verticalPanel.add(instrumentBrowser.makeComponent());
-        verticalPanel.add(trainerControl.makeComponent());
+        verticalPanel.add(trainerControl);
         verticalPanel.add(rangeSelector.makeComponent());
         verticalPanel.add(staffModeSelector.makeComponent());
         verticalPanel.add(noteNameModeSelectorImp.makeComponent());

@@ -1,10 +1,9 @@
 package statemodels;
 
-import uicomponents.renderer.grandstaff.Enableable;
-import uicomponents.trainer.TrainerStateModifier;
+import uicomponents.TrainerState;
 import utility.Maybe;
 
-public class TrainerStateImp implements TrainerStateModifier, Enableable {
+public class TrainerStateImp implements TrainerState {
     private boolean enabled = false;
     private Maybe<ConfigChangeNotifier> configChangeNotifier = new Maybe<>();
 

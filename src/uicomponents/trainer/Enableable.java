@@ -1,6 +1,6 @@
 package uicomponents.trainer;
 
-public interface TrainerStateModifier {
+public interface Enableable {
     void enable();
     void disable();
 }

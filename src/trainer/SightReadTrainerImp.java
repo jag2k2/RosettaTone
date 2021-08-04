@@ -1,7 +1,7 @@
 package trainer;
 
 import notification.KeyboardChangeObserver;
-import uicomponents.renderer.grandstaff.Enableable;
+import uicomponents.renderer.grandstaff.CanCheckEnabled;
 import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
 import utility.NoteSet;
@@ -10,11 +10,11 @@ public class SightReadTrainerImp implements KeyboardChangeObserver {
     private final KeyStateEvaluator keyboardState;
     private final FlashcardGenerator flashcardGenerator;
     private final FlashcardAdvancer flashcardAdvancer;
-    private final ScoreKeepable score;
-    private final Enableable trainerState;
+    private final CanIncrementScore score;
+    private final CanCheckEnabled trainerState;
     private Maybe<FlashcardSatisfiedNotifier> flashcardSatisfiedNotifier = new Maybe<>();
 
-    public SightReadTrainerImp(KeyStateEvaluator keyboardState, FlashcardGenerator flashcardGenerator, FlashcardAdvancer flashcardAdvancer, ScoreKeepable score, Enableable trainerState){
+    public SightReadTrainerImp(KeyStateEvaluator keyboardState, FlashcardGenerator flashcardGenerator, FlashcardAdvancer flashcardAdvancer, CanIncrementScore score, CanCheckEnabled trainerState){
         this.keyboardState = keyboardState;
         this.flashcardGenerator = flashcardGenerator;
         this.flashcardAdvancer = flashcardAdvancer;

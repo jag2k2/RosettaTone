@@ -4,7 +4,7 @@ import notification.ConfigChangeNotifierImp;
 import notification.ConfigChangeObserver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uicomponents.trainer.TrainerStateModifier;
+import uicomponents.trainer.Enableable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,7 +35,7 @@ class TrainerStateImpTest implements ConfigChangeObserver {
 
     @Test
     void canCheckForEquality(){
-        TrainerStateModifier expected = new TrainerStateImp();
+        Enableable expected = new TrainerStateImp();
         assertEquals(expected, trainerState);
         trainerState.enable();
         assertNotEquals(expected, trainerState);

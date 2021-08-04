@@ -18,7 +18,7 @@ public class GrandRendererImp extends JComponent implements UIComponent, ConfigC
     private final FlashcardDrawable flashcards;
     private final NoteNameDrawable noteNameMode;
     private final ScoreDrawable scoreDrawable;
-    private final Enableable trainer;
+    private final CanCheckEnabled trainer;
 
     private final ClefImages clefImages = ImageFactory.createClefImages();
     private final NoteImages noteImages = ImageFactory.createNoteImages();
@@ -27,7 +27,7 @@ public class GrandRendererImp extends JComponent implements UIComponent, ConfigC
     private final StaffDrawable bassStaff = new Staff(RenderConstants.bassStaff);
 
     public GrandRendererImp(KeyStateDrawable keyboardState, FlashcardDrawable flashcards,
-                            StaffModeEvaluator staffMode, NoteNameDrawable noteNameMode, ScoreDrawable scoreDrawable, Enableable trainer){
+                            StaffModeEvaluator staffMode, NoteNameDrawable noteNameMode, ScoreDrawable scoreDrawable, CanCheckEnabled trainer){
         this.keyboardState = keyboardState;
         this.staffMode = staffMode;
         this.flashcards = flashcards;

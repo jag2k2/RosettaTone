@@ -1,15 +1,12 @@
 package statemodels;
 
-import notification.LimitChangeObserver;
-import trainer.ScoreKeepable;
-import uicomponents.renderer.grandstaff.ScoreDrawable;
+import uicomponents.ScoreKeepable;
 import uicomponents.renderer.records.RenderConstants;
-import uicomponents.trainer.Resettable;
 import utility.Maybe;
 
 import java.awt.*;
 
-public class ScoreImp implements ScoreKeepable, Resettable, ScoreDrawable, LimitChangeObserver {
+public class ScoreImp implements ScoreKeepable {
     private int hits = 0;
     private int misses = 0;
     private Maybe<ConfigChangeNotifier> configChangeNotifier = new Maybe<>();
@@ -26,6 +23,11 @@ public class ScoreImp implements ScoreKeepable, Resettable, ScoreDrawable, Limit
     @Override
     public void addMiss() {
         misses++;
+    }
+
+    @Override
+    public boolean isReset() {
+        return (hits == 0) && (misses == 0);
     }
 
     @Override

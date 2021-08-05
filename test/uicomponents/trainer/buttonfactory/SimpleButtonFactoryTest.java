@@ -2,7 +2,7 @@ package uicomponents.trainer.buttonfactory;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uicomponents.trainer.statechangers.ButtonFactory;
+import uicomponents.trainer.ButtonFactory;
 
 import javax.swing.*;
 

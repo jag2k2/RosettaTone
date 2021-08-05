@@ -1,16 +1,10 @@
 package statemodels;
 
-import uicomponents.renderer.grandstaff.StaffModeEvaluator;
+import uicomponents.StaffModeState;
 import uicomponents.staffmode.StaffMode;
-import uicomponents.staffmode.StaffModeModifier;
 import utility.Maybe;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-
-public class StaffModeStateImp implements StaffModeModifier, StaffModeEvaluator, ActionListener {
+public class StaffModeStateImp implements StaffModeState {
     private Maybe<ConfigChangeNotifier> staffModeChangeNotifier = new Maybe<>();
     private StaffMode staffMode;
 
@@ -39,18 +33,6 @@ public class StaffModeStateImp implements StaffModeModifier, StaffModeEvaluator,
     @Override
     public boolean isBassOnly() {
         return staffMode == StaffMode.Bass;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() instanceof JComboBox<?>){
-            JComboBox<?> comboBox = (JComboBox<?>) e.getSource();
-            Object selected = comboBox.getSelectedItem();
-            if (selected instanceof StaffMode){
-                StaffMode selectedStaffMode = (StaffMode) selected;
-                setMode(selectedStaffMode);
-            }
-        }
     }
 
     @Override

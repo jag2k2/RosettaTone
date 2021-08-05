@@ -1,19 +1,19 @@
 package uicomponents.trainer;
 
 import uicomponents.trainer.buttonfactory.SimpleButtonFactory;
-import uicomponents.trainer.statechangers.ButtonFactory;
+
 import javax.swing.*;
 import java.awt.*;
 
 
 public class TrainerControlImp extends JComponent {
 
-    public TrainerControlImp(GameController gameController){
+    public TrainerControlImp(ControlHandler controlHandler){
         ButtonFactory simpleButtonFactory = new SimpleButtonFactory();
 
-        Component startButton = gameController.createStartButton(simpleButtonFactory);
-        Component stopButton = gameController.createStopButton(simpleButtonFactory);
-        Component resetButton = gameController.createResetButton(simpleButtonFactory);
+        Component startButton = controlHandler.createStartButton(simpleButtonFactory);
+        Component stopButton = controlHandler.createStopButton(simpleButtonFactory);
+        Component resetButton = controlHandler.createResetButton(simpleButtonFactory);
 
         this.setLayout(new FlowLayout());
         this.add(startButton);

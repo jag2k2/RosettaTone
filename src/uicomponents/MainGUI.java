@@ -21,11 +21,13 @@ import uicomponents.rangeselector.RangeSelectorImp;
 import uicomponents.renderer.grandstaff.GrandRendererImp;
 import uicomponents.renderer.text.NoteTextRenderer;
 import uicomponents.renderer.limit.RangeRendererImp;
+import uicomponents.staffmode.StaffModeHandler;
 import uicomponents.staffmode.StaffModeSelectorImp;
 import uicomponents.staffmode.StaffMode;
-import uicomponents.trainer.GameController;
+import uicomponents.staffmode.modehandler.StaffModeHandlerImp;
+import uicomponents.trainer.ControlHandler;
 import uicomponents.trainer.TrainerControlImp;
-import uicomponents.trainer.statechangers.GameControllerImp;
+import uicomponents.trainer.controlhandler.ControlHandlerImp;
 
 public class MainGUI {
 
@@ -73,8 +75,8 @@ public class MainGUI {
         UpperBoundedLimitStateImp upperBoundedNoteLimitImp = new UpperBoundedLimitStateImp(upperLimitImp, lowerLimitImp, defaultLowerLimitNote, upperBoundNote);
         upperBoundedNoteLimitImp.addBoundChangeNotifier(upperBoundChangeNotifierImp);
 
-        StaffModeStateImp staffModeStateImp = new StaffModeStateImp();
-        staffModeStateImp.addConfigChangeNotifier(configChangeNotifierImp);
+        StaffModeState staffModeState = new StaffModeStateImp();
+        staffModeState.addConfigChangeNotifier(configChangeNotifierImp);
 
         NoteNameModeStateImp noteNameModeStateImp = new NoteNameModeStateImp(NoteNameMode.Off);
         noteNameModeStateImp.addConfigChangeNotifier(configChangeNotifierImp);
@@ -94,19 +96,22 @@ public class MainGUI {
         flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifierImp);
         SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(keyboardStateImp, flashcardsImp, noteNameModeStateImp, scoreImp, trainerStateImp);
         sightReadTrainerImp.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifierImp);
-        GameController gameController = new GameControllerImp(trainerStateImp, scoreImp);
+
+        //Event Handlers
+        ControlHandler controlHandler = new ControlHandlerImp(trainerStateImp, scoreImp);
+        StaffModeHandler staffModeHandler = new StaffModeHandlerImp(staffModeState);
 
         //Selectors
         InstrumentBrowserImp instrumentBrowser = new InstrumentBrowserImp(keyNoteReceiverImp);
-        TrainerControlImp trainerControl = new TrainerControlImp(gameController);
-        StaffModeSelectorImp staffModeSelector = new StaffModeSelectorImp(staffModeStateImp, defaultStaffMode);
+        JComponent trainerControl = new TrainerControlImp(controlHandler);
+        JComponent staffModeSelector = new StaffModeSelectorImp(staffModeHandler, defaultStaffMode);
         NoteSelectorImp lowerNoteSelector = new NoteSelectorImp(lowerBoundedNoteLimitImp, lowerPreviewLimitImp);
         NoteSelectorImp upperNoteSelector = new NoteSelectorImp(upperBoundedNoteLimitImp, upperPreviewLimitImp);
         RangeSelectorImp rangeSelector = new RangeSelectorImp(lowerNoteSelector, upperNoteSelector);
         NoteNameModeSelectorImp noteNameModeSelectorImp = new NoteNameModeSelectorImp(noteNameModeStateImp);
 
         //Renderers
-        GrandRendererImp grandStaffRenderer = new GrandRendererImp(keyboardStateImp, flashcardsImp, staffModeStateImp, noteNameModeStateImp, scoreImp, trainerStateImp);
+        GrandRendererImp grandStaffRenderer = new GrandRendererImp(keyboardStateImp, flashcardsImp, staffModeState, noteNameModeStateImp, scoreImp, trainerStateImp);
         RangeRendererImp rangeRenderer = new RangeRendererImp(limitRangeStateImp, previewRangeStateImp);
         NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardStateImp);
 
@@ -147,7 +152,7 @@ public class MainGUI {
         verticalPanel.add(instrumentBrowser.makeComponent());
         verticalPanel.add(trainerControl);
         verticalPanel.add(rangeSelector.makeComponent());
-        verticalPanel.add(staffModeSelector.makeComponent());
+        verticalPanel.add(staffModeSelector);
         verticalPanel.add(noteNameModeSelectorImp.makeComponent());
         JPanel configPanel = new JPanel(new BorderLayout());
         configPanel.add(BorderLayout.NORTH, verticalPanel);

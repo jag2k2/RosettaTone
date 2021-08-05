@@ -1,4 +1,4 @@
-package uicomponents.trainer;
+package uicomponents.trainer.controlhandler;
 
 public interface Enableable {
     void enable();

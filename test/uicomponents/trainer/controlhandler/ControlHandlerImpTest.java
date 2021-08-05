@@ -1,4 +1,4 @@
-package uicomponents.trainer.statechangers;
+package uicomponents.trainer.controlhandler;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,13 +6,14 @@ import statemodels.ScoreImp;
 import statemodels.TrainerStateImp;
 import uicomponents.ScoreKeepable;
 import uicomponents.TrainerState;
-import uicomponents.trainer.GameController;
+import uicomponents.trainer.ButtonFactory;
+import uicomponents.trainer.ControlHandler;
 import uicomponents.trainer.buttonfactory.SimpleButtonFactory;
 import javax.swing.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class GameControllerImpTest {
-    private GameController gameController;
+class ControlHandlerImpTest {
+    private ControlHandler controlHandler;
     private TrainerState trainerState;
     private ScoreKeepable score;
 
@@ -20,14 +21,14 @@ class GameControllerImpTest {
     void setup(){
         trainerState = new TrainerStateImp();
         score = new ScoreImp();
-        gameController = new GameControllerImp(trainerState, score);
+        controlHandler = new ControlHandlerImp(trainerState, score);
     }
 
     @Test
     void canStart() {
         ButtonFactory simpleButtonFactory = new SimpleButtonFactory();
 
-        AbstractButton startButton = gameController.createStartButton(simpleButtonFactory);
+        AbstractButton startButton = controlHandler.createStartButton(simpleButtonFactory);
 
         startButton.doClick();
         assertTrue(trainerState.isEnabled());
@@ -37,7 +38,7 @@ class GameControllerImpTest {
     void canStop(){
         ButtonFactory simpleButtonFactory = new SimpleButtonFactory();
 
-        AbstractButton stopButton = gameController.createStopButton(simpleButtonFactory);
+        AbstractButton stopButton = controlHandler.createStopButton(simpleButtonFactory);
 
         trainerState.enable();
         score.addHit();
@@ -54,7 +55,7 @@ class GameControllerImpTest {
     @Test
     void createReset() {
         ButtonFactory simpleButtonFactory = new SimpleButtonFactory();
-        AbstractButton resetButton = gameController.createResetButton(simpleButtonFactory);
+        AbstractButton resetButton = controlHandler.createResetButton(simpleButtonFactory);
 
         score.addHit();
         score.addMiss();

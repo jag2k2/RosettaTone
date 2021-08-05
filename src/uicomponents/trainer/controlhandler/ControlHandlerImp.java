@@ -1,8 +1,7 @@
-package uicomponents.trainer.statechangers;
+package uicomponents.trainer.controlhandler;
 
-import uicomponents.trainer.Enableable;
-import uicomponents.trainer.GameController;
-import uicomponents.trainer.Resettable;
+import uicomponents.trainer.ButtonFactory;
+import uicomponents.trainer.ControlHandler;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,7 @@ day I hope to add a menu with these same options.  When that day comes all I nee
 that returns JMenu items instead of JButtons.
  */
 
-public class GameControllerImp implements GameController, ActionListener {
+public class ControlHandlerImp implements ControlHandler, ActionListener {
     private static final String startText = "Start";
     private static final String stopText = "Stop";
     private static final String resetText = "Reset";
@@ -22,7 +21,7 @@ public class GameControllerImp implements GameController, ActionListener {
     private final Enableable trainerState;
     private final Resettable score;
 
-    public GameControllerImp(Enableable trainerState, Resettable score) {
+    public ControlHandlerImp(Enableable trainerState, Resettable score) {
         this.trainerState = trainerState;
         this.score = score;
     }

@@ -4,7 +4,7 @@ import notification.ConfigChangeNotifierImp;
 import notification.ConfigChangeObserver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uicomponents.trainer.Enableable;
+import uicomponents.trainer.controlhandler.Enableable;
 
 import static org.junit.jupiter.api.Assertions.*;
 

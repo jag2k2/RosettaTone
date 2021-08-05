@@ -1,4 +1,4 @@
-package uicomponents.trainer.statechangers;
+package uicomponents.trainer;
 
 import javax.swing.*;
 

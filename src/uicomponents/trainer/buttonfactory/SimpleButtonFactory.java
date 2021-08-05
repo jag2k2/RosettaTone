@@ -1,6 +1,6 @@
 package uicomponents.trainer.buttonfactory;
 
-import uicomponents.trainer.statechangers.ButtonFactory;
+import uicomponents.trainer.ButtonFactory;
 
 import javax.swing.*;
 

@@ -1,5 +1,7 @@
 package instrument.simluated;
 
+import instrument.keybinder.KeyBindTransmitter;
+
 import javax.sound.midi.*;
 import javax.swing.*;
 import java.awt.event.KeyListener;
@@ -8,16 +10,11 @@ import java.util.List;
 
 public class MidiDeviceSimImp implements MidiDevice {
     private final Transmitter midiTransmitter;
-    private final KeyListener keyListener;
     private final List<Transmitter> transmitters;
-    private JComponent component;
     private boolean open;
 
-    public MidiDeviceSimImp(JComponent component){
-        this.component = component;
-        MidiTransmitterSimImp transmitterSim = new MidiTransmitterSimImp();
-        this.midiTransmitter = transmitterSim;
-        this.keyListener = transmitterSim;
+    public MidiDeviceSimImp(JPanel panel){
+        this.midiTransmitter = new KeyBindTransmitter(panel);
         this.transmitters = new ArrayList<>();
         this.open = false;
         transmitters.add(this.midiTransmitter);
@@ -30,15 +27,13 @@ public class MidiDeviceSimImp implements MidiDevice {
 
     @Override
     public void open() {
-        component.addKeyListener(keyListener);
-        component.setFocusable(true);
         open = true;
         System.out.println("Opening Simulated Device");
     }
 
     @Override
     public void close() {
-        component.removeKeyListener(keyListener);
+        midiTransmitter.close();
         open = false;
         System.out.println("Closing Simulated Device");
     }
@@ -65,7 +60,7 @@ public class MidiDeviceSimImp implements MidiDevice {
 
     @Override
     public Receiver getReceiver() {
-        return null;
+        return midiTransmitter.getReceiver();
     }
 
     @Override

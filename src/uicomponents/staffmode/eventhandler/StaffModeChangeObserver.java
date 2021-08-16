@@ -1,4 +1,4 @@
-package uicomponents.staffmode.modehandler;
+package uicomponents.staffmode.eventhandler;
 
 import uicomponents.staffmode.StaffMode;
 

@@ -4,10 +4,10 @@ import instrument.key.Key;
 
 import javax.sound.midi.*;
 
-public class KeyNoteReceiverImp implements Receiver {
+public class MidiReceiverImp implements Receiver {
     private final KeyStateManipulator keyStateManipulator;
 
-    public KeyNoteReceiverImp(KeyStateManipulator keyStateManipulator){
+    public MidiReceiverImp(KeyStateManipulator keyStateManipulator){
         this.keyStateManipulator = keyStateManipulator;
     }
 

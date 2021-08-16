@@ -1,7 +1,7 @@
 package uicomponents.staffmode;
 
-import uicomponents.staffmode.modehandler.JSelector;
-import uicomponents.staffmode.modehandler.StaffModeChangeObserver;
+import uicomponents.staffmode.eventhandler.JSelector;
+import uicomponents.staffmode.eventhandler.StaffModeChangeObserver;
 
 public interface SelectorFactory {
     JSelector makeSelector(StaffModeChangeObserver staffMode);

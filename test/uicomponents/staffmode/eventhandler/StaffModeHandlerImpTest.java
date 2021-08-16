@@ -1,4 +1,4 @@
-package uicomponents.staffmode.modehandler;
+package uicomponents.staffmode.eventhandler;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,6 @@
 package uicomponents;
 
+import javax.sound.midi.Receiver;
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,6 +17,9 @@ import statemodels.limitstate.LowerBoundedLimitStateImp;
 import statemodels.limitstate.LimitStateImp;
 import statemodels.limitstate.UpperBoundedLimitStateImp;
 import trainer.SightReadTrainerImp;
+import uicomponents.browser.BrowserHandler;
+import uicomponents.browser.eventhandler.BrowserHandlerImp;
+import uicomponents.browser.eventhandler.MidiDeviceInquirer;
 import uicomponents.notenamemode.NoteNameMode;
 import uicomponents.notenamemode.NoteNameModeSelectorImp;
 import uicomponents.browser.InstrumentBrowserImp;
@@ -27,10 +31,10 @@ import uicomponents.renderer.limit.RangeRendererImp;
 import uicomponents.staffmode.StaffModeHandler;
 import uicomponents.staffmode.StaffModeSelectorImp;
 import uicomponents.staffmode.StaffMode;
-import uicomponents.staffmode.modehandler.StaffModeHandlerImp;
+import uicomponents.staffmode.eventhandler.StaffModeHandlerImp;
 import uicomponents.trainer.ControlHandler;
 import uicomponents.trainer.TrainerControlImp;
-import uicomponents.trainer.controlhandler.ControlHandlerImp;
+import uicomponents.trainer.eventhandler.ControlHandlerImp;
 
 public class MainGUI {
 
@@ -90,8 +94,9 @@ public class MainGUI {
         TrainerStateImp trainerStateImp = new TrainerStateImp();
         trainerStateImp.addConfigChangeNotifier(configChangeNotifier);
 
-        //KeyReceiver
-        KeyNoteReceiverImp keyNoteReceiverImp = new KeyNoteReceiverImp(keyboardStateImp);
+        //Midi
+        Receiver midiReceiver = new MidiReceiverImp(keyboardStateImp);
+        MidiDeviceInquirer midiDeviceInquirer = new MidiDeviceInquirerImp(mainPanel);
 
         //Trainer
         NoteGeneratorImp noteGeneratorImp = new NoteGeneratorImp(lowerLimitImp, upperLimitImp);
@@ -100,12 +105,13 @@ public class MainGUI {
         SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(keyboardStateImp, flashcardsImp, noteNameModeStateImp, scoreImp, trainerStateImp);
         sightReadTrainerImp.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifier);
 
-        //Event Handlers
+        //UI Event Handlers
         ControlHandler controlHandler = new ControlHandlerImp(trainerStateImp, scoreImp);
         StaffModeHandler staffModeHandler = new StaffModeHandlerImp(staffModeState);
+        BrowserHandler browserHandler = new BrowserHandlerImp(midiReceiver, midiDeviceInquirer);
 
         //Selectors
-        InstrumentBrowserImp instrumentBrowser = new InstrumentBrowserImp(keyNoteReceiverImp);
+        JComponent instrumentBrowser = new InstrumentBrowserImp(browserHandler);
         JComponent trainerControl = new TrainerControlImp(controlHandler);
         JComponent staffModeSelector = new StaffModeSelectorImp(staffModeHandler, defaultStaffMode);
         NoteSelectorImp lowerNoteSelector = new NoteSelectorImp(lowerBoundedNoteLimitImp, lowerPreviewLimitImp);
@@ -117,7 +123,6 @@ public class MainGUI {
         GrandRendererImp grandStaffRenderer = new GrandRendererImp(keyboardStateImp, flashcardsImp, staffModeState, noteNameModeStateImp, scoreImp, trainerStateImp);
         RangeRendererImp rangeRenderer = new RangeRendererImp(limitRangeStateImp, previewRangeStateImp);
         NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardStateImp);
-
 
         //Add Observers
         keyboardChangeNotifier.addObserver(grandStaffRenderer);
@@ -152,7 +157,7 @@ public class MainGUI {
         //Build Panels
         JPanel verticalPanel = new JPanel();
         verticalPanel.setLayout(new BoxLayout(verticalPanel, BoxLayout.Y_AXIS));
-        verticalPanel.add(instrumentBrowser.makeComponent());
+        verticalPanel.add(instrumentBrowser);
         verticalPanel.add(trainerControl);
         verticalPanel.add(rangeSelector.makeComponent());
         verticalPanel.add(staffModeSelector);
@@ -164,6 +169,7 @@ public class MainGUI {
         staffPanel.add(BorderLayout.WEST, rangeRenderer.makeComponent());
         staffPanel.add(BorderLayout.CENTER, grandStaffRenderer.makeComponent());
         staffPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+
         mainPanel.add(BorderLayout.WEST, configPanel);
         mainPanel.add(BorderLayout.CENTER, staffPanel);
         mainPanel.add(BorderLayout.SOUTH, noteTextRenderer.makeComponent());

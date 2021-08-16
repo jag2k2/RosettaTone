@@ -1,4 +1,4 @@
-package uicomponents.trainer.controlhandler;
+package uicomponents.trainer.eventhandler;
 
 public interface Resettable {
     boolean isReset();

@@ -1,9 +1,9 @@
 package uicomponents.staffmode.selectors;
 
-import uicomponents.staffmode.modehandler.StaffModeChangeObserver;
+import uicomponents.staffmode.eventhandler.StaffModeChangeObserver;
 import uicomponents.staffmode.StaffMode;
 import uicomponents.staffmode.StaffModeRenderer;
-import uicomponents.staffmode.modehandler.JSelector;
+import uicomponents.staffmode.eventhandler.JSelector;
 
 import javax.swing.*;
 import java.awt.*;

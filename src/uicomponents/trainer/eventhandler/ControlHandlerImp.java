@@ -1,4 +1,4 @@
-package uicomponents.trainer.controlhandler;
+package uicomponents.trainer.eventhandler;
 
 import uicomponents.trainer.ButtonFactory;
 import uicomponents.trainer.ControlHandler;

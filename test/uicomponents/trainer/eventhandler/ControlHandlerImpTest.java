@@ -1,4 +1,4 @@
-package uicomponents.trainer.controlhandler;
+package uicomponents.trainer.eventhandler;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

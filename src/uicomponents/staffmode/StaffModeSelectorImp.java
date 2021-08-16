@@ -1,6 +1,6 @@
 package uicomponents.staffmode;
 
-import uicomponents.staffmode.modehandler.JSelector;
+import uicomponents.staffmode.eventhandler.JSelector;
 import uicomponents.staffmode.selectorfactory.JComboSelectorFactory;
 
 import javax.swing.*;

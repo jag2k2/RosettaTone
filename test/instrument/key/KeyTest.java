@@ -16,6 +16,13 @@ class KeyTest {
     Key keyGSharp5 = new Key(80);
 
     @Test
+    void canEquals() {
+        Key compare = new Key(60);
+        assertEquals(keyC4, compare);
+        assertNotEquals(keyDSharp2, compare);
+    }
+
+    @Test
     void getOctaves() {
         assertEquals(2, keyDSharp2.getOctave());
         assertEquals(4, keyC4.getOctave());
@@ -61,12 +68,5 @@ class KeyTest {
         assertFalse(keyDSharp2.isEven());
         assertTrue(keyGSharp5.isEven());
         assertFalse(keyA4.isEven());
-    }
-
-    @Test
-    void canEquals() {
-        Key compare = new Key(60);
-        assertEquals(keyC4, compare);
-        assertNotEquals(keyDSharp2, compare);
     }
 }

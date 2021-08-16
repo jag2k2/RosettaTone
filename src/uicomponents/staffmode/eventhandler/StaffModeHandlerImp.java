@@ -1,4 +1,4 @@
-package uicomponents.staffmode.modehandler;
+package uicomponents.staffmode.eventhandler;
 
 import uicomponents.staffmode.SelectorFactory;
 import uicomponents.staffmode.StaffModeHandler;
@@ -10,7 +10,7 @@ chosen because I haven't decided whether this functionality should be selectable
 constructed to sends those events.
 */
 
-public class StaffModeHandlerImp implements StaffModeHandler{
+public class StaffModeHandlerImp implements StaffModeHandler {
     private final StaffModeChangeObserver staffMode;
 
     public StaffModeHandlerImp(StaffModeChangeObserver staffMode) {

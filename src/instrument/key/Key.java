@@ -66,7 +66,7 @@ public class Key implements NoteDescribable {
 
     @Override
     public String toString() {
-        return "midi: " + midiNumber;
+        return "Midi: " + midiNumber;
     }
 
     @Override

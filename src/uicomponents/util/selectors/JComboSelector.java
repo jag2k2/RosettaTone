@@ -1,4 +1,4 @@
-package uicomponents.staffmode.selectors;
+package uicomponents.util.selectors;
 
 import uicomponents.util.CanSetMode;
 import uicomponents.staffmode.StaffMode;
@@ -10,13 +10,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class JComboStaffSelector extends JSelector<StaffMode> implements ActionListener {
-    private final CanSetMode<StaffMode> staffMode;
-    private final JComboBox<StaffMode> comboBox;
+public class JComboSelector<T extends Enum<T>> extends JSelector<T> implements ActionListener {
+    private final CanSetMode<T> staffMode;
+    private final JComboBox<T> comboBox;
 
-    public JComboStaffSelector(CanSetMode<StaffMode> staffMode) {
+    public JComboSelector(Class<T> enumType, CanSetMode<T> staffMode) {
         this.staffMode = staffMode;
-        comboBox = new JComboBox<>(StaffMode.values());
+        comboBox = new JComboBox<>();
+        for (T constant : enumType.getEnumConstants()){
+            comboBox.addItem(constant);
+        }
+
         comboBox.setRenderer(new JSelectorRenderer<>(new DefaultListCellRenderer()));
 
         Dimension boxSize = new Dimension(100, 40);
@@ -28,7 +32,7 @@ public class JComboStaffSelector extends JSelector<StaffMode> implements ActionL
     }
 
     @Override
-    public void setSelectedItem(StaffMode selectedItem) {
+    public void setSelectedItem(T selectedItem) {
         comboBox.setSelectedItem(selectedItem);
     }
 
@@ -36,7 +40,7 @@ public class JComboStaffSelector extends JSelector<StaffMode> implements ActionL
     public void actionPerformed(ActionEvent e) {
         int selectedIndex = comboBox.getSelectedIndex();
         if (selectedIndex >= 0){
-            StaffMode selectedMode = comboBox.getItemAt(selectedIndex);
+            T selectedMode = comboBox.getItemAt(selectedIndex);
             staffMode.setMode(selectedMode);
         }
     }

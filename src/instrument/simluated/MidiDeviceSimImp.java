@@ -13,8 +13,8 @@ public class MidiDeviceSimImp implements MidiDevice {
     private final List<Transmitter> transmitters;
     private boolean open;
 
-    public MidiDeviceSimImp(JPanel panel){
-        this.midiTransmitter = new KeyBindTransmitter(panel);
+    public MidiDeviceSimImp(JComponent component){
+        this.midiTransmitter = new KeyBindTransmitter(component);
         this.transmitters = new ArrayList<>();
         this.open = false;
         transmitters.add(this.midiTransmitter);

@@ -18,10 +18,10 @@ public class KeyBindTransmitter implements Transmitter {
     private final InputMap inputMap;
     private final ActionMap actionMap;
 
-    public KeyBindTransmitter(JPanel panel) {
+    public KeyBindTransmitter(JComponent component) {
         this.receiver = new Maybe<>();
-        this.inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        this.actionMap = panel.getActionMap();
+        this.inputMap = component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        this.actionMap = component.getActionMap();
     }
 
     @Override

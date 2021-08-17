@@ -11,16 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MidiDeviceInquirerImp implements MidiDeviceInquirer {
-    private final JPanel panel;
+    private final JComponent component;
 
-    public MidiDeviceInquirerImp(JPanel panel) {
-        this.panel = panel;
+    public MidiDeviceInquirerImp(JComponent component) {
+        this.component = component;
     }
 
     @Override
     public List<MidiDevice> getMidiDevices() {
         List<MidiDevice> devices = new ArrayList<>();
-        MidiDevice simDevice = new MidiDeviceSimImp(panel);
+        MidiDevice simDevice = new MidiDeviceSimImp(component);
         devices.add(simDevice);
         MidiDevice.Info[] deviceInfo = MidiSystem.getMidiDeviceInfo();
         for (MidiDevice.Info info : deviceInfo) {

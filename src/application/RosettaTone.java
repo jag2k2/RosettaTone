@@ -27,7 +27,7 @@ public class RosettaTone {
             JFrame frame = new JFrame();
             frame.setTitle("Rosetta Tone");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setContentPane(mainGui.makePanel());
+            frame.setContentPane(mainGui);
             frame.setLocation(10, 10);
             frame.setMinimumSize(new Dimension(500, 500));
             frame.pack();

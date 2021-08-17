@@ -9,13 +9,13 @@ import utility.Maybe;
 
 import javax.swing.*;
 
-abstract public class AbstractBoundedLimitState implements BoundedNoteModifier, LimitChangeObserver {
+abstract public class AbstractBoundedLimit implements BoundedNoteModifier, LimitChangeObserver {
     private final LimitModifier limit;
     private Note lowerBound;
     private Note upperBound;
     private Maybe<LimitChangeNotifier> boundChangeNotifier = new Maybe<>();
 
-    protected AbstractBoundedLimitState(LimitModifier limit, Note lowerBound, Note upperBound){
+    protected AbstractBoundedLimit(LimitModifier limit, Note lowerBound, Note upperBound){
         this.limit = limit;
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
@@ -83,8 +83,8 @@ abstract public class AbstractBoundedLimitState implements BoundedNoteModifier, 
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof AbstractBoundedLimitState){
-            AbstractBoundedLimitState toCompare = (AbstractBoundedLimitState) obj;
+        if (obj instanceof AbstractBoundedLimit){
+            AbstractBoundedLimit toCompare = (AbstractBoundedLimit) obj;
             return lowerBound.equals(toCompare.lowerBound)
                     && limit.equals(toCompare.limit)
                     && upperBound.equals(toCompare.upperBound);

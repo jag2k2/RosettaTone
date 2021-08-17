@@ -1,17 +1,17 @@
-package uicomponents.staffmode;
+package uicomponents.util;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class StaffModeRenderer implements ListCellRenderer<StaffMode> {
-    private final ListCellRenderer<? super StaffMode> listCellRenderer;
+public class JSelectorRenderer<T> implements ListCellRenderer<T> {
+    private final ListCellRenderer<? super T> listCellRenderer;
 
-    public StaffModeRenderer(ListCellRenderer<? super StaffMode> listCellRenderer){
+    public JSelectorRenderer(ListCellRenderer<? super T> listCellRenderer){
         this.listCellRenderer = listCellRenderer;
     }
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends StaffMode> list, StaffMode value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<? extends T> list, T value, int index, boolean isSelected, boolean cellHasFocus) {
         Component rendererComponent = listCellRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         if (rendererComponent instanceof JLabel){
             JLabel rendererLabel = (JLabel) rendererComponent;

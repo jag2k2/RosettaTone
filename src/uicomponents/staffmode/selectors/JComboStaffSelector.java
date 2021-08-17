@@ -1,23 +1,23 @@
 package uicomponents.staffmode.selectors;
 
-import uicomponents.staffmode.eventhandler.StaffModeChangeObserver;
+import uicomponents.util.CanSetMode;
 import uicomponents.staffmode.StaffMode;
-import uicomponents.staffmode.StaffModeRenderer;
-import uicomponents.staffmode.eventhandler.JSelector;
+import uicomponents.util.JSelectorRenderer;
+import uicomponents.util.JSelector;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class JComboSelector extends JSelector implements ActionListener {
-    private final StaffModeChangeObserver staffMode;
+public class JComboStaffSelector extends JSelector<StaffMode> implements ActionListener {
+    private final CanSetMode<StaffMode> staffMode;
     private final JComboBox<StaffMode> comboBox;
 
-    public JComboSelector(StaffModeChangeObserver staffMode) {
+    public JComboStaffSelector(CanSetMode<StaffMode> staffMode) {
         this.staffMode = staffMode;
         comboBox = new JComboBox<>(StaffMode.values());
-        comboBox.setRenderer(new StaffModeRenderer(new DefaultListCellRenderer()));
+        comboBox.setRenderer(new JSelectorRenderer<>(new DefaultListCellRenderer()));
 
         Dimension boxSize = new Dimension(100, 40);
         comboBox.setPreferredSize(boxSize);
@@ -34,7 +34,10 @@ public class JComboSelector extends JSelector implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        StaffMode selectedMode = (StaffMode) comboBox.getSelectedItem();
-        staffMode.setMode(selectedMode);
+        int selectedIndex = comboBox.getSelectedIndex();
+        if (selectedIndex >= 0){
+            StaffMode selectedMode = comboBox.getItemAt(selectedIndex);
+            staffMode.setMode(selectedMode);
+        }
     }
 }

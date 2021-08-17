@@ -2,11 +2,9 @@ package statemodels;
 
 import tuples.NoteSetImp;
 import instrument.key.Key;
-import instrument.KeyStateManipulator;
 import music.note.Note;
+import uicomponents.KeyboardState;
 import uicomponents.renderer.grandstaff.StaffModeEvaluator;
-import trainer.KeyStateEvaluator;
-import uicomponents.renderer.grandstaff.KeyStateDrawable;
 import uicomponents.renderer.records.NoteImages;
 import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
@@ -17,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.StringJoiner;
 
-public class KeyboardStateImp implements KeyStateManipulator, KeyStateEvaluator, KeyStateDrawable {
+public class KeyboardStateImp implements KeyboardState {
     private final Set<Key> keys;
     private Maybe<KeyboardChangeNotifier> keyboardChangeNotifier = new Maybe<>();
 
@@ -25,6 +23,7 @@ public class KeyboardStateImp implements KeyStateManipulator, KeyStateEvaluator,
         this.keys = new HashSet<>();
     }
 
+    @Override
     public void addKeyboardChangeNotifier(KeyboardChangeNotifier keyboardChangeNotifier){
         this.keyboardChangeNotifier = new Maybe<>(keyboardChangeNotifier);
     }

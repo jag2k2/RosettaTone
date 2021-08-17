@@ -3,7 +3,7 @@ package statemodels.limitstate;
 import music.note.Note;
 import uicomponents.rangeselector.noteselector.LimitModifier;
 
-public class LowerBoundedLimitStateImp extends AbstractBoundedLimitState {
+public class LowerBoundedLimitStateImp extends AbstractBoundedLimit {
     private final LimitModifier otherLimit;
 
     public LowerBoundedLimitStateImp(LimitModifier limitModifier, LimitModifier otherLimit, Note lowerBound, Note upperBound) {

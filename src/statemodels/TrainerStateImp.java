@@ -7,6 +7,7 @@ public class TrainerStateImp implements TrainerState {
     private boolean enabled = false;
     private Maybe<ConfigChangeNotifier> configChangeNotifier = new Maybe<>();
 
+    @Override
     public void addConfigChangeNotifier(ConfigChangeNotifier configChangeNotifier){
         this.configChangeNotifier = new Maybe<>(configChangeNotifier);
     }

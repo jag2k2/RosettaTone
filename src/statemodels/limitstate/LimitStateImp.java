@@ -2,16 +2,16 @@ package statemodels.limitstate;
 
 import music.line.Line;
 import trainer.randomnotegenerator.BoundedNoteGenerator;
+import uicomponents.LimitState;
 import uicomponents.renderer.limit.LimitDrawable;
 import music.note.Note;
 import music.note.NoteAccidental;
-import uicomponents.rangeselector.noteselector.LimitModifier;
 import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
 
 import java.awt.*;
 
-public class LimitStateImp implements LimitModifier, LimitDrawable, BoundedNoteGenerator {
+public class LimitStateImp implements LimitState {
     private Note limit;
     private Maybe<LimitChangeNotifier> limitChangeNotifier = new Maybe<>();
 
@@ -19,6 +19,7 @@ public class LimitStateImp implements LimitModifier, LimitDrawable, BoundedNoteG
         this.limit = limit;
     }
 
+    @Override
     public void addLimitChangeNotifier(LimitChangeNotifier limitChangeNotifier){
         this.limitChangeNotifier = new Maybe<>(limitChangeNotifier);
     }

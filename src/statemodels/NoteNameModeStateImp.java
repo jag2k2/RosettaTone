@@ -1,22 +1,23 @@
 package statemodels;
 
-import notification.FlashcardChangeObserver;
-import notification.FlashcardSatisfiedObserver;
-import trainer.FlashcardAdvancer;
+import uicomponents.NoteNameModeState;
 import uicomponents.notenamemode.NoteNameMode;
-import uicomponents.notenamemode.NoteNameModeModifier;
-import uicomponents.renderer.grandstaff.NoteNameDrawable;
 import utility.Maybe;
 
-public class NoteNameModeStateImp implements NoteNameModeModifier, NoteNameDrawable, FlashcardAdvancer, FlashcardSatisfiedObserver, FlashcardChangeObserver {
+public class NoteNameModeStateImp implements NoteNameModeState {
     private NoteNameMode noteNameMode;
     private boolean flashcardSatisfied = false;
     private Maybe<ConfigChangeNotifier> configChangeNotifier = new Maybe<>();
 
-    public NoteNameModeStateImp(NoteNameMode defaultMode) {
-        this.noteNameMode = defaultMode;
+    public NoteNameModeStateImp() {
+        this.noteNameMode = NoteNameMode.Always;
     }
 
+    public NoteNameModeStateImp(NoteNameMode noteNameMode){
+        this.noteNameMode = noteNameMode;
+    }
+
+    @Override
     public void addConfigChangeNotifier(ConfigChangeNotifier configChangeNotifier){
         this.configChangeNotifier = new Maybe<>(configChangeNotifier);
     }

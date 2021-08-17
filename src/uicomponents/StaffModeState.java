@@ -2,8 +2,9 @@ package uicomponents;
 
 import statemodels.ConfigChangeNotifier;
 import uicomponents.renderer.grandstaff.StaffModeEvaluator;
-import uicomponents.staffmode.eventhandler.StaffModeChangeObserver;
+import uicomponents.staffmode.StaffMode;
+import uicomponents.util.CanSetMode;
 
-public interface StaffModeState extends StaffModeChangeObserver, StaffModeEvaluator {
+public interface StaffModeState extends CanSetMode<StaffMode>, StaffModeEvaluator {
     void addConfigChangeNotifier(ConfigChangeNotifier configChangeNotifier);
 }

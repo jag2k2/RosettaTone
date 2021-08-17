@@ -15,7 +15,7 @@ import javax.swing.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AbstractBoundedLimitStateTest implements LimitChangeObserver {
+public class AbstractBoundedLimitTest implements LimitChangeObserver {
 
     private LowerBoundedLimitStateImp boundedNoteLimit;
 

@@ -11,6 +11,7 @@ public class ScoreImp implements ScoreKeepable {
     private int misses = 0;
     private Maybe<ConfigChangeNotifier> configChangeNotifier = new Maybe<>();
 
+    @Override
     public void addConfigChangeNotifier(ConfigChangeNotifier configChangeNotifier){
         this.configChangeNotifier = new Maybe<>(configChangeNotifier);
     }

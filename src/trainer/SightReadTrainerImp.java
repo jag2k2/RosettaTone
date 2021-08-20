@@ -1,12 +1,12 @@
 package trainer;
 
-import notification.KeyboardChangeObserver;
+import uicomponents.SightReadTrainer;
 import uicomponents.renderer.grandstaff.CanCheckEnabled;
 import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
 import utility.NoteSet;
 
-public class SightReadTrainerImp implements KeyboardChangeObserver {
+public class SightReadTrainerImp implements SightReadTrainer {
     private final KeyStateEvaluator keyboardState;
     private final FlashcardGenerator flashcardGenerator;
     private final FlashcardAdvancer flashcardAdvancer;
@@ -23,6 +23,7 @@ public class SightReadTrainerImp implements KeyboardChangeObserver {
         flashcardGenerator.generateAllNewFlashcards(RenderConstants.flashcardCount);
     }
 
+    @Override
     public void addFlashcardSatisfiedNotifier(FlashcardSatisfiedNotifier flashcardSatisfiedNotifier){
         this.flashcardSatisfiedNotifier = new Maybe<>(flashcardSatisfiedNotifier);
     }

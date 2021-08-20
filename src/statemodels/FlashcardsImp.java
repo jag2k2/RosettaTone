@@ -2,24 +2,22 @@ package statemodels;
 
 import tuples.NoteSetImp;
 import music.note.Note;
+import uicomponents.FlashcardState;
+import uicomponents.RandomNoteGenerator;
 import uicomponents.renderer.grandstaff.StaffModeEvaluator;
-import notification.LimitChangeObserver;
 import trainer.FlashcardChangeNotifier;
-import trainer.FlashcardGenerator;
 import uicomponents.renderer.grandstaff.NoteNameDrawable;
-import uicomponents.renderer.grandstaff.FlashcardDrawable;
 import uicomponents.renderer.records.NoteImages;
 import uicomponents.renderer.records.RenderConstants;
 import utility.Maybe;
 import utility.NoteSet;
-import utility.NoteSetList;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class FlashcardsImp implements NoteSetList, FlashcardGenerator, FlashcardDrawable, LimitChangeObserver {
+public class FlashcardsImp implements FlashcardState {
     private final RandomNoteGenerator randomNoteGenerator;
     private final List<NoteSet> flashcardList;
 
@@ -33,6 +31,7 @@ public class FlashcardsImp implements NoteSetList, FlashcardGenerator, Flashcard
         this.flashcardList = new ArrayList<>();
     }
 
+    @Override
     public void addFlashcardChangeNotifier(FlashcardChangeNotifier flashcardChangeNotifier){
         this.flashcardChangeNotifier = new Maybe<>(flashcardChangeNotifier);
     }

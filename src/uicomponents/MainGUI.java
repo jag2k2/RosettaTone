@@ -102,11 +102,11 @@ public class MainGUI extends JComponent{
         MidiDeviceInquirer midiDeviceInquirer = new MidiDeviceInquirerImp(this);
 
         //Trainer
-        NoteGeneratorImp noteGeneratorImp = new NoteGeneratorImp(lowerLimit, upperLimit);
-        FlashcardsImp flashcardsImp = new FlashcardsImp(noteGeneratorImp);
-        flashcardsImp.addFlashcardChangeNotifier(flashcardChangeNotifier);
-        SightReadTrainerImp sightReadTrainerImp = new SightReadTrainerImp(keyboardState, flashcardsImp, noteNameModeState, score, trainerState);
-        sightReadTrainerImp.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifier);
+        RandomNoteGenerator noteGenerator = new NoteGeneratorImp(lowerLimit, upperLimit);
+        FlashcardState flashcardState = new FlashcardsImp(noteGenerator);
+        flashcardState.addFlashcardChangeNotifier(flashcardChangeNotifier);
+        SightReadTrainer sightReadTrainer = new SightReadTrainerImp(keyboardState, flashcardState, noteNameModeState, score, trainerState);
+        sightReadTrainer.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifier);
 
         //UI Event Handlers
         BrowserHandler browserHandler = new BrowserHandlerImp(midiReceiver, midiDeviceInquirer);
@@ -126,38 +126,41 @@ public class MainGUI extends JComponent{
         JComponent rangeSelector = new RangeSelectorImp(lowerNoteSelector, upperNoteSelector);
 
         //Renderers
-        GrandRendererImp grandStaffRenderer = new GrandRendererImp(keyboardState, flashcardsImp, staffMode, noteNameModeState, score, trainerState);
-        RangeRendererImp rangeRenderer = new RangeRendererImp(limitRange, previewRange);
-        NoteTextRendererImp noteTextRendererImp = new NoteTextRendererImp(keyboardState);
+        JComponent grandStaffRenderer = new GrandRendererImp(keyboardState, flashcardState, staffMode, noteNameModeState, score, trainerState);
+        JComponent rangeRenderer = new RangeRendererImp(limitRange, previewRange);
+        JComponent noteTextRendererImp = new NoteTextRendererImp(keyboardState);
+
+        //Observers
+        UIChangeObserver uiChangeObserver = new UIChangeObserverImp(noteTextRendererImp, grandStaffRenderer, rangeRenderer);
+        FlashcardChangeObserver flashcardChangeObserver = new FlashCardChangeObserverImp(flashcardState, grandStaffRenderer);
 
         //Add Observers
-        keyboardChangeNotifier.addObserver(grandStaffRenderer);
-        keyboardChangeNotifier.addObserver(noteTextRendererImp);
-        keyboardChangeNotifier.addObserver(sightReadTrainerImp);
+        keyboardChangeNotifier.addObserver(uiChangeObserver);
+        keyboardChangeNotifier.addObserver(sightReadTrainer);
 
-        configChangeNotifier.addObserver(grandStaffRenderer);
+        configChangeNotifier.addObserver(uiChangeObserver);
 
-        lowerLimitChangeNotifier.addObserver(rangeRenderer);
-        lowerLimitChangeNotifier.addObserver(flashcardsImp);
+        lowerLimitChangeNotifier.addObserver(uiChangeObserver);
+        lowerLimitChangeNotifier.addObserver(flashcardState);
         lowerLimitChangeNotifier.addObserver(lowerBoundHandler);
         lowerLimitChangeNotifier.addObserver(upperBoundedLimit);
         lowerLimitChangeNotifier.addObserver(score);
 
         lowerBoundChangeNotifier.addObserver(lowerBoundHandler);
 
-        upperLimitChangeNotifier.addObserver(rangeRenderer);
-        upperLimitChangeNotifier.addObserver(flashcardsImp);
+        upperLimitChangeNotifier.addObserver(uiChangeObserver);
+        upperLimitChangeNotifier.addObserver(flashcardState);
         upperLimitChangeNotifier.addObserver(upperBoundHandler);
         upperLimitChangeNotifier.addObserver(lowerBoundedLimit);
         upperLimitChangeNotifier.addObserver(score);
 
         upperBoundChangeNotifier.addObserver(upperBoundHandler);
 
-        previewLimitNotifier.addObserver(rangeRenderer);
+        previewLimitNotifier.addObserver(uiChangeObserver);
 
         flashcardSatisfiedNotifier.addObserver(noteNameModeState);
 
-        flashcardChangeNotifier.addObserver(grandStaffRenderer);
+        flashcardChangeNotifier.addObserver(flashcardChangeObserver);
         flashcardChangeNotifier.addObserver(noteNameModeState);
 
         //Build Panels
@@ -171,14 +174,24 @@ public class MainGUI extends JComponent{
         JPanel configPanel = new JPanel(new BorderLayout());
         configPanel.add(BorderLayout.NORTH, verticalPanel);
 
-        JPanel staffPanel = new JPanel(new BorderLayout());
-        staffPanel.add(BorderLayout.WEST, rangeRenderer.makeComponent());
-        staffPanel.add(BorderLayout.CENTER, grandStaffRenderer.makeComponent());
-        staffPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        JPanel staffPanel = new JPanel();
+        BoxLayout boxLayout = new BoxLayout(staffPanel, BoxLayout.X_AXIS);
+        staffPanel.setLayout(boxLayout);
+        staffPanel.setBackground(Color.WHITE);
+        staffPanel.add(grandStaffRenderer);
+
+        JPanel rangePanel = new JPanel();
+        rangePanel.setBackground(Color.WHITE);
+        rangePanel.add(rangeRenderer);
+
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(BorderLayout.WEST, rangePanel);
+        mainPanel.add(BorderLayout.CENTER, staffPanel);
+        mainPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
         this.setLayout(new BorderLayout());
         this.add(BorderLayout.WEST, configPanel);
-        this.add(BorderLayout.CENTER, staffPanel);
-        this.add(BorderLayout.SOUTH, noteTextRendererImp.makeComponent());
+        this.add(BorderLayout.CENTER, mainPanel);
+        this.add(BorderLayout.SOUTH, noteTextRendererImp);
     }
 }

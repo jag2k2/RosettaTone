@@ -10,6 +10,7 @@ import statemodels.*;
 import statemodels.limitstate.LimitStateImp;
 import trainer.randomnotegenerator.BoundedNoteGenerator;
 import trainer.randomnotegenerator.NoteGeneratorImp;
+import uicomponents.RandomNoteGenerator;
 import uicomponents.notenamemode.NoteNameMode;
 import utility.NoteSet;
 

@@ -1,7 +1,7 @@
 package trainer.randomnotegenerator;
 
 import music.note.Note;
-import statemodels.RandomNoteGenerator;
+import uicomponents.RandomNoteGenerator;
 
 public class NoteGeneratorImp implements RandomNoteGenerator {
     private final BoundedNoteGenerator lowerLimit;

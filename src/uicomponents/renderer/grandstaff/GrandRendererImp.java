@@ -3,7 +3,6 @@ package uicomponents.renderer.grandstaff;
 import imageprocessing.ImageFactory;
 import music.staff.Staff;
 import notification.*;
-import uicomponents.UIComponent;
 import uicomponents.renderer.records.ClefImages;
 import uicomponents.renderer.records.NoteImages;
 import uicomponents.renderer.records.RenderConstants;
@@ -11,13 +10,12 @@ import uicomponents.renderer.records.RenderConstants;
 import javax.swing.*;
 import java.awt.*;
 
-public class GrandRendererImp extends JComponent implements UIComponent, ConfigChangeObserver, KeyboardChangeObserver,
-        FlashcardChangeObserver {
+public class GrandRendererImp extends JComponent implements FlashcardChangeObserver {
     private final KeyStateDrawable keyboardState;
     private final StaffModeEvaluator staffMode;
     private final FlashcardDrawable flashcards;
     private final NoteNameDrawable noteNameMode;
-    private final ScoreDrawable scoreDrawable;
+    private final ScoreDrawable score;
     private final CanCheckEnabled trainer;
 
     private final ClefImages clefImages = ImageFactory.createClefImages();
@@ -27,38 +25,18 @@ public class GrandRendererImp extends JComponent implements UIComponent, ConfigC
     private final StaffDrawable bassStaff = new Staff(RenderConstants.bassStaff);
 
     public GrandRendererImp(KeyStateDrawable keyboardState, FlashcardDrawable flashcards,
-                            StaffModeEvaluator staffMode, NoteNameDrawable noteNameMode, ScoreDrawable scoreDrawable, CanCheckEnabled trainer){
+                            StaffModeEvaluator staffMode, NoteNameDrawable noteNameMode, ScoreDrawable score, CanCheckEnabled trainer){
         this.keyboardState = keyboardState;
         this.staffMode = staffMode;
         this.flashcards = flashcards;
         this.noteNameMode = noteNameMode;
-        this.scoreDrawable = scoreDrawable;
+        this.score = score;
         this.trainer = trainer;
     }
 
     @Override
-    public Component makeComponent() {
-        JPanel panel = new JPanel();
-        BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.X_AXIS);
-        panel.setLayout(boxLayout);
-        panel.add(this);
-        panel.setBackground(Color.WHITE);
-        return panel;
-    }
-
-    @Override
-    public void configChanged() {
-        repaint();
-    }
-
-    @Override
-    public void boardChangedWithKeyDown() {
-        repaint();
-    }
-
-    @Override
-    public void boardChangedWithKeyUp() {
-        repaint();
+    public Dimension getPreferredSize() {
+        return RenderConstants.canvasSize;
     }
 
     @Override
@@ -66,11 +44,6 @@ public class GrandRendererImp extends JComponent implements UIComponent, ConfigC
         Thread thread = new Thread(flashcards);
         flashcards.setScrollableComponent(this);
         thread.start();
-    }
-
-    @Override
-    public Dimension getPreferredSize() {
-        return RenderConstants.canvasSize;
     }
 
     @Override
@@ -86,7 +59,7 @@ public class GrandRendererImp extends JComponent implements UIComponent, ConfigC
         keyboardState.draw(graphics2D, noteImages, staffMode);
         if (trainer.isEnabled()){
             flashcards.draw(graphics2D, noteImages, staffMode, noteNameMode);
-            scoreDrawable.draw(graphics2D);
+            score.draw(graphics2D);
         }
     }
 }

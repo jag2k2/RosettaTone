@@ -1,4 +1,4 @@
-package statemodels;
+package uicomponents;
 
 import music.note.Note;
 

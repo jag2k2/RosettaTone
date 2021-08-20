@@ -1,12 +1,10 @@
 package uicomponents.renderer.limit;
 
-import notification.LimitChangeObserver;
-import uicomponents.UIComponent;
 import uicomponents.renderer.records.RenderConstants;
 import javax.swing.*;
 import java.awt.*;
 
-public class RangeRendererImp extends JComponent implements UIComponent, LimitChangeObserver {
+public class RangeRendererImp extends JComponent {
     private final RangeDrawable limitRange;
     private final RangeDrawable previewRange;
 
@@ -16,21 +14,8 @@ public class RangeRendererImp extends JComponent implements UIComponent, LimitCh
     }
 
     @Override
-    public Component makeComponent() {
-        JPanel panel = new JPanel();
-        panel.add(this);
-        panel.setBackground(Color.WHITE);
-        return panel;
-    }
-
-    @Override
     public Dimension getPreferredSize() {
         return RenderConstants.rangeIndicatorSize;
-    }
-
-    @Override
-    public void limitChanged() {
-        repaint();
     }
 
     @Override

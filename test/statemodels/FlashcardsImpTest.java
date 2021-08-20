@@ -12,6 +12,7 @@ import trainer.FlashcardChangeNotifier;
 import trainer.FlashcardSatisfiedNotifier;
 import trainer.SightReadTrainerImp;
 import trainer.randomnotegenerator.NoteGeneratorImp;
+import uicomponents.RandomNoteGenerator;
 import utility.NoteSet;
 
 import static org.junit.jupiter.api.Assertions.*;

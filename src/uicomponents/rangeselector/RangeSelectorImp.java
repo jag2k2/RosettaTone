@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class RangeSelectorImp extends JComponent {
 
-    public RangeSelectorImp(UIComponent lowerNoteSelector, UIComponent upperNoteSelector){
+    public RangeSelectorImp(JComponent lowerNoteSelector, JComponent upperNoteSelector){
         JPanel labelPanel = new JPanel();
         BoxLayout layout = new BoxLayout(labelPanel, BoxLayout.Y_AXIS);
         labelPanel.setLayout(layout);
@@ -16,8 +16,8 @@ public class RangeSelectorImp extends JComponent {
         labelPanel.add(new JLabel("GENERATOR"));
 
         JPanel rangePanel = new JPanel(new FlowLayout());
-        rangePanel.add(lowerNoteSelector.makeComponent());
-        rangePanel.add(upperNoteSelector.makeComponent());
+        rangePanel.add(lowerNoteSelector);
+        rangePanel.add(upperNoteSelector);
 
         this.setLayout(new BorderLayout());
         this.add(labelPanel, BorderLayout.NORTH);

@@ -6,8 +6,8 @@ import statemodels.ConfigChangeNotifier;
 import trainer.FlashcardAdvancer;
 import uicomponents.notenamemode.NoteNameMode;
 import uicomponents.renderer.grandstaff.NoteNameDrawable;
-import uicomponents.util.CanSetMode;
+import uicomponents.util.SelectableState;
 
-public interface NoteNameModeState extends CanSetMode<NoteNameMode>, NoteNameDrawable, FlashcardAdvancer, FlashcardSatisfiedObserver, FlashcardChangeObserver {
+public interface NoteNameModeState extends SelectableState<NoteNameMode>, NoteNameDrawable, FlashcardAdvancer, FlashcardSatisfiedObserver, FlashcardChangeObserver {
     void addConfigChangeNotifier(ConfigChangeNotifier configChangeNotifier);
 }

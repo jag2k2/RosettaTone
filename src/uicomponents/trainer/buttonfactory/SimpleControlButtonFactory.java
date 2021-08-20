@@ -1,10 +1,10 @@
 package uicomponents.trainer.buttonfactory;
 
-import uicomponents.trainer.ButtonFactory;
+import uicomponents.trainer.ControlButtonFactory;
 
 import javax.swing.*;
 
-public class SimpleButtonFactory implements ButtonFactory {
+public class SimpleControlButtonFactory implements ControlButtonFactory {
     @Override
     public AbstractButton constructButton(String text) {
         return new JButton(text);

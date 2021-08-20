@@ -9,7 +9,7 @@ import instrument.key.Key;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 import uicomponents.renderer.grandstaff.StaffModeEvaluator;
-import uicomponents.staffmode.StaffMode;
+import statemodels.StaffMode;
 import utility.LineSet;
 import utility.NoteSet;
 

@@ -6,11 +6,11 @@ import uicomponents.UIComponent;
 import javax.swing.*;
 import java.awt.*;
 
-public class NoteTextRenderer implements UIComponent, KeyboardChangeObserver {
+public class NoteTextRendererImp implements UIComponent, KeyboardChangeObserver {
     private final JTextArea textArea;
     private final Object keyboardState;
 
-    public NoteTextRenderer(Object keyboardState){
+    public NoteTextRendererImp(Object keyboardState){
         this.keyboardState = keyboardState;
         this.textArea = new JTextArea();
 
@@ -22,6 +22,8 @@ public class NoteTextRenderer implements UIComponent, KeyboardChangeObserver {
         panel.add(BorderLayout.CENTER, textArea);
         return panel;
     }
+
+
 
     @Override
     public void boardChangedWithKeyDown() {

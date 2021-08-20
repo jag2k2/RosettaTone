@@ -6,9 +6,9 @@ import statemodels.ScoreImp;
 import statemodels.TrainerStateImp;
 import uicomponents.ScoreKeepable;
 import uicomponents.TrainerState;
-import uicomponents.trainer.ButtonFactory;
+import uicomponents.trainer.ControlButtonFactory;
 import uicomponents.trainer.ControlHandler;
-import uicomponents.trainer.buttonfactory.SimpleButtonFactory;
+import uicomponents.trainer.buttonfactory.SimpleControlButtonFactory;
 import javax.swing.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,9 +26,9 @@ class ControlHandlerImpTest {
 
     @Test
     void canStart() {
-        ButtonFactory simpleButtonFactory = new SimpleButtonFactory();
+        ControlButtonFactory simpleControlButtonFactory = new SimpleControlButtonFactory();
 
-        AbstractButton startButton = controlHandler.createStartButton(simpleButtonFactory);
+        AbstractButton startButton = controlHandler.createStartButton(simpleControlButtonFactory);
 
         startButton.doClick();
         assertTrue(trainerState.isEnabled());
@@ -36,9 +36,9 @@ class ControlHandlerImpTest {
 
     @Test
     void canStop(){
-        ButtonFactory simpleButtonFactory = new SimpleButtonFactory();
+        ControlButtonFactory simpleControlButtonFactory = new SimpleControlButtonFactory();
 
-        AbstractButton stopButton = controlHandler.createStopButton(simpleButtonFactory);
+        AbstractButton stopButton = controlHandler.createStopButton(simpleControlButtonFactory);
 
         trainerState.enable();
         score.addHit();
@@ -54,8 +54,8 @@ class ControlHandlerImpTest {
 
     @Test
     void createReset() {
-        ButtonFactory simpleButtonFactory = new SimpleButtonFactory();
-        AbstractButton resetButton = controlHandler.createResetButton(simpleButtonFactory);
+        ControlButtonFactory simpleControlButtonFactory = new SimpleControlButtonFactory();
+        AbstractButton resetButton = controlHandler.createResetButton(simpleControlButtonFactory);
 
         score.addHit();
         score.addMiss();

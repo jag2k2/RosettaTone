@@ -9,10 +9,6 @@ public class NoteNameModeStateImp implements NoteNameModeState {
     private boolean flashcardSatisfied = false;
     private Maybe<ConfigChangeNotifier> configChangeNotifier = new Maybe<>();
 
-    public NoteNameModeStateImp() {
-        this.noteNameMode = NoteNameMode.Always;
-    }
-
     public NoteNameModeStateImp(NoteNameMode noteNameMode){
         this.noteNameMode = noteNameMode;
     }
@@ -23,13 +19,23 @@ public class NoteNameModeStateImp implements NoteNameModeState {
     }
 
     @Override
-    public void setMode(NoteNameMode noteNameMode) {
-        if(!this.noteNameMode.equals(noteNameMode)) {
-            this.noteNameMode = noteNameMode;
+    public void update(NoteNameMode newValue) {
+        if(!this.noteNameMode.equals(newValue)) {
+            this.noteNameMode = newValue;
             for (ConfigChangeNotifier notifier : configChangeNotifier) {
                 notifier.notifyObservers();
             }
         }
+    }
+
+    @Override
+    public NoteNameMode getActive() {
+        return noteNameMode;
+    }
+
+    @Override
+    public NoteNameMode[] getOptions() {
+        return NoteNameMode.values();
     }
 
     @Override

@@ -60,7 +60,7 @@ class LimitStateTest implements LimitChangeObserver {
     @Test
     void willSetNewLimit(){
         Note newNote = new Note(NoteName.C, 3);
-        noteLimit.setLimit(newNote);
+        noteLimit.update(newNote);
         LimitStateImp modelToCompare = new LimitStateImp(newNote);
         assertEquals(modelToCompare, noteLimit);
         assertTrue(notificationFired);

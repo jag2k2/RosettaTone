@@ -1,6 +1,6 @@
 package uicomponents.trainer.eventhandler;
 
-import uicomponents.trainer.ButtonFactory;
+import uicomponents.trainer.ControlButtonFactory;
 import uicomponents.trainer.ControlHandler;
 
 import javax.swing.*;
@@ -27,24 +27,24 @@ public class ControlHandlerImp implements ControlHandler, ActionListener {
     }
 
     @Override
-    public AbstractButton createStartButton(ButtonFactory buttonFactory){
-        AbstractButton button = buttonFactory.constructButton(startText);
+    public AbstractButton createStartButton(ControlButtonFactory controlButtonFactory){
+        AbstractButton button = controlButtonFactory.constructButton(startText);
         button.addActionListener(this);
         button.setActionCommand(startText);
         return button;
     }
 
     @Override
-    public AbstractButton createStopButton(ButtonFactory buttonFactory) {
-        AbstractButton button = buttonFactory.constructButton(stopText);
+    public AbstractButton createStopButton(ControlButtonFactory controlButtonFactory) {
+        AbstractButton button = controlButtonFactory.constructButton(stopText);
         button.addActionListener(this);
         button.setActionCommand(stopText);
         return button;
     }
 
     @Override
-    public AbstractButton createResetButton(ButtonFactory buttonFactory) {
-        AbstractButton button = buttonFactory.constructButton(resetText);
+    public AbstractButton createResetButton(ControlButtonFactory controlButtonFactory) {
+        AbstractButton button = controlButtonFactory.constructButton(resetText);
         button.addActionListener(this);
         button.setActionCommand(resetText);
         return button;

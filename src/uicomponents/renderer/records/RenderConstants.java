@@ -18,6 +18,8 @@ public class RenderConstants {
     public static final double bassResizeFactor = 0.4;
 
     public static final String refreshIconPath = "/images/refresh.png";
+    public static final String incrementIconPath = "/images/UpArrow.png";
+    public static final String decrementIconPath = "/images/DownArrow.png";
 
     public static final StaffConstants trebleStaff = new StaffConstants(0.5, 15, 3, 18, 26);
     public static final StaffConstants bassStaff = new StaffConstants(0.4, 30, 0, 30, 38);

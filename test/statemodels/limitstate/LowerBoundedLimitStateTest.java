@@ -41,8 +41,9 @@ public class LowerBoundedLimitStateTest implements LimitChangeObserver {
         lowerNoteLimit.addLimitChangeNotifier(limitChangeNotifier);
         otherLimit = new LimitStateImp(otherLimitNote);
         otherLimit.addLimitChangeNotifier(otherLimitChangeNotifier);
-        boundedNoteLimit = new LowerBoundedLimitStateImp(lowerNoteLimit, otherLimit, lowerBoundNote, upperBoundNote);
+        boundedNoteLimit = new LowerBoundedLimitStateImp(lowerBoundNote, lowerNoteLimit, upperBoundNote);
         boundedNoteLimit.addBoundChangeNotifier(boundChangeNotifier);
+        boundedNoteLimit.setOtherLimit(otherLimit);
 
         limitChangeNotifier.addObserver(this);
         boundChangeNotifier.addObserver(this);
@@ -54,7 +55,7 @@ public class LowerBoundedLimitStateTest implements LimitChangeObserver {
     @Test
     void canMatchUpperBoundToOtherNoteLimit(){
         otherLimitChangeNotifier.notifyObservers();
-        LowerBoundedLimitStateImp expected = new LowerBoundedLimitStateImp(lowerNoteLimit, otherLimit, lowerBoundNote, otherLimitNote);
+        LowerBoundedLimitStateImp expected = new LowerBoundedLimitStateImp(lowerBoundNote,lowerNoteLimit, otherLimitNote);
         assertEquals(expected, boundedNoteLimit);
         assertEquals(notificationsFired, 1);
     }

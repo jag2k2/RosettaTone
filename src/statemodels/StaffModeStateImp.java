@@ -1,16 +1,11 @@
 package statemodels;
 
 import uicomponents.StaffModeState;
-import uicomponents.staffmode.StaffMode;
 import utility.Maybe;
 
 public class StaffModeStateImp implements StaffModeState {
     private Maybe<ConfigChangeNotifier> staffModeChangeNotifier = new Maybe<>();
     private StaffMode staffMode;
-
-    public StaffModeStateImp(){
-        this.staffMode = StaffMode.Treble;
-    }
 
     public StaffModeStateImp(StaffMode staffMode){
         this.staffMode = staffMode;
@@ -36,12 +31,22 @@ public class StaffModeStateImp implements StaffModeState {
     }
 
     @Override
-    public void setMode(StaffMode staffMode) {
-        if (!this.staffMode.equals(staffMode)){
-            this.staffMode = staffMode;
+    public void update(StaffMode newValue) {
+        if (!this.staffMode.equals(newValue)){
+            this.staffMode = newValue;
             for(ConfigChangeNotifier notifier : staffModeChangeNotifier)
                 notifier.notifyObservers();
         }
+    }
+
+    @Override
+    public StaffMode getActive() {
+        return staffMode;
+    }
+
+    @Override
+    public StaffMode[] getOptions() {
+        return StaffMode.values();
     }
 
     @Override

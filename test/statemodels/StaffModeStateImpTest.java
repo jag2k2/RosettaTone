@@ -4,7 +4,6 @@ import notification.ConfigChangeObserver;
 import notification.ConfigChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uicomponents.staffmode.StaffMode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,7 +43,7 @@ class StaffModeStateImpTest implements ConfigChangeObserver {
     @Test
     void canChangeStaffMode(){
         StaffModeStateImp expected = new StaffModeStateImp(StaffMode.Treble);
-        staffModeStateImp.setMode(StaffMode.Treble);
+        staffModeStateImp.update(StaffMode.Treble);
         assertEquals(expected, staffModeStateImp);
         assertTrue(staffModeChanged);
     }
@@ -52,7 +51,7 @@ class StaffModeStateImpTest implements ConfigChangeObserver {
     @Test
     void wontChangeStaffModeIfSame(){
         StaffModeStateImp expected = new StaffModeStateImp(StaffMode.Grand);
-        staffModeStateImp.setMode(StaffMode.Grand);
+        staffModeStateImp.update(StaffMode.Grand);
         assertEquals(expected, staffModeStateImp);
         assertFalse(staffModeChanged);
     }

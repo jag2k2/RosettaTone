@@ -1,5 +1,6 @@
 package uicomponents.staffmode;
 
+import statemodels.StaffMode;
 import uicomponents.util.JSelector;
 import uicomponents.staffmode.selectorfactory.JComboStaffSelectorFactory;
 import uicomponents.util.SelectorFactory;
@@ -11,9 +12,9 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 
 public class StaffModeSelectorImp extends JComponent {
-    public StaffModeSelectorImp(ModeHandler<StaffMode> modeHandler, StaffMode defaultMode){
+    public StaffModeSelectorImp(ModeHandler<StaffMode> modeHandler){
         SelectorFactory<StaffMode> selectorFactory = new JComboStaffSelectorFactory();
-        JSelector<StaffMode> selector = modeHandler.createModeSelector(selectorFactory, defaultMode);
+        JSelector<StaffMode> selector = modeHandler.createModeSelector(selectorFactory);
 
         JPanel labelPanel = new JPanel();
         BoxLayout layout = new BoxLayout(labelPanel, BoxLayout.Y_AXIS);

@@ -65,7 +65,7 @@ class FlashcardsImpTest implements FlashcardSatisfiedObserver, FlashcardChangeOb
 
     @Test
     void generateNewFlashcardsWhenLimitChanges() {
-        lowerLimit.setLimit(new Note(NoteName.B, 3));
+        lowerLimit.update(new Note(NoteName.B, 3));
         assertTrue(flashcardChanged);
     }
 

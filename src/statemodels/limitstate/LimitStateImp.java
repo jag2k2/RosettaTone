@@ -25,12 +25,12 @@ public class LimitStateImp implements LimitState {
     }
 
     @Override
-    public Note getLimit() {
+    public Note getActive() {
         return limit;
     }
 
     @Override
-    public void setLimit(Note note){
+    public void update(Note note){
         if(!limit.equals(note)) {
             limit = note;
             for (LimitChangeNotifier notifier : limitChangeNotifier) {
@@ -41,12 +41,12 @@ public class LimitStateImp implements LimitState {
 
     @Override
     public void increment() {
-        setLimit(limit.getNext(NoteAccidental.NATURAL));
+        update(limit.getNext(NoteAccidental.NATURAL));
     }
 
     @Override
     public void decrement() {
-        setLimit(limit.getPrevious(NoteAccidental.NATURAL));
+        update(limit.getPrevious(NoteAccidental.NATURAL));
     }
 
     @Override
@@ -70,6 +70,7 @@ public class LimitStateImp implements LimitState {
         graphics2D.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         graphics2D.drawString(limit.toString(), fontXPos, fontYPos);
     }
+
     @Override
     public void drawConnection(Graphics2D graphics2D, LimitDrawable otherLimit){
         if(otherLimit instanceof LimitStateImp){

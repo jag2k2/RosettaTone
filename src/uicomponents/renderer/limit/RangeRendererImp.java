@@ -3,11 +3,10 @@ package uicomponents.renderer.limit;
 import notification.LimitChangeObserver;
 import uicomponents.UIComponent;
 import uicomponents.renderer.records.RenderConstants;
-
 import javax.swing.*;
 import java.awt.*;
 
-public class RangeRendererImp extends Component implements UIComponent, LimitChangeObserver {
+public class RangeRendererImp extends JComponent implements UIComponent, LimitChangeObserver {
     private final RangeDrawable limitRange;
     private final RangeDrawable previewRange;
 

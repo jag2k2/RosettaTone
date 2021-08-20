@@ -20,15 +20,17 @@ import uicomponents.browser.eventhandler.MidiDeviceInquirer;
 import uicomponents.notenamemode.NoteNameMode;
 import uicomponents.notenamemode.NoteNameModeSelectorImp;
 import uicomponents.browser.InstrumentBrowserImp;
+import uicomponents.rangeselector.noteselector.BoundSelectHandler;
 import uicomponents.rangeselector.noteselector.NoteSelectorImp;
 import uicomponents.rangeselector.RangeSelectorImp;
+import uicomponents.rangeselector.noteselector.eventhandler.BoundSelectHandlerImp;
 import uicomponents.renderer.grandstaff.GrandRendererImp;
 import uicomponents.renderer.limit.RangeDrawable;
-import uicomponents.renderer.text.NoteTextRenderer;
+import uicomponents.renderer.text.NoteTextRendererImp;
 import uicomponents.renderer.limit.RangeRendererImp;
 import uicomponents.util.ModeHandler;
 import uicomponents.staffmode.StaffModeSelectorImp;
-import uicomponents.staffmode.StaffMode;
+import statemodels.StaffMode;
 import uicomponents.util.ModeHandlerImp;
 import uicomponents.trainer.ControlHandler;
 import uicomponents.trainer.TrainerControlImp;
@@ -37,8 +39,6 @@ import uicomponents.trainer.eventhandler.ControlHandlerImp;
 public class MainGUI extends JComponent{
 
     public MainGUI(){
-        this.setLayout(new BorderLayout());
-
         //Notifiers
         KeyboardChangeNotifier keyboardChangeNotifier = new KeyboardChangeNotifierImp();
         ConfigChangeNotifier configChangeNotifier = new ConfigChangeNotifierImp();
@@ -51,13 +51,11 @@ public class MainGUI extends JComponent{
         FlashcardChangeNotifier flashcardChangeNotifier = new FlashcardChangeNotifierImp();
 
         //State Models
-        KeyboardState keyboardState = new KeyboardStateImp();
-        keyboardState.addKeyboardChangeNotifier(keyboardChangeNotifier);
-
         Note lowerBoundNote = new Note(NoteName.A, 0);
-        Note upperBoundNote = new Note(NoteName.C, 8);
         Note defaultLowerLimitNote = new Note(NoteName.C, 4);
         Note defaultUpperLimitNote = new Note(NoteName.C, 5);
+        Note upperBoundNote = new Note(NoteName.C, 8);
+
         StaffMode defaultStaffMode = StaffMode.Grand;
         NoteNameMode defaultNoteName = NoteNameMode.Off;
 
@@ -76,16 +74,21 @@ public class MainGUI extends JComponent{
         RangeDrawable limitRange = new RangeStateImp(lowerLimit, upperLimit);
         RangeDrawable previewRange = new RangeStateImp(lowerPreviewLimit, upperPreviewLimit);
 
-        AbstractBoundedLimit lowerBoundedLimit = new LowerBoundedLimitStateImp(lowerLimit, upperLimit, lowerBoundNote, defaultUpperLimitNote);
+        AbstractBoundedLimit lowerBoundedLimit = new LowerBoundedLimitStateImp(lowerBoundNote, lowerLimit, defaultUpperLimitNote);
         lowerBoundedLimit.addBoundChangeNotifier(lowerBoundChangeNotifier);
-        AbstractBoundedLimit upperBoundedLimit = new UpperBoundedLimitStateImp(upperLimit, lowerLimit, defaultLowerLimitNote, upperBoundNote);
+        lowerBoundedLimit.setOtherLimit(upperLimit);
+        AbstractBoundedLimit upperBoundedLimit = new UpperBoundedLimitStateImp(defaultLowerLimitNote, upperLimit, upperBoundNote);
         upperBoundedLimit.addBoundChangeNotifier(upperBoundChangeNotifier);
+        upperBoundedLimit.setOtherLimit(lowerLimit);
 
-        StaffModeState staffMode = new StaffModeStateImp();
+        StaffModeState staffMode = new StaffModeStateImp(defaultStaffMode);
         staffMode.addConfigChangeNotifier(configChangeNotifier);
 
-        NoteNameModeState noteNameModeState = new NoteNameModeStateImp();
+        NoteNameModeState noteNameModeState = new NoteNameModeStateImp(defaultNoteName);
         noteNameModeState.addConfigChangeNotifier(configChangeNotifier);
+
+        KeyboardState keyboardState = new KeyboardStateImp();
+        keyboardState.addKeyboardChangeNotifier(keyboardChangeNotifier);
 
         ScoreKeepable score = new ScoreImp();
         score.addConfigChangeNotifier(configChangeNotifier);
@@ -105,47 +108,49 @@ public class MainGUI extends JComponent{
         sightReadTrainerImp.addFlashcardSatisfiedNotifier(flashcardSatisfiedNotifier);
 
         //UI Event Handlers
+        BrowserHandler browserHandler = new BrowserHandlerImp(midiReceiver, midiDeviceInquirer);
         ControlHandler controlHandler = new ControlHandlerImp(trainerState, score);
         ModeHandler<StaffMode> staffModeHandler = new ModeHandlerImp<>(staffMode);
         ModeHandler<NoteNameMode> noteNameModeHandler = new ModeHandlerImp<>(noteNameModeState);
-        BrowserHandler browserHandler = new BrowserHandlerImp(midiReceiver, midiDeviceInquirer);
+        BoundSelectHandler lowerBoundHandler = new BoundSelectHandlerImp(lowerBoundedLimit, lowerPreviewLimit);
+        BoundSelectHandler upperBoundHandler = new BoundSelectHandlerImp(upperBoundedLimit, upperPreviewLimit);
 
         //Selectors
         JComponent instrumentBrowser = new InstrumentBrowserImp(browserHandler);
         JComponent trainerControl = new TrainerControlImp(controlHandler);
-        JComponent staffModeSelector = new StaffModeSelectorImp(staffModeHandler, defaultStaffMode);
-        JComponent noteNameModeSelector = new NoteNameModeSelectorImp(noteNameModeHandler, defaultNoteName);
-        NoteSelectorImp lowerNoteSelector = new NoteSelectorImp(lowerBoundedLimit, lowerPreviewLimit);
-        NoteSelectorImp upperNoteSelector = new NoteSelectorImp(upperBoundedLimit, upperPreviewLimit);
+        JComponent staffModeSelector = new StaffModeSelectorImp(staffModeHandler);
+        JComponent noteNameModeSelector = new NoteNameModeSelectorImp(noteNameModeHandler);
+        JComponent lowerNoteSelector = new NoteSelectorImp(lowerBoundHandler, lowerPreviewLimit);
+        JComponent upperNoteSelector = new NoteSelectorImp(upperBoundHandler, upperPreviewLimit);
         JComponent rangeSelector = new RangeSelectorImp(lowerNoteSelector, upperNoteSelector);
 
         //Renderers
         GrandRendererImp grandStaffRenderer = new GrandRendererImp(keyboardState, flashcardsImp, staffMode, noteNameModeState, score, trainerState);
         RangeRendererImp rangeRenderer = new RangeRendererImp(limitRange, previewRange);
-        NoteTextRenderer noteTextRenderer = new NoteTextRenderer(keyboardState);
+        NoteTextRendererImp noteTextRendererImp = new NoteTextRendererImp(keyboardState);
 
         //Add Observers
         keyboardChangeNotifier.addObserver(grandStaffRenderer);
-        keyboardChangeNotifier.addObserver(noteTextRenderer);
+        keyboardChangeNotifier.addObserver(noteTextRendererImp);
         keyboardChangeNotifier.addObserver(sightReadTrainerImp);
 
         configChangeNotifier.addObserver(grandStaffRenderer);
 
         lowerLimitChangeNotifier.addObserver(rangeRenderer);
         lowerLimitChangeNotifier.addObserver(flashcardsImp);
-        lowerLimitChangeNotifier.addObserver(lowerNoteSelector);
+        lowerLimitChangeNotifier.addObserver(lowerBoundHandler);
         lowerLimitChangeNotifier.addObserver(upperBoundedLimit);
         lowerLimitChangeNotifier.addObserver(score);
 
-        lowerBoundChangeNotifier.addObserver(lowerNoteSelector);
+        lowerBoundChangeNotifier.addObserver(lowerBoundHandler);
 
         upperLimitChangeNotifier.addObserver(rangeRenderer);
         upperLimitChangeNotifier.addObserver(flashcardsImp);
-        upperLimitChangeNotifier.addObserver(upperNoteSelector);
+        upperLimitChangeNotifier.addObserver(upperBoundHandler);
         upperLimitChangeNotifier.addObserver(lowerBoundedLimit);
         upperLimitChangeNotifier.addObserver(score);
 
-        upperBoundChangeNotifier.addObserver(upperNoteSelector);
+        upperBoundChangeNotifier.addObserver(upperBoundHandler);
 
         previewLimitNotifier.addObserver(rangeRenderer);
 
@@ -170,8 +175,9 @@ public class MainGUI extends JComponent{
         staffPanel.add(BorderLayout.CENTER, grandStaffRenderer.makeComponent());
         staffPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
+        this.setLayout(new BorderLayout());
         this.add(BorderLayout.WEST, configPanel);
         this.add(BorderLayout.CENTER, staffPanel);
-        this.add(BorderLayout.SOUTH, noteTextRenderer.makeComponent());
+        this.add(BorderLayout.SOUTH, noteTextRendererImp.makeComponent());
     }
 }

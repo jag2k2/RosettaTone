@@ -1,14 +1,17 @@
 package uicomponents.staffmode.selectorfactory;
 
-import uicomponents.staffmode.StaffMode;
-import uicomponents.util.JSelector;
-import uicomponents.util.CanSetMode;
+import statemodels.StaffMode;
+import uicomponents.util.*;
 import uicomponents.util.selectors.JComboSelector;
-import uicomponents.util.SelectorFactory;
+
+import javax.swing.*;
 
 public class JComboStaffSelectorFactory implements SelectorFactory<StaffMode> {
     @Override
-    public JSelector<StaffMode> makeSelector(CanSetMode<StaffMode> defaultMode) {
-        return new JComboSelector<>(StaffMode.class, defaultMode);
+    public JSelector<StaffMode> makeSelector(SelectableState<StaffMode> state) {
+        ListCellRenderer<StaffMode> renderer = new JSelectorRenderer<>(new DefaultListCellRenderer());
+        JSelector<StaffMode> selector = new JComboSelector<>(state, renderer);
+        selector.refreshSelections();
+        return selector;
     }
 }

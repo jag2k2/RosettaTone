@@ -57,7 +57,7 @@ class NoteNameModeStateImpTest implements ConfigChangeObserver {
     @Test
     void setMode() {
         NoteNameModeStateImp expected = new NoteNameModeStateImp(NoteNameMode.Correct);
-        noteNameModeStateImp.setMode(NoteNameMode.Correct);
+        noteNameModeStateImp.update(NoteNameMode.Correct);
         assertEquals(expected, noteNameModeStateImp);
         assertTrue(configChanged);
     }
@@ -65,21 +65,21 @@ class NoteNameModeStateImpTest implements ConfigChangeObserver {
     @Test
     void wontSetModeIfSame(){
         NoteNameModeStateImp expected = new NoteNameModeStateImp(NoteNameMode.Off);
-        noteNameModeStateImp.setMode(NoteNameMode.Off);
+        noteNameModeStateImp.update(NoteNameMode.Off);
         assertEquals(expected, noteNameModeStateImp);
         assertFalse(configChanged);
     }
 
     @Test
     void canCheckIfEnabled(){
-        noteNameModeStateImp.setMode(NoteNameMode.Off);
+        noteNameModeStateImp.update(NoteNameMode.Off);
         assertFalse(noteNameModeStateImp.isEnabled(0));
 
-        noteNameModeStateImp.setMode(NoteNameMode.Always);
+        noteNameModeStateImp.update(NoteNameMode.Always);
         assertTrue(noteNameModeStateImp.isEnabled(0));
         assertTrue(noteNameModeStateImp.isEnabled(1));
 
-        noteNameModeStateImp.setMode(NoteNameMode.Correct);
+        noteNameModeStateImp.update(NoteNameMode.Correct);
         assertFalse(noteNameModeStateImp.isEnabled(0));
         flashcardSatisfiedNotifier.notifyFlashcardSatisfied();
         assertTrue(noteNameModeStateImp.isEnabled(0));
@@ -90,16 +90,16 @@ class NoteNameModeStateImpTest implements ConfigChangeObserver {
 
     @Test
     void delayAdvance(){
-        noteNameModeStateImp.setMode(NoteNameMode.Off);
+        noteNameModeStateImp.update(NoteNameMode.Off);
         assertTrue(noteNameModeStateImp.immediatelyAdvance());
 
-        noteNameModeStateImp.setMode(NoteNameMode.Always);
+        noteNameModeStateImp.update(NoteNameMode.Always);
         assertTrue(noteNameModeStateImp.immediatelyAdvance());
     }
 
     @Test
     void correctModeDelaysAdvance(){
-        noteNameModeStateImp.setMode(NoteNameMode.Correct);
+        noteNameModeStateImp.update(NoteNameMode.Correct);
         assertFalse(noteNameModeStateImp.readyToAdvance());
 
         flashcardSatisfiedNotifier.notifyFlashcardSatisfied();

@@ -1,18 +1,16 @@
 package statemodels.limitstate;
 
 import music.note.Note;
-import uicomponents.rangeselector.noteselector.LimitModifier;
+import uicomponents.rangeselector.noteselector.SteppableState;
 
 public class UpperBoundedLimitStateImp extends AbstractBoundedLimit {
-    private final LimitModifier otherLimit;
 
-    public UpperBoundedLimitStateImp(LimitModifier limitModifier, LimitModifier otherLimit, Note lowerBound, Note upperBound) {
-        super(limitModifier, lowerBound, upperBound);
-        this.otherLimit = otherLimit;
+    public UpperBoundedLimitStateImp(Note lowerBound, SteppableState<Note> limit, Note upperBound) {
+        super(lowerBound, limit, upperBound);
     }
 
     @Override
     public void limitChanged() {
-        setLowerBound(otherLimit);
+        setLowerBound();
     }
 }

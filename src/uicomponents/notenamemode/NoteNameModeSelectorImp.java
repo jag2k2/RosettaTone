@@ -10,9 +10,9 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 
 public class NoteNameModeSelectorImp extends JComponent {
-    public NoteNameModeSelectorImp(ModeHandler<NoteNameMode> modeHandler, NoteNameMode defaultMode){
+    public NoteNameModeSelectorImp(ModeHandler<NoteNameMode> modeHandler){
         SelectorFactory<NoteNameMode> selectorFactory = new JComboNoteNameSelectorFactory();
-        JSelector<NoteNameMode> selector = modeHandler.createModeSelector(selectorFactory, defaultMode);
+        JSelector<NoteNameMode> selector = modeHandler.createModeSelector(selectorFactory);
 
         JPanel labelPanel = new JPanel();
         BoxLayout boxLayout = new BoxLayout(labelPanel, BoxLayout.Y_AXIS);

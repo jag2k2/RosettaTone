@@ -3,19 +3,21 @@ package statemodels.limitstate;
 import music.note.Note;
 import music.note.NoteAccidental;
 import notification.LimitChangeObserver;
-import uicomponents.rangeselector.noteselector.LimitModifier;
-import uicomponents.rangeselector.noteselector.BoundedNoteModifier;
+import uicomponents.rangeselector.noteselector.SteppableState;
+import uicomponents.util.SelectableState;
 import utility.Maybe;
 
-import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
-abstract public class AbstractBoundedLimit implements BoundedNoteModifier, LimitChangeObserver {
-    private final LimitModifier limit;
+abstract public class AbstractBoundedLimit implements SelectableState<Note>, SteppableState<Note>, LimitChangeObserver {
     private Note lowerBound;
+    private final SteppableState<Note> limit;
     private Note upperBound;
+    private Maybe<SteppableState<Note>> otherLimit = new Maybe<>();
     private Maybe<LimitChangeNotifier> boundChangeNotifier = new Maybe<>();
 
-    protected AbstractBoundedLimit(LimitModifier limit, Note lowerBound, Note upperBound){
+    protected AbstractBoundedLimit(Note lowerBound, SteppableState<Note> limit, Note upperBound){
         this.limit = limit;
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
@@ -25,17 +27,25 @@ abstract public class AbstractBoundedLimit implements BoundedNoteModifier, Limit
         this.boundChangeNotifier = new Maybe<>(boundChangeNotifier);
     }
 
-    protected void setLowerBound(LimitModifier limitModifier) {
-        if (limitModifier.compareTo(lowerBound) != 0){
-            lowerBound = limitModifier.getLimit();
-            notifyAnyObservers();
+    public void setOtherLimit(SteppableState<Note> otherLimit){
+        this.otherLimit = new Maybe<>(otherLimit);
+    }
+
+    protected void setLowerBound() {
+        for (SteppableState<Note> otherState : otherLimit) {
+            if (otherState.compareTo(lowerBound) != 0){
+                lowerBound = otherState.getActive();
+                notifyAnyObservers();
+            }
         }
     }
 
-    protected void setUpperBound(LimitModifier limitModifier) {
-        if (limitModifier.compareTo(upperBound) != 0) {
-            upperBound = limitModifier.getLimit();
-            notifyAnyObservers();
+    protected void setUpperBound() {
+        for (SteppableState<Note> otherState : otherLimit) {
+            if (otherState.compareTo(upperBound) != 0) {
+                upperBound = otherState.getActive();
+                notifyAnyObservers();
+            }
         }
     }
 
@@ -46,14 +56,14 @@ abstract public class AbstractBoundedLimit implements BoundedNoteModifier, Limit
     }
 
     @Override
-    public Note getLimit() {
-        return limit.getLimit();
+    public Note getActive() {
+        return limit.getActive();
     }
 
     @Override
-    public void setLimit(Note note){
-        if ((note.compareTo(lowerBound) >= 0) && (note.compareTo(upperBound) <= 0)) {
-            limit.setLimit(note);
+    public void update(Note newValue) {
+        if ((newValue.compareTo(lowerBound) >= 0) && (newValue.compareTo(upperBound) <= 0)) {
+            limit.update(newValue);
         }
     }
 
@@ -72,13 +82,12 @@ abstract public class AbstractBoundedLimit implements BoundedNoteModifier, Limit
     }
 
     @Override
-    public void refreshJComboBoxOptions(JComboBox<Note> comboBox) {
-        comboBox.removeAllItems();
+    public Note[] getOptions() {
+        List<Note> options = new ArrayList<>();
         for (Note noteIterator = upperBound; noteIterator.compareTo(lowerBound) >= 0; noteIterator = noteIterator.getPrevious(NoteAccidental.NATURAL)){
-            comboBox.addItem(noteIterator);
-            if (limit.compareTo(noteIterator) == 0)
-                comboBox.setSelectedItem(noteIterator);
+            options.add(noteIterator);
         }
+        return options.toArray(new Note[0]);
     }
 
     @Override

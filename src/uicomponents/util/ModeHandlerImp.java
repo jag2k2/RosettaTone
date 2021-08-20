@@ -7,17 +7,16 @@ constructed to sends those events.
 */
 
 public class ModeHandlerImp<T> implements ModeHandler<T> {
-    private final CanSetMode<T> selectableMode;
+    private final SelectableState<T> selectableMode;
 
-    public ModeHandlerImp(CanSetMode<T> selectableMode) {
+    public ModeHandlerImp(SelectableState<T> selectableMode) {
         this.selectableMode = selectableMode;
     }
 
     @Override
-    public JSelector<T> createModeSelector(SelectorFactory<T> selectorFactory, T defaultMode) {
+    public JSelector<T> createModeSelector(SelectorFactory<T> selectorFactory) {
         JSelector<T> selector = selectorFactory.makeSelector(selectableMode);
-        selector.setSelectedItem(defaultMode);
-
+        selector.refreshSelections();
         return selector;
     }
 }

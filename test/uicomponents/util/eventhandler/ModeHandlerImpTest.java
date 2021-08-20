@@ -9,36 +9,35 @@ import uicomponents.StaffModeState;
 import uicomponents.notenamemode.NoteNameMode;
 import uicomponents.notenamemode.selectorFactory.JComboNoteNameSelectorFactory;
 import uicomponents.util.*;
-import uicomponents.staffmode.StaffMode;
+import statemodels.StaffMode;
 import uicomponents.staffmode.selectorfactory.JComboStaffSelectorFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ModeHandlerImpTest {
-    private CanSetMode<StaffMode> staffMode;
+    private SelectableState<StaffMode> staffMode;
     private SelectorFactory<StaffMode> staffSelectorFactory;
     private ModeHandler<StaffMode> staffModeHandler;
 
-    private CanSetMode<NoteNameMode> noteNameMode;
+    private SelectableState<NoteNameMode> noteNameMode;
     private SelectorFactory<NoteNameMode> noteNameSelectorFactory;
     private ModeHandler<NoteNameMode> noteNameModeHandler;
 
     @BeforeEach
     void setup(){
-        staffMode = new StaffModeStateImp();
+        staffMode = new StaffModeStateImp(StaffMode.Treble);
         staffSelectorFactory = new JComboStaffSelectorFactory();
         staffModeHandler = new ModeHandlerImp<>(staffMode);
 
-        noteNameMode = new NoteNameModeStateImp();
+        noteNameMode = new NoteNameModeStateImp(NoteNameMode.Always);
         noteNameSelectorFactory = new JComboNoteNameSelectorFactory();
         noteNameModeHandler = new ModeHandlerImp<>(noteNameMode);
     }
 
     @Test
     void canSelectStaffMode(){
-        StaffMode oldMode = StaffMode.Treble;
         StaffMode newMode = StaffMode.Grand;
-        JSelector<StaffMode> selector = staffModeHandler.createModeSelector(staffSelectorFactory, oldMode);
+        JSelector<StaffMode> selector = staffModeHandler.createModeSelector(staffSelectorFactory);
         StaffModeState expected = new StaffModeStateImp(newMode);
         assertNotEquals(expected, staffMode);
         selector.setSelectedItem(newMode);
@@ -47,9 +46,8 @@ class ModeHandlerImpTest {
 
     @Test
     void canSelectNoteNameMode(){
-        NoteNameMode oldMode = NoteNameMode.Always;
         NoteNameMode newMode = NoteNameMode.Correct;
-        JSelector<NoteNameMode> selector = noteNameModeHandler.createModeSelector(noteNameSelectorFactory, oldMode);
+        JSelector<NoteNameMode> selector = noteNameModeHandler.createModeSelector(noteNameSelectorFactory);
         NoteNameModeState expected = new NoteNameModeStateImp(newMode);
         assertNotEquals(expected, noteNameMode);
         selector.setSelectedItem(newMode);

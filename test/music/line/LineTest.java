@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import statemodels.StaffModeStateImp;
 import uicomponents.renderer.records.RenderConstants;
-import uicomponents.staffmode.StaffMode;
+import statemodels.StaffMode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,15 +32,15 @@ class LineTest {
     @Test
     void canDetectAboveVisible() {
         Line line = new Line(22);
-        staffMode.setMode(StaffMode.Grand);
+        staffMode.update(StaffMode.Grand);
         assertFalse(line.isAboveVisible(staffMode));
 
-        staffMode.setMode(StaffMode.Treble);
+        staffMode.update(StaffMode.Treble);
         assertFalse(line.isAboveVisible(staffMode));
-        staffMode.setMode(StaffMode.Bass);
+        staffMode.update(StaffMode.Bass);
         assertTrue(line.isAboveVisible(staffMode));
 
-        staffMode.setMode(StaffMode.Grand);
+        staffMode.update(StaffMode.Grand);
         line = new Line(14);
         assertTrue(line.isAboveVisible(staffMode));
         line = new Line(28);
@@ -50,16 +50,16 @@ class LineTest {
     @Test
     void canDetectBelowVisible() {
         Line line = new Line(34);
-        staffMode.setMode(StaffMode.Grand);
+        staffMode.update(StaffMode.Grand);
         assertFalse(line.isBelowVisible(staffMode));
 
-        staffMode.setMode(StaffMode.Treble);
+        staffMode.update(StaffMode.Treble);
         assertTrue(line.isBelowVisible(staffMode));
 
-        staffMode.setMode(StaffMode.Bass);
+        staffMode.update(StaffMode.Bass);
         assertFalse(line.isBelowVisible(staffMode));
 
-        staffMode.setMode(StaffMode.Grand);
+        staffMode.update(StaffMode.Grand);
         line = new Line(42);
         assertTrue(line.isBelowVisible(staffMode));
         line = new Line(28);
@@ -69,14 +69,14 @@ class LineTest {
     @Test
     void canDetectIfBetweenStaffs() {
         Line line = new Line(28);
-        staffMode.setMode(StaffMode.Grand);
+        staffMode.update(StaffMode.Grand);
         assertTrue(line.isAboveVisible(staffMode));
         assertTrue(line.isBelowVisible(staffMode));
     }
 
     @Test
     void getClosestVisibleLineTreble() {
-        staffMode.setMode(StaffMode.Treble);
+        staffMode.update(StaffMode.Treble);
         Line topTrebleLine = new Line(RenderConstants.trebleStaff.topVisibleLine);
         Line bottomTrebleLine = new Line(RenderConstants.trebleStaff.bottomVisibleLine);
 
@@ -98,7 +98,7 @@ class LineTest {
 
     @Test
     void getClosestVisibleLineBass() {
-        staffMode.setMode(StaffMode.Bass);
+        staffMode.update(StaffMode.Bass);
         Line topBassLine = new Line(RenderConstants.bassStaff.topVisibleLine);
         Line bottomBassLine = new Line(RenderConstants.bassStaff.bottomVisibleLine);
 
@@ -121,12 +121,12 @@ class LineTest {
     @Test
     void canFindClosestVisibleLineHigh() {
         Line line = new Line(16);
-        staffMode.setMode(StaffMode.Grand);
+        staffMode.update(StaffMode.Grand);
         Line expected = new Line(18);
         assertEquals(expected, line.getClosestVisibleLine(staffMode));
-        staffMode.setMode(StaffMode.Treble);
+        staffMode.update(StaffMode.Treble);
         assertEquals(expected, line.getClosestVisibleLine(staffMode));
-        staffMode.setMode(StaffMode.Bass);
+        staffMode.update(StaffMode.Bass);
         expected = new Line(30);
         assertEquals(expected, line.getClosestVisibleLine(staffMode));
     }
@@ -134,13 +134,13 @@ class LineTest {
     @Test
     void canFindClosestVisibleLineLow(){
         Line line = new Line(40);
-        staffMode.setMode(StaffMode.Grand);
+        staffMode.update(StaffMode.Grand);
         Line expected = new Line(38);
         assertEquals(expected, line.getClosestVisibleLine(staffMode));
-        staffMode.setMode(StaffMode.Treble);
+        staffMode.update(StaffMode.Treble);
         expected = new Line(26);
         assertEquals(expected, line.getClosestVisibleLine(staffMode));
-        staffMode.setMode(StaffMode.Bass);
+        staffMode.update(StaffMode.Bass);
         expected = new Line(38);
         assertEquals(expected, line.getClosestVisibleLine(staffMode));
     }

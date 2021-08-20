@@ -6,6 +6,8 @@ chosen because I haven't decided whether this functionality should be selectable
 constructed to sends those events.
 */
 
+import uicomponents.util.selectors.JSelector;
+
 public class ModeHandlerImp<T> implements ModeHandler<T> {
     private final SelectableState<T> selectableMode;
 

@@ -77,6 +77,7 @@ public class MainGUI extends JComponent{
         AbstractBoundedLimit lowerBoundedLimit = new LowerBoundedLimitStateImp(lowerBoundNote, lowerLimit, defaultUpperLimitNote);
         lowerBoundedLimit.addBoundChangeNotifier(lowerBoundChangeNotifier);
         lowerBoundedLimit.setOtherLimit(upperLimit);
+
         AbstractBoundedLimit upperBoundedLimit = new UpperBoundedLimitStateImp(defaultLowerLimitNote, upperLimit, upperBoundNote);
         upperBoundedLimit.addBoundChangeNotifier(upperBoundChangeNotifier);
         upperBoundedLimit.setOtherLimit(lowerLimit);

@@ -12,15 +12,16 @@ import java.util.List;
 
 public class MidiDeviceInquirerImp implements MidiDeviceInquirer {
     private final JComponent component;
+    List<MidiDevice> devices = new ArrayList<>();
 
     public MidiDeviceInquirerImp(JComponent component) {
         this.component = component;
     }
 
     @Override
-    public List<MidiDevice> getMidiDevices() {
-        List<MidiDevice> devices = new ArrayList<>();
-        MidiDevice simDevice = new MidiDeviceSimImp(component);
+    public void refresh() {
+        devices.clear();
+        MidiDevice simDevice = new MidiDeviceSimImp("Simulated Keyboard", component);
         devices.add(simDevice);
         MidiDevice.Info[] deviceInfo = MidiSystem.getMidiDeviceInfo();
         for (MidiDevice.Info info : deviceInfo) {
@@ -31,6 +32,15 @@ public class MidiDeviceInquirerImp implements MidiDeviceInquirer {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public List<MidiDevice> getMidiDevices() {
         return devices;
+    }
+
+    @Override
+    public MidiDevice getMidiDevice(int index) {
+        return devices.get(index);
     }
 }

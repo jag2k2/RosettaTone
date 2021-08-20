@@ -4,6 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import uicomponents.browser.BrowserHandler;
+import uicomponents.util.selectors.JSelector;
+import uicomponents.util.selectors.JDeviceListSelectorImp;
+
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
@@ -14,37 +17,44 @@ class BrowserHandlerImpTest {
     private MidiDeviceInquirer mockMidiDeviceInquirer;
     private Receiver mockReceiver;
 
+    private JSelector<MidiDevice> selector;
+    private AbstractButton refreshButton;
+
     @BeforeEach
     void setup(){
         mockReceiver = new MockReceiver();
         mockMidiDeviceInquirer = new MockDeviceInquirer();
         browserHandler = new BrowserHandlerImp(mockReceiver, mockMidiDeviceInquirer);
+
+        selector = browserHandler.createDeviceList();
+        refreshButton = browserHandler.createRefreshButton();
     }
 
     @Test
-    void canRefreshTransmitterDevices() {
-        JList<MidiDevice> deviceList = browserHandler.createDeviceList();
-        AbstractButton refreshButton = browserHandler.createRefreshButton();
-        assertEquals(0, deviceList.getModel().getSize());
+    void canDisplayDevices() {
+        JSelector<MidiDevice> expected = new JDeviceListSelectorImp(mockReceiver, mockMidiDeviceInquirer);
+        expected.refreshSelections();
         refreshButton.doClick();
-        assertEquals(3, deviceList.getModel().getSize());
+        assertEquals(expected, selector);
     }
 
     @Test
     void canConnectToTransmitter() throws MidiUnavailableException {
-        JList<MidiDevice> deviceList = browserHandler.createDeviceList();
-        AbstractButton refreshButton = browserHandler.createRefreshButton();
-        refreshButton.doClick();
+        int selectedIndex;
 
-        deviceList.setSelectedIndex(1);
-        MidiDevice selectedDevice = deviceList.getModel().getElementAt(1);
+        refreshButton.doClick();
+        for(MidiDevice device : mockMidiDeviceInquirer.getMidiDevices()){
+            assertNull(device.getReceiver());
+        }
+
+        selectedIndex = 1;
+        selector.setSelectedIndex(selectedIndex);
+        MidiDevice selectedDevice = mockMidiDeviceInquirer.getMidiDevice(selectedIndex);
         assertEquals(mockReceiver, selectedDevice.getReceiver());
 
-        deviceList.clearSelection();
-        assertNull(selectedDevice.getReceiver());
-
-        deviceList.setSelectedIndex(0);
-        selectedDevice = deviceList.getModel().getElementAt(0);
+        selectedIndex = 0;
+        selector.setSelectedIndex(selectedIndex);
+        selectedDevice = mockMidiDeviceInquirer.getMidiDevice(selectedIndex);
         assertEquals(mockReceiver, selectedDevice.getReceiver());
     }
 }

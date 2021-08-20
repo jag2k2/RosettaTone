@@ -4,7 +4,9 @@ import javax.sound.midi.MidiDevice;
 
 public class SimulatedInfo extends MidiDevice.Info {
 
-    public SimulatedInfo(){
-        super("Simulated Keyboard", "", "Simulated Digital Instrument", "1.0");
+    public SimulatedInfo(String name){
+        super(name, "", "Simulated Digital Instrument", "1.0");
     }
+
+
 }

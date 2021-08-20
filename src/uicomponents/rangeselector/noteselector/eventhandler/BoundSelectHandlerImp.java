@@ -5,7 +5,7 @@ import statemodels.limitstate.AbstractBoundedLimit;
 import uicomponents.rangeselector.noteselector.LimitButtonFactory;
 import uicomponents.rangeselector.noteselector.SteppableState;
 import uicomponents.rangeselector.noteselector.BoundSelectHandler;
-import uicomponents.util.JSelector;
+import uicomponents.util.selectors.JSelector;
 import uicomponents.util.SelectorFactory;
 import javax.swing.*;
 import java.awt.event.ActionEvent;

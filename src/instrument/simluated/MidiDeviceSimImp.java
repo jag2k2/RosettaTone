@@ -4,25 +4,26 @@ import instrument.keybinder.KeyBindTransmitter;
 
 import javax.sound.midi.*;
 import javax.swing.*;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MidiDeviceSimImp implements MidiDevice {
     private final Transmitter midiTransmitter;
     private final List<Transmitter> transmitters;
+    private final SimulatedInfo deviceInfo;
     private boolean open;
 
-    public MidiDeviceSimImp(JComponent component){
+    public MidiDeviceSimImp(String name, JComponent component){
         this.midiTransmitter = new KeyBindTransmitter(component);
         this.transmitters = new ArrayList<>();
+        this.deviceInfo = new SimulatedInfo(name);
         this.open = false;
         transmitters.add(this.midiTransmitter);
     }
 
     @Override
     public Info getDeviceInfo() {
-        return new SimulatedInfo();
+        return deviceInfo;
     }
 
     @Override
@@ -76,5 +77,17 @@ public class MidiDeviceSimImp implements MidiDevice {
     @Override
     public List<Transmitter> getTransmitters() {
         return transmitters;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof MidiDeviceSimImp){
+            MidiDeviceSimImp compare = (MidiDeviceSimImp) obj;
+            return (deviceInfo.getName().equals(compare.deviceInfo.getName()) &&
+                    deviceInfo.getDescription().equals(compare.deviceInfo.getDescription()) &&
+                    deviceInfo.getVendor().equals(compare.deviceInfo.getVendor()) &&
+                    deviceInfo.getVersion().equals(compare.deviceInfo.getVersion()));
+        }
+        return false;
     }
 }

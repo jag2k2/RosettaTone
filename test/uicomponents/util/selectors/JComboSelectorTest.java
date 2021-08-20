@@ -1,4 +1,4 @@
-package uicomponents.util;
+package uicomponents.util.selectors;
 
 import music.note.Note;
 import music.note.NoteName;
@@ -10,10 +10,10 @@ import statemodels.limitstate.LimitChangeNotifier;
 import statemodels.limitstate.LimitStateImp;
 import statemodels.limitstate.UpperBoundedLimitStateImp;
 import uicomponents.LimitState;
-import uicomponents.util.selectors.JComboSelector;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class JSelectorTest {
+class JComboSelectorTest {
     private JSelector<Note> selector;
     private LimitState noteLimit;
     private LimitState otherLimit;
@@ -35,7 +35,7 @@ class JSelectorTest {
         boundedNoteLimit.setOtherLimit(otherLimit);
         limitChangeNotifier.addObserver(boundedNoteLimit);
 
-        selector = new JComboSelector<>(boundedNoteLimit);
+        selector = new JComboSelectorImp<>(boundedNoteLimit);
     }
 
     @Test
@@ -47,35 +47,35 @@ class JSelectorTest {
 
     @Test
     void canCheckEquals() {
-        JSelector<Note> expected = new JComboSelector<>(boundedNoteLimit);
+        JSelector<Note> expected = new JComboSelectorImp<>(boundedNoteLimit);
         assertEquals(expected, selector);
 
         selector.addItem(new Note(NoteName.D, 4));
         selector.addItem(new Note(NoteName.C, 4));
         selector.addItem(new Note(NoteName.B, 3));
         selector.addItem(new Note(NoteName.A, 3));
-        selector.setSelectedItem(new Note(NoteName.B, 3));
+        selector.setSelectedIndex(2);
 
         expected.addItem(new Note(NoteName.D, 4));
         expected.addItem(new Note(NoteName.C, 4));
         expected.addItem(new Note(NoteName.B, 3));
         expected.addItem(new Note(NoteName.A, 3));
-        expected.setSelectedItem(new Note(NoteName.B, 3));
+        expected.setSelectedIndex(2);
 
         assertEquals(expected, selector);
 
-        expected.setSelectedItem(new Note(NoteName.C, 4));
+        expected.setSelectedIndex(1);
         assertNotEquals(expected, selector);
     }
 
     @Test
     void canRefreshSelections() {
-        JSelector<Note> expected = new JComboSelector<>(boundedNoteLimit);
+        JSelector<Note> expected = new JComboSelectorImp<>(boundedNoteLimit);
         expected.addItem(new Note(NoteName.D, 4));
         expected.addItem(new Note(NoteName.C, 4));
         expected.addItem(new Note(NoteName.B, 3));
         expected.addItem(new Note(NoteName.A, 3));
-        expected.setSelectedItem(new Note(NoteName.B, 3));
+        expected.setSelectedIndex(2);
 
         selector.refreshSelections();
         assertEquals(expected, selector);
@@ -90,7 +90,7 @@ class JSelectorTest {
     @Test
     void canChangeState(){
         selector.refreshSelections();
-        selector.setSelectedItem(new Note(NoteName.C,4));
+        selector.setSelectedIndex(1);
 
         LimitState expected = new LimitStateImp(new Note(NoteName.C, 4));
         assertEquals(expected, noteLimit);

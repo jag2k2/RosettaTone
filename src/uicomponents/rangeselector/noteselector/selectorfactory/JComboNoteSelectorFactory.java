@@ -4,6 +4,8 @@ import music.note.Note;
 import uicomponents.rangeselector.noteselector.NoteListRenderer;
 import uicomponents.util.*;
 import uicomponents.util.selectors.JComboSelector;
+import uicomponents.util.selectors.JComboSelectorImp;
+import uicomponents.util.selectors.JSelectorRenderer;
 
 import javax.swing.*;
 
@@ -15,9 +17,10 @@ public class JComboNoteSelectorFactory implements SelectorFactory<Note> {
     }
 
     @Override
-    public JSelector<Note> makeSelector(SelectableState<Note> state) {
+    public JComboSelector<Note> makeSelector(SelectableState<Note> state) {
         ListCellRenderer<Note> renderer = new NoteListRenderer(new JSelectorRenderer<>(new DefaultListCellRenderer()), previewLimit);
-        JSelector<Note> selector = new JComboSelector<>(state, renderer);
+        JComboSelector<Note> selector = new JComboSelectorImp<>(state);
+        selector.setRenderer(renderer);
         selector.setPreviewState(previewLimit);
         selector.refreshSelections();
         return selector;

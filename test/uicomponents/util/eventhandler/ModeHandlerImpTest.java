@@ -11,6 +11,7 @@ import uicomponents.notenamemode.selectorFactory.JComboNoteNameSelectorFactory;
 import uicomponents.util.*;
 import statemodels.StaffMode;
 import uicomponents.staffmode.selectorfactory.JComboStaffSelectorFactory;
+import uicomponents.util.selectors.JSelector;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,7 +41,8 @@ class ModeHandlerImpTest {
         JSelector<StaffMode> selector = staffModeHandler.createModeSelector(staffSelectorFactory);
         StaffModeState expected = new StaffModeStateImp(newMode);
         assertNotEquals(expected, staffMode);
-        selector.setSelectedItem(newMode);
+        int index = StaffMode.Grand.ordinal();
+        selector.setSelectedIndex(index);
         assertEquals(expected, staffMode);
     }
 
@@ -50,7 +52,8 @@ class ModeHandlerImpTest {
         JSelector<NoteNameMode> selector = noteNameModeHandler.createModeSelector(noteNameSelectorFactory);
         NoteNameModeState expected = new NoteNameModeStateImp(newMode);
         assertNotEquals(expected, noteNameMode);
-        selector.setSelectedItem(newMode);
+        int index = NoteNameMode.Correct.ordinal();
+        selector.setSelectedIndex(index);
         assertEquals(expected, noteNameMode);
     }
 }

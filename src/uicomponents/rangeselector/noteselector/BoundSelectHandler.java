@@ -2,7 +2,7 @@ package uicomponents.rangeselector.noteselector;
 
 import music.note.Note;
 import notification.LimitChangeObserver;
-import uicomponents.util.JSelector;
+import uicomponents.util.selectors.JSelector;
 import uicomponents.util.SelectorFactory;
 
 import javax.swing.*;

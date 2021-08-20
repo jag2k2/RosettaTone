@@ -1,4 +1,4 @@
-package uicomponents.util;
+package uicomponents.util.selectors;
 
 import javax.swing.*;
 import java.awt.*;

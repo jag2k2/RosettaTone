@@ -1,7 +1,7 @@
 package uicomponents.notenamemode;
 
 import uicomponents.notenamemode.selectorFactory.JComboNoteNameSelectorFactory;
-import uicomponents.util.JSelector;
+import uicomponents.util.selectors.JSelector;
 import uicomponents.util.ModeHandler;
 import uicomponents.util.SelectorFactory;
 import javax.swing.*;
@@ -13,6 +13,7 @@ public class NoteNameModeSelectorImp extends JComponent {
     public NoteNameModeSelectorImp(ModeHandler<NoteNameMode> modeHandler){
         SelectorFactory<NoteNameMode> selectorFactory = new JComboNoteNameSelectorFactory();
         JSelector<NoteNameMode> selector = modeHandler.createModeSelector(selectorFactory);
+        selector.setPreferredSize(new Dimension(100, 40));
 
         JPanel labelPanel = new JPanel();
         BoxLayout boxLayout = new BoxLayout(labelPanel, BoxLayout.Y_AXIS);

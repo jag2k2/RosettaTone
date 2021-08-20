@@ -25,6 +25,6 @@ public class InstrumentBrowserImp extends JComponent {
         this.add(BorderLayout.NORTH, buttonPanel);
         this.add(BorderLayout.CENTER, listScrollPane);
 
-        browserHandler.refreshTransmitterDevices();
+        refreshButton.doClick();
     }
 }

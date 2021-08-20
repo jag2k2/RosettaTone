@@ -3,39 +3,40 @@ package uicomponents.browser.eventhandler;
 import uicomponents.browser.BrowserHandler;
 import uicomponents.browser.InstrumentRenderer;
 import uicomponents.renderer.records.RenderConstants;
-import utility.Maybe;
+import uicomponents.util.selectors.JListSelector;
+import uicomponents.util.selectors.JSelector;
+import uicomponents.util.selectors.JDeviceListSelectorImp;
+
 import javax.imageio.ImageIO;
 import javax.sound.midi.*;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-public class BrowserHandlerImp implements BrowserHandler, ActionListener, ListSelectionListener {
+public class BrowserHandlerImp implements BrowserHandler, ActionListener {
     private final Receiver midiReceiver;
     private final MidiDeviceInquirer midiDeviceInquirer;
-    private final DefaultListModel<MidiDevice> listModel;
+    private final Set<JSelector<MidiDevice>> selectors = new HashSet<>();
 
-    private Maybe<MidiDevice> openDevice = new Maybe<>();
 
     public BrowserHandlerImp(Receiver midiReceiver, MidiDeviceInquirer midiDeviceInquirer) {
         this.midiReceiver = midiReceiver;
         this.midiDeviceInquirer = midiDeviceInquirer;
-        this.listModel = new DefaultListModel<>();
     }
 
     @Override
-    public JList<MidiDevice> createDeviceList() {
-        JList<MidiDevice> deviceList = new JList<>(listModel);
-        deviceList.setCellRenderer(new InstrumentRenderer(deviceList.getCellRenderer()));
-        deviceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        deviceList.addListSelectionListener(this);
-        return deviceList;
+    public JSelector<MidiDevice> createDeviceList() {
+        ListCellRenderer<MidiDevice> renderer = new InstrumentRenderer(new DefaultListCellRenderer());
+        JListSelector<MidiDevice> selector = new JDeviceListSelectorImp(midiReceiver, midiDeviceInquirer);
+        selector.setRenderer(renderer);
+        selectors.add(selector);
+        return selector;
     }
 
     @Override
@@ -48,50 +49,16 @@ public class BrowserHandlerImp implements BrowserHandler, ActionListener, ListSe
             refreshButton.setIcon(refreshIcon);
 
         } catch (IOException e){
-            e.printStackTrace();
+            refreshButton = new JButton("Refresh");
         }
         refreshButton.addActionListener(this);
         return refreshButton;
     }
 
     @Override
-    public void refreshTransmitterDevices() {
-        listModel.clear();
-        for (MidiDevice device : midiDeviceInquirer.getMidiDevices()) {
-            if (device.getMaxTransmitters() != 0) {
-                listModel.addElement(device);
-            }
-        }
-    }
-
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (e.getSource() instanceof JList<?>){
-            JList<?> deviceList = (JList<?>) e.getSource();
-            if (!e.getValueIsAdjusting()) {
-                for(MidiDevice device : openDevice){
-                    if(device.isOpen()){
-                        device.close();
-                    }
-                }
-                Object selected = deviceList.getSelectedValue();
-                if (selected instanceof MidiDevice && deviceList.getSelectedIndex() >= 0){
-                    MidiDevice selectedDevice = (MidiDevice) selected;
-                    try {
-                        selectedDevice.open();
-                        Transmitter transmitter = selectedDevice.getTransmitter();
-                        transmitter.setReceiver(midiReceiver);
-                        openDevice = new Maybe<>(selectedDevice);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
-
-    @Override
     public void actionPerformed(ActionEvent e) {
-        refreshTransmitterDevices();
+        for(JSelector<MidiDevice> selector : selectors){
+            selector.refreshSelections();
+        }
     }
 }

@@ -1,10 +1,10 @@
 package uicomponents.browser;
 
+import uicomponents.util.selectors.JSelector;
 import javax.sound.midi.MidiDevice;
 import javax.swing.*;
 
 public interface BrowserHandler {
-    JList<MidiDevice> createDeviceList();
+    JSelector<MidiDevice> createDeviceList();
     AbstractButton createRefreshButton();
-    void refreshTransmitterDevices();
 }

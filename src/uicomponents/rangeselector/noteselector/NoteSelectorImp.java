@@ -3,7 +3,7 @@ package uicomponents.rangeselector.noteselector;
 import music.note.Note;
 import uicomponents.rangeselector.noteselector.buttonfactory.LimitJButtonFactory;
 import uicomponents.rangeselector.noteselector.selectorfactory.JComboNoteSelectorFactory;
-import uicomponents.util.JSelector;
+import uicomponents.util.selectors.JSelector;
 import uicomponents.util.SelectorFactory;
 import uicomponents.util.State;
 import javax.swing.*;

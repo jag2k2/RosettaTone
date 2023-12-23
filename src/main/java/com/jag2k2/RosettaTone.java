@@ -1,4 +1,4 @@
-package application;
+package com.jag2k2;
 
 import javax.swing.*;
 import uicomponents.*;

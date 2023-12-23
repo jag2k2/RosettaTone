@@ -35,7 +35,7 @@ public class InstrumentBrowserImp implements UIComponent, ListSelectionListener,
         deviceList.setCellRenderer(new InstrumentRenderer(deviceList.getCellRenderer()));
 
         try{
-            URL fileURL = getClass().getResource("refresh.png");
+            URL fileURL = getClass().getResource("/refresh.png");
             Image refreshImage = ImageIO.read(Objects.requireNonNull(fileURL));
             ImageIcon refreshIcon = new ImageIcon(refreshImage);
             refreshButton = new JButton(refreshIcon);

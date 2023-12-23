@@ -3,18 +3,18 @@ package com.jag2k2.uicomponents.renderer.records;
 import java.awt.*;
 
 public class RenderConstants {
-    public static final String notePath = "Whole-Note.png";
-    public static final String naturalPath = "Natural.png";
-    public static final String sharpPath = "Sharp.png";
-    public static final String flatPath = "Flat.png";
+    public static final String notePath = "/Whole-Note.png";
+    public static final String naturalPath = "/Natural.png";
+    public static final String sharpPath = "/Sharp.png";
+    public static final String flatPath = "/Flat.png";
 
     public static final double noteResizeFactor = 0.22;
     public static final double accidentalResizeFactor = 0.40;
 
-    public static final String trebleClefPath = "Treble-clef.png";
+    public static final String trebleClefPath = "/Treble-clef.png";
     public static final double trebleResizeFactor = 0.5;
 
-    public static final String bassClefPath = "Bass-clef.png";
+    public static final String bassClefPath = "/Bass-clef.png";
     public static final double bassResizeFactor = 0.4;
 
 

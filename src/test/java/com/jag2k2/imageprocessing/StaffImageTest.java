@@ -3,8 +3,6 @@ package com.jag2k2.imageprocessing;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StaffImageTest {
@@ -12,7 +10,7 @@ class StaffImageTest {
 
     @BeforeEach
     void setup(){
-        String path = "Treble-clef.png";
+        String path = "/Treble-clef.png";
         staffImage = new StaffImage(path);
     }
 

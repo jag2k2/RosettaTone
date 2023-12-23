@@ -1,7 +1,6 @@
 package com.jag2k2.instrument;
 
 import com.jag2k2.music.NoteAccidental;
-import com.jag2k2.music.NoteName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

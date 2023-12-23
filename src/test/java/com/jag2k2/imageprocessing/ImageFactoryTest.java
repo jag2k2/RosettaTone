@@ -1,12 +1,10 @@
 package com.jag2k2.imageprocessing;
 
 import org.junit.jupiter.api.Test;
-import java.awt.image.BufferedImage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ImageFactoryTest {
-
     @Test
     void createTrebleImage() {
         StaffImage image = ImageFactory.createTrebleImage();

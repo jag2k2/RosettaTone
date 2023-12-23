@@ -1,7 +1,6 @@
 package com.jag2k2.uicomponents.staffmode;
 
 import com.jag2k2.uicomponents.UIComponent;
-import javafx.scene.text.TextAlignment;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;

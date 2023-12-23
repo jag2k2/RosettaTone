@@ -11,7 +11,6 @@ import com.jag2k2.statemodels.limitstate.LimitStateImp;
 import com.jag2k2.trainer.FlashcardChangeNotifier;
 import com.jag2k2.trainer.FlashcardSatisfiedNotifier;
 import com.jag2k2.trainer.RandomNoteGenerator;
-import com.jag2k2.trainer.SightReadTrainerImp;
 import com.jag2k2.trainer.randomnotegenerator.RandomNoteGeneratorImp;
 import com.jag2k2.utility.NoteSet;
 
@@ -22,7 +21,6 @@ class FlashcardsImpTest implements FlashcardSatisfiedObserver, FlashcardChangeOb
     private LimitStateImp upperLimit;
     private RandomNoteGenerator randomNoteGenerator;
     private FlashcardsImp flashcardsImp;
-    private SightReadTrainerImp sightReadTrainer;
 
     private boolean flashcardSatisfied = false;
     private boolean flashcardChanged = false;

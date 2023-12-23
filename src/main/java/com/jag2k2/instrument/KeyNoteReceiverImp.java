@@ -25,7 +25,6 @@ public class KeyNoteReceiverImp implements Receiver {
             }
             else if (sm.getCommand() == ShortMessage.NOTE_OFF) {
                 Key key = new Key(sm.getData1());
-                int velocity = sm.getData2();
                 keyStateManipulator.keyReleased(key);
             }
         }

@@ -1,6 +1,5 @@
 package com.jag2k2.uicomponents.renderer.grandstaff;
 
-import com.jag2k2.imageprocessing.StaffImage;
 import com.jag2k2.uicomponents.renderer.records.ClefImages;
 
 import java.awt.*;

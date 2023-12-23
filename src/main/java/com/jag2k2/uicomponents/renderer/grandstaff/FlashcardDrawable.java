@@ -1,6 +1,6 @@
-package uicomponents.renderer.grandstaff;
+package com.jag2k2.uicomponents.renderer.grandstaff;
 
-import uicomponents.renderer.records.NoteImages;
+import com.jag2k2.uicomponents.renderer.records.NoteImages;
 import javax.swing.*;
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package instrument;
+package com.jag2k2.instrument;
 
 import javax.sound.midi.*;
 

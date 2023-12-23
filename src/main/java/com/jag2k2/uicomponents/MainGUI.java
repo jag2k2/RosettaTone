@@ -1,29 +1,29 @@
-package uicomponents;
+package com.jag2k2.uicomponents;
 
 import javax.swing.*;
 import java.awt.*;
 
-import instrument.*;
-import music.*;
-import notification.*;
-import statemodels.*;
-import trainer.randomnotegenerator.RandomNoteGeneratorImp;
-import statemodels.limitstate.LowerBoundedLimitStateImp;
-import statemodels.limitstate.LimitStateImp;
-import statemodels.limitstate.UpperBoundedLimitStateImp;
-import trainer.SightReadTrainerImp;
-import uicomponents.notenamemode.NoteNameMode;
-import uicomponents.notenamemode.NoteNameModeSelectorImp;
-import uicomponents.browser.InstrumentBrowserImp;
-import uicomponents.rangeselector.noteselector.NoteListRenderer;
-import uicomponents.rangeselector.noteselector.NoteSelectorImp;
-import uicomponents.rangeselector.RangeSelectorImp;
-import uicomponents.renderer.grandstaff.GrandRendererImp;
-import uicomponents.renderer.text.NoteTextRenderer;
-import uicomponents.renderer.limit.RangeRendererImp;
-import uicomponents.staffmode.StaffModeSelectorImp;
-import uicomponents.staffmode.StaffMode;
-import uicomponents.trainer.TrainerControlImp;
+import com.jag2k2.instrument.*;
+import com.jag2k2.music.*;
+import com.jag2k2.notification.*;
+import com.jag2k2.statemodels.*;
+import com.jag2k2.trainer.randomnotegenerator.RandomNoteGeneratorImp;
+import com.jag2k2.statemodels.limitstate.LowerBoundedLimitStateImp;
+import com.jag2k2.statemodels.limitstate.LimitStateImp;
+import com.jag2k2.statemodels.limitstate.UpperBoundedLimitStateImp;
+import com.jag2k2.trainer.SightReadTrainerImp;
+import com.jag2k2.uicomponents.notenamemode.NoteNameMode;
+import com.jag2k2.uicomponents.notenamemode.NoteNameModeSelectorImp;
+import com.jag2k2.uicomponents.browser.InstrumentBrowserImp;
+import com.jag2k2.uicomponents.rangeselector.noteselector.NoteListRenderer;
+import com.jag2k2.uicomponents.rangeselector.noteselector.NoteSelectorImp;
+import com.jag2k2.uicomponents.rangeselector.RangeSelectorImp;
+import com.jag2k2.uicomponents.renderer.grandstaff.GrandRendererImp;
+import com.jag2k2.uicomponents.renderer.text.NoteTextRenderer;
+import com.jag2k2.uicomponents.renderer.limit.RangeRendererImp;
+import com.jag2k2.uicomponents.staffmode.StaffModeSelectorImp;
+import com.jag2k2.uicomponents.staffmode.StaffMode;
+import com.jag2k2.uicomponents.trainer.TrainerControlImp;
 
 public class MainGUI {
     private final JFrame frame;

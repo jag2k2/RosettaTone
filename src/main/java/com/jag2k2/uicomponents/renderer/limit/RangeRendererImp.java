@@ -1,8 +1,8 @@
-package uicomponents.renderer.limit;
+package com.jag2k2.uicomponents.renderer.limit;
 
-import notification.LimitChangeObserver;
-import uicomponents.UIComponent;
-import uicomponents.renderer.records.RenderConstants;
+import com.jag2k2.notification.LimitChangeObserver;
+import com.jag2k2.uicomponents.UIComponent;
+import com.jag2k2.uicomponents.renderer.records.RenderConstants;
 
 import javax.swing.*;
 import java.awt.*;

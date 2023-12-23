@@ -1,10 +1,10 @@
-package trainer.randomnotegenerator;
+package com.jag2k2.trainer.randomnotegenerator;
 
-import music.Note;
-import music.NoteName;
+import com.jag2k2.music.Note;
+import com.jag2k2.music.NoteName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import statemodels.limitstate.LimitStateImp;
+import com.jag2k2.statemodels.limitstate.LimitStateImp;
 
 import java.util.ArrayList;
 import java.util.HashMap;

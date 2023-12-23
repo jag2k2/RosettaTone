@@ -1,7 +1,7 @@
-package statemodels.limitstate;
+package com.jag2k2.statemodels.limitstate;
 
-import music.Note;
-import uicomponents.rangeselector.noteselector.LimitModifier;
+import com.jag2k2.music.Note;
+import com.jag2k2.uicomponents.rangeselector.noteselector.LimitModifier;
 
 public class UpperBoundedLimitStateImp extends AbstractBoundedLimitState {
     private final LimitModifier otherLimit;

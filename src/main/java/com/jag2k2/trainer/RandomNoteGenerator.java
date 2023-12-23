@@ -1,6 +1,6 @@
-package trainer;
+package com.jag2k2.trainer;
 
-import music.Note;
+import com.jag2k2.music.Note;
 
 public interface RandomNoteGenerator {
     Note generateSingleNote();

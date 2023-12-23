@@ -1,4 +1,4 @@
-package uicomponents;
+package com.jag2k2.uicomponents;
 
 import java.awt.Component;
 

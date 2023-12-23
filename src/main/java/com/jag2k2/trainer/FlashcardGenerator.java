@@ -1,7 +1,7 @@
-package trainer;
+package com.jag2k2.trainer;
 
-import utility.Maybe;
-import utility.NoteSet;
+import com.jag2k2.utility.Maybe;
+import com.jag2k2.utility.NoteSet;
 
 public interface FlashcardGenerator {
     void removeTopFlashcard();

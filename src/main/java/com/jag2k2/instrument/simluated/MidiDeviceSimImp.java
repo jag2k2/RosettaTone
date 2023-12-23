@@ -1,4 +1,4 @@
-package instrument.simluated;
+package com.jag2k2.instrument.simluated;
 
 import javax.sound.midi.*;
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package uicomponents.renderer.records;
+package com.jag2k2.uicomponents.renderer.records;
 
 public class StaffConstants {
     public final double resizeFactor;

@@ -1,11 +1,11 @@
-package uicomponents.renderer.grandstaff;
+package com.jag2k2.uicomponents.renderer.grandstaff;
 
-import imageprocessing.ImageFactory;
-import notification.*;
-import uicomponents.UIComponent;
-import uicomponents.renderer.records.ClefImages;
-import uicomponents.renderer.records.NoteImages;
-import uicomponents.renderer.records.RenderConstants;
+import com.jag2k2.imageprocessing.ImageFactory;
+import com.jag2k2.notification.*;
+import com.jag2k2.uicomponents.UIComponent;
+import com.jag2k2.uicomponents.renderer.records.ClefImages;
+import com.jag2k2.uicomponents.renderer.records.NoteImages;
+import com.jag2k2.uicomponents.renderer.records.RenderConstants;
 
 import javax.swing.*;
 import java.awt.*;

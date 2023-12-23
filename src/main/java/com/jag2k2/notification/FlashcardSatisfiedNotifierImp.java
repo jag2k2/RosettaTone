@@ -1,6 +1,6 @@
-package notification;
+package com.jag2k2.notification;
 
-import trainer.FlashcardSatisfiedNotifier;
+import com.jag2k2.trainer.FlashcardSatisfiedNotifier;
 import java.util.ArrayList;
 
 public class FlashcardSatisfiedNotifierImp implements FlashcardSatisfiedNotifier {

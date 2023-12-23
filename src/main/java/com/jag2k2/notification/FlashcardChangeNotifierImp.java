@@ -1,6 +1,6 @@
-package notification;
+package com.jag2k2.notification;
 
-import trainer.FlashcardChangeNotifier;
+import com.jag2k2.trainer.FlashcardChangeNotifier;
 
 import java.util.ArrayList;
 

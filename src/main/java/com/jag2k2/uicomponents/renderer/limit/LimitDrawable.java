@@ -1,4 +1,4 @@
-package uicomponents.renderer.limit;
+package com.jag2k2.uicomponents.renderer.limit;
 
 import java.awt.*;
 

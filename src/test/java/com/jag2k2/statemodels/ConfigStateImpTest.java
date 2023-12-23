@@ -1,10 +1,10 @@
-package statemodels;
+package com.jag2k2.statemodels;
 
-import notification.ConfigChangeObserver;
-import notification.ConfigChangeNotifierImp;
+import com.jag2k2.notification.ConfigChangeObserver;
+import com.jag2k2.notification.ConfigChangeNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uicomponents.staffmode.StaffMode;
+import com.jag2k2.uicomponents.staffmode.StaffMode;
 
 import static org.junit.jupiter.api.Assertions.*;
 

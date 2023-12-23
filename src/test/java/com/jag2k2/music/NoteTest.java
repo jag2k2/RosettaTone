@@ -1,10 +1,10 @@
-package music;
+package com.jag2k2.music;
 
-import collections.NoteSetImp;
-import instrument.Key;
+import com.jag2k2.collections.NoteSetImp;
+import com.jag2k2.instrument.Key;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
-import utility.NoteSet;
+import com.jag2k2.utility.NoteSet;
 
 class NoteTest {
     private Note noteB3;

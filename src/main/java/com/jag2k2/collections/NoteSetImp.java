@@ -1,7 +1,7 @@
-package collections;
+package com.jag2k2.collections;
 
-import music.Note;
-import utility.NoteSet;
+import com.jag2k2.music.Note;
+import com.jag2k2.utility.NoteSet;
 
 import java.util.*;
 

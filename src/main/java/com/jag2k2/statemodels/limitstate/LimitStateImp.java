@@ -1,12 +1,12 @@
-package statemodels.limitstate;
+package com.jag2k2.statemodels.limitstate;
 
-import uicomponents.renderer.limit.LimitDrawable;
-import music.Note;
-import music.NoteAccidental;
-import trainer.randomnotegenerator.LineNumerable;
-import uicomponents.rangeselector.noteselector.LimitModifier;
-import uicomponents.renderer.records.RenderConstants;
-import utility.Maybe;
+import com.jag2k2.uicomponents.renderer.limit.LimitDrawable;
+import com.jag2k2.music.Note;
+import com.jag2k2.music.NoteAccidental;
+import com.jag2k2.trainer.randomnotegenerator.LineNumerable;
+import com.jag2k2.uicomponents.rangeselector.noteselector.LimitModifier;
+import com.jag2k2.uicomponents.renderer.records.RenderConstants;
+import com.jag2k2.utility.Maybe;
 
 import java.awt.*;
 

@@ -1,19 +1,19 @@
-package statemodels;
+package com.jag2k2.statemodels;
 
-import collections.NoteSetImp;
-import music.Note;
-import notification.LimitChangeObserver;
-import trainer.FlashcardChangeNotifier;
-import trainer.FlashcardGenerator;
-import trainer.RandomNoteGenerator;
-import uicomponents.renderer.grandstaff.NoteNameDrawable;
-import uicomponents.renderer.grandstaff.FlashcardDrawable;
-import uicomponents.renderer.grandstaff.StaffModeDrawable;
-import uicomponents.renderer.records.NoteImages;
-import uicomponents.renderer.records.RenderConstants;
-import utility.Maybe;
-import utility.NoteSet;
-import utility.NoteSetList;
+import com.jag2k2.collections.NoteSetImp;
+import com.jag2k2.music.Note;
+import com.jag2k2.notification.LimitChangeObserver;
+import com.jag2k2.trainer.FlashcardChangeNotifier;
+import com.jag2k2.trainer.FlashcardGenerator;
+import com.jag2k2.trainer.RandomNoteGenerator;
+import com.jag2k2.uicomponents.renderer.grandstaff.NoteNameDrawable;
+import com.jag2k2.uicomponents.renderer.grandstaff.FlashcardDrawable;
+import com.jag2k2.uicomponents.renderer.grandstaff.StaffModeDrawable;
+import com.jag2k2.uicomponents.renderer.records.NoteImages;
+import com.jag2k2.uicomponents.renderer.records.RenderConstants;
+import com.jag2k2.utility.Maybe;
+import com.jag2k2.utility.NoteSet;
+import com.jag2k2.utility.NoteSetList;
 
 import javax.swing.*;
 import java.awt.*;

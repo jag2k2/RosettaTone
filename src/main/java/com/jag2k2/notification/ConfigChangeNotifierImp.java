@@ -1,6 +1,6 @@
-package notification;
+package com.jag2k2.notification;
 
-import statemodels.ConfigChangeNotifier;
+import com.jag2k2.statemodels.ConfigChangeNotifier;
 
 import java.util.ArrayList;
 

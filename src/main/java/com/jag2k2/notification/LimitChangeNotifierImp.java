@@ -1,6 +1,6 @@
-package notification;
+package com.jag2k2.notification;
 
-import statemodels.limitstate.LimitChangeNotifier;
+import com.jag2k2.statemodels.limitstate.LimitChangeNotifier;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
-package notification;
+package com.jag2k2.notification;
 
-import statemodels.KeyboardChangeNotifier;
+import com.jag2k2.statemodels.KeyboardChangeNotifier;
 
 import java.util.ArrayList;
 

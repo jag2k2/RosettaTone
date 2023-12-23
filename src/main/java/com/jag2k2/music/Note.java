@@ -1,9 +1,9 @@
-package music;
+package com.jag2k2.music;
 
-import imageprocessing.StaffImage;
-import uicomponents.renderer.records.NoteImages;
-import uicomponents.renderer.records.RenderConstants;
-import utility.NoteSet;
+import com.jag2k2.imageprocessing.StaffImage;
+import com.jag2k2.uicomponents.renderer.records.NoteImages;
+import com.jag2k2.uicomponents.renderer.records.RenderConstants;
+import com.jag2k2.utility.NoteSet;
 
 import java.awt.*;
 import java.util.Set;

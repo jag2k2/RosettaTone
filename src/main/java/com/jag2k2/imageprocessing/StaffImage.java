@@ -1,6 +1,6 @@
-package imageprocessing;
+package com.jag2k2.imageprocessing;
 
-import music.ImageDrawable;
+import com.jag2k2.music.ImageDrawable;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

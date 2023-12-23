@@ -1,4 +1,4 @@
-package uicomponents.browser;
+package com.jag2k2.uicomponents.browser;
 
 import javax.sound.midi.MidiDevice;
 import javax.swing.*;

@@ -1,6 +1,6 @@
-package utility;
+package com.jag2k2.utility;
 
-import music.Note;
+import com.jag2k2.music.Note;
 
 public interface NoteSet extends Iterable<Note>{
     void add(Note note);

@@ -1,4 +1,4 @@
-package utility;
+package com.jag2k2.utility;
 import java.util.*;
 
 public class Maybe<T> implements Iterable<T> {

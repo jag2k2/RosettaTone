@@ -1,17 +1,17 @@
-package trainer;
+package com.jag2k2.trainer;
 
-import instrument.Key;
-import music.Note;
-import music.NoteName;
-import notification.*;
+import com.jag2k2.instrument.Key;
+import com.jag2k2.music.Note;
+import com.jag2k2.music.NoteName;
+import com.jag2k2.notification.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import statemodels.*;
-import statemodels.limitstate.LimitStateImp;
-import trainer.randomnotegenerator.LineNumerable;
-import trainer.randomnotegenerator.RandomNoteGeneratorImp;
-import uicomponents.notenamemode.NoteNameMode;
-import utility.NoteSet;
+import com.jag2k2.statemodels.*;
+import com.jag2k2.statemodels.limitstate.LimitStateImp;
+import com.jag2k2.trainer.randomnotegenerator.LineNumerable;
+import com.jag2k2.trainer.randomnotegenerator.RandomNoteGeneratorImp;
+import com.jag2k2.uicomponents.notenamemode.NoteNameMode;
+import com.jag2k2.utility.NoteSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 

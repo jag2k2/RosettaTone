@@ -1,12 +1,12 @@
-package statemodels;
+package com.jag2k2.statemodels;
 
-import music.Staff;
-import uicomponents.renderer.records.ClefImages;
-import uicomponents.renderer.records.RenderConstants;
-import uicomponents.staffmode.StaffMode;
-import uicomponents.staffmode.StaffModeModifier;
-import uicomponents.renderer.grandstaff.StaffModeDrawable;
-import utility.Maybe;
+import com.jag2k2.music.Staff;
+import com.jag2k2.uicomponents.renderer.records.ClefImages;
+import com.jag2k2.uicomponents.renderer.records.RenderConstants;
+import com.jag2k2.uicomponents.staffmode.StaffMode;
+import com.jag2k2.uicomponents.staffmode.StaffModeModifier;
+import com.jag2k2.uicomponents.renderer.grandstaff.StaffModeDrawable;
+import com.jag2k2.utility.Maybe;
 
 import javax.swing.*;
 import java.awt.*;

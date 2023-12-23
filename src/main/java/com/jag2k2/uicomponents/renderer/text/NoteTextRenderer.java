@@ -1,7 +1,7 @@
-package uicomponents.renderer.text;
+package com.jag2k2.uicomponents.renderer.text;
 
-import notification.KeyboardChangeObserver;
-import uicomponents.UIComponent;
+import com.jag2k2.notification.KeyboardChangeObserver;
+import com.jag2k2.uicomponents.UIComponent;
 
 import javax.swing.*;
 import java.awt.*;

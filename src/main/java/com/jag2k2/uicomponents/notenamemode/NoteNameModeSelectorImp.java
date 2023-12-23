@@ -1,6 +1,6 @@
-package uicomponents.notenamemode;
+package com.jag2k2.uicomponents.notenamemode;
 
-import uicomponents.UIComponent;
+import com.jag2k2.uicomponents.UIComponent;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;

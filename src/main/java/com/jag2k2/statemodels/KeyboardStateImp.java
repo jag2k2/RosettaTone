@@ -1,16 +1,16 @@
-package statemodels;
+package com.jag2k2.statemodels;
 
-import collections.NoteSetImp;
-import instrument.Key;
-import instrument.KeyStateManipulator;
-import music.Note;
-import trainer.KeyStateEvaluator;
-import uicomponents.renderer.grandstaff.KeyStateDrawable;
-import uicomponents.renderer.grandstaff.StaffModeDrawable;
-import uicomponents.renderer.records.NoteImages;
-import uicomponents.renderer.records.RenderConstants;
-import utility.Maybe;
-import utility.NoteSet;
+import com.jag2k2.collections.NoteSetImp;
+import com.jag2k2.instrument.Key;
+import com.jag2k2.instrument.KeyStateManipulator;
+import com.jag2k2.music.Note;
+import com.jag2k2.trainer.KeyStateEvaluator;
+import com.jag2k2.uicomponents.renderer.grandstaff.KeyStateDrawable;
+import com.jag2k2.uicomponents.renderer.grandstaff.StaffModeDrawable;
+import com.jag2k2.uicomponents.renderer.records.NoteImages;
+import com.jag2k2.uicomponents.renderer.records.RenderConstants;
+import com.jag2k2.utility.Maybe;
+import com.jag2k2.utility.NoteSet;
 
 import java.awt.*;
 import java.util.HashSet;

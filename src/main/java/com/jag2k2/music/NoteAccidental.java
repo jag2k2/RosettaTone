@@ -1,4 +1,4 @@
-package music;
+package com.jag2k2.music;
 
 public enum NoteAccidental {
     NATURAL, SHARP, FLAT;

@@ -1,7 +1,7 @@
 package com.jag2k2;
 
+import com.jag2k2.uicomponents.*;
 import javax.swing.*;
-import uicomponents.*;
 
 public class RosettaTone {
     public static void main(String[] args) {

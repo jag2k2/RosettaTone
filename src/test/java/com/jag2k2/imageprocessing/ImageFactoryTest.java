@@ -1,4 +1,4 @@
-package imageprocessing;
+package com.jag2k2.imageprocessing;
 
 import org.junit.jupiter.api.Test;
 import java.awt.image.BufferedImage;

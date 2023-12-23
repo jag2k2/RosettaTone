@@ -1,6 +1,6 @@
-package uicomponents.trainer;
+package com.jag2k2.uicomponents.trainer;
 
-import uicomponents.UIComponent;
+import com.jag2k2.uicomponents.UIComponent;
 
 import javax.swing.*;
 import java.awt.*;

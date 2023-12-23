@@ -1,8 +1,8 @@
-package uicomponents.browser;
+package com.jag2k2.uicomponents.browser;
 
-import instrument.simluated.MidiDeviceSimImp;
-import uicomponents.UIComponent;
-import utility.Maybe;
+import com.jag2k2.instrument.simluated.MidiDeviceSimImp;
+import com.jag2k2.uicomponents.UIComponent;
+import com.jag2k2.utility.Maybe;
 
 import javax.imageio.ImageIO;
 import javax.sound.midi.*;
@@ -35,7 +35,7 @@ public class InstrumentBrowserImp implements UIComponent, ListSelectionListener,
         deviceList.setCellRenderer(new InstrumentRenderer(deviceList.getCellRenderer()));
 
         try{
-            URL fileURL = getClass().getResource("/images/refresh.png");
+            URL fileURL = getClass().getResource("refresh.png");
             Image refreshImage = ImageIO.read(Objects.requireNonNull(fileURL));
             ImageIcon refreshIcon = new ImageIcon(refreshImage);
             refreshButton = new JButton(refreshIcon);

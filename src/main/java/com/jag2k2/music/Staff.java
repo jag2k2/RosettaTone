@@ -1,8 +1,8 @@
-package music;
+package com.jag2k2.music;
 
-import imageprocessing.StaffImage;
-import uicomponents.renderer.records.RenderConstants;
-import uicomponents.renderer.records.StaffConstants;
+import com.jag2k2.imageprocessing.StaffImage;
+import com.jag2k2.uicomponents.renderer.records.RenderConstants;
+import com.jag2k2.uicomponents.renderer.records.StaffConstants;
 
 import java.awt.*;
 import java.util.ArrayList;

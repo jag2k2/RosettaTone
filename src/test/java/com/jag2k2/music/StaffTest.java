@@ -1,8 +1,8 @@
-package music;
+package com.jag2k2.music;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uicomponents.renderer.records.RenderConstants;
+import com.jag2k2.uicomponents.renderer.records.RenderConstants;
 
 import static org.junit.jupiter.api.Assertions.*;
 

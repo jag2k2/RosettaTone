@@ -1,12 +1,12 @@
-package trainer;
+package com.jag2k2.trainer;
 
-import notification.KeyboardChangeObserver;
-import statemodels.ConfigChangeNotifier;
-import uicomponents.renderer.grandstaff.Enableable;
-import uicomponents.renderer.records.RenderConstants;
-import uicomponents.trainer.TrainerStateModifier;
-import utility.Maybe;
-import utility.NoteSet;
+import com.jag2k2.notification.KeyboardChangeObserver;
+import com.jag2k2.statemodels.ConfigChangeNotifier;
+import com.jag2k2.uicomponents.renderer.grandstaff.Enableable;
+import com.jag2k2.uicomponents.renderer.records.RenderConstants;
+import com.jag2k2.uicomponents.trainer.TrainerStateModifier;
+import com.jag2k2.utility.Maybe;
+import com.jag2k2.utility.NoteSet;
 
 public class SightReadTrainerImp implements TrainerStateModifier, KeyboardChangeObserver, Enableable {
     private final KeyStateEvaluator keyboardState;

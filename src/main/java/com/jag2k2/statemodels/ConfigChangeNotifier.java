@@ -1,6 +1,6 @@
-package statemodels;
+package com.jag2k2.statemodels;
 
-import notification.ConfigChangeObserver;
+import com.jag2k2.notification.ConfigChangeObserver;
 
 public interface ConfigChangeNotifier {
     void addObserver(ConfigChangeObserver observer);

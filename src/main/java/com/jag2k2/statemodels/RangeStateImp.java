@@ -1,7 +1,7 @@
-package statemodels;
+package com.jag2k2.statemodels;
 
-import uicomponents.renderer.limit.LimitDrawable;
-import uicomponents.renderer.limit.RangeDrawable;
+import com.jag2k2.uicomponents.renderer.limit.LimitDrawable;
+import com.jag2k2.uicomponents.renderer.limit.RangeDrawable;
 
 import java.awt.*;
 

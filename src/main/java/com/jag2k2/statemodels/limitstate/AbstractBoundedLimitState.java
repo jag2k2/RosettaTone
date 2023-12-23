@@ -1,11 +1,11 @@
-package statemodels.limitstate;
+package com.jag2k2.statemodels.limitstate;
 
-import music.Note;
-import music.NoteAccidental;
-import notification.LimitChangeObserver;
-import uicomponents.rangeselector.noteselector.LimitModifier;
-import uicomponents.rangeselector.noteselector.BoundedNoteModifier;
-import utility.Maybe;
+import com.jag2k2.music.Note;
+import com.jag2k2.music.NoteAccidental;
+import com.jag2k2.notification.LimitChangeObserver;
+import com.jag2k2.uicomponents.rangeselector.noteselector.LimitModifier;
+import com.jag2k2.uicomponents.rangeselector.noteselector.BoundedNoteModifier;
+import com.jag2k2.utility.Maybe;
 
 import javax.swing.*;
 

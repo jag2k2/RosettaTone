@@ -1,14 +1,14 @@
-package statemodels;
+package com.jag2k2.statemodels;
 
-import notification.ConfigChangeNotifierImp;
-import notification.ConfigChangeObserver;
-import notification.FlashcardChangeNotifierImp;
-import notification.FlashcardSatisfiedNotifierImp;
+import com.jag2k2.notification.ConfigChangeNotifierImp;
+import com.jag2k2.notification.ConfigChangeObserver;
+import com.jag2k2.notification.FlashcardChangeNotifierImp;
+import com.jag2k2.notification.FlashcardSatisfiedNotifierImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import trainer.FlashcardChangeNotifier;
-import trainer.FlashcardSatisfiedNotifier;
-import uicomponents.notenamemode.NoteNameMode;
+import com.jag2k2.trainer.FlashcardChangeNotifier;
+import com.jag2k2.trainer.FlashcardSatisfiedNotifier;
+import com.jag2k2.uicomponents.notenamemode.NoteNameMode;
 
 import static org.junit.jupiter.api.Assertions.*;
 

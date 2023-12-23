@@ -1,8 +1,8 @@
-package uicomponents.rangeselector.noteselector;
+package com.jag2k2.uicomponents.rangeselector.noteselector;
 
-import music.Note;
-import notification.LimitChangeObserver;
-import uicomponents.UIComponent;
+import com.jag2k2.music.Note;
+import com.jag2k2.notification.LimitChangeObserver;
+import com.jag2k2.uicomponents.UIComponent;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
@@ -28,8 +28,8 @@ public class NoteSelectorImp implements UIComponent, ActionListener, PopupMenuLi
         this.noteComboBox = new JComboBox<>();
         this.noteComboBox.setRenderer(noteListRenderer);
         try{
-            URL upArrowURL = getClass().getResource("/images/UpArrow.png");
-            URL downArrowURL = getClass().getResource("/images/DownArrow.png");
+            URL upArrowURL = getClass().getResource("UpArrow.png");
+            URL downArrowURL = getClass().getResource("DownArrow.png");
             Image upArrowImage = ImageIO.read(Objects.requireNonNull(upArrowURL));
             Image downArrowImage = ImageIO.read(Objects.requireNonNull(downArrowURL));
             ImageIcon upArrowIcon = new ImageIcon(upArrowImage);

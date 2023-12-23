@@ -1,6 +1,6 @@
-package uicomponents.renderer.records;
+package com.jag2k2.uicomponents.renderer.records;
 
-import imageprocessing.StaffImage;
+import com.jag2k2.imageprocessing.StaffImage;
 
 public class ClefImages {
     public final StaffImage trebleImage;

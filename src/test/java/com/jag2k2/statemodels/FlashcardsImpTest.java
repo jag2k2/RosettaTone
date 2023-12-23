@@ -1,19 +1,19 @@
-package statemodels;
+package com.jag2k2.statemodels;
 
-import collections.NoteSetImp;
-import music.Note;
-import music.NoteName;
-import notification.*;
+import com.jag2k2.collections.NoteSetImp;
+import com.jag2k2.music.Note;
+import com.jag2k2.music.NoteName;
+import com.jag2k2.notification.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import statemodels.limitstate.LimitChangeNotifier;
-import statemodels.limitstate.LimitStateImp;
-import trainer.FlashcardChangeNotifier;
-import trainer.FlashcardSatisfiedNotifier;
-import trainer.RandomNoteGenerator;
-import trainer.SightReadTrainerImp;
-import trainer.randomnotegenerator.RandomNoteGeneratorImp;
-import utility.NoteSet;
+import com.jag2k2.statemodels.limitstate.LimitChangeNotifier;
+import com.jag2k2.statemodels.limitstate.LimitStateImp;
+import com.jag2k2.trainer.FlashcardChangeNotifier;
+import com.jag2k2.trainer.FlashcardSatisfiedNotifier;
+import com.jag2k2.trainer.RandomNoteGenerator;
+import com.jag2k2.trainer.SightReadTrainerImp;
+import com.jag2k2.trainer.randomnotegenerator.RandomNoteGeneratorImp;
+import com.jag2k2.utility.NoteSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 

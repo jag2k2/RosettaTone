@@ -1,11 +1,11 @@
-package collections;
+package com.jag2k2.collections;
 
-import music.Note;
-import music.NoteAccidental;
-import music.NoteName;
+import com.jag2k2.music.Note;
+import com.jag2k2.music.NoteAccidental;
+import com.jag2k2.music.NoteName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utility.NoteSet;
+import com.jag2k2.utility.NoteSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 

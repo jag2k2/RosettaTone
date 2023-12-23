@@ -1,11 +1,11 @@
-package statemodels;
+package com.jag2k2.statemodels;
 
-import notification.LimitChangeObserver;
-import trainer.ScoreKeepable;
-import uicomponents.renderer.grandstaff.ScoreDrawable;
-import uicomponents.renderer.records.RenderConstants;
-import uicomponents.trainer.Resettable;
-import utility.Maybe;
+import com.jag2k2.notification.LimitChangeObserver;
+import com.jag2k2.trainer.ScoreKeepable;
+import com.jag2k2.uicomponents.renderer.grandstaff.ScoreDrawable;
+import com.jag2k2.uicomponents.renderer.records.RenderConstants;
+import com.jag2k2.uicomponents.trainer.Resettable;
+import com.jag2k2.utility.Maybe;
 
 import java.awt.*;
 

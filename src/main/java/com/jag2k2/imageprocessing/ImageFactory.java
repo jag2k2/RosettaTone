@@ -1,8 +1,8 @@
-package imageprocessing;
+package com.jag2k2.imageprocessing;
 
-import uicomponents.renderer.records.ClefImages;
-import uicomponents.renderer.records.NoteImages;
-import uicomponents.renderer.records.RenderConstants;
+import com.jag2k2.uicomponents.renderer.records.ClefImages;
+import com.jag2k2.uicomponents.renderer.records.NoteImages;
+import com.jag2k2.uicomponents.renderer.records.RenderConstants;
 
 public class ImageFactory {
 

@@ -1,7 +1,7 @@
-package trainer.randomnotegenerator;
+package com.jag2k2.trainer.randomnotegenerator;
 
-import music.Note;
-import trainer.RandomNoteGenerator;
+import com.jag2k2.music.Note;
+import com.jag2k2.trainer.RandomNoteGenerator;
 
 public class RandomNoteGeneratorImp implements RandomNoteGenerator {
     private final LineNumerable lowerLimit;

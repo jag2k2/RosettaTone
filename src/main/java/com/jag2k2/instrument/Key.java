@@ -1,8 +1,8 @@
-package instrument;
+package com.jag2k2.instrument;
 
-import music.Note;
-import music.NoteAccidental;
-import music.NoteName;
+import com.jag2k2.music.Note;
+import com.jag2k2.music.NoteAccidental;
+import com.jag2k2.music.NoteName;
 
 import java.util.Set;
 

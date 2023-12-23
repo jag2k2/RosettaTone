@@ -1,4 +1,4 @@
-package imageprocessing;
+package com.jag2k2.imageprocessing;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ class StaffImageTest {
 
     @BeforeEach
     void setup(){
-        String path = "/images/Treble-clef.png";
+        String path = "Treble-clef.png";
         staffImage = new StaffImage(path);
     }
 

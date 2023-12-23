@@ -1,15 +1,15 @@
-package statemodels.limitstate;
+package com.jag2k2.statemodels.limitstate;
 
-import music.Note;
-import collections.NoteSetImp;
-import music.NoteName;
-import notification.LimitChangeNotifierImp;
-import notification.LimitChangeObserver;
+import com.jag2k2.music.Note;
+import com.jag2k2.collections.NoteSetImp;
+import com.jag2k2.music.NoteName;
+import com.jag2k2.notification.LimitChangeNotifierImp;
+import com.jag2k2.notification.LimitChangeObserver;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uicomponents.rangeselector.noteselector.LimitModifier;
-import utility.NoteSet;
+import com.jag2k2.uicomponents.rangeselector.noteselector.LimitModifier;
+import com.jag2k2.utility.NoteSet;
 
 import javax.swing.*;
 

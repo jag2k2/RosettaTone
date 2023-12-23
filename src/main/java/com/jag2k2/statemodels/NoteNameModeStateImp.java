@@ -1,12 +1,12 @@
-package statemodels;
+package com.jag2k2.statemodels;
 
-import notification.FlashcardChangeObserver;
-import notification.FlashcardSatisfiedObserver;
-import trainer.FlashcardAdvancer;
-import uicomponents.notenamemode.NoteNameMode;
-import uicomponents.notenamemode.NoteNameModeModifier;
-import uicomponents.renderer.grandstaff.NoteNameDrawable;
-import utility.Maybe;
+import com.jag2k2.notification.FlashcardChangeObserver;
+import com.jag2k2.notification.FlashcardSatisfiedObserver;
+import com.jag2k2.trainer.FlashcardAdvancer;
+import com.jag2k2.uicomponents.notenamemode.NoteNameMode;
+import com.jag2k2.uicomponents.notenamemode.NoteNameModeModifier;
+import com.jag2k2.uicomponents.renderer.grandstaff.NoteNameDrawable;
+import com.jag2k2.utility.Maybe;
 
 public class NoteNameModeStateImp implements NoteNameModeModifier, NoteNameDrawable, FlashcardAdvancer, FlashcardSatisfiedObserver, FlashcardChangeObserver {
     private NoteNameMode noteNameMode;

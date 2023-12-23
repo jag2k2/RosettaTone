@@ -1,6 +1,6 @@
-package statemodels.limitstate;
+package com.jag2k2.statemodels.limitstate;
 
-import notification.LimitChangeObserver;
+import com.jag2k2.notification.LimitChangeObserver;
 
 public interface LimitChangeNotifier {
     void addObserver(LimitChangeObserver observer);

@@ -1,4 +1,4 @@
-package uicomponents.notenamemode;
+package com.jag2k2.uicomponents.notenamemode;
 
 import javax.swing.*;
 import java.awt.*;
